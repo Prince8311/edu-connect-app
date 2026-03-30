@@ -12,6 +12,7 @@ List<RouteBase> get $appRoutes => [
       $authRoute,
       $bottomNavRoute,
       $settingsRoute,
+      $bookDetailsRoute,
     ];
 
 RouteBase get $splashRoute => GoRouteData.$route(
@@ -113,6 +114,15 @@ RouteBase get $bottomNavRoute => StatefulShellRouteData.$route(
         StatefulShellBranchData.$branch(
           routes: [
             GoRouteData.$route(
+              path: '/library',
+              name: 'library',
+              factory: _$LibraryRoute._fromState,
+            ),
+          ],
+        ),
+        StatefulShellBranchData.$branch(
+          routes: [
+            GoRouteData.$route(
               path: '/teacher-profile',
               name: 'teacherProfile',
               factory: _$TeacherProfileRoute._fromState,
@@ -133,6 +143,28 @@ mixin _$TeacherHomeRoute on GoRouteData {
   @override
   String get location => GoRouteData.$location(
         '/teacher-home',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin _$LibraryRoute on GoRouteData {
+  static LibraryRoute _fromState(GoRouterState state) => LibraryRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/library',
       );
 
   @override
@@ -184,6 +216,34 @@ mixin _$SettingsRoute on GoRouteData {
   @override
   String get location => GoRouteData.$location(
         '/settings',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $bookDetailsRoute => GoRouteData.$route(
+      path: '/book-details',
+      name: 'bookDetails',
+      factory: _$BookDetailsRoute._fromState,
+    );
+
+mixin _$BookDetailsRoute on GoRouteData {
+  static BookDetailsRoute _fromState(GoRouterState state) => BookDetailsRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/book-details',
       );
 
   @override

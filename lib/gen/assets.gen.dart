@@ -15,6 +15,9 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/book.png
+  AssetGenImage get book => const AssetGenImage('assets/images/book.png');
+
   /// File path: assets/images/cancel-tag.png
   AssetGenImage get cancelTag => const AssetGenImage('assets/images/cancel-tag.png');
 
@@ -49,8 +52,20 @@ class $AssetsImagesGen {
   AssetGenImage get warning => const AssetGenImage('assets/images/warning.gif');
 
   /// List of all assets
-  List<dynamic> get values =>
-      [cancelTag, checkmark, error, logo1Jpg, logo1Png, logo, noFields, profileImage, splashLogo, success, warning];
+  List<dynamic> get values => [
+        book,
+        cancelTag,
+        checkmark,
+        error,
+        logo1Jpg,
+        logo1Png,
+        logo,
+        noFields,
+        profileImage,
+        splashLogo,
+        success,
+        warning
+      ];
 }
 
 class Assets {

@@ -62,7 +62,7 @@ class _BottomNavScreenState extends ConsumerState<BottomNavScreen> {
       BottomNavItem(
         label: 'Library',
         icon: const Icon(Icons.menu_book),
-        initialLocation: RoutePath.comingSoon,
+        initialLocation: RoutePath.library,
       ),
       BottomNavItem(
         label: 'Profile',

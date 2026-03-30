@@ -1,15 +1,18 @@
 import 'dart:async';
 import 'package:bot_toast/bot_toast.dart';
-import 'package:edu_connect/features/onboarding/coming_soon_screen.dart';
-import 'package:edu_connect/features/profile/presentation/screens/settings_screen.dart';
+import 'package:edu_connect/features/library/presentation/screens/book_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:edu_connect/features/onboarding/coming_soon_screen.dart';
 import 'package:edu_connect/core/shared/widgets/bottom_nav_bar.dart';
 
 // UI Screens
 import 'package:edu_connect/features/onboarding/splash_screen.dart';
 import 'package:edu_connect/features/auth/presentation/screens/auth_screen.dart';
+
+import 'package:edu_connect/features/library/presentation/screens/library_screen.dart';
+import 'package:edu_connect/features/profile/presentation/screens/settings_screen.dart';
 
 // Teachers
 import 'package:edu_connect/features/home/presentation/screens/teacher/home_screen.dart';
@@ -30,6 +33,8 @@ class RoutePath {
   static const String teacherHome = '/teacher-home';
   static const String teacherProfile = '/teacher-profile';
 
+  static const String library = '/library';
+  static const String bookDetails = '/book-details';
   static const String settings = '/settings';
 }
 
@@ -44,6 +49,8 @@ class RouteName {
   static const String teacherHome = 'teacherHome';
   static const String teacherProfile = 'teacherProfile';
 
+  static const String library = 'library';
+  static const String bookDetails = 'bookDetails';
   static const String settings = 'settings';
 }
 
@@ -104,6 +111,16 @@ class AuthRoute extends GoRouteData with _$AuthRoute {
       ],
     ),
 
+    // Library Route
+    TypedStatefulShellBranch(
+      routes: [
+        TypedGoRoute<LibraryRoute>(
+          path: RoutePath.library,
+          name: RouteName.library,
+        ),
+      ],
+    ),
+
     // Profile Route
     TypedStatefulShellBranch(
       routes: [
@@ -139,6 +156,13 @@ class TeacherHomeRoute extends GoRouteData with _$TeacherHomeRoute {
   }
 }
 
+class LibraryRoute extends GoRouteData with _$LibraryRoute {
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return slideTransitionPage(LibraryScreen());
+  }
+}
+
 class TeacherProfileRoute extends GoRouteData with _$TeacherProfileRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
@@ -154,6 +178,17 @@ class SettingsRoute extends GoRouteData with _$SettingsRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return slideTransitionPage(SettingsScreen());
+  }
+}
+
+@TypedGoRoute<BookDetailsRoute>(
+  path: RoutePath.bookDetails,
+  name: RouteName.bookDetails,
+)
+class BookDetailsRoute extends GoRouteData with _$BookDetailsRoute {
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return slideTransitionPage(BookDetailsScreen());
   }
 }
 

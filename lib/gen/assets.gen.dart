@@ -36,6 +36,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
+  /// File path: assets/images/maintainance.svg
+  SvgGenImage get maintainance => const SvgGenImage('assets/images/maintainance.svg');
+
   /// File path: assets/images/no-fields.svg
   SvgGenImage get noFields => const SvgGenImage('assets/images/no-fields.svg');
 
@@ -47,6 +50,9 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/success.gif
   AssetGenImage get success => const AssetGenImage('assets/images/success.gif');
+
+  /// File path: assets/images/under-construction.svg
+  SvgGenImage get underConstruction => const SvgGenImage('assets/images/under-construction.svg');
 
   /// File path: assets/images/warning.gif
   AssetGenImage get warning => const AssetGenImage('assets/images/warning.gif');
@@ -60,10 +66,12 @@ class $AssetsImagesGen {
         logo1Jpg,
         logo1Png,
         logo,
+        maintainance,
         noFields,
         profileImage,
         splashLogo,
         success,
+        underConstruction,
         warning
       ];
 }

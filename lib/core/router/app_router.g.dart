@@ -9,10 +9,13 @@ part of 'app_router.dart';
 List<RouteBase> get $appRoutes => [
       $splashRoute,
       $comingSoonRoute,
+      $maintainanceRoute,
       $authRoute,
       $bottomNavRoute,
       $settingsRoute,
       $bookDetailsRoute,
+      $addBookRoute,
+      $addChapterRoute,
     ];
 
 RouteBase get $splashRoute => GoRouteData.$route(
@@ -55,6 +58,35 @@ mixin _$ComingSoonRoute on GoRouteData {
   @override
   String get location => GoRouteData.$location(
         '/coming-soon',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $maintainanceRoute => GoRouteData.$route(
+      path: '/maintenance',
+      name: 'maintenance',
+      factory: _$MaintainanceRoute._fromState,
+    );
+
+mixin _$MaintainanceRoute on GoRouteData {
+  static MaintainanceRoute _fromState(GoRouterState state) =>
+      MaintainanceRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/maintenance',
       );
 
   @override
@@ -244,6 +276,62 @@ mixin _$BookDetailsRoute on GoRouteData {
   @override
   String get location => GoRouteData.$location(
         '/book-details',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $addBookRoute => GoRouteData.$route(
+      path: '/add-book',
+      name: 'addBook',
+      factory: _$AddBookRoute._fromState,
+    );
+
+mixin _$AddBookRoute on GoRouteData {
+  static AddBookRoute _fromState(GoRouterState state) => AddBookRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/add-book',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $addChapterRoute => GoRouteData.$route(
+      path: '/add-chapter',
+      name: 'addChapter',
+      factory: _$AddChapterRoute._fromState,
+    );
+
+mixin _$AddChapterRoute on GoRouteData {
+  static AddChapterRoute _fromState(GoRouterState state) => AddChapterRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/add-chapter',
       );
 
   @override

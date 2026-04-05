@@ -67,9 +67,6 @@ class ColorName {
   /// Color: #E5322D
   static const Color redColor1 = Color(0xFFE5322D);
 
-  /// Color: #FF000026
-  static const Color redColorLight = Color(0xFF000026);
-
   /// Color: #1DA1F2
   static const Color themeColor = Color(0xFF1DA1F2);
 

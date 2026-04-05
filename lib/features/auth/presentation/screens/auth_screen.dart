@@ -1,7 +1,13 @@
+import 'dart:async';
+
 import 'package:edu_connect/core/router/app_router.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:edu_connect/core/shared/miscellaneous/app_extensions.dart';
 import 'package:edu_connect/core/shared/miscellaneous/gap.dart';
 import 'package:edu_connect/core/shared/widgets/text_field.dart';
+import 'package:edu_connect/core/shared/widgets/toast.dart';
+import 'package:edu_connect/features/auth/domain/models/auth_model.dart';
+import 'package:edu_connect/features/auth/presentation/providers/auth_provider.dart';
 import 'package:edu_connect/gen/assets.gen.dart';
 import 'package:edu_connect/gen/colors.gen.dart';
 import 'package:edu_connect/gen/fonts.gen.dart';
@@ -15,14 +21,72 @@ class AuthScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isPassword = useState(true);
-    final emailController = useTextEditingController();
+    final showOtpField = useState(false);
+    final nameController = useTextEditingController();
     final passwordController = useTextEditingController();
+
+    final controllers = useMemoized(
+      () => List.generate(6, (_) => TextEditingController()),
+    );
+
+    final focusNodes = useMemoized(
+      () => List.generate(6, (_) => FocusNode()),
+    );
+
+    final secondsLeft = useState(0);
+    final timer = useRef<Timer?>(null);
+    final isLoading = useState(false);
+
+    final otp = controllers.map((c) => c.text).join();
+
+    useListenable(nameController);
+    useListenable(passwordController);
+    for (final c in controllers) {
+      useListenable(c);
+    }
+
+    final isFormValid = isPassword.value
+        ? nameController.text.trim().isNotEmpty &&
+            passwordController.text.trim().isNotEmpty
+        : showOtpField.value
+            ? nameController.text.trim().isNotEmpty && otp.length == 6
+            : nameController.text.trim().isNotEmpty;
+
+    void startTimer() {
+      secondsLeft.value = 90;
+      timer.value?.cancel();
+      timer.value = Timer.periodic(const Duration(seconds: 1), (t) {
+        if (secondsLeft.value == 0) {
+          t.cancel();
+        } else {
+          secondsLeft.value--;
+        }
+      });
+    }
+
+    useEffect(() {
+      return () {
+        for (final c in controllers) {
+          c.dispose();
+        }
+        for (final f in focusNodes) {
+          f.dispose();
+        }
+      };
+    }, []);
+
+    useEffect(() {
+      return () {
+        timer.value?.cancel();
+      };
+    }, []);
 
     return Scaffold(
       backgroundColor: ColorName.white,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
               child: Column(
@@ -171,7 +235,7 @@ class AuthScreen extends HookConsumerWidget {
                       Gap(24.h),
                       AppTextField(
                         label: 'Email / Mobile No.',
-                        controller: emailController,
+                        controller: nameController,
                         keyboardType: TextInputType.emailAddress,
                       ),
                       if (isPassword.value) ...[
@@ -182,11 +246,163 @@ class AuthScreen extends HookConsumerWidget {
                           obscureText: true,
                         ),
                       ],
-                      Gap(28.h),
+                      if (!isPassword.value && showOtpField.value) ...[
+                        Gap(15.h),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 4),
+                          child: Text(
+                            'Enter OTP',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              color: ColorName.black,
+                              fontFamily: FontFamily.poppins,
+                            ),
+                          ),
+                        ),
+                        Gap(6.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: List.generate(6, (index) {
+                            return SizedBox(
+                              width: 45,
+                              height: 45,
+                              child: TextField(
+                                controller: controllers[index],
+                                focusNode: focusNodes[index],
+                                keyboardType: TextInputType.number,
+                                textAlign: TextAlign.center,
+                                maxLength: 1,
+                                cursorColor: ColorName.black,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: FontFamily.poppins,
+                                ),
+                                decoration: InputDecoration(
+                                  counterText: "",
+                                  contentPadding: EdgeInsets.zero,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: const BorderSide(
+                                      color: ColorName.borderColor,
+                                      width: 1.2,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: const BorderSide(
+                                      color: ColorName.blueColor,
+                                      width: 1.3,
+                                    ),
+                                  ),
+                                ),
+                                onChanged: (value) {
+                                  if (value.isNotEmpty && index < 5) {
+                                    FocusScope.of(context)
+                                        .requestFocus(focusNodes[index + 1]);
+                                  }
+                                  if (value.isEmpty && index > 0) {
+                                    FocusScope.of(context)
+                                        .requestFocus(focusNodes[index - 1]);
+                                  }
+                                },
+                              ),
+                            );
+                          }),
+                        ),
+                      ],
+                      if (!isPassword.value && showOtpField.value) ...[
+                        Gap(10.h),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 6),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: secondsLeft.value > 0
+                                ? Text(
+                                    'Resend OTP in ${secondsLeft.value}s',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: ColorName.black2,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  )
+                                : GestureDetector(
+                                    onTap: () {
+                                      startTimer();
+                                      successToast("OTP resent");
+                                    },
+                                    child: Text(
+                                      'Resend OTP',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: ColorName.blueColor,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: FontFamily.poppins,
+                                      ),
+                                    ),
+                                  ),
+                          ),
+                        ),
+                      ],
+                      Gap(isPassword.value ? 30.h : 20.h),
                       FilledButton(
-                        onPressed: () => TeacherHomeRoute().go(context),
+                        onPressed: (isFormValid && !isLoading.value)
+                            ? () async {
+                                if (isPassword.value) {
+                                  isLoading.value = true;
+                                  final request = LoginRequest(
+                                    name: nameController.text.trim(),
+                                    loginByOtp: false,
+                                    password: passwordController.text.trim(),
+                                  );
+                                  final result = await ref.read(
+                                      loginProvider(requestBody: request)
+                                          .future);
+                                  isLoading.value = false;
+                                  if (result?.authToken != null &&
+                                      context.mounted) {
+                                    TeacherHomeRoute().go(context);
+                                  }
+                                } else {
+                                  if (!showOtpField.value) {
+                                    isLoading.value = true;
+                                    startTimer();
+                                    final request = OtpRequest(
+                                      name: nameController.text.trim(),
+                                    );
+                                    final result = await ref.read(
+                                        sendOtpProvider(requestBody: request)
+                                            .future);
+                                    if (result!) {
+                                      isLoading.value = false;
+                                      showOtpField.value = true;
+                                    }
+                                  } else {
+                                    isLoading.value = true;
+                                    final request = LoginRequest(
+                                      name: nameController.text.trim(),
+                                      loginByOtp: true,
+                                      otp: otp,
+                                    );
+                                    final result = await ref.read(
+                                        loginProvider(requestBody: request)
+                                            .future);
+                                    isLoading.value = false;
+                                    if (result?.authToken != null &&
+                                        context.mounted) {
+                                      TeacherHomeRoute().go(context);
+                                    }
+                                  }
+                                }
+                              }
+                            : null,
                         style: FilledButton.styleFrom(
                           backgroundColor: ColorName.blueColor,
+                          disabledBackgroundColor:
+                              ColorName.blueColor.withAlpha(100),
+                          foregroundColor: ColorName.white,
+                          disabledForegroundColor: ColorName.white,
                           padding: const EdgeInsets.symmetric(vertical: 13),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -197,9 +413,20 @@ class AuthScreen extends HookConsumerWidget {
                             fontFamily: FontFamily.poppins,
                           ),
                         ),
-                        child: Text(isPassword.value ? 'Sign In' : 'Send OTP'),
+                        child: isLoading.value
+                            ? const SpinKitThreeBounce(
+                                color: Colors.white,
+                                size: 20,
+                              )
+                            : Text(
+                                isPassword.value
+                                    ? 'Sign In'
+                                    : showOtpField.value
+                                        ? 'Verify OTP & Sign In'
+                                        : 'Send OTP',
+                              ),
                       ),
-                      Gap(20.h),
+                      Gap(24.h),
                       Row(
                         children: [
                           Expanded(
@@ -220,7 +447,7 @@ class AuthScreen extends HookConsumerWidget {
                               child: Divider(color: ColorName.borderColor1)),
                         ],
                       ),
-                      Gap(18.h),
+                      Gap(20.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

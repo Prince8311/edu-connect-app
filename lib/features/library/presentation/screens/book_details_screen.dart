@@ -1,3 +1,4 @@
+import 'package:edu_connect/core/router/app_router.dart';
 import 'package:edu_connect/core/shared/miscellaneous/app_extensions.dart';
 import 'package:edu_connect/core/shared/miscellaneous/gap.dart';
 import 'package:edu_connect/core/shared/widgets/app_bar.dart';
@@ -130,7 +131,7 @@ class BookDetailsScreen extends HookConsumerWidget {
               ),
             ),
             Gap(24.h),
-            _uploadNewChapterCard(),
+            _uploadNewChapterCard(context: context),
             Gap(24.h),
             Padding(
               padding: const EdgeInsets.only(left: 8),
@@ -171,87 +172,90 @@ class BookDetailsScreen extends HookConsumerWidget {
     );
   }
 
-  Widget _uploadNewChapterCard() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            ColorName.blueColor1,
-            ColorName.blueColor,
+  Widget _uploadNewChapterCard({required BuildContext context}) {
+    return GestureDetector(
+      onTap: () => AddChapterRoute().push(context),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(18),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              ColorName.blueColor1,
+              ColorName.blueColor,
+            ],
+          ),
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: ColorName.blueColor.withAlpha(60),
+              blurRadius: 18,
+              offset: const Offset(0, 10),
+            ),
           ],
         ),
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: ColorName.blueColor.withAlpha(60),
-            blurRadius: 18,
-            offset: const Offset(0, 10),
-          ),
-        ],
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 46,
-            height: 46,
-            decoration: BoxDecoration(
-              color: ColorName.white.withAlpha(60),
-              borderRadius: BorderRadius.circular(12),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 46,
+              height: 46,
+              decoration: BoxDecoration(
+                color: ColorName.white.withAlpha(60),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(
+                Icons.upload_file,
+                color: ColorName.white,
+                size: 24,
+              ),
             ),
-            child: Icon(
-              Icons.upload_file,
-              color: ColorName.white,
-              size: 24,
-            ),
-          ),
-          Gap(16.h),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Add New Chapter',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: FontFamily.poppins,
-                    color: ColorName.white,
+            Gap(16.h),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Add New Chapter',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: FontFamily.poppins,
+                      color: ColorName.white,
+                    ),
                   ),
-                ),
-                Gap(3.h),
-                Text(
-                  'Support pdf file, Size limit: 40MB',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: FontFamily.poppins,
-                    color: ColorName.white.withAlpha(200),
+                  Gap(3.h),
+                  Text(
+                    'Support pdf file, Size limit: 40MB',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: FontFamily.poppins,
+                      color: ColorName.white.withAlpha(200),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Gap(12.h),
-          Container(
-            width: 36,
-            height: 36,
-            decoration: BoxDecoration(
-              color: ColorName.white.withAlpha(60),
-              shape: BoxShape.circle,
+            Gap(12.h),
+            Container(
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                color: ColorName.white.withAlpha(60),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.info_outline,
+                color: ColorName.white,
+                size: 20,
+              ),
             ),
-            child: Icon(
-              Icons.info_outline,
-              color: ColorName.white,
-              size: 20,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

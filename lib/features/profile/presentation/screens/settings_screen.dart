@@ -1,6 +1,8 @@
+import 'package:edu_connect/core/router/app_router.dart';
 import 'package:edu_connect/core/shared/miscellaneous/app_extensions.dart';
 import 'package:edu_connect/core/shared/miscellaneous/gap.dart';
 import 'package:edu_connect/core/shared/widgets/app_bar.dart';
+import 'package:edu_connect/features/auth/presentation/providers/auth_provider.dart';
 import 'package:edu_connect/gen/assets.gen.dart';
 import 'package:edu_connect/gen/colors.gen.dart';
 import 'package:edu_connect/gen/fonts.gen.dart';
@@ -261,7 +263,12 @@ class SettingsScreen extends HookConsumerWidget {
               ),
               Gap(25.h),
               GestureDetector(
-                onTap: () {},
+                onTap: () async {
+                  final success = await await ref.read(logoutProvider.future);
+                  if (success!) {
+                    AuthRoute().go(context);
+                  }
+                },
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   decoration: BoxDecoration(

@@ -237,7 +237,7 @@ class SettingsScreen extends HookConsumerWidget {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:
                                     (isOtpComplete() && !isVerifyLoading)
-                                        ? ColorName.redColor1
+                                        ? ColorName.blueColor1
                                         : ColorName.lightBackground2,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8),

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:edu_connect/core/router/app_router.dart';
 import 'package:edu_connect/core/shared/miscellaneous/failure.dart';
@@ -28,30 +26,23 @@ class ApiError implements Exception {
           message = 'Please try again.';
           failure = Failure(error: error, message: message);
         case DioExceptionType.badResponse:
-          debugPrint('Error Code: ${dioError.response?.statusCode}');
-          if (dioError.response?.statusCode == 503) {
+          final statusCode = dioError.response?.statusCode;
+          final responseData = dioError.response?.data;
+
+          final statusMessage = _handleError(statusCode);
+          final apiMessage = responseData?['message'];
+
+          if (statusCode == 503) {
             handleMaintenance();
-            failure = Failure(
-              error: "Opps! We're under maintenance",
-              message: 'Please try again later.',
-            );
-          } else if (dioError.response?.statusCode == 401) {
+          } else if (statusCode == 401) {
             handleUnAuthorized();
-            failure = Failure(
-              error: dioError.response?.data['message'] ?? 'Unauthorized',
-              message: dioError.response?.data['errors'] ?? 'Please try again.',
-            );
-          } else {
-            error = _handleError(
-              dioError.response?.statusCode,
-              dioError.response?.data,
-            );
-            log("----------------- error response msg => ${dioError.response?.data['errors'].toString()} -----------------");
-            failure = Failure(
-              error: dioError.response?.data['message'] ?? error,
-              message: dioError.response?.data['errors'] ?? 'Please try again.',
-            );
           }
+
+          failure = Failure(
+            error: statusMessage ?? 'Something went wrong',
+            message: apiMessage ?? 'Please try again.',
+          );
+          break;
         case DioExceptionType.sendTimeout:
           error = 'Send timeout in connection with API server';
           message = 'Please try again.';
@@ -95,7 +86,7 @@ class ApiError implements Exception {
   String? message;
   Failure failure = Failure(error: 'Something went wrong!');
 
-  String? _handleError(int? statusCode, dynamic error) {
+  String? _handleError(int? statusCode) {
     return switch (statusCode) {
       400 => 'Bad request',
       401 => 'Unauthorized',

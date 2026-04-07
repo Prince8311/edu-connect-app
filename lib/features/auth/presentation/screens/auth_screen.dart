@@ -374,8 +374,8 @@ class AuthScreen extends HookConsumerWidget {
                                     final result = await ref.read(
                                         sendOtpProvider(requestBody: request)
                                             .future);
-                                    if (result!) {
-                                      isLoading.value = false;
+                                    isLoading.value = false;
+                                    if (result == true) {
                                       showOtpField.value = true;
                                     }
                                   } else {

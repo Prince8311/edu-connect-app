@@ -70,16 +70,17 @@ void Function() errorToast(
                         title,
                         maxLines: 10,
                         style: TextStyle(
-                          fontSize: message == null ? 14 : 13,
+                          fontSize: message == null ? 13 : 14,
                           fontWeight: message == null
-                              ? FontWeight.w500
-                              : FontWeight.w600,
+                              ? FontWeight.w400
+                              : FontWeight.w500,
                           fontFamily: FontFamily.poppins,
                           color: message == null
                               ? ColorName.black1
                               : ColorName.black,
                         ),
                       ),
+                Gap(message == null ? 0 : 2.h),
                 message == null
                     ? const SizedBox()
                     : Text(
@@ -87,8 +88,8 @@ void Function() errorToast(
                         maxLines: 10,
                         style: TextStyle(
                           fontSize: 13,
-                          height: 1.6,
-                          fontWeight: FontWeight.w500,
+                          height: 1.4,
+                          fontWeight: FontWeight.w400,
                           color: ColorName.black1,
                           fontFamily: FontFamily.poppins,
                         ),

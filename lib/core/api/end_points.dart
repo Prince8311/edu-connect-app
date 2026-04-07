@@ -8,4 +8,10 @@ class Endpoints {
   static const String sendOTP = '/auth/send-otp.php';
   static const String refreshToken = '/auth/refresh-token.php';
   static const String logout = '/auth/logout.php';
+
+  // -------- Profile --------
+  static const String profileDetails = '/api/account/profile-details.php';
+  static const String sendVerificationOtp =
+      '/api/account/send-verification-otp.php';
+  static const String verifyOtp = '/api/account/verify-otp.php';
 }

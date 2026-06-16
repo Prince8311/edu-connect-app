@@ -36,12 +36,12 @@ class BooksContent extends HookConsumerWidget {
                   decoration: InputDecoration(
                     prefixIcon: Icon(
                       Icons.search,
-                      size: 25,
+                      size: 28.sp,
                       color: ColorName.blueColor,
                     ),
                     hintText: 'Search books by title, author, or ISBN...',
                     hintStyle: TextStyle(
-                      fontSize: 13,
+                      fontSize: 15.sp,
                       color: ColorName.black3,
                       fontFamily: FontFamily.poppins,
                     ),
@@ -167,7 +167,7 @@ class BooksContent extends HookConsumerWidget {
               child: Icon(
                 Icons.upload_file,
                 color: ColorName.white,
-                size: 24,
+                size: 26.sp,
               ),
             ),
             Gap(16.h),
@@ -178,18 +178,18 @@ class BooksContent extends HookConsumerWidget {
                   Text(
                     'Add New Book',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 18.sp,
                       fontStyle: FontStyle.italic,
                       fontWeight: FontWeight.w600,
                       fontFamily: FontFamily.poppins,
                       color: ColorName.white,
                     ),
                   ),
-                  Gap(3.h),
+                  Gap(2.h),
                   Text(
                     'Add a new book to your library',
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w400,
                       fontFamily: FontFamily.poppins,
                       color: ColorName.white.withAlpha(200),
@@ -209,7 +209,7 @@ class BooksContent extends HookConsumerWidget {
               child: Icon(
                 Icons.info_outline,
                 color: ColorName.white,
-                size: 20,
+                size: 24.sp,
               ),
             ),
           ],
@@ -266,24 +266,23 @@ class BooksContent extends HookConsumerWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(15, 10, 14, 12),
+                padding: const EdgeInsets.fromLTRB(15, 9, 14, 12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       title,
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w500,
                         fontFamily: FontFamily.poppins,
                         color: ColorName.black,
                       ),
                     ),
-                    Gap(2.h),
                     Text(
                       subtitle,
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 13.sp,
                         fontWeight: FontWeight.w400,
                         fontFamily: FontFamily.poppins,
                         color: ColorName.black2,
@@ -322,7 +321,7 @@ class BooksContent extends HookConsumerWidget {
           Text(
             label,
             style: TextStyle(
-              fontSize: 13,
+              fontSize: 15.sp,
               fontWeight: FontWeight.w500,
               fontFamily: FontFamily.poppins,
               color: ColorName.black1.withAlpha(180),
@@ -330,7 +329,7 @@ class BooksContent extends HookConsumerWidget {
           ),
           Icon(
             Icons.keyboard_arrow_down,
-            size: 24,
+            size: 24.sp,
             color: ColorName.black3,
           ),
         ],

@@ -40,3 +40,11 @@ class OtpVerifyResquest with _$OtpVerifyResquest {
   factory OtpVerifyResquest.fromJson(Map<String, dynamic> json) =>
       _$OtpVerifyResquestFromJson(json);
 }
+
+
+
+
+
+
+
+

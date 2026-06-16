@@ -14,7 +14,7 @@ class _AuthApiService implements AuthApiService {
     this.baseUrl,
     this.errorLogger,
   }) {
-    baseUrl ??= 'https://api.edu-connect.ticketbay.in/user';
+    baseUrl ??= 'https://api.educonnekt.in/user';
   }
 
   final Dio _dio;

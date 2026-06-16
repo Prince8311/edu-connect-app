@@ -6,3 +6,11 @@ abstract class ProfileRepository {
   FutureEither<bool?> sendVerificationOtp({required OtpResquest requestBody});
   FutureEither<bool?> verifyOtp({required OtpVerifyResquest requestBody});
 }
+
+
+
+
+
+
+
+

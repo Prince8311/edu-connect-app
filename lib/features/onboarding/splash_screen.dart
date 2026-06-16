@@ -2,6 +2,7 @@ import 'package:edu_connect/core/router/app_router.dart';
 import 'package:edu_connect/features/auth/presentation/providers/auth_token_provider.dart';
 import 'package:edu_connect/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:edu_connect/core/shared/miscellaneous/app_extensions.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
@@ -42,3 +43,11 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     );
   }
 }
+
+
+
+
+
+
+
+

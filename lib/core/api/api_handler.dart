@@ -17,3 +17,11 @@ Future<Either<Failure, T>> apiHandler<T>(Future<T> Function() apiFunc) async {
     return left(Failure(error: e.toString()));
   }
 }
+
+
+
+
+
+
+
+

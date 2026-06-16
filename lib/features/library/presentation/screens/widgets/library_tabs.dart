@@ -25,14 +25,14 @@ class LibraryTabs extends StatelessWidget {
         child: Row(
           children: [
             _tabItem(
-              icon: const Icon(
+              icon: Icon(
                 Icons.auto_stories,
-                size: 19,
+                size: 19.sp,
                 color: ColorName.black1,
               ),
-              selectedIcon: const Icon(
+              selectedIcon: Icon(
                 Icons.auto_stories,
-                size: 19,
+                size: 19.sp,
                 color: ColorName.white,
               ),
               label: 'Books',
@@ -41,14 +41,14 @@ class LibraryTabs extends StatelessWidget {
             ),
             Gap(10.w),
             _tabItem(
-              icon: const Icon(
+              icon: Icon(
                 Icons.library_books,
-                size: 18,
+                size: 18.sp,
                 color: ColorName.black1,
               ),
-              selectedIcon: const Icon(
+              selectedIcon: Icon(
                 Icons.library_books,
-                size: 18,
+                size: 18.sp,
                 color: ColorName.white,
               ),
               label: 'Materials',
@@ -88,7 +88,7 @@ class LibraryTabs extends StatelessWidget {
             Text(
               label,
               style: TextStyle(
-                fontSize: 13,
+                fontSize: 13.sp,
                 fontWeight: FontWeight.w500,
                 fontFamily: FontFamily.poppins,
                 color: isSelected ? ColorName.white : ColorName.black1,
@@ -100,3 +100,10 @@ class LibraryTabs extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+

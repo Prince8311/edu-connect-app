@@ -51,13 +51,14 @@ class TeacherHomeScreen extends HookConsumerWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(Icons.calendar_today, color: ColorName.blueColor, size: 18),
+              Icon(Icons.calendar_today,
+                  color: ColorName.blueColor, size: 20.sp),
               Gap(8.w),
               Text(
                 "Today's Schedule",
                 style: TextStyle(
                   color: ColorName.black,
-                  fontSize: 15,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                   fontFamily: FontFamily.poppins,
                 ),
@@ -82,14 +83,14 @@ class TeacherHomeScreen extends HookConsumerWidget {
                     borderRadius: BorderRadius.circular(999),
                   ),
                   child: Icon(Icons.calendar_month,
-                      color: ColorName.blueColor, size: 28),
+                      color: ColorName.blueColor, size: 34.sp),
                 ),
-                Gap(16.h),
+                Gap(18.h),
                 Text(
                   'No classes scheduled',
                   style: TextStyle(
                     color: ColorName.black,
-                    fontSize: 14,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
                     fontFamily: FontFamily.poppins,
                   ),
@@ -101,7 +102,7 @@ class TeacherHomeScreen extends HookConsumerWidget {
                   style: TextStyle(
                     color: ColorName.black2,
                     height: 1.4,
-                    fontSize: 13,
+                    fontSize: 14.sp,
                     fontFamily: FontFamily.poppins,
                   ),
                 ),
@@ -134,13 +135,14 @@ class TeacherHomeScreen extends HookConsumerWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.refresh, size: 18, color: ColorName.white),
+                        Icon(Icons.refresh,
+                            size: 20.sp, color: ColorName.white),
                         Gap(6.w),
                         Text(
                           'Refresh Schedule',
                           style: TextStyle(
                               color: ColorName.white,
-                              fontSize: 13,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w500,
                               fontFamily: FontFamily.poppins),
                         ),
@@ -162,13 +164,13 @@ class TeacherHomeScreen extends HookConsumerWidget {
         Expanded(
           child: Row(
             children: [
-              Icon(Icons.school, color: ColorName.blueColor, size: 22),
+              Icon(Icons.school, color: ColorName.blueColor, size: 25.sp),
               Gap(8.w),
               Text(
                 'Classrooms',
                 style: TextStyle(
                   color: ColorName.black,
-                  fontSize: 15,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                   fontFamily: FontFamily.poppins,
                 ),
@@ -192,9 +194,9 @@ class TeacherHomeScreen extends HookConsumerWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(
+              Icon(
                 Icons.add,
-                size: 17,
+                size: 18.sp,
                 color: ColorName.blueColor,
               ),
               Gap(4.w),
@@ -202,7 +204,7 @@ class TeacherHomeScreen extends HookConsumerWidget {
                 'Create New',
                 style: TextStyle(
                   color: ColorName.blueColor,
-                  fontSize: 12,
+                  fontSize: 13.sp,
                   fontWeight: FontWeight.w500,
                   fontFamily: FontFamily.poppins,
                 ),
@@ -242,7 +244,7 @@ class TeacherHomeScreen extends HookConsumerWidget {
                 label,
                 style: TextStyle(
                   color: ColorName.blueColor,
-                  fontSize: 13,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                   fontFamily: FontFamily.poppins,
                 ),
@@ -258,24 +260,24 @@ class TeacherHomeScreen extends HookConsumerWidget {
                   subject,
                   style: TextStyle(
                     color: ColorName.black,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 17.sp,
+                    fontWeight: FontWeight.w500,
                     fontFamily: FontFamily.poppins,
                   ),
                 ),
-                Gap(6.h),
+                Gap(2.h),
                 Text(
                   subtitle,
                   style: TextStyle(
                     color: ColorName.black2,
-                    fontSize: 13,
+                    fontSize: 13.sp,
                     fontFamily: FontFamily.poppins,
                   ),
                 ),
               ],
             ),
           ),
-          const Icon(Icons.chevron_right, color: ColorName.black2),
+          Icon(Icons.chevron_right, color: ColorName.black2),
         ],
       ),
     );

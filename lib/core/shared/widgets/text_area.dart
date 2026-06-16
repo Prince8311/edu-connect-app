@@ -1,6 +1,7 @@
 import 'package:edu_connect/gen/colors.gen.dart';
 import 'package:edu_connect/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:edu_connect/core/shared/miscellaneous/app_extensions.dart';
 
 class AppTextArea extends StatelessWidget {
   final String label;
@@ -20,8 +21,8 @@ class AppTextArea extends StatelessWidget {
       controller: controller,
       maxLines: maxLines,
       keyboardType: TextInputType.multiline,
-      style: const TextStyle(
-        fontSize: 13,
+      style: TextStyle(
+        fontSize: 13.sp,
         color: ColorName.black1,
         fontFamily: FontFamily.poppins,
       ),
@@ -31,15 +32,15 @@ class AppTextArea extends StatelessWidget {
             const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
 
         labelText: label,
-        labelStyle: const TextStyle(
+        labelStyle: TextStyle(
           fontFamily: FontFamily.poppins,
-          fontSize: 13,
+          fontSize: 13.sp,
           color: ColorName.black2,
         ),
 
-        floatingLabelStyle: const TextStyle(
+        floatingLabelStyle: TextStyle(
           fontFamily: FontFamily.poppins,
-          fontSize: 13,
+          fontSize: 13.sp,
           color: ColorName.blueColor,
           fontWeight: FontWeight.w500,
         ),
@@ -63,3 +64,11 @@ class AppTextArea extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+
+

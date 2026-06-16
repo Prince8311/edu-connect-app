@@ -29,8 +29,8 @@ class AppDropdown<T> extends StatelessWidget {
           padding: const EdgeInsets.only(left: 4),
           child: Text(
             label,
-            style: const TextStyle(
-              fontSize: 13,
+            style: TextStyle(
+              fontSize: 15.sp,
               fontWeight: FontWeight.w500,
               color: ColorName.black,
               fontFamily: FontFamily.poppins,
@@ -45,9 +45,9 @@ class AppDropdown<T> extends StatelessWidget {
             onChanged: onChanged,
             items: items,
             isExpanded: true,
-            icon: const Icon(Icons.keyboard_arrow_down),
-            style: const TextStyle(
-              fontSize: 14,
+            icon: Icon(Icons.keyboard_arrow_down),
+            style: TextStyle(
+              fontSize: 15.sp,
               color: ColorName.black1,
               fontFamily: FontFamily.poppins,
             ),

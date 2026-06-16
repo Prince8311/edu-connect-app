@@ -7,3 +7,11 @@ abstract class AuthRepository {
   FutureEither<bool?> sendAuthOtp({required OtpRequest requestBody});
   FutureEither<ApiResponse?> logout();
 }
+
+
+
+
+
+
+
+

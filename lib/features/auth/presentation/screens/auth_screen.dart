@@ -103,18 +103,20 @@ class AuthScreen extends HookConsumerWidget {
                               fit: BoxFit.contain,
                             ),
                             Gap(6.h),
-                            const Text(
+                            Text(
                               'Edu Connekt',
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 23.sp,
                                 fontWeight: FontWeight.w600,
                                 fontFamily: FontFamily.poppins,
                               ),
                             ),
+                            Gap(2.h),
                             Text(
                               'School & college management',
                               style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 15.sp,
+                                height: 1,
                                 color: ColorName.black2,
                                 fontFamily: FontFamily.poppins,
                               ),
@@ -122,12 +124,12 @@ class AuthScreen extends HookConsumerWidget {
                           ],
                         ),
                       ),
-                      Gap(25.h),
-                      const Center(
+                      Gap(28.h),
+                      Center(
                         child: Text(
                           'Welcome',
                           style: TextStyle(
-                            fontSize: 28,
+                            fontSize: 31.sp,
                             fontWeight: FontWeight.w600,
                             fontFamily: FontFamily.oleoScript,
                           ),
@@ -139,13 +141,14 @@ class AuthScreen extends HookConsumerWidget {
                           'Please sign in to continue your journey',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 14.sp,
+                            height: 1,
                             color: ColorName.black2,
                             fontFamily: FontFamily.poppins,
                           ),
                         ),
                       ),
-                      Gap(28.h),
+                      Gap(22.h),
                       Container(
                         padding: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
@@ -185,6 +188,7 @@ class AuthScreen extends HookConsumerWidget {
                                           ? ColorName.blueColor
                                           : ColorName.black1,
                                       fontWeight: FontWeight.w500,
+                                      fontSize: 16.sp,
                                       fontFamily: FontFamily.poppins,
                                     ),
                                   ),
@@ -222,7 +226,7 @@ class AuthScreen extends HookConsumerWidget {
                                           ? ColorName.blueColor
                                           : ColorName.black1,
                                       fontWeight: FontWeight.w500,
-                                      fontSize: 12,
+                                      fontSize: 16.sp,
                                       fontFamily: FontFamily.poppins,
                                     ),
                                   ),
@@ -253,7 +257,7 @@ class AuthScreen extends HookConsumerWidget {
                           child: Text(
                             'Enter OTP',
                             style: TextStyle(
-                              fontSize: 13,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w500,
                               color: ColorName.black,
                               fontFamily: FontFamily.poppins,
@@ -274,8 +278,8 @@ class AuthScreen extends HookConsumerWidget {
                                 textAlign: TextAlign.center,
                                 maxLength: 1,
                                 cursorColor: ColorName.black,
-                                style: const TextStyle(
-                                  fontSize: 14,
+                                style: TextStyle(
+                                  fontSize: 15.sp,
                                   fontWeight: FontWeight.w500,
                                   fontFamily: FontFamily.poppins,
                                 ),
@@ -322,7 +326,7 @@ class AuthScreen extends HookConsumerWidget {
                                 ? Text(
                                     'Resend OTP in ${secondsLeft.value}s',
                                     style: TextStyle(
-                                      fontSize: 12,
+                                      fontSize: 13.sp,
                                       color: ColorName.black2,
                                       fontFamily: FontFamily.poppins,
                                     ),
@@ -335,7 +339,7 @@ class AuthScreen extends HookConsumerWidget {
                                     child: Text(
                                       'Resend OTP',
                                       style: TextStyle(
-                                        fontSize: 12,
+                                        fontSize: 13.sp,
                                         color: ColorName.blueColor,
                                         fontWeight: FontWeight.w500,
                                         fontFamily: FontFamily.poppins,
@@ -407,16 +411,16 @@ class AuthScreen extends HookConsumerWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          textStyle: const TextStyle(
-                            fontSize: 16,
+                          textStyle: TextStyle(
+                            fontSize: 17.sp,
                             fontWeight: FontWeight.w600,
                             fontFamily: FontFamily.poppins,
                           ),
                         ),
                         child: isLoading.value
-                            ? const SpinKitThreeBounce(
+                            ? SpinKitThreeBounce(
                                 color: Colors.white,
-                                size: 20,
+                                size: 20.sp,
                               )
                             : Text(
                                 isPassword.value
@@ -437,7 +441,7 @@ class AuthScreen extends HookConsumerWidget {
                               'OR ACCESS VIA',
                               style: TextStyle(
                                 color: ColorName.black3,
-                                fontSize: 12,
+                                fontSize: 13.sp,
                                 fontWeight: FontWeight.w600,
                                 fontFamily: FontFamily.poppins,
                               ),
@@ -469,7 +473,7 @@ class AuthScreen extends HookConsumerWidget {
                             text: 'By signing in, you agree to our ',
                             style: TextStyle(
                               color: ColorName.black2,
-                              fontSize: 12,
+                              fontSize: 13.sp,
                               fontFamily: FontFamily.poppins,
                             ),
                             children: [
@@ -530,7 +534,7 @@ class _AuthIconButton extends StatelessWidget {
         child: Icon(
           icon,
           color: ColorName.blueColor,
-          size: 28,
+          size: 32.sp,
         ),
       ),
     );

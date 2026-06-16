@@ -1,4 +1,4 @@
-package com.example.edu_connect
+package com.educonnekt.app
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,7 +1,9 @@
 import 'package:edu_connect/core/router/app_router.dart';
+import 'package:edu_connect/core/shared/miscellaneous/gap.dart';
 import 'package:edu_connect/gen/colors.gen.dart';
 import 'package:edu_connect/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:edu_connect/core/shared/miscellaneous/app_extensions.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -51,22 +53,22 @@ class _BottomNavScreenState extends ConsumerState<BottomNavScreen> {
     return [
       BottomNavItem(
         label: 'Home',
-        icon: const Icon(Icons.home),
+        icon: Icon(Icons.home),
         initialLocation: RoutePath.teacherHome,
       ),
       BottomNavItem(
         label: 'Resources',
-        icon: const Icon(Icons.school),
+        icon: Icon(Icons.school),
         initialLocation: RoutePath.comingSoon,
       ),
       BottomNavItem(
         label: 'Library',
-        icon: const Icon(Icons.menu_book),
+        icon: Icon(Icons.menu_book),
         initialLocation: RoutePath.library,
       ),
       BottomNavItem(
         label: 'Profile',
-        icon: const Icon(Icons.person),
+        icon: Icon(Icons.person),
         initialLocation: RoutePath.teacherProfile,
       ),
     ];
@@ -214,16 +216,17 @@ class BottomNavItemWidget extends StatelessWidget {
               IconTheme(
                 data: IconThemeData(
                   color: selected ? ColorName.themeColor : ColorName.black2,
-                  size: 25,
+                  size: 26.sp,
                 ),
                 child: icon,
               ),
             ],
           ),
+          Gap(1.h),
           Text(
             label,
             style: TextStyle(
-              fontSize: 10,
+              fontSize: 11.sp,
               fontFamily: FontFamily.poppins,
               color: selected ? ColorName.themeColor : ColorName.black2,
               fontWeight: FontWeight.w500,

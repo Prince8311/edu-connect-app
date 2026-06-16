@@ -52,7 +52,7 @@ void Function() errorToast(
                   child: Icon(
                     Icons.priority_high,
                     color: ColorName.white,
-                    size: 15,
+                    size: 15.sp,
                   ),
                 ),
               ),
@@ -87,7 +87,7 @@ void Function() errorToast(
                         message,
                         maxLines: 10,
                         style: TextStyle(
-                          fontSize: 13,
+                          fontSize: 13.sp,
                           height: 1.4,
                           fontWeight: FontWeight.w400,
                           color: ColorName.black1,
@@ -146,7 +146,7 @@ void Function() successToast(
                   child: Icon(
                     Icons.check,
                     color: ColorName.white,
-                    size: 15,
+                    size: 15.sp,
                   ),
                 ),
               ),
@@ -180,7 +180,7 @@ void Function() successToast(
                         message,
                         maxLines: 10,
                         style: TextStyle(
-                          fontSize: 13,
+                          fontSize: 13.sp,
                           height: 1.6,
                           fontWeight: FontWeight.w500,
                           color: ColorName.black1,
@@ -195,3 +195,10 @@ void Function() successToast(
     ),
   );
 }
+
+
+
+
+
+
+

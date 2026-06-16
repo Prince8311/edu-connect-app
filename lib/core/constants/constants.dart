@@ -10,3 +10,11 @@ class AppConstants {
   static const bytesInMb = 1000000;
   static final ukDateFormat = DateFormat('dd-MM-yyyy');
 }
+
+
+
+
+
+
+
+

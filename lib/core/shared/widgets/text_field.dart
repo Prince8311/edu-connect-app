@@ -41,7 +41,7 @@ class _AppTextFieldState extends State<AppTextField> {
           child: Text(
             widget.label,
             style: TextStyle(
-              fontSize: 13,
+              fontSize: 15.sp,
               fontWeight: FontWeight.w500,
               color: ColorName.black,
               fontFamily: FontFamily.poppins,
@@ -55,8 +55,8 @@ class _AppTextFieldState extends State<AppTextField> {
             controller: widget.controller,
             obscureText: widget.obscureText ? _isObscured : false,
             keyboardType: widget.keyboardType,
-            style: const TextStyle(
-              fontSize: 13,
+            style: TextStyle(
+              fontSize: 15.sp,
               color: ColorName.black1,
               fontFamily: FontFamily.poppins,
             ),
@@ -69,7 +69,7 @@ class _AppTextFieldState extends State<AppTextField> {
                   ? IconButton(
                       icon: Icon(
                         _isObscured ? Icons.visibility_off : Icons.visibility,
-                        size: 20,
+                        size: 20.sp,
                         color: ColorName.black3,
                       ),
                       onPressed: () {

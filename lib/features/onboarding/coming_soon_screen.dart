@@ -44,11 +44,11 @@ class ComingSoonScreen extends StatelessWidget {
                           color: ColorName.lightBackground3.withAlpha(180),
                           borderRadius: BorderRadius.circular(24),
                         ),
-                        child: const Center(
+                        child: Center(
                           child: Icon(
                             Icons.construction,
                             color: ColorName.blueColor,
-                            size: 75,
+                            size: 75.sp,
                           ),
                         ),
                       ),
@@ -57,7 +57,7 @@ class ComingSoonScreen extends StatelessWidget {
                         'Coming Soon',
                         style: TextStyle(
                           color: ColorName.black,
-                          fontSize: 28,
+                          fontSize: 28.sp,
                           fontWeight: FontWeight.w600,
                           fontFamily: FontFamily.poppins,
                         ),
@@ -68,7 +68,7 @@ class ComingSoonScreen extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: ColorName.black2.withAlpha(180),
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           height: 1.5,
                           fontFamily: FontFamily.poppins,
                         ),
@@ -83,8 +83,8 @@ class ComingSoonScreen extends StatelessWidget {
                     onPressed: () {
                       TeacherHomeRoute().go(context);
                     },
-                    icon: const Icon(Icons.home_outlined,
-                        color: ColorName.white, size: 21),
+                    icon: Icon(Icons.home_outlined,
+                        color: ColorName.white, size: 21.sp),
                     label: const Text('Back to Home'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: ColorName.blueColor,
@@ -93,7 +93,7 @@ class ComingSoonScreen extends StatelessWidget {
                       textStyle: TextStyle(
                         fontFamily: FontFamily.poppins,
                         fontWeight: FontWeight.w600,
-                        fontSize: 14,
+                        fontSize: 14.sp,
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),

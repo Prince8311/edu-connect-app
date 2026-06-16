@@ -17,3 +17,11 @@ class ApiResponse<T> with _$ApiResponse<T> {
   ) =>
       _$ApiResponseFromJson(json, fromJsonT);
 }
+
+
+
+
+
+
+
+

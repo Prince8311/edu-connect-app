@@ -32,8 +32,8 @@ class ChapterAddScreen extends HookConsumerWidget {
                 RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
-                    style: const TextStyle(
-                      fontSize: 13,
+                    style: TextStyle(
+                      fontSize: 15.sp,
                       color: ColorName.black1,
                       fontFamily: FontFamily.poppins,
                     ),
@@ -47,7 +47,7 @@ class ChapterAddScreen extends HookConsumerWidget {
                       ),
                       TextSpan(
                         text: "Mathematics",
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: ColorName.black,
                           fontWeight: FontWeight.w400,
                         ),
@@ -72,8 +72,8 @@ class ChapterAddScreen extends HookConsumerWidget {
                   child: RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
-                      style: const TextStyle(
-                        fontSize: 13,
+                      style: TextStyle(
+                        fontSize: 15.sp,
                         color: ColorName.black,
                         fontWeight: FontWeight.w500,
                         fontFamily: FontFamily.poppins,
@@ -111,15 +111,15 @@ class ChapterAddScreen extends HookConsumerWidget {
                       children: [
                         Icon(
                           Icons.upload_file,
-                          size: 36,
+                          size: 38.sp,
                           color: ColorName.black1.withAlpha(100),
                         ),
                         Gap(10.h),
                         RichText(
                           textAlign: TextAlign.center,
                           text: TextSpan(
-                            style: const TextStyle(
-                              fontSize: 13,
+                            style: TextStyle(
+                              fontSize: 14.sp,
                               color: ColorName.black1,
                               fontFamily: FontFamily.poppins,
                             ),
@@ -129,7 +129,7 @@ class ChapterAddScreen extends HookConsumerWidget {
                               ),
                               TextSpan(
                                 text: "click here.",
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: ColorName.redColor1,
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -155,10 +155,10 @@ class ChapterAddScreen extends HookConsumerWidget {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       'Add Chapter',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 17.sp,
                         color: ColorName.white,
                         fontFamily: FontFamily.poppins,
                       ),

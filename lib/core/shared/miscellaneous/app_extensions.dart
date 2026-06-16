@@ -15,4 +15,10 @@ extension ScreenSizes on num {
       this * MediaQuery.sizeOf(rootNavigatorKey.currentState!.context).height;
   double get sw =>
       this * MediaQuery.sizeOf(rootNavigatorKey.currentState!.context).width;
+  double get sp =>
+      MediaQuery.textScalerOf(rootNavigatorKey.currentState!.context).scale(
+        this *
+            (MediaQuery.sizeOf(rootNavigatorKey.currentState!.context).width /
+                AppConstants.designWidth),
+      );
 }

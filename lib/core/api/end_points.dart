@@ -1,6 +1,6 @@
 class Endpoints {
   // -------- Base URLs --------
-  static const String baseURL = 'https://api.edu-connect.ticketbay.in';
+  static const String baseURL = 'https://api.educonnekt.in';
   static const String apiURL = '$baseURL/user';
 
   // -------- Auth --------

@@ -73,7 +73,7 @@ class TeacherProfileScreen extends HookConsumerWidget {
                       child: Text(
                         'V Geethanjali',
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.w600,
                           fontFamily: FontFamily.poppins,
                           color: ColorName.black,
@@ -84,7 +84,7 @@ class TeacherProfileScreen extends HookConsumerWidget {
                       child: Text(
                         'Senior Secondary Teacher',
                         style: TextStyle(
-                          fontSize: 13,
+                          fontSize: 14.sp,
                           color: ColorName.blueColor,
                           fontFamily: FontFamily.poppins,
                         ),
@@ -101,7 +101,7 @@ class TeacherProfileScreen extends HookConsumerWidget {
                               Text(
                                 'EXPERIENCE',
                                 style: TextStyle(
-                                  fontSize: 11,
+                                  fontSize: 12.sp,
                                   color: ColorName.black2.withAlpha(150),
                                   fontFamily: FontFamily.poppins,
                                   fontWeight: FontWeight.w600,
@@ -111,7 +111,7 @@ class TeacherProfileScreen extends HookConsumerWidget {
                               Text(
                                 '8 Yrs',
                                 style: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: 17.sp,
                                   fontStyle: FontStyle.italic,
                                   fontWeight: FontWeight.w600,
                                   fontFamily: FontFamily.poppins,
@@ -132,17 +132,17 @@ class TeacherProfileScreen extends HookConsumerWidget {
                               Text(
                                 'STUDENTS',
                                 style: TextStyle(
-                                  fontSize: 11,
+                                  fontSize: 12.sp,
                                   color: ColorName.black2.withAlpha(150),
                                   fontFamily: FontFamily.poppins,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              Gap(3.h),
+                              Gap(2.h),
                               Text(
                                 '120+',
                                 style: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: 17.sp,
                                   fontStyle: FontStyle.italic,
                                   fontWeight: FontWeight.w600,
                                   fontFamily: FontFamily.poppins,
@@ -163,17 +163,17 @@ class TeacherProfileScreen extends HookConsumerWidget {
                               Text(
                                 'ID',
                                 style: TextStyle(
-                                  fontSize: 11,
+                                  fontSize: 12.sp,
                                   color: ColorName.black2.withAlpha(150),
                                   fontFamily: FontFamily.poppins,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              Gap(3.h),
+                              Gap(2.h),
                               Text(
                                 '#2024',
                                 style: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: 17.sp,
                                   fontStyle: FontStyle.italic,
                                   fontWeight: FontWeight.w600,
                                   fontFamily: FontFamily.poppins,
@@ -194,7 +194,7 @@ class TeacherProfileScreen extends HookConsumerWidget {
                 child: Text(
                   'Institute',
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
                     fontFamily: FontFamily.poppins,
                     color: ColorName.black,
@@ -225,10 +225,10 @@ class TeacherProfileScreen extends HookConsumerWidget {
                         color: ColorName.blueColor.withAlpha(30),
                         borderRadius: BorderRadius.circular(14),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.school,
                         color: ColorName.blueColor,
-                        size: 26,
+                        size: 30.sp,
                       ),
                     ),
                     Gap(14.w),
@@ -239,17 +239,17 @@ class TeacherProfileScreen extends HookConsumerWidget {
                           Text(
                             'Sri Sai Angels School',
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 15.sp,
                               fontWeight: FontWeight.w600,
                               fontFamily: FontFamily.poppins,
                               color: ColorName.black,
                             ),
                           ),
-                          Gap(4.h),
+                          Gap(2.h),
                           Text(
                             'Main Campus, Block B',
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 13.sp,
                               fontFamily: FontFamily.poppins,
                               color: ColorName.black2.withAlpha(150),
                             ),
@@ -266,7 +266,7 @@ class TeacherProfileScreen extends HookConsumerWidget {
                 child: Text(
                   'App Features',
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
                     fontFamily: FontFamily.poppins,
                     color: ColorName.black,
@@ -278,9 +278,9 @@ class TeacherProfileScreen extends HookConsumerWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 crossAxisCount: 4,
-                crossAxisSpacing: 12.w,
-                mainAxisSpacing: 12.h,
-                childAspectRatio: 0.85,
+                crossAxisSpacing: 10.w,
+                mainAxisSpacing: 10.h,
+                childAspectRatio: 0.83,
                 children: [
                   _buildFeatureTile(Icons.person_outline, 'My Details'),
                   _buildFeatureTile(Icons.description_outlined, 'Documents'),
@@ -319,14 +319,14 @@ class TeacherProfileScreen extends HookConsumerWidget {
                 ),
               ],
             ),
-            child: Icon(icon, color: ColorName.blueColor, size: 28),
+            child: Icon(icon, color: ColorName.blueColor, size: 30.sp),
           ),
           Gap(10.h),
           Text(
             label,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 11,
+              fontSize: 12.sp,
               fontFamily: FontFamily.poppins,
               color: ColorName.black,
               fontWeight: FontWeight.w500,

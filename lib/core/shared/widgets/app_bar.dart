@@ -57,19 +57,18 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                         'GOOD EVENING',
                         style: TextStyle(
                           color: ColorName.black3,
-                          fontSize: 11,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.w500,
                           fontFamily: FontFamily.poppins,
                         ),
                       ),
-                      Gap(2.h),
                       Text(
                         'V GEETHANJALI',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           color: ColorName.black,
-                          fontSize: 14,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w600,
                           fontFamily: FontFamily.poppins,
                         ),
@@ -149,9 +148,9 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
                         color: ColorName.blueColor.withAlpha(30),
                         borderRadius: BorderRadius.circular(14),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.arrow_back,
-                        size: 24,
+                        size: 25.sp,
                         color: ColorName.themeColor,
                       ),
                     ),
@@ -161,7 +160,7 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
                     title,
                     style: TextStyle(
                       color: ColorName.black,
-                      fontSize: 16,
+                      fontSize: 17.sp,
                       fontWeight: FontWeight.w500,
                       fontFamily: FontFamily.poppins,
                     ),
@@ -216,7 +215,7 @@ class _NavIconButton extends StatelessWidget {
           color: ColorName.lightBackground2.withAlpha(100),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Icon(icon, color: ColorName.black1, size: 22),
+        child: Icon(icon, color: ColorName.black1, size: 24.sp),
       ),
     );
   }

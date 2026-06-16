@@ -58,8 +58,8 @@ class BookAddScreen extends HookConsumerWidget {
                         value: city,
                         child: Text(
                           city,
-                          style: const TextStyle(
-                            fontSize: 14,
+                          style: TextStyle(
+                            fontSize: 15.sp,
                             color: ColorName.black1,
                             fontFamily: FontFamily.poppins,
                           ),
@@ -78,8 +78,8 @@ class BookAddScreen extends HookConsumerWidget {
                         value: subject,
                         child: Text(
                           subject,
-                          style: const TextStyle(
-                            fontSize: 14,
+                          style: TextStyle(
+                            fontSize: 15.sp,
                             color: ColorName.black1,
                             fontFamily: FontFamily.poppins,
                           ),
@@ -95,7 +95,7 @@ class BookAddScreen extends HookConsumerWidget {
                   child: Text(
                     'Upload Book Cover',
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.w500,
                       color: ColorName.black,
                       fontFamily: FontFamily.poppins,
@@ -120,15 +120,15 @@ class BookAddScreen extends HookConsumerWidget {
                       children: [
                         Icon(
                           Icons.add_photo_alternate,
-                          size: 38,
+                          size: 40.sp,
                           color: ColorName.black1.withAlpha(100),
                         ),
                         Gap(10.h),
                         RichText(
                           textAlign: TextAlign.center,
                           text: TextSpan(
-                            style: const TextStyle(
-                              fontSize: 13,
+                            style: TextStyle(
+                              fontSize: 14.sp,
                               color: ColorName.black1,
                               fontFamily: FontFamily.poppins,
                             ),
@@ -138,7 +138,7 @@ class BookAddScreen extends HookConsumerWidget {
                               ),
                               TextSpan(
                                 text: "click here.",
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: ColorName.redColor1,
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -164,10 +164,10 @@ class BookAddScreen extends HookConsumerWidget {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       'Add Book',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 17.sp,
                         color: ColorName.white,
                         fontFamily: FontFamily.poppins,
                       ),

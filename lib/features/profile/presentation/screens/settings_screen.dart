@@ -120,8 +120,8 @@ class SettingsScreen extends HookConsumerWidget {
                           Text.rich(
                             TextSpan(
                               text: "We have sent an OTP to ",
-                              style: const TextStyle(
-                                fontSize: 13,
+                              style: TextStyle(
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w400,
                                 color: ColorName.black1,
                                 fontFamily: FontFamily.poppins,
@@ -129,7 +129,7 @@ class SettingsScreen extends HookConsumerWidget {
                               children: [
                                 TextSpan(
                                   text: maskValue(value.trim()),
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: ColorName.black,
                                     fontWeight: FontWeight.w500,
                                     fontFamily: FontFamily.poppins,
@@ -156,8 +156,8 @@ class SettingsScreen extends HookConsumerWidget {
                                   textAlign: TextAlign.center,
                                   maxLength: 1,
                                   cursorColor: ColorName.black,
-                                  style: const TextStyle(
-                                    fontSize: 14,
+                                  style: TextStyle(
+                                    fontSize: 15.sp,
                                     fontWeight: FontWeight.w500,
                                     fontFamily: FontFamily.poppins,
                                   ),
@@ -203,8 +203,8 @@ class SettingsScreen extends HookConsumerWidget {
                               secondsRemaining > 0
                                   ? Text(
                                       "Resend OTP in ${secondsRemaining}s",
-                                      style: const TextStyle(
-                                        fontSize: 12,
+                                      style: TextStyle(
+                                        fontSize: 13.sp,
                                         color: ColorName.black2,
                                         fontFamily: FontFamily.poppins,
                                       ),
@@ -215,10 +215,10 @@ class SettingsScreen extends HookConsumerWidget {
 
                                         /// call resend API
                                       },
-                                      child: const Text(
+                                      child: Text(
                                         "Resend OTP",
                                         style: TextStyle(
-                                          fontSize: 12,
+                                          fontSize: 13.sp,
                                           fontWeight: FontWeight.w500,
                                           color: ColorName.blueColor,
                                           fontFamily: FontFamily.poppins,
@@ -274,15 +274,15 @@ class SettingsScreen extends HookConsumerWidget {
                                     }
                                   : null,
                               child: isVerifyLoading
-                                  ? const SpinKitThreeBounce(
+                                  ? SpinKitThreeBounce(
                                       color: Colors.white,
-                                      size: 20,
+                                      size: 20.sp,
                                     )
-                                  : const Text(
+                                  : Text(
                                       'Verify OTP',
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 14,
+                                        fontSize: 15.sp,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
@@ -363,9 +363,9 @@ class SettingsScreen extends HookConsumerWidget {
                                     color: ColorName.white, width: 3),
                                 borderRadius: BorderRadius.circular(15),
                               ),
-                              child: const Icon(
+                              child: Icon(
                                 Icons.edit,
-                                size: 14,
+                                size: 14.sp,
                                 color: ColorName.white,
                               ),
                             ),
@@ -380,17 +380,17 @@ class SettingsScreen extends HookConsumerWidget {
                                 data?.name ?? '-',
                                 style: TextStyle(
                                   color: ColorName.black,
-                                  fontSize: 15,
+                                  fontSize: 18.sp,
                                   fontWeight: FontWeight.w600,
                                   fontFamily: FontFamily.poppins,
                                 ),
                               ),
-                              Gap(4.h),
+                              Gap(3.h),
                               Text(
                                 'Computer Science · Junior Year',
                                 style: TextStyle(
                                   color: ColorName.black2.withAlpha(150),
-                                  fontSize: 12,
+                                  fontSize: 13.sp,
                                   fontFamily: FontFamily.poppins,
                                 ),
                               ),
@@ -407,7 +407,7 @@ class SettingsScreen extends HookConsumerWidget {
                       'PROFILE & ACCOUNT',
                       style: TextStyle(
                         color: ColorName.blueColor,
-                        fontSize: 13,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
                         fontFamily: FontFamily.poppins,
                       ),
@@ -496,7 +496,7 @@ class SettingsScreen extends HookConsumerWidget {
                       'SECURITY & PRIVACY',
                       style: TextStyle(
                         color: ColorName.blueColor,
-                        fontSize: 13,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
                         fontFamily: FontFamily.poppins,
                       ),
@@ -547,7 +547,7 @@ class SettingsScreen extends HookConsumerWidget {
                       'HELP & SUPPORT',
                       style: TextStyle(
                         color: ColorName.blueColor,
-                        fontSize: 13,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
                         fontFamily: FontFamily.poppins,
                       ),
@@ -571,8 +571,8 @@ class SettingsScreen extends HookConsumerWidget {
                         _buildSupportRow(
                           icon: Icons.help_outline,
                           title: 'Help Center',
-                          trailing: const Icon(Icons.open_in_new,
-                              size: 18, color: ColorName.borderColor),
+                          trailing: Icon(Icons.open_in_new,
+                              size: 19.sp, color: ColorName.borderColor),
                         ),
                         Divider(color: ColorName.lightBackground3, height: 1),
                         _buildSupportRow(
@@ -614,13 +614,13 @@ class SettingsScreen extends HookConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(Icons.logout,
-                                color: ColorName.redColor, size: 20),
+                                color: ColorName.redColor, size: 20.sp),
                             Gap(8.w),
                             Text(
                               'Logout',
                               style: TextStyle(
                                 color: ColorName.redColor,
-                                fontSize: 15,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.w500,
                                 fontFamily: FontFamily.poppins,
                               ),
@@ -633,10 +633,10 @@ class SettingsScreen extends HookConsumerWidget {
                   Gap(24.h),
                   Center(
                     child: Text(
-                      'EDU CONNECT V2.4.1 (BUILD 402)',
+                      'EDU CONNEKT V1.0.4 (BUILD 6)',
                       style: TextStyle(
                         color: ColorName.black2.withAlpha(120),
-                        fontSize: 12,
+                        fontSize: 13.sp,
                         fontFamily: FontFamily.poppins,
                       ),
                     ),
@@ -674,7 +674,7 @@ class SettingsScreen extends HookConsumerWidget {
                 color: ColorName.lightBackground3.withAlpha(150),
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: Icon(icon, color: ColorName.blueColor, size: 22),
+              child: Icon(icon, color: ColorName.blueColor, size: 24.sp),
             ),
             Gap(14.w),
             Expanded(
@@ -685,20 +685,20 @@ class SettingsScreen extends HookConsumerWidget {
                     title,
                     style: TextStyle(
                       color: ColorName.black,
-                      fontSize: 14,
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.w500,
                       fontFamily: FontFamily.poppins,
                     ),
                   ),
                   if (subtitle != null) ...[
-                    Gap(3.h),
+                    Gap(2.h),
                     Text(
                       subtitle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: ColorName.black2.withAlpha(150),
-                        fontSize: 12,
+                        fontSize: 13.sp,
                         fontFamily: FontFamily.poppins,
                       ),
                     ),
@@ -719,15 +719,15 @@ class SettingsScreen extends HookConsumerWidget {
                   statusLabel,
                   style: TextStyle(
                     color: statusColor ?? ColorName.black,
-                    fontSize: 10,
+                    fontSize: 11.sp,
                     fontWeight: FontWeight.w500,
                     fontFamily: FontFamily.poppins,
                   ),
                 ),
               ),
             Gap(6.w),
-            const Icon(Icons.arrow_forward_ios,
-                size: 16, color: ColorName.borderColor),
+            Icon(Icons.arrow_forward_ios,
+                size: 17.sp, color: ColorName.borderColor),
           ],
         ),
       ),
@@ -752,7 +752,7 @@ class SettingsScreen extends HookConsumerWidget {
               color: ColorName.lightBackground3.withAlpha(150),
               borderRadius: BorderRadius.circular(14),
             ),
-            child: Icon(icon, color: ColorName.blueColor, size: 22),
+            child: Icon(icon, color: ColorName.blueColor, size: 24.sp),
           ),
           Gap(14.w),
           Expanded(
@@ -760,7 +760,7 @@ class SettingsScreen extends HookConsumerWidget {
               title,
               style: TextStyle(
                 color: ColorName.black,
-                fontSize: 14,
+                fontSize: 15.sp,
                 fontWeight: FontWeight.w500,
                 fontFamily: FontFamily.poppins,
               ),
@@ -806,8 +806,8 @@ class SettingsScreen extends HookConsumerWidget {
               ),
             )
           else
-            const Icon(Icons.arrow_forward_ios,
-                size: 16, color: ColorName.borderColor),
+            Icon(Icons.arrow_forward_ios,
+                size: 17.sp, color: ColorName.borderColor),
         ],
       ),
     );
@@ -830,7 +830,7 @@ class SettingsScreen extends HookConsumerWidget {
               color: ColorName.lightBackground3.withAlpha(150),
               borderRadius: BorderRadius.circular(14),
             ),
-            child: Icon(icon, color: ColorName.blueColor, size: 22),
+            child: Icon(icon, color: ColorName.blueColor, size: 24.sp),
           ),
           Gap(14.w),
           Expanded(
@@ -838,15 +838,15 @@ class SettingsScreen extends HookConsumerWidget {
               title,
               style: TextStyle(
                 color: ColorName.black,
-                fontSize: 14,
+                fontSize: 15.sp,
                 fontWeight: FontWeight.w500,
                 fontFamily: FontFamily.poppins,
               ),
             ),
           ),
           trailing ??
-              const Icon(Icons.arrow_forward_ios,
-                  size: 16, color: ColorName.borderColor),
+              Icon(Icons.arrow_forward_ios,
+                  size: 17.sp, color: ColorName.borderColor),
         ],
       ),
     );

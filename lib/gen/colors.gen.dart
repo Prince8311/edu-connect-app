@@ -31,6 +31,12 @@ class ColorName {
   /// Color: #0072C3
   static const Color blueColor1 = Color(0xFF0072C3);
 
+  /// Color: #00658C
+  static const Color blueColor2 = Color(0xFF00658C);
+
+  /// Color: #1C41FF
+  static const Color blueColor3 = Color(0xFF1C41FF);
+
   /// Color: #E1E0EA
   static const Color borderColor = Color(0xFFE1E0EA);
 

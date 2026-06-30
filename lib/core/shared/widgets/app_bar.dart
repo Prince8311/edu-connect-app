@@ -151,7 +151,7 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
                       child: Icon(
                         Icons.arrow_back,
                         size: 25.sp,
-                        color: ColorName.themeColor,
+                        color: ColorName.blueColor1,
                       ),
                     ),
                   ),

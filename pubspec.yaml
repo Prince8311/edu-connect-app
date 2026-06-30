@@ -78,6 +78,7 @@ dependencies:
   # * Animations *
   animations: ^2.0.11
   flutter_animate: ^4.5.0
+  lottie: ^3.3.1
 
   # * Extra Widgets *
   table_calendar: ^3.1.2 
@@ -141,6 +142,7 @@ flutter:
   generate: true
   assets:
     - assets/images/
+    - assets/animations/
 
   fonts:
     - family: Poppins

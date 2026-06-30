@@ -150,17 +150,48 @@ class ChapterAddScreen extends HookConsumerWidget {
                       // Handle book addition logic here
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: ColorName.themeColor,
+                      backgroundColor: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                      surfaceTintColor: Colors.transparent,
+                      elevation: 0,
+                      padding: EdgeInsets.zero,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    child: Text(
-                      'Add Chapter',
-                      style: TextStyle(
-                        fontSize: 17.sp,
-                        color: ColorName.white,
-                        fontFamily: FontFamily.poppins,
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        gradient: const LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            ColorName.blueColor,
+                            ColorName.blueColor2,
+                          ],
+                        ),
+                      ),
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.add,
+                              color: ColorName.white,
+                              size: 21.sp,
+                            ),
+                            Gap(3.w),
+                            Text(
+                              'Add Chapter',
+                              style: TextStyle(
+                                fontSize: 17.sp,
+                                color: ColorName.white,
+                                fontFamily: FontFamily.poppins,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

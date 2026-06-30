@@ -20,6 +20,20 @@ const List<String> ClassList = [
   "9",
   "10"
 ];
+
+const List<String> SectionList = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J"
+];
+
 const List<String> SubjectList = [
   "Mathematics",
   "Science",
@@ -29,18 +43,19 @@ const List<String> SubjectList = [
   "Sanskrit"
 ];
 
-class BookAddScreen extends HookConsumerWidget {
-  const BookAddScreen({super.key});
+class ClassroomCreateScreen extends HookConsumerWidget {
+  const ClassroomCreateScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedClass = useState<String?>(null);
+    final selectedSection = useState<String?>(null);
     final selectedSubject = useState<String?>(null);
 
     return Scaffold(
       backgroundColor: ColorName.white,
       appBar: const PrimaryAppBar(
-        title: 'Add Book',
+        title: 'Create Classroom',
         useHomeRouteOnBack: false,
       ),
       body: SafeArea(
@@ -71,6 +86,26 @@ class BookAddScreen extends HookConsumerWidget {
                 ),
                 Gap(15.h),
                 AppDropdown<String>(
+                  label: "Section",
+                  hint: "Select Section",
+                  value: selectedSection.value,
+                  items: SectionList.map((city) => DropdownMenuItem(
+                        value: city,
+                        child: Text(
+                          city,
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                            color: ColorName.black1,
+                            fontFamily: FontFamily.poppins,
+                          ),
+                        ),
+                      )).toList(),
+                  onChanged: (value) {
+                    selectedSection.value = value;
+                  },
+                ),
+                Gap(15.h),
+                AppDropdown<String>(
                   label: "Subject",
                   hint: "Select Subject",
                   value: selectedSubject.value,
@@ -88,67 +123,6 @@ class BookAddScreen extends HookConsumerWidget {
                   onChanged: (value) {
                     selectedSubject.value = value;
                   },
-                ),
-                Gap(15.h),
-                Padding(
-                  padding: const EdgeInsets.only(left: 4),
-                  child: Text(
-                    'Upload Book Cover',
-                    style: TextStyle(
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w500,
-                      color: ColorName.black,
-                      fontFamily: FontFamily.poppins,
-                    ),
-                  ),
-                ),
-                Gap(6.h),
-                Container(
-                  height: 125,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: ColorName.white,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: ColorName.borderColor,
-                      width: 1.25,
-                    ),
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.add_photo_alternate,
-                          size: 40.sp,
-                          color: ColorName.black1.withAlpha(100),
-                        ),
-                        Gap(10.h),
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: ColorName.black1,
-                              fontFamily: FontFamily.poppins,
-                            ),
-                            children: [
-                              const TextSpan(
-                                text: "Tap to upload image, ",
-                              ),
-                              TextSpan(
-                                text: "click here.",
-                                style: TextStyle(
-                                  color: ColorName.redColor1,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                 ),
                 Spacer(),
                 SizedBox(
@@ -191,7 +165,7 @@ class BookAddScreen extends HookConsumerWidget {
                             ),
                             Gap(3.w),
                             Text(
-                              'Add Book',
+                              'Create Class',
                               style: TextStyle(
                                 fontSize: 17.sp,
                                 color: ColorName.white,

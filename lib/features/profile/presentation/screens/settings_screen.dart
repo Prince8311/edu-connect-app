@@ -358,7 +358,7 @@ class SettingsScreen extends HookConsumerWidget {
                               width: 26,
                               height: 26,
                               decoration: BoxDecoration(
-                                color: ColorName.blueColor,
+                                color: ColorName.blueColor1,
                                 border: Border.all(
                                     color: ColorName.white, width: 3),
                                 borderRadius: BorderRadius.circular(15),
@@ -380,17 +380,17 @@ class SettingsScreen extends HookConsumerWidget {
                                 data?.name ?? '-',
                                 style: TextStyle(
                                   color: ColorName.black,
-                                  fontSize: 18.sp,
+                                  fontSize: 19.sp,
                                   fontWeight: FontWeight.w600,
                                   fontFamily: FontFamily.poppins,
                                 ),
                               ),
-                              Gap(3.h),
+                              Gap(1.h),
                               Text(
                                 'Computer Science · Junior Year',
                                 style: TextStyle(
                                   color: ColorName.black2.withAlpha(150),
-                                  fontSize: 13.sp,
+                                  fontSize: 14.sp,
                                   fontFamily: FontFamily.poppins,
                                 ),
                               ),
@@ -671,10 +671,10 @@ class SettingsScreen extends HookConsumerWidget {
               width: 42,
               height: 42,
               decoration: BoxDecoration(
-                color: ColorName.lightBackground3.withAlpha(150),
+                color: ColorName.blueColor1.withAlpha(16),
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: Icon(icon, color: ColorName.blueColor, size: 24.sp),
+              child: Icon(icon, color: ColorName.blueColor1, size: 25.sp),
             ),
             Gap(14.w),
             Expanded(
@@ -685,7 +685,7 @@ class SettingsScreen extends HookConsumerWidget {
                     title,
                     style: TextStyle(
                       color: ColorName.black,
-                      fontSize: 15.sp,
+                      fontSize: 15.5.sp,
                       fontWeight: FontWeight.w500,
                       fontFamily: FontFamily.poppins,
                     ),
@@ -698,7 +698,7 @@ class SettingsScreen extends HookConsumerWidget {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: ColorName.black2.withAlpha(150),
-                        fontSize: 13.sp,
+                        fontSize: 13.5.sp,
                         fontFamily: FontFamily.poppins,
                       ),
                     ),
@@ -749,10 +749,10 @@ class SettingsScreen extends HookConsumerWidget {
             width: 42,
             height: 42,
             decoration: BoxDecoration(
-              color: ColorName.lightBackground3.withAlpha(150),
+              color: ColorName.blueColor1.withAlpha(16),
               borderRadius: BorderRadius.circular(14),
             ),
-            child: Icon(icon, color: ColorName.blueColor, size: 24.sp),
+            child: Icon(icon, color: ColorName.blueColor1, size: 25.sp),
           ),
           Gap(14.w),
           Expanded(
@@ -760,7 +760,7 @@ class SettingsScreen extends HookConsumerWidget {
               title,
               style: TextStyle(
                 color: ColorName.black,
-                fontSize: 15.sp,
+                fontSize: 15.5.sp,
                 fontWeight: FontWeight.w500,
                 fontFamily: FontFamily.poppins,
               ),
@@ -777,7 +777,7 @@ class SettingsScreen extends HookConsumerWidget {
                 padding: const EdgeInsets.all(3),
                 decoration: BoxDecoration(
                   color: switchValue
-                      ? ColorName.blueColor
+                      ? ColorName.blueColor2
                       : ColorName.lightBackground2.withAlpha(120),
                   borderRadius: BorderRadius.circular(20),
                 ),
@@ -827,10 +827,10 @@ class SettingsScreen extends HookConsumerWidget {
             width: 42,
             height: 42,
             decoration: BoxDecoration(
-              color: ColorName.lightBackground3.withAlpha(150),
+              color: ColorName.blueColor1.withAlpha(16),
               borderRadius: BorderRadius.circular(14),
             ),
-            child: Icon(icon, color: ColorName.blueColor, size: 24.sp),
+            child: Icon(icon, color: ColorName.blueColor1, size: 25.sp),
           ),
           Gap(14.w),
           Expanded(
@@ -838,7 +838,7 @@ class SettingsScreen extends HookConsumerWidget {
               title,
               style: TextStyle(
                 color: ColorName.black,
-                fontSize: 15.sp,
+                fontSize: 15.5.sp,
                 fontWeight: FontWeight.w500,
                 fontFamily: FontFamily.poppins,
               ),

@@ -227,8 +227,8 @@ class TeacherProfileScreen extends HookConsumerWidget {
                       ),
                       child: Icon(
                         Icons.school,
-                        color: ColorName.blueColor,
-                        size: 30.sp,
+                        color: ColorName.blueColor1,
+                        size: 32.sp,
                       ),
                     ),
                     Gap(14.w),
@@ -239,17 +239,17 @@ class TeacherProfileScreen extends HookConsumerWidget {
                           Text(
                             'Sri Sai Angels School',
                             style: TextStyle(
-                              fontSize: 15.sp,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.w600,
                               fontFamily: FontFamily.poppins,
                               color: ColorName.black,
                             ),
                           ),
-                          Gap(2.h),
+                          Gap(1.h),
                           Text(
                             'Main Campus, Block B',
                             style: TextStyle(
-                              fontSize: 13.sp,
+                              fontSize: 14.sp,
                               fontFamily: FontFamily.poppins,
                               color: ColorName.black2.withAlpha(150),
                             ),
@@ -261,38 +261,38 @@ class TeacherProfileScreen extends HookConsumerWidget {
                 ),
               ),
               Gap(24.h),
-              Padding(
-                padding: const EdgeInsets.only(left: 6),
-                child: Text(
-                  'App Features',
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: FontFamily.poppins,
-                    color: ColorName.black,
-                  ),
-                ),
-              ),
-              Gap(15.h),
-              GridView.count(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                crossAxisCount: 4,
-                crossAxisSpacing: 10.w,
-                mainAxisSpacing: 10.h,
-                childAspectRatio: 0.83,
-                children: [
-                  _buildFeatureTile(Icons.person_outline, 'My Details'),
-                  _buildFeatureTile(Icons.description_outlined, 'Documents'),
-                  _buildFeatureTile(
-                      Icons.calendar_today_outlined, 'Attendance'),
-                  _buildFeatureTile(Icons.beach_access_outlined, 'Leaves'),
-                  _buildFeatureTile(Icons.schedule_outlined, 'Timetable'),
-                  _buildFeatureTile(Icons.directions_bus_outlined, 'Transport'),
-                  _buildFeatureTile(Icons.notifications_outlined, 'Alerts'),
-                  _buildFeatureTile(Icons.insert_chart_outlined, 'Report Card'),
-                ],
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 6),
+              //   child: Text(
+              //     'App Features',
+              //     style: TextStyle(
+              //       fontSize: 16.sp,
+              //       fontWeight: FontWeight.w600,
+              //       fontFamily: FontFamily.poppins,
+              //       color: ColorName.black,
+              //     ),
+              //   ),
+              // ),
+              // Gap(15.h),
+              // GridView.count(
+              //   physics: const NeverScrollableScrollPhysics(),
+              //   shrinkWrap: true,
+              //   crossAxisCount: 4,
+              //   crossAxisSpacing: 10.w,
+              //   mainAxisSpacing: 10.h,
+              //   childAspectRatio: 0.83,
+              //   children: [
+              //     _buildFeatureTile(Icons.person_outline, 'My Details'),
+              //     _buildFeatureTile(Icons.description_outlined, 'Documents'),
+              //     _buildFeatureTile(
+              //         Icons.calendar_today_outlined, 'Attendance'),
+              //     _buildFeatureTile(Icons.beach_access_outlined, 'Leaves'),
+              //     _buildFeatureTile(Icons.schedule_outlined, 'Timetable'),
+              //     _buildFeatureTile(Icons.directions_bus_outlined, 'Transport'),
+              //     _buildFeatureTile(Icons.notifications_outlined, 'Alerts'),
+              //     _buildFeatureTile(Icons.insert_chart_outlined, 'Report Card'),
+              //   ],
+              // ),
             ],
           ),
         ),

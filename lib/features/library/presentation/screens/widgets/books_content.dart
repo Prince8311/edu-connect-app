@@ -37,7 +37,7 @@ class BooksContent extends HookConsumerWidget {
                     prefixIcon: Icon(
                       Icons.search,
                       size: 28.sp,
-                      color: ColorName.blueColor,
+                      color: ColorName.blueColor1,
                     ),
                     hintText: 'Search books by title, author, or ISBN...',
                     hintStyle: TextStyle(

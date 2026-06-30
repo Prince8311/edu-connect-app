@@ -12,6 +12,9 @@ List<RouteBase> get $appRoutes => [
       $maintainanceRoute,
       $authRoute,
       $bottomNavRoute,
+      $classRoomsRoute,
+      $classRoomDetailsRoute,
+      $createClassRoomRoute,
       $settingsRoute,
       $bookDetailsRoute,
       $addBookRoute,
@@ -220,6 +223,92 @@ mixin _$TeacherProfileRoute on GoRouteData {
   @override
   String get location => GoRouteData.$location(
         '/teacher-profile',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $classRoomsRoute => GoRouteData.$route(
+      path: '/classrooms',
+      name: 'classRooms',
+      factory: _$ClassRoomsRoute._fromState,
+    );
+
+mixin _$ClassRoomsRoute on GoRouteData {
+  static ClassRoomsRoute _fromState(GoRouterState state) => ClassRoomsRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/classrooms',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $classRoomDetailsRoute => GoRouteData.$route(
+      path: '/classroom-details',
+      name: 'classRoomDetails',
+      factory: _$ClassRoomDetailsRoute._fromState,
+    );
+
+mixin _$ClassRoomDetailsRoute on GoRouteData {
+  static ClassRoomDetailsRoute _fromState(GoRouterState state) =>
+      ClassRoomDetailsRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/classroom-details',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $createClassRoomRoute => GoRouteData.$route(
+      path: '/create-classroom',
+      name: 'createClassRoom',
+      factory: _$CreateClassRoomRoute._fromState,
+    );
+
+mixin _$CreateClassRoomRoute on GoRouteData {
+  static CreateClassRoomRoute _fromState(GoRouterState state) =>
+      CreateClassRoomRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/create-classroom',
       );
 
   @override

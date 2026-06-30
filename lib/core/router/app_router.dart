@@ -21,6 +21,10 @@ import 'package:edu_connect/features/profile/presentation/screens/settings_scree
 import 'package:edu_connect/features/home/presentation/screens/teacher/home_screen.dart';
 import 'package:edu_connect/features/profile/presentation/screens/teacher/profile_screen.dart';
 
+import 'package:edu_connect/features/classroom/presentation/screens/classroom_list_screen.dart';
+import 'package:edu_connect/features/classroom/presentation/screens/classroom_details_screen.dart';
+import 'package:edu_connect/features/classroom/presentation/screens/classroom_create_screen.dart';
+
 part 'app_router.g.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -42,6 +46,11 @@ class RoutePath {
   static const String addBook = '/add-book';
   static const String addChapter = '/add-chapter';
   static const String settings = '/settings';
+
+  // classroom
+  static const String classRooms = '/classrooms';
+  static const String classRoomDetails = '/classroom-details';
+  static const String createClassRoom = '/create-classroom';
 }
 
 class RouteName {
@@ -61,6 +70,11 @@ class RouteName {
   static const String addBook = 'addBook';
   static const String addChapter = 'addChapter';
   static const String settings = 'settings';
+
+  // classroom
+  static const String classRooms = 'classRooms';
+  static const String classRoomDetails = 'classRoomDetails';
+  static const String createClassRoom = 'createClassRoom';
 }
 
 class AppRouter {
@@ -187,6 +201,39 @@ class TeacherProfileRoute extends GoRouteData with _$TeacherProfileRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return slideTransitionPage(TeacherProfileScreen());
+  }
+}
+
+@TypedGoRoute<ClassRoomsRoute>(
+  path: RoutePath.classRooms,
+  name: RouteName.classRooms,
+)
+class ClassRoomsRoute extends GoRouteData with _$ClassRoomsRoute {
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return slideTransitionPage(ClassroomListScreen());
+  }
+}
+
+@TypedGoRoute<ClassRoomDetailsRoute>(
+  path: RoutePath.classRoomDetails,
+  name: RouteName.classRoomDetails,
+)
+class ClassRoomDetailsRoute extends GoRouteData with _$ClassRoomDetailsRoute {
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return slideTransitionPage(ClassroomDetailsScreen());
+  }
+}
+
+@TypedGoRoute<CreateClassRoomRoute>(
+  path: RoutePath.createClassRoom,
+  name: RouteName.createClassRoom,
+)
+class CreateClassRoomRoute extends GoRouteData with _$CreateClassRoomRoute {
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return slideTransitionPage(ClassroomCreateScreen());
   }
 }
 

@@ -285,7 +285,14 @@ class BookDetailsScreen extends HookConsumerWidget {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: ColorName.blueColor,
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  ColorName.blueColor,
+                  ColorName.blueColor2, // rgb(0, 255, 204)
+                ],
+              ),
               borderRadius: BorderRadius.circular(14),
             ),
             child: Center(

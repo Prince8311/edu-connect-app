@@ -11,6 +11,8 @@ List<RouteBase> get $appRoutes => [
       $comingSoonRoute,
       $maintainanceRoute,
       $authRoute,
+      $roleSelectRoute,
+      $studentSelectRoute,
       $bottomNavRoute,
       $classRoomsRoute,
       $classRoomDetailsRoute,
@@ -118,6 +120,63 @@ mixin _$AuthRoute on GoRouteData {
   @override
   String get location => GoRouteData.$location(
         '/auth',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $roleSelectRoute => GoRouteData.$route(
+      path: '/role-select',
+      name: 'roleSelect',
+      factory: _$RoleSelectRoute._fromState,
+    );
+
+mixin _$RoleSelectRoute on GoRouteData {
+  static RoleSelectRoute _fromState(GoRouterState state) => RoleSelectRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/role-select',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $studentSelectRoute => GoRouteData.$route(
+      path: '/student-select',
+      name: 'studentSelect',
+      factory: _$StudentSelectRoute._fromState,
+    );
+
+mixin _$StudentSelectRoute on GoRouteData {
+  static StudentSelectRoute _fromState(GoRouterState state) =>
+      StudentSelectRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/student-select',
       );
 
   @override

@@ -457,7 +457,7 @@ class AuthScreen extends HookConsumerWidget {
                         children: [
                           _AuthIconButton(
                             icon: Icons.fingerprint,
-                            onTap: () {},
+                            onTap: () => RoleSelectRoute().push(context),
                           ),
                           Gap(16.w),
                           _AuthIconButton(

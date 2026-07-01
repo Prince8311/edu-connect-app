@@ -37,6 +37,12 @@ class $AssetsImagesGen {
   /// File path: assets/images/error.gif
   AssetGenImage get error => const AssetGenImage('assets/images/error.gif');
 
+  /// File path: assets/images/guardian-role-bg.png
+  AssetGenImage get guardianRoleBg => const AssetGenImage('assets/images/guardian-role-bg.png');
+
+  /// File path: assets/images/guardian-role.svg
+  SvgGenImage get guardianRole => const SvgGenImage('assets/images/guardian-role.svg');
+
   /// File path: assets/images/logo-1.jpg
   AssetGenImage get logo1Jpg => const AssetGenImage('assets/images/logo-1.jpg');
 
@@ -61,6 +67,12 @@ class $AssetsImagesGen {
   /// File path: assets/images/success.gif
   AssetGenImage get success => const AssetGenImage('assets/images/success.gif');
 
+  /// File path: assets/images/teacher-role-bg.png
+  AssetGenImage get teacherRoleBg => const AssetGenImage('assets/images/teacher-role-bg.png');
+
+  /// File path: assets/images/teacher-role.svg
+  SvgGenImage get teacherRole => const SvgGenImage('assets/images/teacher-role.svg');
+
   /// File path: assets/images/under-construction.svg
   SvgGenImage get underConstruction => const SvgGenImage('assets/images/under-construction.svg');
 
@@ -73,6 +85,8 @@ class $AssetsImagesGen {
         cancelTag,
         checkmark,
         error,
+        guardianRoleBg,
+        guardianRole,
         logo1Jpg,
         logo1Png,
         logo,
@@ -81,6 +95,8 @@ class $AssetsImagesGen {
         profileImage,
         splashLogo,
         success,
+        teacherRoleBg,
+        teacherRole,
         underConstruction,
         warning
       ];

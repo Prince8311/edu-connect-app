@@ -9,7 +9,10 @@ import 'package:edu_connect/core/shared/widgets/bottom_nav_bar.dart';
 // UI Screens
 import 'package:edu_connect/features/onboarding/splash_screen.dart';
 import 'package:edu_connect/features/onboarding/maintenance_screen.dart';
+
 import 'package:edu_connect/features/auth/presentation/screens/auth_screen.dart';
+import 'package:edu_connect/features/auth/presentation/screens/role_select_screen.dart';
+import 'package:edu_connect/features/auth/presentation/screens/student_select_screen.dart';
 
 import 'package:edu_connect/features/library/presentation/screens/book_add_screen.dart';
 import 'package:edu_connect/features/library/presentation/screens/book_details_screen.dart';
@@ -36,6 +39,8 @@ class RoutePath {
 
   // auth screen
   static const String auth = '/auth';
+  static const String roleSelect = '/role-select';
+  static const String studentSelect = '/student-select';
 
   // teacher
   static const String teacherHome = '/teacher-home';
@@ -60,6 +65,8 @@ class RouteName {
 
   // auth screens
   static const String auth = 'auth';
+  static const String roleSelect = 'roleSelect';
+  static const String studentSelect = 'studentSelect';
 
   // teacher
   static const String teacherHome = 'teacherHome';
@@ -130,6 +137,28 @@ class AuthRoute extends GoRouteData with _$AuthRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return const NoTransitionPage(child: AuthScreen());
+  }
+}
+
+@TypedGoRoute<RoleSelectRoute>(
+  path: RoutePath.roleSelect,
+  name: RouteName.roleSelect,
+)
+class RoleSelectRoute extends GoRouteData with _$RoleSelectRoute {
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return const NoTransitionPage(child: RoleSelectScreen());
+  }
+}
+
+@TypedGoRoute<StudentSelectRoute>(
+  path: RoutePath.studentSelect,
+  name: RouteName.studentSelect,
+)
+class StudentSelectRoute extends GoRouteData with _$StudentSelectRoute {
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return const NoTransitionPage(child: StudentSelectScreen());
   }
 }
 

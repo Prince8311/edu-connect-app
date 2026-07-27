@@ -25,6 +25,9 @@ class $AssetsAnimationsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/afternoon.png
+  AssetGenImage get afternoon => const AssetGenImage('assets/images/afternoon.png');
+
   /// File path: assets/images/book.png
   AssetGenImage get book => const AssetGenImage('assets/images/book.png');
 
@@ -36,6 +39,9 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/error.gif
   AssetGenImage get error => const AssetGenImage('assets/images/error.gif');
+
+  /// File path: assets/images/evening.png
+  AssetGenImage get evening => const AssetGenImage('assets/images/evening.png');
 
   /// File path: assets/images/guardian-role-bg.png
   AssetGenImage get guardianRoleBg => const AssetGenImage('assets/images/guardian-role-bg.png');
@@ -54,6 +60,12 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/maintainance.svg
   SvgGenImage get maintainance => const SvgGenImage('assets/images/maintainance.svg');
+
+  /// File path: assets/images/morning.png
+  AssetGenImage get morning => const AssetGenImage('assets/images/morning.png');
+
+  /// File path: assets/images/night.png
+  AssetGenImage get night => const AssetGenImage('assets/images/night.png');
 
   /// File path: assets/images/no-fields.svg
   SvgGenImage get noFields => const SvgGenImage('assets/images/no-fields.svg');
@@ -81,16 +93,20 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<dynamic> get values => [
+        afternoon,
         book,
         cancelTag,
         checkmark,
         error,
+        evening,
         guardianRoleBg,
         guardianRole,
         logo1Jpg,
         logo1Png,
         logo,
         maintainance,
+        morning,
+        night,
         noFields,
         profileImage,
         splashLogo,

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:edu_connect/core/router/app_router.dart';
+import 'package:edu_connect/features/auth/presentation/providers/auth_token_provider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:edu_connect/core/shared/miscellaneous/app_extensions.dart';
 import 'package:edu_connect/core/shared/miscellaneous/gap.dart';
@@ -360,13 +361,23 @@ class AuthScreen extends HookConsumerWidget {
                                     loginByOtp: false,
                                     password: passwordController.text.trim(),
                                   );
+                                  print("Login Request: ${request.toJson()}");
                                   final result = await ref.read(
                                       loginProvider(requestBody: request)
                                           .future);
                                   isLoading.value = false;
-                                  if (result?.authToken != null &&
-                                      context.mounted) {
-                                    TeacherHomeRoute().go(context);
+                                  if (!context.mounted) return;
+                                  if (result?.nextScreen == 'home') {
+                                    if (result?.authToken != null &&
+                                        context.mounted) {
+                                      HomeRoute().go(context);
+                                    }
+                                  } else if (result?.nextScreen ==
+                                      'selectRole') {
+                                    RoleSelectRoute().go(context);
+                                  } else if (result?.nextScreen ==
+                                      'selectStudent') {
+                                    StudentSelectRoute().go(context);
                                   }
                                 } else {
                                   if (!showOtpField.value) {
@@ -393,9 +404,20 @@ class AuthScreen extends HookConsumerWidget {
                                         loginProvider(requestBody: request)
                                             .future);
                                     isLoading.value = false;
-                                    if (result?.authToken != null &&
-                                        context.mounted) {
-                                      TeacherHomeRoute().go(context);
+                                    if (!context.mounted) return;
+                                    ref.invalidate(authTokenProvider);
+
+                                    if (result?.nextScreen == 'home') {
+                                      if (result?.authToken != null &&
+                                          context.mounted) {
+                                        HomeRoute().go(context);
+                                      }
+                                    } else if (result?.nextScreen ==
+                                        'selectRole') {
+                                      RoleSelectRoute().push(context);
+                                    } else if (result?.nextScreen ==
+                                        'selectStudent') {
+                                      StudentSelectRoute().push(context);
                                     }
                                   }
                                 }

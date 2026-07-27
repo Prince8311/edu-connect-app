@@ -26,7 +26,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     if (!mounted) return;
 
     if (token != null && token.isNotEmpty) {
-      TeacherHomeRoute().go(context);
+      HomeRoute().go(context);
     } else {
       AuthRoute().go(context);
     }
@@ -43,11 +43,3 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     );
   }
 }
-
-
-
-
-
-
-
-

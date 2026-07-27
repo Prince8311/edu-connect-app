@@ -199,9 +199,18 @@ RouteBase get $bottomNavRoute => StatefulShellRouteData.$route(
         StatefulShellBranchData.$branch(
           routes: [
             GoRouteData.$route(
-              path: '/teacher-home',
-              name: 'teacherHome',
-              factory: _$TeacherHomeRoute._fromState,
+              path: '/home',
+              name: 'home',
+              factory: _$HomeRoute._fromState,
+            ),
+          ],
+        ),
+        StatefulShellBranchData.$branch(
+          routes: [
+            GoRouteData.$route(
+              path: '/time-table',
+              name: 'timeTable',
+              factory: _$TimeTableRoute._fromState,
             ),
           ],
         ),
@@ -231,12 +240,34 @@ extension $BottomNavRouteExtension on BottomNavRoute {
       const BottomNavRoute();
 }
 
-mixin _$TeacherHomeRoute on GoRouteData {
-  static TeacherHomeRoute _fromState(GoRouterState state) => TeacherHomeRoute();
+mixin _$HomeRoute on GoRouteData {
+  static HomeRoute _fromState(GoRouterState state) => HomeRoute();
 
   @override
   String get location => GoRouteData.$location(
-        '/teacher-home',
+        '/home',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin _$TimeTableRoute on GoRouteData {
+  static TimeTableRoute _fromState(GoRouterState state) => TimeTableRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/time-table',
       );
 
   @override

@@ -81,7 +81,7 @@ class ComingSoonScreen extends StatelessWidget {
                   width: 220,
                   child: ElevatedButton.icon(
                     onPressed: () {
-                      TeacherHomeRoute().go(context);
+                      HomeRoute().go(context);
                     },
                     icon: Icon(Icons.home_outlined,
                         color: ColorName.white, size: 21.sp),

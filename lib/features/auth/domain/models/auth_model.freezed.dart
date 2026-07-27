@@ -241,59 +241,441 @@ abstract class _LoginRequest implements LoginRequest {
       throw _privateConstructorUsedError;
 }
 
-LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) {
-  return _LoginResponse.fromJson(json);
+RoleSelectRequest _$RoleSelectRequestFromJson(Map<String, dynamic> json) {
+  return _RoleSelectRequest.fromJson(json);
 }
 
 /// @nodoc
-mixin _$LoginResponse {
-  @JsonKey(name: 'user')
-  UserInfo? get user => throw _privateConstructorUsedError;
-  @JsonKey(name: 'authToken')
-  String? get authToken => throw _privateConstructorUsedError;
+mixin _$RoleSelectRequest {
+  @JsonKey(name: 'tempToken')
+  String? get tempToken => throw _privateConstructorUsedError;
+  @JsonKey(name: 'role')
+  String? get role => throw _privateConstructorUsedError;
 
-  /// Serializes this LoginResponse to a JSON map.
+  /// Serializes this RoleSelectRequest to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of LoginResponse
+  /// Create a copy of RoleSelectRequest
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $LoginResponseCopyWith<LoginResponse> get copyWith =>
+  $RoleSelectRequestCopyWith<RoleSelectRequest> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LoginResponseCopyWith<$Res> {
-  factory $LoginResponseCopyWith(
-          LoginResponse value, $Res Function(LoginResponse) then) =
-      _$LoginResponseCopyWithImpl<$Res, LoginResponse>;
+abstract class $RoleSelectRequestCopyWith<$Res> {
+  factory $RoleSelectRequestCopyWith(
+          RoleSelectRequest value, $Res Function(RoleSelectRequest) then) =
+      _$RoleSelectRequestCopyWithImpl<$Res, RoleSelectRequest>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'user') UserInfo? user,
-      @JsonKey(name: 'authToken') String? authToken});
-
-  $UserInfoCopyWith<$Res>? get user;
+      {@JsonKey(name: 'tempToken') String? tempToken,
+      @JsonKey(name: 'role') String? role});
 }
 
 /// @nodoc
-class _$LoginResponseCopyWithImpl<$Res, $Val extends LoginResponse>
-    implements $LoginResponseCopyWith<$Res> {
-  _$LoginResponseCopyWithImpl(this._value, this._then);
+class _$RoleSelectRequestCopyWithImpl<$Res, $Val extends RoleSelectRequest>
+    implements $RoleSelectRequestCopyWith<$Res> {
+  _$RoleSelectRequestCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of LoginResponse
+  /// Create a copy of RoleSelectRequest
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? tempToken = freezed,
+    Object? role = freezed,
+  }) {
+    return _then(_value.copyWith(
+      tempToken: freezed == tempToken
+          ? _value.tempToken
+          : tempToken // ignore: cast_nullable_to_non_nullable
+              as String?,
+      role: freezed == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$RoleSelectRequestImplCopyWith<$Res>
+    implements $RoleSelectRequestCopyWith<$Res> {
+  factory _$$RoleSelectRequestImplCopyWith(_$RoleSelectRequestImpl value,
+          $Res Function(_$RoleSelectRequestImpl) then) =
+      __$$RoleSelectRequestImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'tempToken') String? tempToken,
+      @JsonKey(name: 'role') String? role});
+}
+
+/// @nodoc
+class __$$RoleSelectRequestImplCopyWithImpl<$Res>
+    extends _$RoleSelectRequestCopyWithImpl<$Res, _$RoleSelectRequestImpl>
+    implements _$$RoleSelectRequestImplCopyWith<$Res> {
+  __$$RoleSelectRequestImplCopyWithImpl(_$RoleSelectRequestImpl _value,
+      $Res Function(_$RoleSelectRequestImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of RoleSelectRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? tempToken = freezed,
+    Object? role = freezed,
+  }) {
+    return _then(_$RoleSelectRequestImpl(
+      tempToken: freezed == tempToken
+          ? _value.tempToken
+          : tempToken // ignore: cast_nullable_to_non_nullable
+              as String?,
+      role: freezed == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$RoleSelectRequestImpl implements _RoleSelectRequest {
+  const _$RoleSelectRequestImpl(
+      {@JsonKey(name: 'tempToken') this.tempToken,
+      @JsonKey(name: 'role') this.role});
+
+  factory _$RoleSelectRequestImpl.fromJson(Map<String, dynamic> json) =>
+      _$$RoleSelectRequestImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'tempToken')
+  final String? tempToken;
+  @override
+  @JsonKey(name: 'role')
+  final String? role;
+
+  @override
+  String toString() {
+    return 'RoleSelectRequest(tempToken: $tempToken, role: $role)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RoleSelectRequestImpl &&
+            (identical(other.tempToken, tempToken) ||
+                other.tempToken == tempToken) &&
+            (identical(other.role, role) || other.role == role));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, tempToken, role);
+
+  /// Create a copy of RoleSelectRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RoleSelectRequestImplCopyWith<_$RoleSelectRequestImpl> get copyWith =>
+      __$$RoleSelectRequestImplCopyWithImpl<_$RoleSelectRequestImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$RoleSelectRequestImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _RoleSelectRequest implements RoleSelectRequest {
+  const factory _RoleSelectRequest(
+      {@JsonKey(name: 'tempToken') final String? tempToken,
+      @JsonKey(name: 'role') final String? role}) = _$RoleSelectRequestImpl;
+
+  factory _RoleSelectRequest.fromJson(Map<String, dynamic> json) =
+      _$RoleSelectRequestImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'tempToken')
+  String? get tempToken;
+  @override
+  @JsonKey(name: 'role')
+  String? get role;
+
+  /// Create a copy of RoleSelectRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$RoleSelectRequestImplCopyWith<_$RoleSelectRequestImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+StudentSelectRequest _$StudentSelectRequestFromJson(Map<String, dynamic> json) {
+  return _StudentSelectRequest.fromJson(json);
+}
+
+/// @nodoc
+mixin _$StudentSelectRequest {
+  @JsonKey(name: 'tempToken')
+  String? get tempToken => throw _privateConstructorUsedError;
+  @JsonKey(name: 'studentId')
+  String? get studentId => throw _privateConstructorUsedError;
+
+  /// Serializes this StudentSelectRequest to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of StudentSelectRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $StudentSelectRequestCopyWith<StudentSelectRequest> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $StudentSelectRequestCopyWith<$Res> {
+  factory $StudentSelectRequestCopyWith(StudentSelectRequest value,
+          $Res Function(StudentSelectRequest) then) =
+      _$StudentSelectRequestCopyWithImpl<$Res, StudentSelectRequest>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'tempToken') String? tempToken,
+      @JsonKey(name: 'studentId') String? studentId});
+}
+
+/// @nodoc
+class _$StudentSelectRequestCopyWithImpl<$Res,
+        $Val extends StudentSelectRequest>
+    implements $StudentSelectRequestCopyWith<$Res> {
+  _$StudentSelectRequestCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of StudentSelectRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? tempToken = freezed,
+    Object? studentId = freezed,
+  }) {
+    return _then(_value.copyWith(
+      tempToken: freezed == tempToken
+          ? _value.tempToken
+          : tempToken // ignore: cast_nullable_to_non_nullable
+              as String?,
+      studentId: freezed == studentId
+          ? _value.studentId
+          : studentId // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$StudentSelectRequestImplCopyWith<$Res>
+    implements $StudentSelectRequestCopyWith<$Res> {
+  factory _$$StudentSelectRequestImplCopyWith(_$StudentSelectRequestImpl value,
+          $Res Function(_$StudentSelectRequestImpl) then) =
+      __$$StudentSelectRequestImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'tempToken') String? tempToken,
+      @JsonKey(name: 'studentId') String? studentId});
+}
+
+/// @nodoc
+class __$$StudentSelectRequestImplCopyWithImpl<$Res>
+    extends _$StudentSelectRequestCopyWithImpl<$Res, _$StudentSelectRequestImpl>
+    implements _$$StudentSelectRequestImplCopyWith<$Res> {
+  __$$StudentSelectRequestImplCopyWithImpl(_$StudentSelectRequestImpl _value,
+      $Res Function(_$StudentSelectRequestImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of StudentSelectRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? tempToken = freezed,
+    Object? studentId = freezed,
+  }) {
+    return _then(_$StudentSelectRequestImpl(
+      tempToken: freezed == tempToken
+          ? _value.tempToken
+          : tempToken // ignore: cast_nullable_to_non_nullable
+              as String?,
+      studentId: freezed == studentId
+          ? _value.studentId
+          : studentId // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$StudentSelectRequestImpl implements _StudentSelectRequest {
+  const _$StudentSelectRequestImpl(
+      {@JsonKey(name: 'tempToken') this.tempToken,
+      @JsonKey(name: 'studentId') this.studentId});
+
+  factory _$StudentSelectRequestImpl.fromJson(Map<String, dynamic> json) =>
+      _$$StudentSelectRequestImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'tempToken')
+  final String? tempToken;
+  @override
+  @JsonKey(name: 'studentId')
+  final String? studentId;
+
+  @override
+  String toString() {
+    return 'StudentSelectRequest(tempToken: $tempToken, studentId: $studentId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$StudentSelectRequestImpl &&
+            (identical(other.tempToken, tempToken) ||
+                other.tempToken == tempToken) &&
+            (identical(other.studentId, studentId) ||
+                other.studentId == studentId));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, tempToken, studentId);
+
+  /// Create a copy of StudentSelectRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$StudentSelectRequestImplCopyWith<_$StudentSelectRequestImpl>
+      get copyWith =>
+          __$$StudentSelectRequestImplCopyWithImpl<_$StudentSelectRequestImpl>(
+              this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$StudentSelectRequestImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _StudentSelectRequest implements StudentSelectRequest {
+  const factory _StudentSelectRequest(
+          {@JsonKey(name: 'tempToken') final String? tempToken,
+          @JsonKey(name: 'studentId') final String? studentId}) =
+      _$StudentSelectRequestImpl;
+
+  factory _StudentSelectRequest.fromJson(Map<String, dynamic> json) =
+      _$StudentSelectRequestImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'tempToken')
+  String? get tempToken;
+  @override
+  @JsonKey(name: 'studentId')
+  String? get studentId;
+
+  /// Create a copy of StudentSelectRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$StudentSelectRequestImplCopyWith<_$StudentSelectRequestImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+AuthResponse _$AuthResponseFromJson(Map<String, dynamic> json) {
+  return _AuthResponse.fromJson(json);
+}
+
+/// @nodoc
+mixin _$AuthResponse {
+  @JsonKey(name: 'next_screen')
+  String? get nextScreen => throw _privateConstructorUsedError;
+  @JsonKey(name: 'tempToken')
+  String? get tempToken => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user')
+  UserInfo? get user => throw _privateConstructorUsedError;
+  @JsonKey(name: 'authToken')
+  String? get authToken => throw _privateConstructorUsedError;
+
+  /// Serializes this AuthResponse to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of AuthResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $AuthResponseCopyWith<AuthResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $AuthResponseCopyWith<$Res> {
+  factory $AuthResponseCopyWith(
+          AuthResponse value, $Res Function(AuthResponse) then) =
+      _$AuthResponseCopyWithImpl<$Res, AuthResponse>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'next_screen') String? nextScreen,
+      @JsonKey(name: 'tempToken') String? tempToken,
+      @JsonKey(name: 'user') UserInfo? user,
+      @JsonKey(name: 'authToken') String? authToken});
+
+  $UserInfoCopyWith<$Res>? get user;
+}
+
+/// @nodoc
+class _$AuthResponseCopyWithImpl<$Res, $Val extends AuthResponse>
+    implements $AuthResponseCopyWith<$Res> {
+  _$AuthResponseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of AuthResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? nextScreen = freezed,
+    Object? tempToken = freezed,
     Object? user = freezed,
     Object? authToken = freezed,
   }) {
     return _then(_value.copyWith(
+      nextScreen: freezed == nextScreen
+          ? _value.nextScreen
+          : nextScreen // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tempToken: freezed == tempToken
+          ? _value.tempToken
+          : tempToken // ignore: cast_nullable_to_non_nullable
+              as String?,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -305,7 +687,7 @@ class _$LoginResponseCopyWithImpl<$Res, $Val extends LoginResponse>
     ) as $Val);
   }
 
-  /// Create a copy of LoginResponse
+  /// Create a copy of AuthResponse
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -321,15 +703,17 @@ class _$LoginResponseCopyWithImpl<$Res, $Val extends LoginResponse>
 }
 
 /// @nodoc
-abstract class _$$LoginResponseImplCopyWith<$Res>
-    implements $LoginResponseCopyWith<$Res> {
-  factory _$$LoginResponseImplCopyWith(
-          _$LoginResponseImpl value, $Res Function(_$LoginResponseImpl) then) =
-      __$$LoginResponseImplCopyWithImpl<$Res>;
+abstract class _$$AuthResponseImplCopyWith<$Res>
+    implements $AuthResponseCopyWith<$Res> {
+  factory _$$AuthResponseImplCopyWith(
+          _$AuthResponseImpl value, $Res Function(_$AuthResponseImpl) then) =
+      __$$AuthResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'user') UserInfo? user,
+      {@JsonKey(name: 'next_screen') String? nextScreen,
+      @JsonKey(name: 'tempToken') String? tempToken,
+      @JsonKey(name: 'user') UserInfo? user,
       @JsonKey(name: 'authToken') String? authToken});
 
   @override
@@ -337,22 +721,32 @@ abstract class _$$LoginResponseImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$LoginResponseImplCopyWithImpl<$Res>
-    extends _$LoginResponseCopyWithImpl<$Res, _$LoginResponseImpl>
-    implements _$$LoginResponseImplCopyWith<$Res> {
-  __$$LoginResponseImplCopyWithImpl(
-      _$LoginResponseImpl _value, $Res Function(_$LoginResponseImpl) _then)
+class __$$AuthResponseImplCopyWithImpl<$Res>
+    extends _$AuthResponseCopyWithImpl<$Res, _$AuthResponseImpl>
+    implements _$$AuthResponseImplCopyWith<$Res> {
+  __$$AuthResponseImplCopyWithImpl(
+      _$AuthResponseImpl _value, $Res Function(_$AuthResponseImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of LoginResponse
+  /// Create a copy of AuthResponse
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? nextScreen = freezed,
+    Object? tempToken = freezed,
     Object? user = freezed,
     Object? authToken = freezed,
   }) {
-    return _then(_$LoginResponseImpl(
+    return _then(_$AuthResponseImpl(
+      nextScreen: freezed == nextScreen
+          ? _value.nextScreen
+          : nextScreen // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tempToken: freezed == tempToken
+          ? _value.tempToken
+          : tempToken // ignore: cast_nullable_to_non_nullable
+              as String?,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -367,14 +761,22 @@ class __$$LoginResponseImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LoginResponseImpl implements _LoginResponse {
-  const _$LoginResponseImpl(
-      {@JsonKey(name: 'user') this.user,
+class _$AuthResponseImpl implements _AuthResponse {
+  const _$AuthResponseImpl(
+      {@JsonKey(name: 'next_screen') this.nextScreen,
+      @JsonKey(name: 'tempToken') this.tempToken,
+      @JsonKey(name: 'user') this.user,
       @JsonKey(name: 'authToken') this.authToken});
 
-  factory _$LoginResponseImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LoginResponseImplFromJson(json);
+  factory _$AuthResponseImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AuthResponseImplFromJson(json);
 
+  @override
+  @JsonKey(name: 'next_screen')
+  final String? nextScreen;
+  @override
+  @JsonKey(name: 'tempToken')
+  final String? tempToken;
   @override
   @JsonKey(name: 'user')
   final UserInfo? user;
@@ -384,14 +786,18 @@ class _$LoginResponseImpl implements _LoginResponse {
 
   @override
   String toString() {
-    return 'LoginResponse(user: $user, authToken: $authToken)';
+    return 'AuthResponse(nextScreen: $nextScreen, tempToken: $tempToken, user: $user, authToken: $authToken)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LoginResponseImpl &&
+            other is _$AuthResponseImpl &&
+            (identical(other.nextScreen, nextScreen) ||
+                other.nextScreen == nextScreen) &&
+            (identical(other.tempToken, tempToken) ||
+                other.tempToken == tempToken) &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.authToken, authToken) ||
                 other.authToken == authToken));
@@ -399,33 +805,42 @@ class _$LoginResponseImpl implements _LoginResponse {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, user, authToken);
+  int get hashCode =>
+      Object.hash(runtimeType, nextScreen, tempToken, user, authToken);
 
-  /// Create a copy of LoginResponse
+  /// Create a copy of AuthResponse
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$LoginResponseImplCopyWith<_$LoginResponseImpl> get copyWith =>
-      __$$LoginResponseImplCopyWithImpl<_$LoginResponseImpl>(this, _$identity);
+  _$$AuthResponseImplCopyWith<_$AuthResponseImpl> get copyWith =>
+      __$$AuthResponseImplCopyWithImpl<_$AuthResponseImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LoginResponseImplToJson(
+    return _$$AuthResponseImplToJson(
       this,
     );
   }
 }
 
-abstract class _LoginResponse implements LoginResponse {
-  const factory _LoginResponse(
-          {@JsonKey(name: 'user') final UserInfo? user,
+abstract class _AuthResponse implements AuthResponse {
+  const factory _AuthResponse(
+          {@JsonKey(name: 'next_screen') final String? nextScreen,
+          @JsonKey(name: 'tempToken') final String? tempToken,
+          @JsonKey(name: 'user') final UserInfo? user,
           @JsonKey(name: 'authToken') final String? authToken}) =
-      _$LoginResponseImpl;
+      _$AuthResponseImpl;
 
-  factory _LoginResponse.fromJson(Map<String, dynamic> json) =
-      _$LoginResponseImpl.fromJson;
+  factory _AuthResponse.fromJson(Map<String, dynamic> json) =
+      _$AuthResponseImpl.fromJson;
 
+  @override
+  @JsonKey(name: 'next_screen')
+  String? get nextScreen;
+  @override
+  @JsonKey(name: 'tempToken')
+  String? get tempToken;
   @override
   @JsonKey(name: 'user')
   UserInfo? get user;
@@ -433,11 +848,356 @@ abstract class _LoginResponse implements LoginResponse {
   @JsonKey(name: 'authToken')
   String? get authToken;
 
-  /// Create a copy of LoginResponse
+  /// Create a copy of AuthResponse
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LoginResponseImplCopyWith<_$LoginResponseImpl> get copyWith =>
+  _$$AuthResponseImplCopyWith<_$AuthResponseImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+GuardianStudent _$GuardianStudentFromJson(Map<String, dynamic> json) {
+  return _GuardianStudent.fromJson(json);
+}
+
+/// @nodoc
+mixin _$GuardianStudent {
+  @JsonKey(name: 'id')
+  int? get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'inst_id')
+  String? get instId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'name')
+  String? get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'profile_image')
+  String? get profileImage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'email')
+  String? get email => throw _privateConstructorUsedError;
+  @JsonKey(name: 'phone')
+  String? get phone => throw _privateConstructorUsedError;
+  @JsonKey(name: 'enrollment_id')
+  String? get enrollmentId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'class')
+  String? get className => throw _privateConstructorUsedError;
+  @JsonKey(name: 'section')
+  String? get section => throw _privateConstructorUsedError;
+
+  /// Serializes this GuardianStudent to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of GuardianStudent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $GuardianStudentCopyWith<GuardianStudent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $GuardianStudentCopyWith<$Res> {
+  factory $GuardianStudentCopyWith(
+          GuardianStudent value, $Res Function(GuardianStudent) then) =
+      _$GuardianStudentCopyWithImpl<$Res, GuardianStudent>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'id') int? id,
+      @JsonKey(name: 'inst_id') String? instId,
+      @JsonKey(name: 'name') String? name,
+      @JsonKey(name: 'profile_image') String? profileImage,
+      @JsonKey(name: 'email') String? email,
+      @JsonKey(name: 'phone') String? phone,
+      @JsonKey(name: 'enrollment_id') String? enrollmentId,
+      @JsonKey(name: 'class') String? className,
+      @JsonKey(name: 'section') String? section});
+}
+
+/// @nodoc
+class _$GuardianStudentCopyWithImpl<$Res, $Val extends GuardianStudent>
+    implements $GuardianStudentCopyWith<$Res> {
+  _$GuardianStudentCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of GuardianStudent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? instId = freezed,
+    Object? name = freezed,
+    Object? profileImage = freezed,
+    Object? email = freezed,
+    Object? phone = freezed,
+    Object? enrollmentId = freezed,
+    Object? className = freezed,
+    Object? section = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      instId: freezed == instId
+          ? _value.instId
+          : instId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      profileImage: freezed == profileImage
+          ? _value.profileImage
+          : profileImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      enrollmentId: freezed == enrollmentId
+          ? _value.enrollmentId
+          : enrollmentId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      className: freezed == className
+          ? _value.className
+          : className // ignore: cast_nullable_to_non_nullable
+              as String?,
+      section: freezed == section
+          ? _value.section
+          : section // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$GuardianStudentImplCopyWith<$Res>
+    implements $GuardianStudentCopyWith<$Res> {
+  factory _$$GuardianStudentImplCopyWith(_$GuardianStudentImpl value,
+          $Res Function(_$GuardianStudentImpl) then) =
+      __$$GuardianStudentImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'id') int? id,
+      @JsonKey(name: 'inst_id') String? instId,
+      @JsonKey(name: 'name') String? name,
+      @JsonKey(name: 'profile_image') String? profileImage,
+      @JsonKey(name: 'email') String? email,
+      @JsonKey(name: 'phone') String? phone,
+      @JsonKey(name: 'enrollment_id') String? enrollmentId,
+      @JsonKey(name: 'class') String? className,
+      @JsonKey(name: 'section') String? section});
+}
+
+/// @nodoc
+class __$$GuardianStudentImplCopyWithImpl<$Res>
+    extends _$GuardianStudentCopyWithImpl<$Res, _$GuardianStudentImpl>
+    implements _$$GuardianStudentImplCopyWith<$Res> {
+  __$$GuardianStudentImplCopyWithImpl(
+      _$GuardianStudentImpl _value, $Res Function(_$GuardianStudentImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of GuardianStudent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? instId = freezed,
+    Object? name = freezed,
+    Object? profileImage = freezed,
+    Object? email = freezed,
+    Object? phone = freezed,
+    Object? enrollmentId = freezed,
+    Object? className = freezed,
+    Object? section = freezed,
+  }) {
+    return _then(_$GuardianStudentImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      instId: freezed == instId
+          ? _value.instId
+          : instId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      profileImage: freezed == profileImage
+          ? _value.profileImage
+          : profileImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      enrollmentId: freezed == enrollmentId
+          ? _value.enrollmentId
+          : enrollmentId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      className: freezed == className
+          ? _value.className
+          : className // ignore: cast_nullable_to_non_nullable
+              as String?,
+      section: freezed == section
+          ? _value.section
+          : section // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$GuardianStudentImpl implements _GuardianStudent {
+  const _$GuardianStudentImpl(
+      {@JsonKey(name: 'id') this.id,
+      @JsonKey(name: 'inst_id') this.instId,
+      @JsonKey(name: 'name') this.name,
+      @JsonKey(name: 'profile_image') this.profileImage,
+      @JsonKey(name: 'email') this.email,
+      @JsonKey(name: 'phone') this.phone,
+      @JsonKey(name: 'enrollment_id') this.enrollmentId,
+      @JsonKey(name: 'class') this.className,
+      @JsonKey(name: 'section') this.section});
+
+  factory _$GuardianStudentImpl.fromJson(Map<String, dynamic> json) =>
+      _$$GuardianStudentImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'id')
+  final int? id;
+  @override
+  @JsonKey(name: 'inst_id')
+  final String? instId;
+  @override
+  @JsonKey(name: 'name')
+  final String? name;
+  @override
+  @JsonKey(name: 'profile_image')
+  final String? profileImage;
+  @override
+  @JsonKey(name: 'email')
+  final String? email;
+  @override
+  @JsonKey(name: 'phone')
+  final String? phone;
+  @override
+  @JsonKey(name: 'enrollment_id')
+  final String? enrollmentId;
+  @override
+  @JsonKey(name: 'class')
+  final String? className;
+  @override
+  @JsonKey(name: 'section')
+  final String? section;
+
+  @override
+  String toString() {
+    return 'GuardianStudent(id: $id, instId: $instId, name: $name, profileImage: $profileImage, email: $email, phone: $phone, enrollmentId: $enrollmentId, className: $className, section: $section)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GuardianStudentImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.instId, instId) || other.instId == instId) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.profileImage, profileImage) ||
+                other.profileImage == profileImage) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.enrollmentId, enrollmentId) ||
+                other.enrollmentId == enrollmentId) &&
+            (identical(other.className, className) ||
+                other.className == className) &&
+            (identical(other.section, section) || other.section == section));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, instId, name, profileImage,
+      email, phone, enrollmentId, className, section);
+
+  /// Create a copy of GuardianStudent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GuardianStudentImplCopyWith<_$GuardianStudentImpl> get copyWith =>
+      __$$GuardianStudentImplCopyWithImpl<_$GuardianStudentImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$GuardianStudentImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _GuardianStudent implements GuardianStudent {
+  const factory _GuardianStudent(
+      {@JsonKey(name: 'id') final int? id,
+      @JsonKey(name: 'inst_id') final String? instId,
+      @JsonKey(name: 'name') final String? name,
+      @JsonKey(name: 'profile_image') final String? profileImage,
+      @JsonKey(name: 'email') final String? email,
+      @JsonKey(name: 'phone') final String? phone,
+      @JsonKey(name: 'enrollment_id') final String? enrollmentId,
+      @JsonKey(name: 'class') final String? className,
+      @JsonKey(name: 'section') final String? section}) = _$GuardianStudentImpl;
+
+  factory _GuardianStudent.fromJson(Map<String, dynamic> json) =
+      _$GuardianStudentImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'id')
+  int? get id;
+  @override
+  @JsonKey(name: 'inst_id')
+  String? get instId;
+  @override
+  @JsonKey(name: 'name')
+  String? get name;
+  @override
+  @JsonKey(name: 'profile_image')
+  String? get profileImage;
+  @override
+  @JsonKey(name: 'email')
+  String? get email;
+  @override
+  @JsonKey(name: 'phone')
+  String? get phone;
+  @override
+  @JsonKey(name: 'enrollment_id')
+  String? get enrollmentId;
+  @override
+  @JsonKey(name: 'class')
+  String? get className;
+  @override
+  @JsonKey(name: 'section')
+  String? get section;
+
+  /// Create a copy of GuardianStudent
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$GuardianStudentImplCopyWith<_$GuardianStudentImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -455,8 +1215,12 @@ mixin _$UserInfo {
   String? get email => throw _privateConstructorUsedError;
   @JsonKey(name: 'phone')
   String? get phone => throw _privateConstructorUsedError;
+  @JsonKey(name: 'profile_image')
+  String? get profileImage => throw _privateConstructorUsedError;
   @JsonKey(name: 'type')
   String? get type => throw _privateConstructorUsedError;
+  @JsonKey(name: 'student')
+  int? get student => throw _privateConstructorUsedError;
 
   /// Serializes this UserInfo to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -478,7 +1242,9 @@ abstract class $UserInfoCopyWith<$Res> {
       @JsonKey(name: 'name') String? name,
       @JsonKey(name: 'email') String? email,
       @JsonKey(name: 'phone') String? phone,
-      @JsonKey(name: 'type') String? type});
+      @JsonKey(name: 'profile_image') String? profileImage,
+      @JsonKey(name: 'type') String? type,
+      @JsonKey(name: 'student') int? student});
 }
 
 /// @nodoc
@@ -500,7 +1266,9 @@ class _$UserInfoCopyWithImpl<$Res, $Val extends UserInfo>
     Object? name = freezed,
     Object? email = freezed,
     Object? phone = freezed,
+    Object? profileImage = freezed,
     Object? type = freezed,
+    Object? student = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -519,10 +1287,18 @@ class _$UserInfoCopyWithImpl<$Res, $Val extends UserInfo>
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String?,
+      profileImage: freezed == profileImage
+          ? _value.profileImage
+          : profileImage // ignore: cast_nullable_to_non_nullable
+              as String?,
       type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
+      student: freezed == student
+          ? _value.student
+          : student // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -540,7 +1316,9 @@ abstract class _$$UserInfoImplCopyWith<$Res>
       @JsonKey(name: 'name') String? name,
       @JsonKey(name: 'email') String? email,
       @JsonKey(name: 'phone') String? phone,
-      @JsonKey(name: 'type') String? type});
+      @JsonKey(name: 'profile_image') String? profileImage,
+      @JsonKey(name: 'type') String? type,
+      @JsonKey(name: 'student') int? student});
 }
 
 /// @nodoc
@@ -560,7 +1338,9 @@ class __$$UserInfoImplCopyWithImpl<$Res>
     Object? name = freezed,
     Object? email = freezed,
     Object? phone = freezed,
+    Object? profileImage = freezed,
     Object? type = freezed,
+    Object? student = freezed,
   }) {
     return _then(_$UserInfoImpl(
       id: freezed == id
@@ -579,10 +1359,18 @@ class __$$UserInfoImplCopyWithImpl<$Res>
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String?,
+      profileImage: freezed == profileImage
+          ? _value.profileImage
+          : profileImage // ignore: cast_nullable_to_non_nullable
+              as String?,
       type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
+      student: freezed == student
+          ? _value.student
+          : student // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -595,7 +1383,9 @@ class _$UserInfoImpl implements _UserInfo {
       @JsonKey(name: 'name') this.name,
       @JsonKey(name: 'email') this.email,
       @JsonKey(name: 'phone') this.phone,
-      @JsonKey(name: 'type') this.type});
+      @JsonKey(name: 'profile_image') this.profileImage,
+      @JsonKey(name: 'type') this.type,
+      @JsonKey(name: 'student') this.student});
 
   factory _$UserInfoImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserInfoImplFromJson(json);
@@ -613,12 +1403,18 @@ class _$UserInfoImpl implements _UserInfo {
   @JsonKey(name: 'phone')
   final String? phone;
   @override
+  @JsonKey(name: 'profile_image')
+  final String? profileImage;
+  @override
   @JsonKey(name: 'type')
   final String? type;
+  @override
+  @JsonKey(name: 'student')
+  final int? student;
 
   @override
   String toString() {
-    return 'UserInfo(id: $id, name: $name, email: $email, phone: $phone, type: $type)';
+    return 'UserInfo(id: $id, name: $name, email: $email, phone: $phone, profileImage: $profileImage, type: $type, student: $student)';
   }
 
   @override
@@ -630,12 +1426,16 @@ class _$UserInfoImpl implements _UserInfo {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.phone, phone) || other.phone == phone) &&
-            (identical(other.type, type) || other.type == type));
+            (identical(other.profileImage, profileImage) ||
+                other.profileImage == profileImage) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.student, student) || other.student == student));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, email, phone, type);
+  int get hashCode => Object.hash(
+      runtimeType, id, name, email, phone, profileImage, type, student);
 
   /// Create a copy of UserInfo
   /// with the given fields replaced by the non-null parameter values.
@@ -659,7 +1459,9 @@ abstract class _UserInfo implements UserInfo {
       @JsonKey(name: 'name') final String? name,
       @JsonKey(name: 'email') final String? email,
       @JsonKey(name: 'phone') final String? phone,
-      @JsonKey(name: 'type') final String? type}) = _$UserInfoImpl;
+      @JsonKey(name: 'profile_image') final String? profileImage,
+      @JsonKey(name: 'type') final String? type,
+      @JsonKey(name: 'student') final int? student}) = _$UserInfoImpl;
 
   factory _UserInfo.fromJson(Map<String, dynamic> json) =
       _$UserInfoImpl.fromJson;
@@ -677,8 +1479,14 @@ abstract class _UserInfo implements UserInfo {
   @JsonKey(name: 'phone')
   String? get phone;
   @override
+  @JsonKey(name: 'profile_image')
+  String? get profileImage;
+  @override
   @JsonKey(name: 'type')
   String? get type;
+  @override
+  @JsonKey(name: 'student')
+  int? get student;
 
   /// Create a copy of UserInfo
   /// with the given fields replaced by the non-null parameter values.

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:edu_connect/features/onboarding/coming_soon_screen.dart';
 import 'package:edu_connect/core/shared/widgets/bottom_nav_bar.dart';
+import 'package:edu_connect/core/utils/route_guard.dart';
 
 // UI Screens
 import 'package:edu_connect/features/onboarding/splash_screen.dart';
@@ -20,9 +21,9 @@ import 'package:edu_connect/features/library/presentation/screens/chapter_add_sc
 import 'package:edu_connect/features/library/presentation/screens/library_screen.dart';
 import 'package:edu_connect/features/profile/presentation/screens/settings_screen.dart';
 
-// Teachers
-import 'package:edu_connect/features/home/presentation/screens/teacher/home_screen.dart';
-import 'package:edu_connect/features/profile/presentation/screens/teacher/profile_screen.dart';
+import 'package:edu_connect/features/home/presentation/screens/home_screen.dart';
+import 'package:edu_connect/features/time-table/presentation/screens/time_table_screen.dart';
+import 'package:edu_connect/features/profile/presentation/screens/profile_screen.dart';
 
 import 'package:edu_connect/features/classroom/presentation/screens/classroom_list_screen.dart';
 import 'package:edu_connect/features/classroom/presentation/screens/classroom_details_screen.dart';
@@ -42,8 +43,8 @@ class RoutePath {
   static const String roleSelect = '/role-select';
   static const String studentSelect = '/student-select';
 
-  // teacher
-  static const String teacherHome = '/teacher-home';
+  static const String home = '/home';
+  static const String timeTable = '/time-table';
   static const String teacherProfile = '/teacher-profile';
 
   static const String library = '/library';
@@ -68,8 +69,8 @@ class RouteName {
   static const String roleSelect = 'roleSelect';
   static const String studentSelect = 'studentSelect';
 
-  // teacher
-  static const String teacherHome = 'teacherHome';
+  static const String home = 'home';
+  static const String timeTable = 'timeTable';
   static const String teacherProfile = 'teacherProfile';
 
   static const String library = 'library';
@@ -92,6 +93,7 @@ class AppRouter {
     ],
     debugLogDiagnostics: true,
     initialLocation: RoutePath.initial,
+    redirect: RouteGuard.redirectLogic,
     routes: $appRoutes,
   );
 }
@@ -167,9 +169,19 @@ class StudentSelectRoute extends GoRouteData with _$StudentSelectRoute {
     // Home Route
     TypedStatefulShellBranch(
       routes: [
-        TypedGoRoute<TeacherHomeRoute>(
-          path: RoutePath.teacherHome,
-          name: RouteName.teacherHome,
+        TypedGoRoute<HomeRoute>(
+          path: RoutePath.home,
+          name: RouteName.home,
+        ),
+      ],
+    ),
+
+    // Time Table Route
+    TypedStatefulShellBranch(
+      routes: [
+        TypedGoRoute<TimeTableRoute>(
+          path: RoutePath.timeTable,
+          name: RouteName.timeTable,
         ),
       ],
     ),
@@ -212,10 +224,17 @@ class BottomNavRoute extends StatefulShellRouteData {
   }
 }
 
-class TeacherHomeRoute extends GoRouteData with _$TeacherHomeRoute {
+class HomeRoute extends GoRouteData with _$HomeRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return slideTransitionPage(TeacherHomeScreen());
+    return slideTransitionPage(HomeScreen());
+  }
+}
+
+class TimeTableRoute extends GoRouteData with _$TimeTableRoute {
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return slideTransitionPage(TimeTableScreen());
   }
 }
 

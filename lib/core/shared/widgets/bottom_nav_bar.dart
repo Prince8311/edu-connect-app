@@ -8,7 +8,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-enum MenuLabel { home, resources, library, profile }
+enum MenuLabel { home, timeTable, library, profile }
 
 class BottomNavScreen extends ConsumerStatefulWidget {
   final StatefulNavigationShell child;
@@ -54,12 +54,12 @@ class _BottomNavScreenState extends ConsumerState<BottomNavScreen> {
       BottomNavItem(
         label: 'Home',
         icon: Icon(Icons.home),
-        initialLocation: RoutePath.teacherHome,
+        initialLocation: RoutePath.home,
       ),
       BottomNavItem(
-        label: 'Resources',
-        icon: Icon(Icons.school),
-        initialLocation: RoutePath.comingSoon,
+        label: 'Time Table',
+        icon: Icon(Icons.calendar_month),
+        initialLocation: RoutePath.timeTable,
       ),
       BottomNavItem(
         label: 'Library',
@@ -156,7 +156,7 @@ class CustomBottomNavBar extends StatelessWidget {
   String getMenuLabel(MenuLabel? label) {
     return switch (label) {
       MenuLabel.home => 'Home',
-      MenuLabel.resources => 'Resources',
+      MenuLabel.timeTable => 'Time Table',
       MenuLabel.library => 'Library',
       MenuLabel.profile => 'Profile',
       _ => '-',
@@ -215,7 +215,7 @@ class BottomNavItemWidget extends StatelessWidget {
                 ),
               IconTheme(
                 data: IconThemeData(
-                  color: selected ? ColorName.themeColor : ColorName.black2,
+                  color: selected ? ColorName.blueColor2 : ColorName.black2,
                   size: 26.sp,
                 ),
                 child: icon,
@@ -228,7 +228,7 @@ class BottomNavItemWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 11.sp,
               fontFamily: FontFamily.poppins,
-              color: selected ? ColorName.themeColor : ColorName.black2,
+              color: selected ? ColorName.blueColor2 : ColorName.black2,
               fontWeight: FontWeight.w500,
             ),
           ),

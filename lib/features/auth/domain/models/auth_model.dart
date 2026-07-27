@@ -17,14 +17,56 @@ class LoginRequest with _$LoginRequest {
 }
 
 @freezed
-class LoginResponse with _$LoginResponse {
-  const factory LoginResponse({
+class RoleSelectRequest with _$RoleSelectRequest {
+  const factory RoleSelectRequest({
+    @JsonKey(name: 'tempToken') String? tempToken,
+    @JsonKey(name: 'role') String? role,
+  }) = _RoleSelectRequest;
+
+  factory RoleSelectRequest.fromJson(Map<String, dynamic> json) =>
+      _$RoleSelectRequestFromJson(json);
+}
+
+@freezed
+class StudentSelectRequest with _$StudentSelectRequest {
+  const factory StudentSelectRequest({
+    @JsonKey(name: 'tempToken') String? tempToken,
+    @JsonKey(name: 'studentId') String? studentId,
+  }) = _StudentSelectRequest;
+
+  factory StudentSelectRequest.fromJson(Map<String, dynamic> json) =>
+      _$StudentSelectRequestFromJson(json);
+}
+
+@freezed
+class AuthResponse with _$AuthResponse {
+  const factory AuthResponse({
+    @JsonKey(name: 'next_screen') String? nextScreen,
+    @JsonKey(name: 'tempToken') String? tempToken,
     @JsonKey(name: 'user') UserInfo? user,
     @JsonKey(name: 'authToken') String? authToken,
-  }) = _LoginResponse;
+  }) = _AuthResponse;
 
-  factory LoginResponse.fromJson(Map<String, dynamic> json) =>
-      _$LoginResponseFromJson(json);
+  factory AuthResponse.fromJson(Map<String, dynamic> json) =>
+      _$AuthResponseFromJson(json);
+}
+
+@freezed
+class GuardianStudent with _$GuardianStudent {
+  const factory GuardianStudent({
+    @JsonKey(name: 'id') int? id,
+    @JsonKey(name: 'inst_id') String? instId,
+    @JsonKey(name: 'name') String? name,
+    @JsonKey(name: 'profile_image') String? profileImage,
+    @JsonKey(name: 'email') String? email,
+    @JsonKey(name: 'phone') String? phone,
+    @JsonKey(name: 'enrollment_id') String? enrollmentId,
+    @JsonKey(name: 'class') String? className,
+    @JsonKey(name: 'section') String? section,
+  }) = _GuardianStudent;
+
+  factory GuardianStudent.fromJson(Map<String, dynamic> json) =>
+      _$GuardianStudentFromJson(json);
 }
 
 @freezed
@@ -34,7 +76,9 @@ class UserInfo with _$UserInfo {
     @JsonKey(name: 'name') String? name,
     @JsonKey(name: 'email') String? email,
     @JsonKey(name: 'phone') String? phone,
+    @JsonKey(name: 'profile_image') String? profileImage,
     @JsonKey(name: 'type') String? type,
+    @JsonKey(name: 'student') int? student,
   }) = _UserInfo;
 
   factory UserInfo.fromJson(Map<String, dynamic> json) =>
@@ -50,11 +94,3 @@ class OtpRequest with _$OtpRequest {
   factory OtpRequest.fromJson(Map<String, dynamic> json) =>
       _$OtpRequestFromJson(json);
 }
-
-
-
-
-
-
-
-

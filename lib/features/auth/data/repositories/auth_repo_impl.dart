@@ -18,8 +18,8 @@ class AuthRepoImpl extends AuthRepository {
   AuthRepoImpl(this.ref, AuthApiService apiService) : _apiService = apiService;
 
   @override
-  FutureEither<LoginResponse?> login({required LoginRequest requestBody}) {
-    return apiHandler<LoginResponse?>(
+  FutureEither<AuthResponse?> login({required LoginRequest requestBody}) {
+    return apiHandler<AuthResponse?>(
       () async {
         var res = await _apiService.login(requestBody);
         successToast(res.message);
@@ -40,6 +40,43 @@ class AuthRepoImpl extends AuthRepository {
   }
 
   @override
+  FutureEither<AuthResponse?> selectRole(
+      {required RoleSelectRequest requestBody}) {
+    return apiHandler<AuthResponse?>(
+      () async {
+        var res = await _apiService.selectRole(requestBody);
+        successToast(res.message);
+        return res.data;
+      },
+    );
+  }
+
+  @override
+  FutureEither<List<GuardianStudent>?> getGuardianStudents({
+    String? tempToken,
+  }) {
+    return apiHandler<List<GuardianStudent>?>(
+      () async {
+        final res = await _apiService.getGuardianStudents(tempToken: tempToken);
+        successToast(res.message);
+        return res.data;
+      },
+    );
+  }
+
+  @override
+  FutureEither<AuthResponse?> selectStudent(
+      {required StudentSelectRequest requestBody}) {
+    return apiHandler<AuthResponse?>(
+      () async {
+        var res = await _apiService.selectStudent(requestBody);
+        successToast(res.message);
+        return res.data;
+      },
+    );
+  }
+
+  @override
   FutureEither<ApiResponse?> logout() {
     return apiHandler<ApiResponse?>(
       () async {
@@ -50,11 +87,3 @@ class AuthRepoImpl extends AuthRepository {
     );
   }
 }
-
-
-
-
-
-
-
-

@@ -18,21 +18,27 @@ abstract class AuthApiService {
 
   @POST(Endpoints.login)
   @Headers(<String, dynamic>{'Content-Type': 'application/json'})
-  Future<ApiResponse<LoginResponse>> login(@Body() LoginRequest body);
+  Future<ApiResponse<AuthResponse>> login(@Body() LoginRequest body);
 
   @POST(Endpoints.sendOTP)
   @Headers(<String, dynamic>{'Content-Type': 'application/json'})
   Future<ApiResponse> sendAuthOtp(@Body() OtpRequest body);
 
+  @POST(Endpoints.roleSelect)
+  @Headers(<String, dynamic>{'Content-Type': 'application/json'})
+  Future<ApiResponse<AuthResponse>> selectRole(@Body() RoleSelectRequest body);
+
+  @GET(Endpoints.guardianStudents)
+  Future<ApiResponse<List<GuardianStudent>>> getGuardianStudents({
+    @Query("tempToken") String? tempToken,
+  });
+
+  @POST(Endpoints.studentSelect)
+  @Headers(<String, dynamic>{'Content-Type': 'application/json'})
+  Future<ApiResponse<AuthResponse>> selectStudent(
+      @Body() StudentSelectRequest body);
+
   @POST(Endpoints.logout)
   @Headers(<String, dynamic>{'Content-Type': 'application/json'})
   Future<ApiResponse> logout();
 }
-
-
-
-
-
-
-
-

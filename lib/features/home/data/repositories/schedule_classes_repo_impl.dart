@@ -5,13 +5,12 @@ import 'package:edu_connect/features/home/domain/repositories/schedule_classes_r
 import 'package:edu_connect/features/time-table/domain/models/schedule_classes_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final scheduleClassesRepoProvider =
-    Provider<AutScheduleClassesRepository>((ref) {
+final scheduleClassesRepoProvider = Provider<ScheduleClassesRepository>((ref) {
   return ScheduleClassesRepoImpl(
       ref, ref.read(scheduleClassesApiServiceProvider));
 });
 
-class ScheduleClassesRepoImpl extends AutScheduleClassesRepository {
+class ScheduleClassesRepoImpl extends ScheduleClassesRepository {
   final ScheduleClassesApiService _apiService;
   final Ref ref;
 

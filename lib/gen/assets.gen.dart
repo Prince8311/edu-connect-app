@@ -28,6 +28,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/afternoon.png
   AssetGenImage get afternoon => const AssetGenImage('assets/images/afternoon.png');
 
+  /// File path: assets/images/blank-book.png
+  AssetGenImage get blankBook => const AssetGenImage('assets/images/blank-book.png');
+
   /// File path: assets/images/book.png
   AssetGenImage get book => const AssetGenImage('assets/images/book.png');
 
@@ -94,6 +97,7 @@ class $AssetsImagesGen {
   /// List of all assets
   List<dynamic> get values => [
         afternoon,
+        blankBook,
         book,
         cancelTag,
         checkmark,

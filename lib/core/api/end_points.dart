@@ -3,6 +3,7 @@ class Endpoints {
   static const String baseURL = 'https://api.educonnekt.in';
   static const String apiURL = '$baseURL/user';
   static const String profileImageBaseURL = '$baseURL/profile-images';
+  static const String documentBaseURL = '$baseURL/documents';
 
   // -------- Auth --------
   static const String login = '/auth/login.php';
@@ -15,6 +16,10 @@ class Endpoints {
 
   // -------- Time Table --------
   static const String scheduledClasses = '/api/dashboard/scheduled-classes.php';
+
+  // -------- Library --------
+  static const String bookAdd = '/api/library/books/insert.php';
+  static const String bookList = '/api/library/books/list.php';
 
   // -------- Profile --------
   static const String profileDetails = '/api/account/profile-details.php';

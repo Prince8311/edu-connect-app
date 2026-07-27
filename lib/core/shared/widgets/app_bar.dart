@@ -203,11 +203,19 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
               Row(
                 children: [
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       if (useHomeRouteOnBack) {
                         HomeRoute().go(context);
                       } else {
-                        context.pop();
+                        final rootNavigator =
+                            Navigator.of(context, rootNavigator: true);
+                        if (rootNavigator.canPop()) {
+                          rootNavigator.pop();
+                        } else if (context.canPop()) {
+                          context.pop();
+                        } else {
+                          HomeRoute().go(context);
+                        }
                       }
                     },
                     child: Container(

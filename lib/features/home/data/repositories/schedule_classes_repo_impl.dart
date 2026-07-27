@@ -1,6 +1,5 @@
 import 'package:edu_connect/core/api/api_handler.dart';
 import 'package:edu_connect/core/shared/miscellaneous/typedefs.dart';
-import 'package:edu_connect/core/shared/widgets/toast.dart';
 import 'package:edu_connect/features/home/data/datasources/schedule_classes_api_service.dart';
 import 'package:edu_connect/features/home/domain/repositories/schedule_classes_repository.dart';
 import 'package:edu_connect/features/time-table/domain/models/schedule_classes_model.dart';
@@ -24,7 +23,6 @@ class ScheduleClassesRepoImpl extends AutScheduleClassesRepository {
     return apiHandler<TimeTableResponse?>(
       () async {
         final res = await _apiService.getScheduleClasses(intent: intent);
-        successToast(res.message);
         return res.data;
       },
     );

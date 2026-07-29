@@ -37,6 +37,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/cancel-tag.png
   AssetGenImage get cancelTag => const AssetGenImage('assets/images/cancel-tag.png');
 
+  /// File path: assets/images/chapter-pdf.png
+  AssetGenImage get chapterPdf => const AssetGenImage('assets/images/chapter-pdf.png');
+
   /// File path: assets/images/checkmark.svg
   SvgGenImage get checkmark => const SvgGenImage('assets/images/checkmark.svg');
 
@@ -100,6 +103,7 @@ class $AssetsImagesGen {
         blankBook,
         book,
         cancelTag,
+        chapterPdf,
         checkmark,
         error,
         evening,

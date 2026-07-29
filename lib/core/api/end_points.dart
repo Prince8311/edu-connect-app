@@ -20,6 +20,8 @@ class Endpoints {
   // -------- Library --------
   static const String bookAdd = '/api/library/books/insert.php';
   static const String bookList = '/api/library/books/list.php';
+  static const String classList = '/api/library/class-list.php';
+  static const String subjects = '/api/library/subjects.php';
 
   // -------- Profile --------
   static const String profileDetails = '/api/account/profile-details.php';

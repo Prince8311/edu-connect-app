@@ -1,10 +1,61 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:edu_connect/core/api/error_handler.dart';
 import 'package:edu_connect/core/shared/widgets/api_list_widget.dart';
 import 'package:edu_connect/features/library/data/repositories/library_repo_impl.dart';
 import 'package:edu_connect/features/library/domain/models/library_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'library_provider.g.dart';
+
+@riverpod
+Future<bool?> addBook(
+  Ref ref, {
+  required FormData formData,
+}) async {
+  final result =
+      await ref.read(libraryRepoProvider).addBook(formData: formData);
+
+  return result.fold(
+    (l) {
+      ApiError.commonErrorHandler(l);
+      return null;
+    },
+    (r) => r,
+  );
+}
+
+@riverpod
+Future<List<String>?> libraryClasses(Ref ref) async {
+  final result = await ref.read(libraryRepoProvider).getClasses();
+
+  return result.fold(
+    (l) {
+      ApiError.commonErrorHandler(l);
+      return null;
+    },
+    (r) => r,
+  );
+}
+
+@riverpod
+Future<List<String>?> librarySubjects(
+  Ref ref, {
+  String? className,
+}) async {
+  final result =
+      await ref.read(libraryRepoProvider).getSubjects(className: className);
+
+  return result.fold(
+    (l) {
+      ApiError.commonErrorHandler(l);
+      return null;
+    },
+    (r) => r,
+  );
+}
 
 final libraryPageProvider = StateProvider<int>((ref) => 1);
 

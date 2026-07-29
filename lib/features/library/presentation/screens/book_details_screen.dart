@@ -13,6 +13,20 @@ class BookDetailsScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    const bookName = 'Sarangi';
+    const bookSubject = 'Hindi Literature';
+    const bookClass = 'Class I';
+    const bookAuthor = 'NCERT Editorial Board';
+
+    const chapters = [
+      ('1', 'Siblings'),
+      ('2', 'Rhymes'),
+      ('3', 'Stories'),
+      ('4', 'Playtime'),
+      ('5', 'Nature'),
+      ('6', 'Family'),
+    ];
+
     return Scaffold(
       backgroundColor: ColorName.lightBackground4,
       appBar: const PrimaryAppBar(
@@ -31,65 +45,108 @@ class BookDetailsScreen extends HookConsumerWidget {
                 borderRadius: BorderRadius.circular(15),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withAlpha(20),
-                    blurRadius: 24,
-                    offset: const Offset(0, 12),
+                    color: Colors.black.withAlpha(16),
+                    blurRadius: 18,
+                    offset: const Offset(0, 8),
                   ),
                 ],
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(15),
-                    ),
-                    child: SizedBox(
-                      height: 400,
-                      width: double.infinity,
-                      child: Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          Assets.images.book.image(
-                            fit: BoxFit.contain,
-                            width: double.infinity,
-                            height: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.all(14),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 110,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        color: ColorName.white,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: ColorName.borderColor),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withAlpha(10),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  Colors.black.withAlpha(30),
-                                  Colors.black.withAlpha(166),
-                                ],
-                              ),
+                        ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(9),
+                        child: Assets.images.book.image(
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Gap(14.h),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            bookName,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: FontFamily.poppins,
+                              color: ColorName.black,
+                              height: 1.2,
                             ),
                           ),
-                          Positioned(
-                            left: 22,
-                            bottom: 20,
-                            child: Column(
+                          Gap(12.h),
+                          LayoutBuilder(
+                            builder: (context, constraints) {
+                              return Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
+                                children: [
+                                  _metaChip(
+                                    icon: Icons.menu_book_rounded,
+                                    text: bookSubject,
+                                    maxWidth: constraints.maxWidth,
+                                  ),
+                                  _metaChip(
+                                    icon: Icons.class_rounded,
+                                    text: bookClass,
+                                    maxWidth: constraints.maxWidth,
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                          Gap(12.h),
+                          Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 9,
+                            ),
+                            decoration: BoxDecoration(
+                              color: ColorName.lightBackground4,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  'Sarangi',
-                                  style: TextStyle(
-                                    fontSize: 22.sp,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: FontFamily.poppins,
-                                    color: ColorName.white,
-                                  ),
+                                Icon(
+                                  Icons.person_rounded,
+                                  color: ColorName.blueColor1,
+                                  size: 18.sp,
                                 ),
-                                Gap(2.h),
-                                Text(
-                                  'Class I • Hindi Literature',
-                                  style: TextStyle(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: FontFamily.poppins,
-                                    color: ColorName.white.withAlpha(200),
+                                Gap(7.w),
+                                Expanded(
+                                  child: Text(
+                                    'Author: $bookAuthor',
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 13.sp,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: FontFamily.poppins,
+                                      color: ColorName.black1,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -98,73 +155,74 @@ class BookDetailsScreen extends HookConsumerWidget {
                         ],
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(22, 15, 22, 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Book Overview',
-                          style: TextStyle(
-                            fontSize: 17.sp,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: FontFamily.poppins,
-                            color: ColorName.black,
-                          ),
-                        ),
-                        Gap(8.h),
-                        Text(
-                          'Explore this exclusive edition from Azure Academy. The book covers Hindi literature basics with a modern twist, making it perfect for Class I students.',
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: FontFamily.poppins,
-                            color: ColorName.black2,
-                            height: 1.5,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             Gap(24.h),
             _uploadNewChapterCard(context: context),
-            Gap(24.h),
-            Padding(
-              padding: const EdgeInsets.only(left: 8),
+            Gap(26.h),
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: chapters.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 8,
+                childAspectRatio: 0.61,
+              ),
+              itemBuilder: (context, index) {
+                final chapter = chapters[index];
+                return _chapterItem(
+                  number: chapter.$1,
+                  title: chapter.$2,
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _metaChip({
+    required IconData icon,
+    required String text,
+    double? maxWidth,
+  }) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: maxWidth ?? double.infinity,
+      ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 4.5),
+        decoration: BoxDecoration(
+          color: ColorName.blueColor1.withAlpha(20),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: ColorName.blueColor1.withAlpha(35)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              size: 14.sp,
+              color: ColorName.blueColor1,
+            ),
+            Gap(5.w),
+            Flexible(
               child: Text(
-                'Chapters',
+                text,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 11.sp,
                   fontWeight: FontWeight.w500,
                   fontFamily: FontFamily.poppins,
-                  color: ColorName.black,
+                  color: ColorName.blueColor1,
                 ),
               ),
-            ),
-            Gap(16.h),
-            _chapterItem(
-              number: '03',
-              title: 'Şiblings',
-              subtitle: 'Bonds and play',
-              isCurrent: true,
-            ),
-            Gap(12.h),
-            _chapterItem(
-              number: '04',
-              title: 'Rhymes',
-              subtitle: 'Sound and rhythm',
-              isCurrent: false,
-            ),
-            Gap(12.h),
-            _chapterItem(
-              number: '05',
-              title: 'Stories',
-              subtitle: 'Imagination and lessons',
-              isCurrent: false,
             ),
           ],
         ),
@@ -183,7 +241,7 @@ class BookDetailsScreen extends HookConsumerWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              ColorName.blueColor1,
+              ColorName.blueColor2,
               ColorName.blueColor,
             ],
           ),
@@ -263,85 +321,46 @@ class BookDetailsScreen extends HookConsumerWidget {
   Widget _chapterItem({
     required String number,
     required String title,
-    required String subtitle,
-    required bool isCurrent,
   }) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      decoration: BoxDecoration(
-        color: ColorName.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withAlpha(12),
-            blurRadius: 16,
-            offset: const Offset(0, 8),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Assets.images.chapterPdf.image(
+          fit: BoxFit.contain,
+          width: 90.w,
+        ),
+        Gap(12.h),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: BoxDecoration(
+            color: ColorName.blueColor1.withAlpha(30),
+            borderRadius: BorderRadius.circular(6),
           ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  ColorName.blueColor,
-                  ColorName.blueColor2, // rgb(0, 255, 204)
-                ],
-              ),
-              borderRadius: BorderRadius.circular(14),
-            ),
-            child: Center(
-              child: Text(
-                number,
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: FontFamily.poppins,
-                  color: ColorName.white,
-                ),
-              ),
+          child: Text(
+            'Chapter $number',
+            style: TextStyle(
+              fontSize: 11.sp,
+              fontWeight: FontWeight.w500,
+              fontFamily: FontFamily.poppins,
+              color: ColorName.blueColor1,
             ),
           ),
-          Gap(14.w),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: FontFamily.poppins,
-                    color: ColorName.black,
-                  ),
-                ),
-                Gap(2.h),
-                Text(
-                  subtitle,
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: FontFamily.poppins,
-                    color: ColorName.black2,
-                  ),
-                ),
-              ],
-            ),
+        ),
+        Gap(6.h),
+        Text(
+          title,
+          textAlign: TextAlign.center,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            fontSize: 13.sp,
+            height: 1.35,
+            fontWeight: FontWeight.w500,
+            fontFamily: FontFamily.poppins,
+            color: ColorName.black,
           ),
-          Gap(12.w),
-          Icon(
-            Icons.chevron_right,
-            color: ColorName.black2,
-            size: 24.sp,
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

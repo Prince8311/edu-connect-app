@@ -24,6 +24,44 @@ class _LibraryApiService implements LibraryApiService {
   final ParseErrorLogger? errorLogger;
 
   @override
+  Future<ApiResponse<dynamic>> addBook(FormData formData) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Content-Type': 'multipart/form-data'};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = formData;
+    final _options = _setStreamType<ApiResponse<dynamic>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'multipart/form-data',
+    )
+        .compose(
+          _dio.options,
+          '/api/library/books/insert.php',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ApiResponse<dynamic> _value;
+    try {
+      _value = ApiResponse<dynamic>.fromJson(
+        _result.data!,
+        (json) => json as dynamic,
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<ApiResponse<BookListModel>> getBookList({int? page}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'page': page};
@@ -52,6 +90,83 @@ class _LibraryApiService implements LibraryApiService {
       _value = ApiResponse<BookListModel>.fromJson(
         _result.data!,
         (json) => BookListModel.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<ApiResponse<List<String>>> getClasses() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<ApiResponse<List<String>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/api/library/class-list.php',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ApiResponse<List<String>> _value;
+    try {
+      _value = ApiResponse<List<String>>.fromJson(
+        _result.data!,
+        (json) => json is List<dynamic>
+            ? json.map<String>((i) => i as String).toList()
+            : List.empty(),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<ApiResponse<List<String>>> getSubjects({String? className}) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'class': className};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<ApiResponse<List<String>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/api/library/subjects.php',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ApiResponse<List<String>> _value;
+    try {
+      _value = ApiResponse<List<String>>.fromJson(
+        _result.data!,
+        (json) => json is List<dynamic>
+            ? json.map<String>((i) => i as String).toList()
+            : List.empty(),
       );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);

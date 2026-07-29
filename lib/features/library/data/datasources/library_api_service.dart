@@ -16,8 +16,19 @@ final libraryApiServiceProvider = Provider<LibraryApiService>((ref) {
 abstract class LibraryApiService {
   factory LibraryApiService(Dio dio, {String baseUrl}) = _LibraryApiService;
 
+  @POST(Endpoints.bookAdd)
+  @Headers(<String, dynamic>{'Content-Type': 'multipart/form-data'})
+  Future<ApiResponse> addBook(@Body() FormData formData);
+
   @GET(Endpoints.bookList)
   Future<ApiResponse<BookListModel>> getBookList({
     @Query("page") int? page,
   });
+
+  @GET(Endpoints.classList)
+  Future<ApiResponse<List<String>>> getClasses();
+
+  @GET(Endpoints.subjects)
+  Future<ApiResponse<List<String>>> getSubjects(
+      {@Query("class") String? className});
 }

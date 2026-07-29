@@ -25,100 +25,184 @@ class BooksContent extends HookConsumerWidget {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
+        child: Stack(
           children: [
-            Container(
-              padding: const EdgeInsets.only(left: 2),
-              decoration: BoxDecoration(
-                color: ColorName.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withAlpha(10),
-                    blurRadius: 14,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: TextField(
-                decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.search,
-                    size: 28.sp,
-                    color: ColorName.blueColor1,
-                  ),
-                  hintText: 'Search books by title, author, or ISBN...',
-                  hintStyle: TextStyle(
-                    fontSize: 15.sp,
-                    color: ColorName.black3,
-                    fontFamily: FontFamily.poppins,
-                  ),
-                  filled: true,
-                  fillColor: ColorName.white,
-                  contentPadding:
-                      const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(18),
-                    borderSide: BorderSide.none,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(18),
-                    borderSide: BorderSide.none,
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(18),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-              ),
-            ),
-            Gap(12.h),
-            Row(
+            Column(
               children: [
-                Expanded(
-                  child: _filterOption(label: 'Classes'),
+                Row(
+                  children: [
+                    Expanded(
+                      child: SizedBox(
+                        height: 47,
+                        child: Container(
+                          padding: const EdgeInsets.only(left: 2),
+                          decoration: BoxDecoration(
+                            color: ColorName.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withAlpha(10),
+                                blurRadius: 14,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: TextField(
+                            decoration: InputDecoration(
+                              isDense: true,
+                              prefixIcon: Icon(
+                                Icons.search,
+                                size: 24.sp,
+                                color: ColorName.blueColor1,
+                              ),
+                              prefixIconConstraints: const BoxConstraints(
+                                minWidth: 44,
+                                minHeight: 44,
+                              ),
+                              hintText:
+                                  'Search books by title, author, or ISBN...',
+                              hintStyle: TextStyle(
+                                fontSize: 14.sp,
+                                color: ColorName.black3,
+                                fontFamily: FontFamily.poppins,
+                              ),
+                              filled: true,
+                              fillColor: ColorName.white,
+                              contentPadding: const EdgeInsets.symmetric(
+                                vertical: 11,
+                                horizontal: 14,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(18),
+                                borderSide: BorderSide.none,
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(18),
+                                borderSide: BorderSide.none,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(18),
+                                borderSide: BorderSide.none,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Gap(12.w),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        width: 46,
+                        height: 46,
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              ColorName.blueColor,
+                              ColorName.blueColor2,
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: ColorName.blueColor.withAlpha(70),
+                              blurRadius: 12,
+                              offset: const Offset(0, 6),
+                            ),
+                          ],
+                        ),
+                        child: Icon(
+                          Icons.tune_rounded,
+                          color: ColorName.white,
+                          size: 25.sp,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                Gap(12.h),
+                Gap(isTeacher ? 16.h : 25.h),
+                if (isTeacher) ...[
+                  _uploadNewBookCard(context: context),
+                  Gap(24.h),
+                ],
                 Expanded(
-                  child: _filterOption(label: 'Subjects'),
+                  child: booksState.isLoading && books.isEmpty
+                      ? _booksLoadingSkeleton()
+                      : ApiListWidget<LibraryBooksState>(
+                          data: booksState,
+                          provider: libraryBooksNotifierProvider,
+                          pageProvider: libraryPageProvider,
+                          canLoadMore: libraryCanLoadMoreProvider,
+                          emptyCondition:
+                              booksState.books.isEmpty && !booksState.isLoading,
+                          itemCount: booksState.books.length,
+                          isGridView: true,
+                          aspectRatio: 0.44,
+                          padding: EdgeInsets.only(
+                            bottom: isTeacher ? 86 : 16,
+                          ),
+                          itemBuilder: (context, index) {
+                            final book = booksState.books[index];
+                            return _bookCard(
+                              context: context,
+                              width: double.infinity,
+                              title: (book.name ?? '').trim().isEmpty
+                                  ? 'Untitled'
+                                  : book.name!.trim(),
+                              className: (book.className ?? '').trim(),
+                              subject: (book.subject ?? '').trim(),
+                              coverImage: (book.coverImage ?? '').trim(),
+                              shortCode: (book.shortCode ?? '').trim(),
+                            );
+                          },
+                        ),
                 ),
               ],
             ),
-            Gap(isTeacher ? 16.h : 25.h),
-            if (isTeacher) ...[
-              _uploadNewBookCard(context: context),
-              Gap(24.h),
-            ],
-            Expanded(
-              child: booksState.isLoading && books.isEmpty
-                  ? _booksLoadingSkeleton()
-                  : ApiListWidget<LibraryBooksState>(
-                      data: booksState,
-                      provider: libraryBooksNotifierProvider,
-                      pageProvider: libraryPageProvider,
-                      canLoadMore: libraryCanLoadMoreProvider,
-                      emptyCondition:
-                          booksState.books.isEmpty && !booksState.isLoading,
-                      itemCount: booksState.books.length,
-                      isGridView: true,
-                      aspectRatio: 0.42,
-                      padding: const EdgeInsets.only(bottom: 16),
-                      itemBuilder: (context, index) {
-                        final book = booksState.books[index];
-                        return _bookCard(
-                          context: context,
-                          width: double.infinity,
-                          title: (book.name ?? '').trim().isEmpty
-                              ? 'Untitled'
-                              : book.name!.trim(),
-                          className: (book.className ?? '').trim(),
-                          subject: (book.subject ?? '').trim(),
-                          coverImage: (book.coverImage ?? '').trim(),
-                          shortCode: (book.shortCode ?? '').trim(),
-                        );
-                      },
-                    ),
-            ),
+            // if (isTeacher)
+            //   Positioned(
+            //     right: 0,
+            //     bottom: 10,
+            //     child: GestureDetector(
+            //       onTap: () => AddBookRoute().push(context),
+            //       child: Container(
+            //         height: 45,
+            //         padding: const EdgeInsets.fromLTRB(16, 0, 24, 0),
+            //         decoration: BoxDecoration(
+            //           gradient: const LinearGradient(
+            //             begin: Alignment.topLeft,
+            //             end: Alignment.bottomRight,
+            //             colors: [
+            //               ColorName.blueColor,
+            //               ColorName.blueColor2,
+            //             ],
+            //           ),
+            //           borderRadius: BorderRadius.circular(24),
+            //         ),
+            //         child: Row(
+            //           children: [
+            //             Icon(
+            //               Icons.add,
+            //               color: ColorName.white,
+            //               size: 22.sp,
+            //             ),
+            //             Gap(3.w),
+            //             Text(
+            //               'Add New',
+            //               style: TextStyle(
+            //                 fontSize: 15.sp,
+            //                 fontWeight: FontWeight.w600,
+            //                 fontFamily: FontFamily.poppins,
+            //                 color: ColorName.white,
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //   ),
           ],
         ),
       ),
@@ -171,7 +255,7 @@ class BooksContent extends HookConsumerWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              ColorName.blueColor1,
+              ColorName.blueColor2,
               ColorName.blueColor,
             ],
           ),
@@ -275,15 +359,26 @@ class BooksContent extends HookConsumerWidget {
               child: Stack(
                 children: [
                   Positioned.fill(
-                    child: Assets.images.blankBook.image(
-                      fit: BoxFit.contain,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withAlpha(12),
+                            blurRadius: 15,
+                            offset: const Offset(2, 4),
+                          ),
+                        ],
+                      ),
+                      child: Assets.images.blankBook.image(
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
                   Positioned(
-                    left: 14,
-                    top: 10,
-                    right: 22,
-                    bottom: 12,
+                    left: 11,
+                    top: 9,
+                    right: 20,
+                    bottom: 10,
                     child: Transform(
                       alignment: Alignment.center,
                       transform: Matrix4.identity()
@@ -378,44 +473,5 @@ class BooksContent extends HookConsumerWidget {
         imageName.startsWith('/') ? imageName.substring(1) : imageName;
 
     return '$baseUrl/library/books/$normalizedShortCode/$normalizedImageName';
-  }
-
-  Widget _filterOption({required String label}) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(16, 12, 12, 12),
-      decoration: BoxDecoration(
-        color: ColorName.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withAlpha(10),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-        border: Border.all(
-          color: ColorName.black3.withAlpha(50),
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 15.sp,
-              fontWeight: FontWeight.w500,
-              fontFamily: FontFamily.poppins,
-              color: ColorName.black1.withAlpha(180),
-            ),
-          ),
-          Icon(
-            Icons.keyboard_arrow_down,
-            size: 24.sp,
-            color: ColorName.black3,
-          ),
-        ],
-      ),
-    );
   }
 }

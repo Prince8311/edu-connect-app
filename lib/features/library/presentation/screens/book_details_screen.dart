@@ -19,7 +19,7 @@ class BookDetailsScreen extends HookConsumerWidget {
     const bookAuthor = 'NCERT Editorial Board';
 
     const chapters = [
-      ('1', 'Siblings'),
+      ('1', 'Siblings Siblings Siblings Siblings'),
       ('2', 'Rhymes'),
       ('3', 'Stories'),
       ('4', 'Playtime'),
@@ -167,10 +167,10 @@ class BookDetailsScreen extends HookConsumerWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: chapters.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
+                crossAxisCount: 4,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 8,
-                childAspectRatio: 0.61,
+                childAspectRatio: 0.52,
               ),
               itemBuilder: (context, index) {
                 final chapter = chapters[index];
@@ -327,7 +327,7 @@ class BookDetailsScreen extends HookConsumerWidget {
       children: [
         Assets.images.chapterPdf.image(
           fit: BoxFit.contain,
-          width: 90.w,
+          width: 68.w,
         ),
         Gap(12.h),
         Container(
@@ -339,7 +339,7 @@ class BookDetailsScreen extends HookConsumerWidget {
           child: Text(
             'Chapter $number',
             style: TextStyle(
-              fontSize: 11.sp,
+              fontSize: 10.sp,
               fontWeight: FontWeight.w500,
               fontFamily: FontFamily.poppins,
               color: ColorName.blueColor1,

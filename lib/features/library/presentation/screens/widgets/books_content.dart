@@ -12,6 +12,11 @@ import 'package:edu_connect/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+enum BookFilterType {
+  classes,
+  subjects,
+}
+
 class BooksContent extends HookConsumerWidget {
   const BooksContent({super.key});
 
@@ -59,8 +64,7 @@ class BooksContent extends HookConsumerWidget {
                                 minWidth: 44,
                                 minHeight: 44,
                               ),
-                              hintText:
-                                  'Search books by title, author, or ISBN...',
+                              hintText: 'Search books by title or author...',
                               hintStyle: TextStyle(
                                 fontSize: 14.sp,
                                 color: ColorName.black3,
@@ -91,7 +95,15 @@ class BooksContent extends HookConsumerWidget {
                     ),
                     Gap(12.w),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          useRootNavigator: true,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          builder: (_) => const BookFilterBottomSheet(),
+                        );
+                      },
                       child: Container(
                         width: 46,
                         height: 46,
@@ -122,11 +134,7 @@ class BooksContent extends HookConsumerWidget {
                     ),
                   ],
                 ),
-                Gap(isTeacher ? 16.h : 25.h),
-                if (isTeacher) ...[
-                  _uploadNewBookCard(context: context),
-                  Gap(24.h),
-                ],
+                Gap(28.h),
                 Expanded(
                   child: booksState.isLoading && books.isEmpty
                       ? _booksLoadingSkeleton()
@@ -139,7 +147,7 @@ class BooksContent extends HookConsumerWidget {
                               booksState.books.isEmpty && !booksState.isLoading,
                           itemCount: booksState.books.length,
                           isGridView: true,
-                          aspectRatio: 0.44,
+                          aspectRatio: 0.45,
                           padding: EdgeInsets.only(
                             bottom: isTeacher ? 86 : 16,
                           ),
@@ -161,48 +169,48 @@ class BooksContent extends HookConsumerWidget {
                 ),
               ],
             ),
-            // if (isTeacher)
-            //   Positioned(
-            //     right: 0,
-            //     bottom: 10,
-            //     child: GestureDetector(
-            //       onTap: () => AddBookRoute().push(context),
-            //       child: Container(
-            //         height: 45,
-            //         padding: const EdgeInsets.fromLTRB(16, 0, 24, 0),
-            //         decoration: BoxDecoration(
-            //           gradient: const LinearGradient(
-            //             begin: Alignment.topLeft,
-            //             end: Alignment.bottomRight,
-            //             colors: [
-            //               ColorName.blueColor,
-            //               ColorName.blueColor2,
-            //             ],
-            //           ),
-            //           borderRadius: BorderRadius.circular(24),
-            //         ),
-            //         child: Row(
-            //           children: [
-            //             Icon(
-            //               Icons.add,
-            //               color: ColorName.white,
-            //               size: 22.sp,
-            //             ),
-            //             Gap(3.w),
-            //             Text(
-            //               'Add New',
-            //               style: TextStyle(
-            //                 fontSize: 15.sp,
-            //                 fontWeight: FontWeight.w600,
-            //                 fontFamily: FontFamily.poppins,
-            //                 color: ColorName.white,
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            //       ),
-            //     ),
-            //   ),
+            if (isTeacher)
+              Positioned(
+                right: 0,
+                bottom: 10,
+                child: GestureDetector(
+                  onTap: () => AddBookRoute().push(context),
+                  child: Container(
+                    height: 45,
+                    padding: const EdgeInsets.fromLTRB(16, 0, 24, 0),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          ColorName.blueColor,
+                          ColorName.blueColor2,
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.add,
+                          color: ColorName.white,
+                          size: 22.sp,
+                        ),
+                        Gap(3.w),
+                        Text(
+                          'Add New',
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: FontFamily.poppins,
+                            color: ColorName.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
           ],
         ),
       ),
@@ -241,94 +249,6 @@ class BooksContent extends HookConsumerWidget {
           ],
         );
       },
-    );
-  }
-
-  Widget _uploadNewBookCard({required BuildContext context}) {
-    return GestureDetector(
-      onTap: () => AddBookRoute().push(context),
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(18),
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              ColorName.blueColor2,
-              ColorName.blueColor,
-            ],
-          ),
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: ColorName.blueColor.withAlpha(60),
-              blurRadius: 18,
-              offset: const Offset(0, 10),
-            ),
-          ],
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 46,
-              height: 46,
-              decoration: BoxDecoration(
-                color: ColorName.white.withAlpha(60),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(
-                Icons.upload_file,
-                color: ColorName.white,
-                size: 26.sp,
-              ),
-            ),
-            Gap(16.h),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Add New Book',
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: FontFamily.poppins,
-                      color: ColorName.white,
-                    ),
-                  ),
-                  Gap(2.h),
-                  Text(
-                    'Add a new book to your library',
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: FontFamily.poppins,
-                      color: ColorName.white.withAlpha(200),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Gap(12.h),
-            Container(
-              width: 36,
-              height: 36,
-              decoration: BoxDecoration(
-                color: ColorName.white.withAlpha(60),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.info_outline,
-                color: ColorName.white,
-                size: 24.sp,
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -407,7 +327,7 @@ class BooksContent extends HookConsumerWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(8, 9, 14, 12),
+              padding: const EdgeInsets.fromLTRB(8, 8, 14, 12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -473,5 +393,366 @@ class BooksContent extends HookConsumerWidget {
         imageName.startsWith('/') ? imageName.substring(1) : imageName;
 
     return '$baseUrl/library/books/$normalizedShortCode/$normalizedImageName';
+  }
+}
+
+class BookFilterBottomSheet extends StatefulWidget {
+  const BookFilterBottomSheet({super.key});
+
+  @override
+  State<BookFilterBottomSheet> createState() => _BookFilterBottomSheetState();
+}
+
+class _BookFilterBottomSheetState extends State<BookFilterBottomSheet> {
+  BookFilterType selectedType = BookFilterType.classes;
+
+  final Set<String> selectedClasses = {};
+  final Set<String> selectedSubjects = {};
+
+  final List<String> classes = [
+    "Class 1",
+    "Class 2",
+    "Class 3",
+    "Class 4",
+    "Class 5",
+    "Class 6",
+  ];
+
+  final List<String> subjects = [
+    "Mathematics",
+    "Science",
+    "English",
+    "History",
+    "Geography",
+    "Computer",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final values = selectedType == BookFilterType.classes ? classes : subjects;
+
+    final selected = selectedType == BookFilterType.classes
+        ? selectedClasses
+        : selectedSubjects;
+
+    return FractionallySizedBox(
+      heightFactor: 0.55,
+      child: Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(22),
+          ),
+        ),
+        child: Column(
+          children: [
+            Gap(12.h),
+            Container(
+              height: 4,
+              width: 95,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(50),
+              ),
+            ),
+            Gap(12.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Container(
+                      width: 70,
+                      height: 1,
+                      decoration: BoxDecoration(
+                        color: ColorName.black.withAlpha(255),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                    ),
+                    Gap(3.h),
+                    Container(
+                      width: 50,
+                      height: 1,
+                      decoration: BoxDecoration(
+                        color: ColorName.black.withAlpha(255),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                    ),
+                  ],
+                ),
+                Gap(6.w),
+                Text(
+                  "Filter by",
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: FontFamily.poppins,
+                    color: ColorName.black1,
+                  ),
+                ),
+                Gap(6.w),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 70,
+                      height: 1,
+                      decoration: BoxDecoration(
+                        color: ColorName.black.withAlpha(255),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                    ),
+                    Gap(3.h),
+                    Container(
+                      width: 50,
+                      height: 1,
+                      decoration: BoxDecoration(
+                        color: ColorName.black.withAlpha(255),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Gap(20.h),
+            Expanded(
+              child: Row(
+                children: [
+                  /// LEFT PANEL
+                  SizedBox(
+                    width: 130,
+                    child: Column(
+                      children: [
+                        _filterTile(
+                          title: "Classes",
+                          selected: selectedType == BookFilterType.classes,
+                          onTap: () {
+                            setState(() {
+                              selectedType = BookFilterType.classes;
+                            });
+                          },
+                        ),
+                        _filterTile(
+                          title: "Subjects",
+                          selected: selectedType == BookFilterType.subjects,
+                          onTap: () {
+                            setState(() {
+                              selectedType = BookFilterType.subjects;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  VerticalDivider(
+                    width: 1,
+                    thickness: 1,
+                    color: Colors.grey.shade300,
+                  ),
+
+                  /// RIGHT PANEL
+                  Expanded(
+                    child: ListView.separated(
+                      itemCount: values.length,
+                      separatorBuilder: (_, __) => Gap(5.h),
+                      itemBuilder: (_, index) {
+                        final value = values[index];
+
+                        return _filterOption(
+                          value: value,
+                          selected: selected,
+                          onTap: () {
+                            setState(() {
+                              if (selected.contains(value)) {
+                                selected.remove(value);
+                              } else {
+                                selected.add(value);
+                              }
+                            });
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: 46,
+                      child: OutlinedButton(
+                        onPressed: () {
+                          setState(() {
+                            selectedClasses.clear();
+                            selectedSubjects.clear();
+                          });
+                        },
+                        style: OutlinedButton.styleFrom(
+                          side: const BorderSide(
+                            color: ColorName.blueColor2,
+                            width: 1.5,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          backgroundColor: Colors.white,
+                          elevation: 0,
+                        ),
+                        child: Text(
+                          "Reset",
+                          style: TextStyle(
+                            fontSize: 15.5.sp,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: FontFamily.poppins,
+                            color: ColorName.blueColor2,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Gap(14.w),
+                  Expanded(
+                    child: SizedBox(
+                      height: 46,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(
+                            context,
+                            (
+                              classes: selectedClasses.toList(),
+                              subjects: selectedSubjects.toList(),
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          backgroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: Ink(
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                ColorName.blueColor,
+                                ColorName.blueColor2,
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Apply",
+                              style: TextStyle(
+                                fontSize: 15.5.sp,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: FontFamily.poppins,
+                                color: ColorName.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _filterTile({
+    required String title,
+    required bool selected,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        color: selected ? ColorName.themeColor.withAlpha(35) : Colors.white,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 14,
+        ),
+        width: double.infinity,
+        child: Text(
+          title,
+          style: TextStyle(
+            fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+            color: selected ? ColorName.blueColor1 : Colors.black87,
+            fontFamily: FontFamily.poppins,
+            fontSize: 14.sp,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _filterOption({
+    required String value,
+    required Set<String> selected,
+    required VoidCallback onTap,
+  }) {
+    final isSelected = selected.contains(value);
+
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 10, 26, 10),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                value,
+                style: const TextStyle(
+                  fontFamily: FontFamily.poppins,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 180),
+              width: 22,
+              height: 22,
+              decoration: BoxDecoration(
+                color: isSelected ? ColorName.blueColor1 : Colors.white,
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(
+                  color:
+                      isSelected ? ColorName.blueColor1 : ColorName.borderColor,
+                  width: 1.5,
+                ),
+              ),
+              child: isSelected
+                  ? const Center(
+                      child: Icon(
+                        Icons.check_rounded,
+                        color: Colors.white,
+                        size: 15,
+                      ),
+                    )
+                  : null,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

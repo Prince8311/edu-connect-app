@@ -99,6 +99,7 @@ dependencies:
   flutter_remix: ^0.0.3
   flutter_image_compress: ^2.0.4
   flutter_typeahead: ^5.2.0
+  syncfusion_flutter_pdfviewer: ^27.2.5
 
   # * TESTING *
   mocktail: ^1.0.3

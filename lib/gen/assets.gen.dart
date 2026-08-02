@@ -15,11 +15,14 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsAnimationsGen {
   const $AssetsAnimationsGen();
 
+  /// File path: assets/animations/forbidden_file.json
+  String get forbiddenFile => 'assets/animations/forbidden_file.json';
+
   /// File path: assets/animations/search_not_found.json
   String get searchNotFound => 'assets/animations/search_not_found.json';
 
   /// List of all assets
-  List<String> get values => [searchNotFound];
+  List<String> get values => [forbiddenFile, searchNotFound];
 }
 
 class $AssetsImagesGen {

@@ -598,3 +598,453 @@ abstract class _BookItemModel implements BookItemModel {
   _$$BookItemModelImplCopyWith<_$BookItemModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+BookChapterListModel _$BookChapterListModelFromJson(Map<String, dynamic> json) {
+  return _BookChapterListModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$BookChapterListModel {
+  @JsonKey(name: 'list')
+  List<BookChapterItemModel>? get list => throw _privateConstructorUsedError;
+  @JsonKey(name: 'totalCount')
+  int? get totalCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'currentPage')
+  int? get currentPage => throw _privateConstructorUsedError;
+
+  /// Serializes this BookChapterListModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of BookChapterListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $BookChapterListModelCopyWith<BookChapterListModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $BookChapterListModelCopyWith<$Res> {
+  factory $BookChapterListModelCopyWith(BookChapterListModel value,
+          $Res Function(BookChapterListModel) then) =
+      _$BookChapterListModelCopyWithImpl<$Res, BookChapterListModel>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'list') List<BookChapterItemModel>? list,
+      @JsonKey(name: 'totalCount') int? totalCount,
+      @JsonKey(name: 'currentPage') int? currentPage});
+}
+
+/// @nodoc
+class _$BookChapterListModelCopyWithImpl<$Res,
+        $Val extends BookChapterListModel>
+    implements $BookChapterListModelCopyWith<$Res> {
+  _$BookChapterListModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of BookChapterListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? list = freezed,
+    Object? totalCount = freezed,
+    Object? currentPage = freezed,
+  }) {
+    return _then(_value.copyWith(
+      list: freezed == list
+          ? _value.list
+          : list // ignore: cast_nullable_to_non_nullable
+              as List<BookChapterItemModel>?,
+      totalCount: freezed == totalCount
+          ? _value.totalCount
+          : totalCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      currentPage: freezed == currentPage
+          ? _value.currentPage
+          : currentPage // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$BookChapterListModelImplCopyWith<$Res>
+    implements $BookChapterListModelCopyWith<$Res> {
+  factory _$$BookChapterListModelImplCopyWith(_$BookChapterListModelImpl value,
+          $Res Function(_$BookChapterListModelImpl) then) =
+      __$$BookChapterListModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'list') List<BookChapterItemModel>? list,
+      @JsonKey(name: 'totalCount') int? totalCount,
+      @JsonKey(name: 'currentPage') int? currentPage});
+}
+
+/// @nodoc
+class __$$BookChapterListModelImplCopyWithImpl<$Res>
+    extends _$BookChapterListModelCopyWithImpl<$Res, _$BookChapterListModelImpl>
+    implements _$$BookChapterListModelImplCopyWith<$Res> {
+  __$$BookChapterListModelImplCopyWithImpl(_$BookChapterListModelImpl _value,
+      $Res Function(_$BookChapterListModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of BookChapterListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? list = freezed,
+    Object? totalCount = freezed,
+    Object? currentPage = freezed,
+  }) {
+    return _then(_$BookChapterListModelImpl(
+      list: freezed == list
+          ? _value._list
+          : list // ignore: cast_nullable_to_non_nullable
+              as List<BookChapterItemModel>?,
+      totalCount: freezed == totalCount
+          ? _value.totalCount
+          : totalCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      currentPage: freezed == currentPage
+          ? _value.currentPage
+          : currentPage // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$BookChapterListModelImpl implements _BookChapterListModel {
+  const _$BookChapterListModelImpl(
+      {@JsonKey(name: 'list') final List<BookChapterItemModel>? list,
+      @JsonKey(name: 'totalCount') this.totalCount,
+      @JsonKey(name: 'currentPage') this.currentPage})
+      : _list = list;
+
+  factory _$BookChapterListModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BookChapterListModelImplFromJson(json);
+
+  final List<BookChapterItemModel>? _list;
+  @override
+  @JsonKey(name: 'list')
+  List<BookChapterItemModel>? get list {
+    final value = _list;
+    if (value == null) return null;
+    if (_list is EqualUnmodifiableListView) return _list;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  @JsonKey(name: 'totalCount')
+  final int? totalCount;
+  @override
+  @JsonKey(name: 'currentPage')
+  final int? currentPage;
+
+  @override
+  String toString() {
+    return 'BookChapterListModel(list: $list, totalCount: $totalCount, currentPage: $currentPage)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BookChapterListModelImpl &&
+            const DeepCollectionEquality().equals(other._list, _list) &&
+            (identical(other.totalCount, totalCount) ||
+                other.totalCount == totalCount) &&
+            (identical(other.currentPage, currentPage) ||
+                other.currentPage == currentPage));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_list), totalCount, currentPage);
+
+  /// Create a copy of BookChapterListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BookChapterListModelImplCopyWith<_$BookChapterListModelImpl>
+      get copyWith =>
+          __$$BookChapterListModelImplCopyWithImpl<_$BookChapterListModelImpl>(
+              this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$BookChapterListModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _BookChapterListModel implements BookChapterListModel {
+  const factory _BookChapterListModel(
+          {@JsonKey(name: 'list') final List<BookChapterItemModel>? list,
+          @JsonKey(name: 'totalCount') final int? totalCount,
+          @JsonKey(name: 'currentPage') final int? currentPage}) =
+      _$BookChapterListModelImpl;
+
+  factory _BookChapterListModel.fromJson(Map<String, dynamic> json) =
+      _$BookChapterListModelImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'list')
+  List<BookChapterItemModel>? get list;
+  @override
+  @JsonKey(name: 'totalCount')
+  int? get totalCount;
+  @override
+  @JsonKey(name: 'currentPage')
+  int? get currentPage;
+
+  /// Create a copy of BookChapterListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$BookChapterListModelImplCopyWith<_$BookChapterListModelImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+BookChapterItemModel _$BookChapterItemModelFromJson(Map<String, dynamic> json) {
+  return _BookChapterItemModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$BookChapterItemModel {
+  @JsonKey(name: 'id')
+  String? get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'chapter_index')
+  String? get chapterIndex => throw _privateConstructorUsedError;
+  @JsonKey(name: 'name')
+  String? get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'file_name')
+  String? get fileName => throw _privateConstructorUsedError;
+
+  /// Serializes this BookChapterItemModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of BookChapterItemModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $BookChapterItemModelCopyWith<BookChapterItemModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $BookChapterItemModelCopyWith<$Res> {
+  factory $BookChapterItemModelCopyWith(BookChapterItemModel value,
+          $Res Function(BookChapterItemModel) then) =
+      _$BookChapterItemModelCopyWithImpl<$Res, BookChapterItemModel>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'id') String? id,
+      @JsonKey(name: 'chapter_index') String? chapterIndex,
+      @JsonKey(name: 'name') String? name,
+      @JsonKey(name: 'file_name') String? fileName});
+}
+
+/// @nodoc
+class _$BookChapterItemModelCopyWithImpl<$Res,
+        $Val extends BookChapterItemModel>
+    implements $BookChapterItemModelCopyWith<$Res> {
+  _$BookChapterItemModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of BookChapterItemModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? chapterIndex = freezed,
+    Object? name = freezed,
+    Object? fileName = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      chapterIndex: freezed == chapterIndex
+          ? _value.chapterIndex
+          : chapterIndex // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fileName: freezed == fileName
+          ? _value.fileName
+          : fileName // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$BookChapterItemModelImplCopyWith<$Res>
+    implements $BookChapterItemModelCopyWith<$Res> {
+  factory _$$BookChapterItemModelImplCopyWith(_$BookChapterItemModelImpl value,
+          $Res Function(_$BookChapterItemModelImpl) then) =
+      __$$BookChapterItemModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'id') String? id,
+      @JsonKey(name: 'chapter_index') String? chapterIndex,
+      @JsonKey(name: 'name') String? name,
+      @JsonKey(name: 'file_name') String? fileName});
+}
+
+/// @nodoc
+class __$$BookChapterItemModelImplCopyWithImpl<$Res>
+    extends _$BookChapterItemModelCopyWithImpl<$Res, _$BookChapterItemModelImpl>
+    implements _$$BookChapterItemModelImplCopyWith<$Res> {
+  __$$BookChapterItemModelImplCopyWithImpl(_$BookChapterItemModelImpl _value,
+      $Res Function(_$BookChapterItemModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of BookChapterItemModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? chapterIndex = freezed,
+    Object? name = freezed,
+    Object? fileName = freezed,
+  }) {
+    return _then(_$BookChapterItemModelImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      chapterIndex: freezed == chapterIndex
+          ? _value.chapterIndex
+          : chapterIndex // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fileName: freezed == fileName
+          ? _value.fileName
+          : fileName // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$BookChapterItemModelImpl implements _BookChapterItemModel {
+  const _$BookChapterItemModelImpl(
+      {@JsonKey(name: 'id') this.id,
+      @JsonKey(name: 'chapter_index') this.chapterIndex,
+      @JsonKey(name: 'name') this.name,
+      @JsonKey(name: 'file_name') this.fileName});
+
+  factory _$BookChapterItemModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BookChapterItemModelImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'id')
+  final String? id;
+  @override
+  @JsonKey(name: 'chapter_index')
+  final String? chapterIndex;
+  @override
+  @JsonKey(name: 'name')
+  final String? name;
+  @override
+  @JsonKey(name: 'file_name')
+  final String? fileName;
+
+  @override
+  String toString() {
+    return 'BookChapterItemModel(id: $id, chapterIndex: $chapterIndex, name: $name, fileName: $fileName)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BookChapterItemModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.chapterIndex, chapterIndex) ||
+                other.chapterIndex == chapterIndex) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.fileName, fileName) ||
+                other.fileName == fileName));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, id, chapterIndex, name, fileName);
+
+  /// Create a copy of BookChapterItemModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BookChapterItemModelImplCopyWith<_$BookChapterItemModelImpl>
+      get copyWith =>
+          __$$BookChapterItemModelImplCopyWithImpl<_$BookChapterItemModelImpl>(
+              this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$BookChapterItemModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _BookChapterItemModel implements BookChapterItemModel {
+  const factory _BookChapterItemModel(
+          {@JsonKey(name: 'id') final String? id,
+          @JsonKey(name: 'chapter_index') final String? chapterIndex,
+          @JsonKey(name: 'name') final String? name,
+          @JsonKey(name: 'file_name') final String? fileName}) =
+      _$BookChapterItemModelImpl;
+
+  factory _BookChapterItemModel.fromJson(Map<String, dynamic> json) =
+      _$BookChapterItemModelImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'id')
+  String? get id;
+  @override
+  @JsonKey(name: 'chapter_index')
+  String? get chapterIndex;
+  @override
+  @JsonKey(name: 'name')
+  String? get name;
+  @override
+  @JsonKey(name: 'file_name')
+  String? get fileName;
+
+  /// Create a copy of BookChapterItemModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$BookChapterItemModelImplCopyWith<_$BookChapterItemModelImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}

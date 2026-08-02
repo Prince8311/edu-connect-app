@@ -22,6 +22,8 @@ class Endpoints {
   static const String bookList = '/api/library/books/list.php';
   static const String classList = '/api/library/class-list.php';
   static const String subjects = '/api/library/subjects.php';
+  static const String bookChapterAdd = '/api/library/books/chapters/insert.php';
+  static const String bookChapteList = '/api/library/books/chapters/list.php';
 
   // -------- Profile --------
   static const String profileDetails = '/api/account/profile-details.php';

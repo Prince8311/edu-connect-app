@@ -49,3 +49,39 @@ Map<String, dynamic> _$$BookItemModelImplToJson(_$BookItemModelImpl instance) =>
       'uploaded_by_name': instance.uploadedByName,
       'uploaded_at': instance.uploadedAt,
     };
+
+_$BookChapterListModelImpl _$$BookChapterListModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$BookChapterListModelImpl(
+      list: (json['list'] as List<dynamic>?)
+          ?.map((e) => BookChapterItemModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      totalCount: (json['totalCount'] as num?)?.toInt(),
+      currentPage: (json['currentPage'] as num?)?.toInt(),
+    );
+
+Map<String, dynamic> _$$BookChapterListModelImplToJson(
+        _$BookChapterListModelImpl instance) =>
+    <String, dynamic>{
+      'list': instance.list,
+      'totalCount': instance.totalCount,
+      'currentPage': instance.currentPage,
+    };
+
+_$BookChapterItemModelImpl _$$BookChapterItemModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$BookChapterItemModelImpl(
+      id: json['id'] as String?,
+      chapterIndex: json['chapter_index'] as String?,
+      name: json['name'] as String?,
+      fileName: json['file_name'] as String?,
+    );
+
+Map<String, dynamic> _$$BookChapterItemModelImplToJson(
+        _$BookChapterItemModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'chapter_index': instance.chapterIndex,
+      'name': instance.name,
+      'file_name': instance.fileName,
+    };

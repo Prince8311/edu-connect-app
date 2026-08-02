@@ -19,6 +19,7 @@ import 'package:edu_connect/features/library/presentation/screens/book_add_scree
 import 'package:edu_connect/features/library/presentation/screens/book_details_screen.dart';
 import 'package:edu_connect/features/library/presentation/screens/chapter_add_screen.dart';
 import 'package:edu_connect/features/library/presentation/screens/library_screen.dart';
+import 'package:edu_connect/features/library/domain/models/library_model.dart';
 import 'package:edu_connect/features/profile/presentation/screens/settings_screen.dart';
 
 import 'package:edu_connect/features/home/presentation/screens/home_screen.dart';
@@ -301,9 +302,15 @@ class SettingsRoute extends GoRouteData with _$SettingsRoute {
   name: RouteName.bookDetails,
 )
 class BookDetailsRoute extends GoRouteData with _$BookDetailsRoute {
+  const BookDetailsRoute({this.$extra});
+
+  final BookItemModel? $extra;
+
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return slideTransitionPage(BookDetailsScreen());
+    return slideTransitionPage(
+      BookDetailsScreen(book: $extra ?? const BookItemModel()),
+    );
   }
 }
 
@@ -323,9 +330,22 @@ class AddBookRoute extends GoRouteData with _$AddBookRoute {
   name: RouteName.addChapter,
 )
 class AddChapterRoute extends GoRouteData with _$AddChapterRoute {
+  const AddChapterRoute({
+    required this.bookId,
+    required this.bookName,
+  });
+
+  final String bookId;
+  final String bookName;
+
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return slideTransitionPage(ChapterAddScreen());
+    return slideTransitionPage(
+      ChapterAddScreen(
+        bookId: bookId,
+        bookName: bookName,
+      ),
+    );
   }
 }
 

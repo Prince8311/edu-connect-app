@@ -304,5 +304,135 @@ class _LibrarySubjectsProviderElement
   @override
   String? get className => (origin as LibrarySubjectsProvider).className;
 }
+
+String _$addBookChapterHash() => r'970f1c5b3e457cca039c02b66c75225eebcdde53';
+
+/// See also [addBookChapter].
+@ProviderFor(addBookChapter)
+const addBookChapterProvider = AddBookChapterFamily();
+
+/// See also [addBookChapter].
+class AddBookChapterFamily extends Family<AsyncValue<bool?>> {
+  /// See also [addBookChapter].
+  const AddBookChapterFamily();
+
+  /// See also [addBookChapter].
+  AddBookChapterProvider call({
+    required FormData formData,
+  }) {
+    return AddBookChapterProvider(
+      formData: formData,
+    );
+  }
+
+  @override
+  AddBookChapterProvider getProviderOverride(
+    covariant AddBookChapterProvider provider,
+  ) {
+    return call(
+      formData: provider.formData,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'addBookChapterProvider';
+}
+
+/// See also [addBookChapter].
+class AddBookChapterProvider extends AutoDisposeFutureProvider<bool?> {
+  /// See also [addBookChapter].
+  AddBookChapterProvider({
+    required FormData formData,
+  }) : this._internal(
+          (ref) => addBookChapter(
+            ref as AddBookChapterRef,
+            formData: formData,
+          ),
+          from: addBookChapterProvider,
+          name: r'addBookChapterProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$addBookChapterHash,
+          dependencies: AddBookChapterFamily._dependencies,
+          allTransitiveDependencies:
+              AddBookChapterFamily._allTransitiveDependencies,
+          formData: formData,
+        );
+
+  AddBookChapterProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.formData,
+  }) : super.internal();
+
+  final FormData formData;
+
+  @override
+  Override overrideWith(
+    FutureOr<bool?> Function(AddBookChapterRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: AddBookChapterProvider._internal(
+        (ref) => create(ref as AddBookChapterRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        formData: formData,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<bool?> createElement() {
+    return _AddBookChapterProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is AddBookChapterProvider && other.formData == formData;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, formData.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin AddBookChapterRef on AutoDisposeFutureProviderRef<bool?> {
+  /// The parameter `formData` of this provider.
+  FormData get formData;
+}
+
+class _AddBookChapterProviderElement
+    extends AutoDisposeFutureProviderElement<bool?> with AddBookChapterRef {
+  _AddBookChapterProviderElement(super.provider);
+
+  @override
+  FormData get formData => (origin as AddBookChapterProvider).formData;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

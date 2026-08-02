@@ -450,7 +450,11 @@ RouteBase get $bookDetailsRoute => GoRouteData.$route(
     );
 
 mixin _$BookDetailsRoute on GoRouteData {
-  static BookDetailsRoute _fromState(GoRouterState state) => BookDetailsRoute();
+  static BookDetailsRoute _fromState(GoRouterState state) => BookDetailsRoute(
+        $extra: state.extra as BookItemModel?,
+      );
+
+  BookDetailsRoute get _self => this as BookDetailsRoute;
 
   @override
   String get location => GoRouteData.$location(
@@ -458,17 +462,19 @@ mixin _$BookDetailsRoute on GoRouteData {
       );
 
   @override
-  void go(BuildContext context) => context.go(location);
+  void go(BuildContext context) => context.go(location, extra: _self.$extra);
 
   @override
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+  Future<T?> push<T>(BuildContext context) =>
+      context.push<T>(location, extra: _self.$extra);
 
   @override
   void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
+      context.pushReplacement(location, extra: _self.$extra);
 
   @override
-  void replace(BuildContext context) => context.replace(location);
+  void replace(BuildContext context) =>
+      context.replace(location, extra: _self.$extra);
 }
 
 RouteBase get $addBookRoute => GoRouteData.$route(
@@ -506,11 +512,20 @@ RouteBase get $addChapterRoute => GoRouteData.$route(
     );
 
 mixin _$AddChapterRoute on GoRouteData {
-  static AddChapterRoute _fromState(GoRouterState state) => AddChapterRoute();
+  static AddChapterRoute _fromState(GoRouterState state) => AddChapterRoute(
+        bookId: state.uri.queryParameters['book-id']!,
+        bookName: state.uri.queryParameters['book-name']!,
+      );
+
+  AddChapterRoute get _self => this as AddChapterRoute;
 
   @override
   String get location => GoRouteData.$location(
         '/add-chapter',
+        queryParams: {
+          'book-id': _self.bookId,
+          'book-name': _self.bookName,
+        },
       );
 
   @override

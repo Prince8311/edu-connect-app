@@ -23,12 +23,26 @@ abstract class LibraryApiService {
   @GET(Endpoints.bookList)
   Future<ApiResponse<BookListModel>> getBookList({
     @Query("page") int? page,
+    @Query("class") String? className,
+    @Query("subject") String? subject,
+    @Query("search") String? search,
   });
 
   @GET(Endpoints.classList)
   Future<ApiResponse<List<String>>> getClasses();
 
   @GET(Endpoints.subjects)
-  Future<ApiResponse<List<String>>> getSubjects(
-      {@Query("class") String? className});
+  Future<ApiResponse<List<String>>> getSubjects({
+    @Query("class") String? className,
+  });
+
+  @POST(Endpoints.bookChapterAdd)
+  @Headers(<String, dynamic>{'Content-Type': 'multipart/form-data'})
+  Future<ApiResponse> addBookChapter(@Body() FormData formData);
+
+  @GET(Endpoints.bookChapteList)
+  Future<ApiResponse<BookChapterListModel>> getBookChapterList({
+    @Query("book_id") String? bookId,
+    @Query("page") int? page,
+  });
 }

@@ -33,3 +33,28 @@ class BookItemModel with _$BookItemModel {
   factory BookItemModel.fromJson(Map<String, dynamic> json) =>
       _$BookItemModelFromJson(json);
 }
+
+@freezed
+class BookChapterListModel with _$BookChapterListModel {
+  const factory BookChapterListModel({
+    @JsonKey(name: 'list') List<BookChapterItemModel>? list,
+    @JsonKey(name: 'totalCount') int? totalCount,
+    @JsonKey(name: 'currentPage') int? currentPage,
+  }) = _BookChapterListModel;
+
+  factory BookChapterListModel.fromJson(Map<String, dynamic> json) =>
+      _$BookChapterListModelFromJson(json);
+}
+
+@freezed
+class BookChapterItemModel with _$BookChapterItemModel {
+  const factory BookChapterItemModel({
+    @JsonKey(name: 'id') String? id,
+    @JsonKey(name: 'chapter_index') String? chapterIndex,
+    @JsonKey(name: 'name') String? name,
+    @JsonKey(name: 'file_name') String? fileName,
+  }) = _BookChapterItemModel;
+
+  factory BookChapterItemModel.fromJson(Map<String, dynamic> json) =>
+      _$BookChapterItemModelFromJson(json);
+}

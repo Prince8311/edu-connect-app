@@ -31,10 +31,20 @@ class LibraryRepoImpl extends LibraryRepository {
   }
 
   @override
-  FutureEither<BookListModel?> getBookList({int? page}) {
+  FutureEither<BookListModel?> getBookList({
+    int? page,
+    String? className,
+    String? subject,
+    String? search,
+  }) {
     return apiHandler<BookListModel?>(
       () async {
-        final res = await _apiService.getBookList(page: page);
+        final res = await _apiService.getBookList(
+          page: page,
+          className: className,
+          subject: subject,
+          search: search,
+        );
         return res.data;
       },
     );
@@ -55,6 +65,30 @@ class LibraryRepoImpl extends LibraryRepository {
     return apiHandler<List<String>?>(
       () async {
         final res = await _apiService.getSubjects(className: className);
+        return res.data;
+      },
+    );
+  }
+
+  @override
+  FutureEither<bool?> addBookChapter({required FormData formData}) {
+    return apiHandler<bool?>(
+      () async {
+        final res = await _apiService.addBookChapter(formData);
+
+        successToast(res.message);
+        return res.success;
+      },
+    );
+  }
+
+  @override
+  FutureEither<BookChapterListModel?> getBookChapterList(
+      {String? bookId, int? page}) {
+    return apiHandler<BookChapterListModel?>(
+      () async {
+        final res =
+            await _apiService.getBookChapterList(bookId: bookId, page: page);
         return res.data;
       },
     );

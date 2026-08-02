@@ -5,12 +5,14 @@ import 'package:edu_connect/core/shared/miscellaneous/gap.dart';
 import 'package:edu_connect/core/shared/widgets/api_list_widget.dart';
 import 'package:edu_connect/core/shared/widgets/loader.dart';
 import 'package:edu_connect/features/auth/presentation/providers/auth_provider.dart';
+import 'package:edu_connect/features/library/domain/models/library_model.dart';
 import 'package:edu_connect/features/library/presentation/providers/library_provider.dart';
 import 'package:edu_connect/gen/assets.gen.dart';
 import 'package:edu_connect/gen/colors.gen.dart';
 import 'package:edu_connect/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lottie/lottie.dart';
 
 enum BookFilterType {
   classes,
@@ -53,12 +55,21 @@ class BooksContent extends HookConsumerWidget {
                             ],
                           ),
                           child: TextField(
+                            onSubmitted: (value) {
+                              final normalizedSearch = value.trim();
+                              ref
+                                  .read(libraryBookSearchProvider.notifier)
+                                  .state = normalizedSearch;
+                              ref
+                                  .read(libraryBooksNotifierProvider.notifier)
+                                  .loadData();
+                            },
                             decoration: InputDecoration(
                               isDense: true,
                               prefixIcon: Icon(
                                 Icons.search,
                                 size: 24.sp,
-                                color: ColorName.blueColor1,
+                                color: ColorName.blueColor1.withAlpha(120),
                               ),
                               prefixIconConstraints: const BoxConstraints(
                                 minWidth: 44,
@@ -95,14 +106,27 @@ class BooksContent extends HookConsumerWidget {
                     ),
                     Gap(12.w),
                     GestureDetector(
-                      onTap: () {
-                        showModalBottomSheet(
+                      onTap: () async {
+                        final appliedFilters = await showModalBottomSheet<
+                            ({List<String> classes, List<String> subjects})>(
                           context: context,
                           useRootNavigator: true,
                           isScrollControlled: true,
                           backgroundColor: Colors.transparent,
                           builder: (_) => const BookFilterBottomSheet(),
                         );
+
+                        if (appliedFilters == null) return;
+
+                        ref
+                            .read(librarySelectedClassesProvider.notifier)
+                            .state = appliedFilters.classes;
+                        ref
+                            .read(librarySelectedSubjectsProvider.notifier)
+                            .state = appliedFilters.subjects;
+                        ref
+                            .read(libraryBooksNotifierProvider.notifier)
+                            .loadData();
                       },
                       child: Container(
                         width: 46,
@@ -145,6 +169,27 @@ class BooksContent extends HookConsumerWidget {
                           canLoadMore: libraryCanLoadMoreProvider,
                           emptyCondition:
                               booksState.books.isEmpty && !booksState.isLoading,
+                          emptyBuilder: (context) => Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Gap(40.h),
+                              Lottie.asset(
+                                Assets.animations.searchNotFound,
+                                width: 220.w,
+                                height: 220.h,
+                              ),
+                              Gap(8.h),
+                              Text(
+                                'No Books Found',
+                                style: TextStyle(
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: FontFamily.poppins,
+                                  color: ColorName.black1.withAlpha(150),
+                                ),
+                              ),
+                            ],
+                          ),
                           itemCount: booksState.books.length,
                           isGridView: true,
                           aspectRatio: 0.45,
@@ -155,6 +200,7 @@ class BooksContent extends HookConsumerWidget {
                             final book = booksState.books[index];
                             return _bookCard(
                               context: context,
+                              book: book,
                               width: double.infinity,
                               title: (book.name ?? '').trim().isEmpty
                                   ? 'Untitled'
@@ -176,8 +222,8 @@ class BooksContent extends HookConsumerWidget {
                 child: GestureDetector(
                   onTap: () => AddBookRoute().push(context),
                   child: Container(
-                    height: 45,
-                    padding: const EdgeInsets.fromLTRB(16, 0, 24, 0),
+                    height: 43,
+                    padding: const EdgeInsets.fromLTRB(16, 0, 26, 0),
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(
                         begin: Alignment.topLeft,
@@ -194,14 +240,14 @@ class BooksContent extends HookConsumerWidget {
                         Icon(
                           Icons.add,
                           color: ColorName.white,
-                          size: 22.sp,
+                          size: 20.5.sp,
                         ),
                         Gap(3.w),
                         Text(
                           'Add New',
                           style: TextStyle(
                             fontSize: 15.sp,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w500,
                             fontFamily: FontFamily.poppins,
                             color: ColorName.white,
                           ),
@@ -254,6 +300,7 @@ class BooksContent extends HookConsumerWidget {
 
   Widget _bookCard({
     required BuildContext context,
+    required BookItemModel book,
     required double width,
     required String title,
     required String className,
@@ -267,7 +314,7 @@ class BooksContent extends HookConsumerWidget {
     );
 
     return GestureDetector(
-      onTap: () => BookDetailsRoute().push(context),
+      onTap: () => BookDetailsRoute($extra: book).push(context),
       child: SizedBox(
         width: width,
         child: Column(
@@ -396,44 +443,52 @@ class BooksContent extends HookConsumerWidget {
   }
 }
 
-class BookFilterBottomSheet extends StatefulWidget {
+class BookFilterBottomSheet extends ConsumerStatefulWidget {
   const BookFilterBottomSheet({super.key});
 
   @override
-  State<BookFilterBottomSheet> createState() => _BookFilterBottomSheetState();
+  ConsumerState<BookFilterBottomSheet> createState() =>
+      _BookFilterBottomSheetState();
 }
 
-class _BookFilterBottomSheetState extends State<BookFilterBottomSheet> {
+class _BookFilterBottomSheetState extends ConsumerState<BookFilterBottomSheet> {
   BookFilterType selectedType = BookFilterType.classes;
 
   final Set<String> selectedClasses = {};
   final Set<String> selectedSubjects = {};
 
-  final List<String> classes = [
-    "Class 1",
-    "Class 2",
-    "Class 3",
-    "Class 4",
-    "Class 5",
-    "Class 6",
-  ];
-
-  final List<String> subjects = [
-    "Mathematics",
-    "Science",
-    "English",
-    "History",
-    "Geography",
-    "Computer",
-  ];
+  @override
+  void initState() {
+    super.initState();
+    selectedClasses.addAll(ref.read(librarySelectedClassesProvider));
+    selectedSubjects.addAll(ref.read(librarySelectedSubjectsProvider));
+  }
 
   @override
   Widget build(BuildContext context) {
-    final values = selectedType == BookFilterType.classes ? classes : subjects;
+    final selectedClassForSubjects =
+        selectedClasses.isNotEmpty ? selectedClasses.first : null;
+
+    final classesAsync = ref.watch(libraryClassesProvider);
+    final subjectsAsync = ref.watch(
+      librarySubjectsProvider(className: selectedClassForSubjects),
+    );
+
+    final values = selectedType == BookFilterType.classes
+        ? (classesAsync.valueOrNull ?? const <String>[])
+        : (subjectsAsync.valueOrNull ?? const <String>[]);
 
     final selected = selectedType == BookFilterType.classes
         ? selectedClasses
         : selectedSubjects;
+
+    final isLoading = selectedType == BookFilterType.classes
+        ? classesAsync.isLoading
+        : subjectsAsync.isLoading;
+
+    final hasError = selectedType == BookFilterType.classes
+        ? classesAsync.hasError
+        : subjectsAsync.hasError;
 
     return FractionallySizedBox(
       heightFactor: 0.55,
@@ -555,23 +610,64 @@ class _BookFilterBottomSheetState extends State<BookFilterBottomSheet> {
 
                   /// RIGHT PANEL
                   Expanded(
-                    child: ListView.separated(
-                      itemCount: values.length,
-                      separatorBuilder: (_, __) => Gap(5.h),
-                      itemBuilder: (_, index) {
-                        final value = values[index];
+                    child: Builder(
+                      builder: (context) {
+                        if (isLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              color: ColorName.blueColor2,
+                            ),
+                          );
+                        }
 
-                        return _filterOption(
-                          value: value,
-                          selected: selected,
-                          onTap: () {
-                            setState(() {
-                              if (selected.contains(value)) {
-                                selected.remove(value);
-                              } else {
-                                selected.add(value);
-                              }
-                            });
+                        if (hasError) {
+                          return Center(
+                            child: Text(
+                              'Failed to load ${selectedType == BookFilterType.classes ? 'classes' : 'subjects'}',
+                              style: const TextStyle(
+                                fontFamily: FontFamily.poppins,
+                                fontSize: 13,
+                                color: ColorName.black2,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          );
+                        }
+
+                        if (values.isEmpty) {
+                          return Center(
+                            child: Text(
+                              selectedType == BookFilterType.classes
+                                  ? 'No classes found'
+                                  : 'No subjects found',
+                              style: const TextStyle(
+                                fontFamily: FontFamily.poppins,
+                                fontSize: 13,
+                                color: ColorName.black2,
+                              ),
+                            ),
+                          );
+                        }
+
+                        return ListView.separated(
+                          itemCount: values.length,
+                          separatorBuilder: (_, __) => Gap(5.h),
+                          itemBuilder: (_, index) {
+                            final value = values[index];
+
+                            return _filterOption(
+                              value: value,
+                              selected: selected,
+                              onTap: () {
+                                setState(() {
+                                  if (selected.contains(value)) {
+                                    selected.remove(value);
+                                  } else {
+                                    selected.add(value);
+                                  }
+                                });
+                              },
+                            );
                           },
                         );
                       },

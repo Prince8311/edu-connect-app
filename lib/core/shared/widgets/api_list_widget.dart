@@ -24,6 +24,12 @@ class ApiListWidget<T> extends ConsumerStatefulWidget {
     required this.itemBuilder,
     required this.pageProvider,
     required this.canLoadMore,
+    this.canLoadMoreReader,
+    this.onIncrementPage,
+    this.onResetPage,
+    this.emptyBuilder,
+    this.crossAxisCount = 3,
+    this.crossAxisSpacing = 14,
     this.aspectRatio = 0.49,
     this.padding,
     this.isGridView = false,
@@ -37,6 +43,12 @@ class ApiListWidget<T> extends ConsumerStatefulWidget {
   final void Function()? scrollControllerListener;
   final StateProvider<int>? pageProvider;
   final StateProvider<bool>? canLoadMore;
+  final bool Function(WidgetRef ref)? canLoadMoreReader;
+  final void Function(WidgetRef ref)? onIncrementPage;
+  final void Function(WidgetRef ref)? onResetPage;
+  final Widget Function(BuildContext context)? emptyBuilder;
+  final int crossAxisCount;
+  final double crossAxisSpacing;
   final double? aspectRatio;
   final Widget? Function(BuildContext, int) itemBuilder;
   final EdgeInsets? padding;
@@ -61,8 +73,18 @@ class _ApiListWidgetState<T> extends ConsumerState<ApiListWidget<T>> {
       _listScrollController.addListener(() {
         if (_listScrollController.position.pixels ==
             _listScrollController.position.maxScrollExtent) {
+          if (!mounted) return;
+
+          if (widget.canLoadMoreReader != null &&
+              widget.onIncrementPage != null) {
+            if (!widget.canLoadMoreReader!(ref)) return;
+
+            widget.onIncrementPage!(ref);
+            ref.read(widget.provider.notifier).loadMore();
+            return;
+          }
+
           if (widget.pageProvider != null && widget.canLoadMore != null) {
-            if (!mounted) return;
             if (!ref.read(widget.canLoadMore!)) return;
 
             ref
@@ -94,6 +116,18 @@ class _ApiListWidgetState<T> extends ConsumerState<ApiListWidget<T>> {
     final shouldShowEmpty = widget.emptyCondition;
 
     if (shouldShowEmpty) {
+      if (widget.emptyBuilder != null) {
+        return ListView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.6,
+              child: widget.emptyBuilder!(context),
+            ),
+          ],
+        );
+      }
+
       return ListView(
         physics: const AlwaysScrollableScrollPhysics(),
         children: [
@@ -115,6 +149,11 @@ class _ApiListWidgetState<T> extends ConsumerState<ApiListWidget<T>> {
                 AppRefreshButton<T>(
                   provider: widget.provider,
                   onRefreshCalled: () {
+                    if (widget.onResetPage != null) {
+                      widget.onResetPage!(ref);
+                      return;
+                    }
+
                     if (widget.pageProvider == null) return;
                     ref
                         .read(widget.pageProvider!.notifier)
@@ -134,8 +173,8 @@ class _ApiListWidgetState<T> extends ConsumerState<ApiListWidget<T>> {
             padding: widget.padding,
             physics: const AlwaysScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              crossAxisSpacing: 14,
+              crossAxisCount: widget.crossAxisCount,
+              crossAxisSpacing: widget.crossAxisSpacing,
               mainAxisSpacing: 0,
               childAspectRatio: widget.aspectRatio ?? 0.49,
             ),

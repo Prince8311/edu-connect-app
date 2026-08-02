@@ -200,49 +200,55 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () async {
-                      if (useHomeRouteOnBack) {
-                        HomeRoute().go(context);
-                      } else {
-                        final rootNavigator =
-                            Navigator.of(context, rootNavigator: true);
-                        if (rootNavigator.canPop()) {
-                          rootNavigator.pop();
-                        } else if (context.canPop()) {
-                          context.pop();
-                        } else {
+              Expanded(
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () async {
+                        if (useHomeRouteOnBack) {
                           HomeRoute().go(context);
+                        } else {
+                          final rootNavigator =
+                              Navigator.of(context, rootNavigator: true);
+                          if (rootNavigator.canPop()) {
+                            rootNavigator.pop();
+                          } else if (context.canPop()) {
+                            context.pop();
+                          } else {
+                            HomeRoute().go(context);
+                          }
                         }
-                      }
-                    },
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: ColorName.blueColor.withAlpha(30),
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      child: Icon(
-                        Icons.arrow_back,
-                        size: 25.sp,
-                        color: ColorName.blueColor1,
+                      },
+                      child: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: ColorName.blueColor.withAlpha(30),
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: Icon(
+                          Icons.arrow_back,
+                          size: 25.sp,
+                          color: ColorName.blueColor1,
+                        ),
                       ),
                     ),
-                  ),
-                  Gap(14.w),
-                  Text(
-                    title,
-                    style: TextStyle(
-                      color: ColorName.black,
-                      fontSize: 17.sp,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: FontFamily.poppins,
+                    Gap(14.w),
+                    Expanded(
+                      child: Text(
+                        title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: ColorName.black,
+                          fontSize: 17.sp,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: FontFamily.poppins,
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Row(
                 children: [

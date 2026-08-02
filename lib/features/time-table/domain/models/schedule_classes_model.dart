@@ -46,3 +46,22 @@ class ClassItem with _$ClassItem {
   factory ClassItem.fromJson(Map<String, dynamic> json) =>
       _$ClassItemFromJson(json);
 }
+
+@freezed
+class OngoingClassModel with _$OngoingClassModel {
+  const factory OngoingClassModel({
+    @JsonKey(name: 'id') int? id,
+    @JsonKey(name: 'classroom_id') String? classroomId,
+    @JsonKey(name: 'period') String? period,
+    @JsonKey(name: 'start_time') String? startTime,
+    @JsonKey(name: 'end_time') String? endTime,
+    @JsonKey(name: 'subject') String? subject,
+    @JsonKey(name: 'class') String? className,
+    @JsonKey(name: 'section') String? section,
+    @JsonKey(name: 'teacher') String? teacher,
+    @JsonKey(name: 'student_no') String? studentNo,
+  }) = _OngoingClassModel;
+
+  factory OngoingClassModel.fromJson(Map<String, dynamic> json) =>
+      _$OngoingClassModelFromJson(json);
+}

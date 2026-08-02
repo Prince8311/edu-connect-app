@@ -21,278 +21,60 @@ class TeacherProfileScreen extends HookConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Container(
-                padding: const EdgeInsets.fromLTRB(16, 24, 16, 18),
-                decoration: BoxDecoration(
-                  color: ColorName.white,
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    const BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.05),
-                      blurRadius: 24,
-                      offset: Offset(0, 12),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+              Center(
+                child: Stack(
+                  alignment: Alignment.center,
                   children: [
-                    Center(
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                            width: 100,
-                            height: 100,
-                            decoration: BoxDecoration(
-                              color: ColorName.blueColor.withAlpha(30),
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          Container(
-                            width: 94,
-                            height: 94,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: ColorName.white,
-                                width: 3,
-                              ),
-                            ),
-                            child: ClipOval(
-                              child: Assets.images.profileImage.image(
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ],
+                    Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: ColorName.blueColor.withAlpha(30),
+                        shape: BoxShape.circle,
                       ),
                     ),
-                    Gap(10.h),
-                    Center(
-                      child: Text(
-                        'V Geethanjali',
-                        style: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: FontFamily.poppins,
-                          color: ColorName.black,
+                    Container(
+                      width: 94,
+                      height: 94,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: ColorName.white,
+                          width: 3,
                         ),
                       ),
-                    ),
-                    Center(
-                      child: Text(
-                        'Senior Secondary Teacher',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          color: ColorName.blueColor,
-                          fontFamily: FontFamily.poppins,
+                      child: ClipOval(
+                        child: Assets.images.profileImage.image(
+                          fit: BoxFit.cover,
                         ),
                       ),
-                    ),
-                    Gap(6.h),
-                    Divider(color: ColorName.lightBackground3, thickness: 1),
-                    Gap(5.h),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                'EXPERIENCE',
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: ColorName.black2.withAlpha(150),
-                                  fontFamily: FontFamily.poppins,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              Gap(2.h),
-                              Text(
-                                '8 Yrs',
-                                style: TextStyle(
-                                  fontSize: 17.sp,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: FontFamily.poppins,
-                                  color: ColorName.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 1,
-                          height: 42,
-                          color: ColorName.lightBackground3,
-                        ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                'STUDENTS',
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: ColorName.black2.withAlpha(150),
-                                  fontFamily: FontFamily.poppins,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              Gap(2.h),
-                              Text(
-                                '120+',
-                                style: TextStyle(
-                                  fontSize: 17.sp,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: FontFamily.poppins,
-                                  color: ColorName.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 1,
-                          height: 42,
-                          color: ColorName.lightBackground3,
-                        ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                'ID',
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: ColorName.black2.withAlpha(150),
-                                  fontFamily: FontFamily.poppins,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              Gap(2.h),
-                              Text(
-                                '#2024',
-                                style: TextStyle(
-                                  fontSize: 17.sp,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: FontFamily.poppins,
-                                  color: ColorName.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
                     ),
                   ],
                 ),
               ),
-              Gap(24.h),
-              Padding(
-                padding: const EdgeInsets.only(left: 6),
+              Gap(10.h),
+              Center(
                 child: Text(
-                  'Institute',
+                  'V Geethanjali',
                   style: TextStyle(
-                    fontSize: 16.sp,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.w600,
                     fontFamily: FontFamily.poppins,
                     color: ColorName.black,
                   ),
                 ),
               ),
-              Gap(6.h),
-              Container(
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-                decoration: BoxDecoration(
-                  color: ColorName.white,
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    const BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.05),
-                      blurRadius: 24,
-                      offset: Offset(0, 12),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 52,
-                      height: 52,
-                      decoration: BoxDecoration(
-                        color: ColorName.blueColor.withAlpha(30),
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      child: Icon(
-                        Icons.school,
-                        color: ColorName.blueColor1,
-                        size: 32.sp,
-                      ),
-                    ),
-                    Gap(14.w),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Sri Sai Angels School',
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: FontFamily.poppins,
-                              color: ColorName.black,
-                            ),
-                          ),
-                          Gap(1.h),
-                          Text(
-                            'Main Campus, Block B',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontFamily: FontFamily.poppins,
-                              color: ColorName.black2.withAlpha(150),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+              Center(
+                child: Text(
+                  'Senior Secondary Teacher',
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    color: ColorName.blueColor,
+                    fontFamily: FontFamily.poppins,
+                  ),
                 ),
               ),
               Gap(24.h),
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 6),
-              //   child: Text(
-              //     'App Features',
-              //     style: TextStyle(
-              //       fontSize: 16.sp,
-              //       fontWeight: FontWeight.w600,
-              //       fontFamily: FontFamily.poppins,
-              //       color: ColorName.black,
-              //     ),
-              //   ),
-              // ),
-              // Gap(15.h),
-              // GridView.count(
-              //   physics: const NeverScrollableScrollPhysics(),
-              //   shrinkWrap: true,
-              //   crossAxisCount: 4,
-              //   crossAxisSpacing: 10.w,
-              //   mainAxisSpacing: 10.h,
-              //   childAspectRatio: 0.83,
-              //   children: [
-              //     _buildFeatureTile(Icons.person_outline, 'My Details'),
-              //     _buildFeatureTile(Icons.description_outlined, 'Documents'),
-              //     _buildFeatureTile(
-              //         Icons.calendar_today_outlined, 'Attendance'),
-              //     _buildFeatureTile(Icons.beach_access_outlined, 'Leaves'),
-              //     _buildFeatureTile(Icons.schedule_outlined, 'Timetable'),
-              //     _buildFeatureTile(Icons.directions_bus_outlined, 'Transport'),
-              //     _buildFeatureTile(Icons.notifications_outlined, 'Alerts'),
-              //     _buildFeatureTile(Icons.insert_chart_outlined, 'Report Card'),
-              //   ],
-              // ),
             ],
           ),
         ),

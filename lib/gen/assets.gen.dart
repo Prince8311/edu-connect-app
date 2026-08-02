@@ -82,6 +82,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/profile-image.png
   AssetGenImage get profileImage => const AssetGenImage('assets/images/profile-image.png');
 
+  /// File path: assets/images/relax.svg
+  SvgGenImage get relax => const SvgGenImage('assets/images/relax.svg');
+
   /// File path: assets/images/splash_logo.gif
   AssetGenImage get splashLogo => const AssetGenImage('assets/images/splash_logo.gif');
 
@@ -120,6 +123,7 @@ class $AssetsImagesGen {
         night,
         noFields,
         profileImage,
+        relax,
         splashLogo,
         success,
         teacherRoleBg,

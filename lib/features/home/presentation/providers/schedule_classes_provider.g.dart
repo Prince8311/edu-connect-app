@@ -6,6 +6,23 @@ part of 'schedule_classes_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$getTimeSlotsHash() => r'23513fb0340bf46c6a424d8b2339196e73594f40';
+
+/// See also [getTimeSlots].
+@ProviderFor(getTimeSlots)
+final getTimeSlotsProvider =
+    AutoDisposeFutureProvider<List<TimeSlotModel>?>.internal(
+  getTimeSlots,
+  name: r'getTimeSlotsProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$getTimeSlotsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef GetTimeSlotsRef = AutoDisposeFutureProviderRef<List<TimeSlotModel>?>;
 String _$getScheduleClassesHash() =>
     r'1327c87f517b51fd0b9f4e8bb61e0a6a4ff15c6e';
 
@@ -161,5 +178,23 @@ class _GetScheduleClassesProviderElement
   @override
   String? get intent => (origin as GetScheduleClassesProvider).intent;
 }
+
+String _$ongoingClassHash() => r'4cfc452e634f72001992fbac87a0625afb87577d';
+
+/// See also [ongoingClass].
+@ProviderFor(ongoingClass)
+final ongoingClassProvider =
+    AutoDisposeFutureProvider<OngoingClassModel?>.internal(
+  ongoingClass,
+  name: r'ongoingClassProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$ongoingClassHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef OngoingClassRef = AutoDisposeFutureProviderRef<OngoingClassModel?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

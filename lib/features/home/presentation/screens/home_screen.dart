@@ -1,13 +1,18 @@
+import 'dart:async';
+
 import 'package:edu_connect/core/router/app_router.dart';
 import 'package:edu_connect/core/shared/miscellaneous/app_extensions.dart';
 import 'package:edu_connect/core/shared/miscellaneous/gap.dart';
 import 'package:edu_connect/core/shared/widgets/app_bar.dart';
 import 'package:edu_connect/features/auth/presentation/providers/auth_provider.dart';
+import 'package:edu_connect/features/home/domain/models/time_slot_model.dart';
 import 'package:edu_connect/features/home/presentation/providers/schedule_classes_provider.dart';
 import 'package:edu_connect/features/time-table/domain/models/schedule_classes_model.dart';
+import 'package:edu_connect/gen/assets.gen.dart';
 import 'package:edu_connect/gen/colors.gen.dart';
 import 'package:edu_connect/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomeScreen extends HookConsumerWidget {
@@ -17,7 +22,33 @@ class HomeScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final todayScheduleAsync =
         ref.watch(getScheduleClassesProvider(intent: 'today'));
+    final ongoingClassAsync = ref.watch(ongoingClassProvider);
+    final timeSlotsAsync = ref.watch(getTimeSlotsProvider);
+    final timeSlots = timeSlotsAsync.asData?.value ?? const <TimeSlotModel>[];
     final savedUserInfoAsync = ref.watch(savedUserInfoProvider);
+    final isTeacher =
+        savedUserInfoAsync.asData?.value?.type?.toLowerCase() == 'teacher';
+    final lastBoundaryRefetchKey = useState<String?>(null);
+
+    useEffect(() {
+      if (timeSlots.isEmpty) return null;
+
+      void triggerRefetchIfBoundaryMatched() {
+        final boundaryKey = _matchedBoundaryKeyForNow(timeSlots: timeSlots);
+        if (boundaryKey == null) return;
+        if (lastBoundaryRefetchKey.value == boundaryKey) return;
+
+        lastBoundaryRefetchKey.value = boundaryKey;
+        ref.invalidate(ongoingClassProvider);
+      }
+
+      triggerRefetchIfBoundaryMatched();
+      final timer = Timer.periodic(const Duration(seconds: 20), (_) {
+        triggerRefetchIfBoundaryMatched();
+      });
+
+      return timer.cancel;
+    }, [timeSlots]);
 
     return Scaffold(
       backgroundColor: ColorName.lightBackground4,
@@ -126,15 +157,18 @@ class HomeScreen extends HookConsumerWidget {
                 ),
               ),
               Gap(24.h),
-              _buildScheduleCard(context),
+              _buildScheduleCard(
+                context,
+                ongoingClass: ongoingClassAsync.asData?.value,
+                timeSlots: timeSlots,
+                isTeacher: isTeacher,
+              ),
               Gap(30.h),
               _buildTodayScheduleCard(
                 context,
                 scheduledClasses:
                     todayScheduleAsync.asData?.value?.scheduledClasses ?? [],
-                isTeacher:
-                    savedUserInfoAsync.asData?.value?.type?.toLowerCase() ==
-                        'teacher',
+                isTeacher: isTeacher,
               ),
               Gap(30.h),
               _buildAttendanceTrendsCard(context),
@@ -145,7 +179,45 @@ class HomeScreen extends HookConsumerWidget {
     );
   }
 
-  Widget _buildScheduleCard(BuildContext context) {
+  Widget _buildScheduleCard(
+    BuildContext context, {
+    required OngoingClassModel? ongoingClass,
+    required List<TimeSlotModel> timeSlots,
+    required bool isTeacher,
+  }) {
+    final hasOngoingClass = ongoingClass != null;
+    final matchedSlot = _resolveTimeSlotForOngoing(
+      ongoingClass: ongoingClass,
+      timeSlots: timeSlots,
+    );
+
+    final squarePrimaryText = isTeacher
+        ? '${(ongoingClass?.className ?? '-').trim()}-${(ongoingClass?.section ?? '-').trim()}'
+        : _resolvePeriodLabel(
+            ongoingClass: ongoingClass, matchedSlot: matchedSlot);
+    final subjectText = (ongoingClass?.subject ?? '').trim().isEmpty
+        ? 'No ongoing class'
+        : ongoingClass!.subject!.trim();
+    final subtitleText = ongoingClass?.classroomId?.trim().isEmpty ?? true
+        ? 'Class unavailable'
+        : '#${(ongoingClass?.classroomId ?? '-').trim()}';
+    final startText = _resolveStartTime(
+      ongoingClass: ongoingClass,
+      matchedSlot: matchedSlot,
+    );
+    final endText = _resolveEndTime(
+      ongoingClass: ongoingClass,
+      matchedSlot: matchedSlot,
+    );
+
+    final studentCount = int.tryParse((ongoingClass?.studentNo ?? '').trim());
+    final studentLabel = studentCount == null
+        ? '- STUDENTS'
+        : '$studentCount STUDENT${studentCount == 1 ? '' : 'S'}';
+    final teacherLabel = (ongoingClass?.teacher ?? '').trim().isEmpty
+        ? 'Teacher unavailable'
+        : ongoingClass!.teacher!.trim();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -179,7 +251,10 @@ class HomeScreen extends HookConsumerWidget {
             Container(
               padding: const EdgeInsets.fromLTRB(10, 4, 13, 4),
               decoration: BoxDecoration(
-                color: ColorName.greenColor.withAlpha(30),
+                color: (hasOngoingClass
+                        ? ColorName.greenColor
+                        : ColorName.redColor1)
+                    .withAlpha(30),
                 borderRadius: BorderRadius.circular(999),
               ),
               child: Row(
@@ -189,17 +264,21 @@ class HomeScreen extends HookConsumerWidget {
                     width: 8,
                     height: 8,
                     decoration: BoxDecoration(
-                      color: ColorName.greenColor,
+                      color: hasOngoingClass
+                          ? ColorName.greenColor
+                          : ColorName.redColor1,
                       shape: BoxShape.circle,
                     ),
                   ),
                   Gap(6.w),
                   Text(
-                    'LIVE',
+                    hasOngoingClass ? 'LIVE' : 'STOPPED',
                     style: TextStyle(
-                      color: ColorName.greenColor,
+                      color: hasOngoingClass
+                          ? ColorName.greenColor
+                          : ColorName.redColor1,
                       fontSize: 12.sp,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w600,
                       fontFamily: FontFamily.poppins,
                       letterSpacing: 0.6,
                     ),
@@ -211,6 +290,7 @@ class HomeScreen extends HookConsumerWidget {
         ),
         Gap(12.h),
         Container(
+          width: double.maxFinite,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: ColorName.white,
@@ -223,164 +303,331 @@ class HomeScreen extends HookConsumerWidget {
               ),
             ],
           ),
-          child: Column(
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 52,
-                    height: 52,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          ColorName.blueColor,
-                          ColorName.blueColor2,
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                    child: Center(
-                      child: Text(
-                        '1-A',
-                        style: TextStyle(
-                          color: ColorName.white.withAlpha(245),
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: FontFamily.poppins,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Gap(16.w),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+          child: hasOngoingClass
+              ? Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(
-                          'Kannada',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: ColorName.black,
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: FontFamily.poppins,
+                        Container(
+                          width: 52,
+                          height: 52,
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                ColorName.blueColor,
+                                ColorName.blueColor2,
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                          child: Center(
+                            child: isTeacher
+                                ? Text(
+                                    squarePrimaryText,
+                                    maxLines: 2,
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: ColorName.white.withAlpha(245),
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  )
+                                : Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        squarePrimaryText,
+                                        style: TextStyle(
+                                          color: ColorName.white.withAlpha(245),
+                                          fontSize: 18.sp,
+                                          height: 1,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: FontFamily.poppins,
+                                        ),
+                                      ),
+                                      Gap(1.h),
+                                      Text(
+                                        'Period',
+                                        style: TextStyle(
+                                          color: ColorName.white.withAlpha(245),
+                                          fontSize: 11.sp,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: FontFamily.poppins,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                           ),
                         ),
-                        Gap(3.h),
-                        Text(
-                          'Literary Arts Phase 1',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: ColorName.black2,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: FontFamily.poppins,
+                        Gap(16.w),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                subjectText,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: ColorName.black,
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: FontFamily.poppins,
+                                ),
+                              ),
+                              Gap(1.h),
+                              Text(
+                                subtitleText,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: ColorName.black2,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: FontFamily.poppins,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              startText,
+                              style: TextStyle(
+                                color: ColorName.blueColor1,
+                                fontSize: 17.sp,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: FontFamily.poppins,
+                              ),
+                            ),
+                            Gap(2.h),
+                            Text(
+                              '- $endText',
+                              style: TextStyle(
+                                color: ColorName.black2,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: FontFamily.poppins,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Gap(13.h),
+                    Divider(
+                      height: 1,
+                      thickness: 1,
+                      color: ColorName.borderColor.withAlpha(150),
+                    ),
+                    Gap(14.h),
+                    Row(
+                      children: [
+                        Icon(
+                          isTeacher ? Icons.groups : Icons.person,
+                          size: 23.sp,
+                          color: ColorName.black2,
+                        ),
+                        Gap(6.w),
+                        Expanded(
+                          child: Text(
+                            isTeacher ? studentLabel : teacherLabel,
+                            maxLines: isTeacher ? 1 : 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: ColorName.black2,
+                              fontSize: 13.sp,
+                              height: 1.35,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: FontFamily.poppins,
+                            ),
+                          ),
+                        ),
+                        Gap(20.w),
+                        Container(
+                          height: 47.h,
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                ColorName.blueColor,
+                                ColorName.blueColor2,
+                              ],
+                            ),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Color.fromRGBO(0, 0, 0, 0.16),
+                                blurRadius: 14,
+                                offset: Offset(0, 8),
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: ElevatedButton(
+                            onPressed: () =>
+                                ClassRoomDetailsRoute().push(context),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: ColorName.transparent,
+                              foregroundColor: ColorName.white,
+                              shadowColor: Colors.transparent,
+                              elevation: 0,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 24,
+                                vertical: 10,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            child: Text(
+                              'Enter Classroom',
+                              style: TextStyle(
+                                color: ColorName.white,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: FontFamily.poppins,
+                              ),
+                            ),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        '10:30 AM',
-                        style: TextStyle(
-                          color: ColorName.blueColor1,
-                          fontSize: 17.sp,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: FontFamily.poppins,
-                        ),
-                      ),
-                      Gap(2.h),
-                      Text(
-                        '- 11:45 AM',
-                        style: TextStyle(
-                          color: ColorName.black2,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: FontFamily.poppins,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Gap(15.h),
-              Divider(
-                height: 1,
-                thickness: 1,
-                color: ColorName.borderColor.withAlpha(150),
-              ),
-              Gap(16.h),
-              Row(
-                children: [
-                  Icon(
-                    Icons.groups,
-                    size: 23.sp,
-                    color: ColorName.black2,
-                  ),
-                  Gap(6.w),
-                  Expanded(
-                    child: Text(
-                      '32 STUDENTS',
+                  ],
+                )
+              : Column(
+                  children: [
+                    Gap(12.h),
+                    Assets.images.relax.svg(
+                      height: 135.h,
+                    ),
+                    Gap(18.h),
+                    Text(
+                      'No Live Class Right Now',
                       style: TextStyle(
-                        color: ColorName.black2,
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.w600,
+                        color: ColorName.black.withAlpha(60),
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w500,
                         fontFamily: FontFamily.poppins,
                       ),
                     ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Color.fromRGBO(0, 0, 0, 0.16),
-                          blurRadius: 14,
-                          offset: Offset(0, 8),
-                        ),
-                      ],
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: ElevatedButton(
-                      onPressed: () => ClassRoomDetailsRoute().push(context),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: ColorName.blueColor2,
-                        foregroundColor: ColorName.white,
-                        shadowColor: Colors.transparent,
-                        elevation: 0,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 24,
-                          vertical: 11,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      child: Text(
-                        'Enter Classroom',
-                        style: TextStyle(
-                          color: ColorName.white,
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: FontFamily.poppins,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+                    Gap(3.h),
+                  ],
+                ),
         ),
       ],
     );
+  }
+
+  TimeSlotModel? _resolveTimeSlotForOngoing({
+    required OngoingClassModel? ongoingClass,
+    required List<TimeSlotModel> timeSlots,
+  }) {
+    final period = (ongoingClass?.period ?? '').trim().toLowerCase();
+    if (period.isEmpty || timeSlots.isEmpty) return null;
+
+    for (final slot in timeSlots) {
+      final id = (slot.id ?? '').trim().toLowerCase();
+      final name = (slot.name ?? '').trim().toLowerCase();
+      if (id == period || name == period) {
+        return slot;
+      }
+    }
+    return null;
+  }
+
+  String _resolvePeriodLabel({
+    required OngoingClassModel? ongoingClass,
+    required TimeSlotModel? matchedSlot,
+  }) {
+    final fromSlot = (matchedSlot?.name ?? '').trim();
+    if (fromSlot.isNotEmpty) return fromSlot;
+
+    final fromModel = (ongoingClass?.period ?? '').trim();
+    if (fromModel.isNotEmpty) return fromModel;
+
+    return '-';
+  }
+
+  String _resolveStartTime({
+    required OngoingClassModel? ongoingClass,
+    required TimeSlotModel? matchedSlot,
+  }) {
+    final fromModel = (ongoingClass?.startTime ?? '').trim();
+    if (fromModel.isNotEmpty) return fromModel;
+
+    final fromSlot = (matchedSlot?.start ?? '').trim();
+    if (fromSlot.isNotEmpty) return fromSlot;
+
+    return '--:--';
+  }
+
+  String _resolveEndTime({
+    required OngoingClassModel? ongoingClass,
+    required TimeSlotModel? matchedSlot,
+  }) {
+    final fromModel = (ongoingClass?.endTime ?? '').trim();
+    if (fromModel.isNotEmpty) return fromModel;
+
+    final fromSlot = (matchedSlot?.end ?? '').trim();
+    if (fromSlot.isNotEmpty) return fromSlot;
+
+    return '--:--';
+  }
+
+  String? _matchedBoundaryKeyForNow({required List<TimeSlotModel> timeSlots}) {
+    final now = TimeOfDay.now();
+    final nowLabel = _normalizeTimeLabel(
+      '${now.hour}:${now.minute.toString().padLeft(2, '0')} ${now.period == DayPeriod.am ? 'AM' : 'PM'}',
+    );
+    if (nowLabel == null) return null;
+
+    for (final slot in timeSlots) {
+      final startLabel = _normalizeTimeLabel(slot.start ?? '');
+      final endLabel = _normalizeTimeLabel(slot.end ?? '');
+
+      if (startLabel == nowLabel) {
+        return '${slot.id ?? slot.name ?? 'slot'}-start-$nowLabel';
+      }
+
+      if (endLabel == nowLabel) {
+        return '${slot.id ?? slot.name ?? 'slot'}-end-$nowLabel';
+      }
+    }
+
+    return null;
+  }
+
+  String? _normalizeTimeLabel(String value) {
+    final raw = value.trim().toUpperCase();
+    if (raw.isEmpty) return null;
+
+    final parts = raw.split(RegExp(r'\s+'));
+    if (parts.length < 2) return null;
+
+    final hm = parts[0].split(':');
+    if (hm.length != 2) return null;
+
+    final parsedHour = int.tryParse(hm[0]);
+    final parsedMinute = int.tryParse(hm[1]);
+    final meridiem = parts[1];
+    if (parsedHour == null || parsedMinute == null) return null;
+    if (meridiem != 'AM' && meridiem != 'PM') return null;
+
+    final normalizedHour = parsedHour == 0
+        ? 12
+        : parsedHour > 12
+            ? parsedHour - 12
+            : parsedHour;
+
+    return '$normalizedHour:${parsedMinute.toString().padLeft(2, '0')} $meridiem';
   }
 
   Widget _buildTodayScheduleCard(
@@ -456,17 +703,7 @@ class HomeScreen extends HookConsumerWidget {
         ),
         Gap(12.h),
         if (scheduledClasses.isEmpty)
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 24.h),
-            child: Text(
-              'No classes scheduled for today',
-              style: TextStyle(
-                color: ColorName.black2,
-                fontSize: 14.sp,
-                fontFamily: FontFamily.poppins,
-              ),
-            ),
-          )
+          _buildEmptyScheduleCard(context)
         else
           Column(
             children: [
@@ -734,6 +971,118 @@ class HomeScreen extends HookConsumerWidget {
             ],
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildEmptyScheduleCard(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 26),
+      decoration: BoxDecoration(
+        color: ColorName.white,
+        border: Border.all(color: ColorName.borderColor.withAlpha(125)),
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: ColorName.black.withAlpha(20),
+            blurRadius: 16,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  ColorName.blueColor,
+                  ColorName.blueColor2,
+                ],
+              ),
+              borderRadius: BorderRadius.circular(999),
+            ),
+            child: Icon(Icons.calendar_month,
+                color: ColorName.white.withAlpha(200), size: 34.sp),
+          ),
+          Gap(18.h),
+          Text(
+            'No classes scheduled',
+            style: TextStyle(
+              color: ColorName.black,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w500,
+              fontFamily: FontFamily.poppins,
+            ),
+          ),
+          Gap(5.h),
+          Text(
+            'You have no classes for today. Enjoy your free time or explore resources!',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: ColorName.black2,
+              height: 1.4,
+              fontSize: 14.sp,
+              fontFamily: FontFamily.poppins,
+            ),
+          ),
+          Gap(14.h),
+          Container(
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  ColorName.blueColor,
+                  ColorName.blueColor2,
+                ],
+              ),
+              boxShadow: const [
+                BoxShadow(
+                  color: Color.fromRGBO(0, 0, 0, 0.12),
+                  blurRadius: 12,
+                  spreadRadius: 1,
+                  offset: Offset(0, 6),
+                ),
+              ],
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: ColorName.transparent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 22),
+                foregroundColor: ColorName.white,
+                shadowColor: Colors.transparent,
+                elevation: 0,
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.refresh, size: 20.sp, color: ColorName.white),
+                  Gap(6.w),
+                  Text(
+                    'Refresh Schedule',
+                    style: TextStyle(
+                        color: ColorName.white,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: FontFamily.poppins),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

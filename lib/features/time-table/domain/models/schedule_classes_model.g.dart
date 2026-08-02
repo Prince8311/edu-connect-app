@@ -72,3 +72,33 @@ Map<String, dynamic> _$$ClassItemImplToJson(_$ClassItemImpl instance) =>
       'teacher': instance.teacher,
       'student_no': instance.studentNo,
     };
+
+_$OngoingClassModelImpl _$$OngoingClassModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$OngoingClassModelImpl(
+      id: (json['id'] as num?)?.toInt(),
+      classroomId: json['classroom_id'] as String?,
+      period: json['period'] as String?,
+      startTime: json['start_time'] as String?,
+      endTime: json['end_time'] as String?,
+      subject: json['subject'] as String?,
+      className: json['class'] as String?,
+      section: json['section'] as String?,
+      teacher: json['teacher'] as String?,
+      studentNo: json['student_no'] as String?,
+    );
+
+Map<String, dynamic> _$$OngoingClassModelImplToJson(
+        _$OngoingClassModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'classroom_id': instance.classroomId,
+      'period': instance.period,
+      'start_time': instance.startTime,
+      'end_time': instance.endTime,
+      'subject': instance.subject,
+      'class': instance.className,
+      'section': instance.section,
+      'teacher': instance.teacher,
+      'student_no': instance.studentNo,
+    };

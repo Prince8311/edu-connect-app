@@ -15,7 +15,9 @@ class Endpoints {
   static const String logout = '/auth/logout.php';
 
   // -------- Time Table --------
+  static const String timeSlots = '/api/dashboard/time-slots.php';
   static const String scheduledClasses = '/api/dashboard/scheduled-classes.php';
+  static const String ongoingClass = '/api/dashboard/ongoing-class.php';
 
   // -------- Library --------
   static const String bookAdd = '/api/library/books/insert.php';

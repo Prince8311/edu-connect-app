@@ -835,3 +835,373 @@ abstract class _ClassItem implements ClassItem {
   _$$ClassItemImplCopyWith<_$ClassItemImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+OngoingClassModel _$OngoingClassModelFromJson(Map<String, dynamic> json) {
+  return _OngoingClassModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$OngoingClassModel {
+  @JsonKey(name: 'id')
+  int? get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'classroom_id')
+  String? get classroomId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'period')
+  String? get period => throw _privateConstructorUsedError;
+  @JsonKey(name: 'start_time')
+  String? get startTime => throw _privateConstructorUsedError;
+  @JsonKey(name: 'end_time')
+  String? get endTime => throw _privateConstructorUsedError;
+  @JsonKey(name: 'subject')
+  String? get subject => throw _privateConstructorUsedError;
+  @JsonKey(name: 'class')
+  String? get className => throw _privateConstructorUsedError;
+  @JsonKey(name: 'section')
+  String? get section => throw _privateConstructorUsedError;
+  @JsonKey(name: 'teacher')
+  String? get teacher => throw _privateConstructorUsedError;
+  @JsonKey(name: 'student_no')
+  String? get studentNo => throw _privateConstructorUsedError;
+
+  /// Serializes this OngoingClassModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of OngoingClassModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $OngoingClassModelCopyWith<OngoingClassModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $OngoingClassModelCopyWith<$Res> {
+  factory $OngoingClassModelCopyWith(
+          OngoingClassModel value, $Res Function(OngoingClassModel) then) =
+      _$OngoingClassModelCopyWithImpl<$Res, OngoingClassModel>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'id') int? id,
+      @JsonKey(name: 'classroom_id') String? classroomId,
+      @JsonKey(name: 'period') String? period,
+      @JsonKey(name: 'start_time') String? startTime,
+      @JsonKey(name: 'end_time') String? endTime,
+      @JsonKey(name: 'subject') String? subject,
+      @JsonKey(name: 'class') String? className,
+      @JsonKey(name: 'section') String? section,
+      @JsonKey(name: 'teacher') String? teacher,
+      @JsonKey(name: 'student_no') String? studentNo});
+}
+
+/// @nodoc
+class _$OngoingClassModelCopyWithImpl<$Res, $Val extends OngoingClassModel>
+    implements $OngoingClassModelCopyWith<$Res> {
+  _$OngoingClassModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of OngoingClassModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? classroomId = freezed,
+    Object? period = freezed,
+    Object? startTime = freezed,
+    Object? endTime = freezed,
+    Object? subject = freezed,
+    Object? className = freezed,
+    Object? section = freezed,
+    Object? teacher = freezed,
+    Object? studentNo = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      classroomId: freezed == classroomId
+          ? _value.classroomId
+          : classroomId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      period: freezed == period
+          ? _value.period
+          : period // ignore: cast_nullable_to_non_nullable
+              as String?,
+      startTime: freezed == startTime
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      endTime: freezed == endTime
+          ? _value.endTime
+          : endTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      subject: freezed == subject
+          ? _value.subject
+          : subject // ignore: cast_nullable_to_non_nullable
+              as String?,
+      className: freezed == className
+          ? _value.className
+          : className // ignore: cast_nullable_to_non_nullable
+              as String?,
+      section: freezed == section
+          ? _value.section
+          : section // ignore: cast_nullable_to_non_nullable
+              as String?,
+      teacher: freezed == teacher
+          ? _value.teacher
+          : teacher // ignore: cast_nullable_to_non_nullable
+              as String?,
+      studentNo: freezed == studentNo
+          ? _value.studentNo
+          : studentNo // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$OngoingClassModelImplCopyWith<$Res>
+    implements $OngoingClassModelCopyWith<$Res> {
+  factory _$$OngoingClassModelImplCopyWith(_$OngoingClassModelImpl value,
+          $Res Function(_$OngoingClassModelImpl) then) =
+      __$$OngoingClassModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'id') int? id,
+      @JsonKey(name: 'classroom_id') String? classroomId,
+      @JsonKey(name: 'period') String? period,
+      @JsonKey(name: 'start_time') String? startTime,
+      @JsonKey(name: 'end_time') String? endTime,
+      @JsonKey(name: 'subject') String? subject,
+      @JsonKey(name: 'class') String? className,
+      @JsonKey(name: 'section') String? section,
+      @JsonKey(name: 'teacher') String? teacher,
+      @JsonKey(name: 'student_no') String? studentNo});
+}
+
+/// @nodoc
+class __$$OngoingClassModelImplCopyWithImpl<$Res>
+    extends _$OngoingClassModelCopyWithImpl<$Res, _$OngoingClassModelImpl>
+    implements _$$OngoingClassModelImplCopyWith<$Res> {
+  __$$OngoingClassModelImplCopyWithImpl(_$OngoingClassModelImpl _value,
+      $Res Function(_$OngoingClassModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of OngoingClassModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? classroomId = freezed,
+    Object? period = freezed,
+    Object? startTime = freezed,
+    Object? endTime = freezed,
+    Object? subject = freezed,
+    Object? className = freezed,
+    Object? section = freezed,
+    Object? teacher = freezed,
+    Object? studentNo = freezed,
+  }) {
+    return _then(_$OngoingClassModelImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      classroomId: freezed == classroomId
+          ? _value.classroomId
+          : classroomId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      period: freezed == period
+          ? _value.period
+          : period // ignore: cast_nullable_to_non_nullable
+              as String?,
+      startTime: freezed == startTime
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      endTime: freezed == endTime
+          ? _value.endTime
+          : endTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      subject: freezed == subject
+          ? _value.subject
+          : subject // ignore: cast_nullable_to_non_nullable
+              as String?,
+      className: freezed == className
+          ? _value.className
+          : className // ignore: cast_nullable_to_non_nullable
+              as String?,
+      section: freezed == section
+          ? _value.section
+          : section // ignore: cast_nullable_to_non_nullable
+              as String?,
+      teacher: freezed == teacher
+          ? _value.teacher
+          : teacher // ignore: cast_nullable_to_non_nullable
+              as String?,
+      studentNo: freezed == studentNo
+          ? _value.studentNo
+          : studentNo // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$OngoingClassModelImpl implements _OngoingClassModel {
+  const _$OngoingClassModelImpl(
+      {@JsonKey(name: 'id') this.id,
+      @JsonKey(name: 'classroom_id') this.classroomId,
+      @JsonKey(name: 'period') this.period,
+      @JsonKey(name: 'start_time') this.startTime,
+      @JsonKey(name: 'end_time') this.endTime,
+      @JsonKey(name: 'subject') this.subject,
+      @JsonKey(name: 'class') this.className,
+      @JsonKey(name: 'section') this.section,
+      @JsonKey(name: 'teacher') this.teacher,
+      @JsonKey(name: 'student_no') this.studentNo});
+
+  factory _$OngoingClassModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$OngoingClassModelImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'id')
+  final int? id;
+  @override
+  @JsonKey(name: 'classroom_id')
+  final String? classroomId;
+  @override
+  @JsonKey(name: 'period')
+  final String? period;
+  @override
+  @JsonKey(name: 'start_time')
+  final String? startTime;
+  @override
+  @JsonKey(name: 'end_time')
+  final String? endTime;
+  @override
+  @JsonKey(name: 'subject')
+  final String? subject;
+  @override
+  @JsonKey(name: 'class')
+  final String? className;
+  @override
+  @JsonKey(name: 'section')
+  final String? section;
+  @override
+  @JsonKey(name: 'teacher')
+  final String? teacher;
+  @override
+  @JsonKey(name: 'student_no')
+  final String? studentNo;
+
+  @override
+  String toString() {
+    return 'OngoingClassModel(id: $id, classroomId: $classroomId, period: $period, startTime: $startTime, endTime: $endTime, subject: $subject, className: $className, section: $section, teacher: $teacher, studentNo: $studentNo)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OngoingClassModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.classroomId, classroomId) ||
+                other.classroomId == classroomId) &&
+            (identical(other.period, period) || other.period == period) &&
+            (identical(other.startTime, startTime) ||
+                other.startTime == startTime) &&
+            (identical(other.endTime, endTime) || other.endTime == endTime) &&
+            (identical(other.subject, subject) || other.subject == subject) &&
+            (identical(other.className, className) ||
+                other.className == className) &&
+            (identical(other.section, section) || other.section == section) &&
+            (identical(other.teacher, teacher) || other.teacher == teacher) &&
+            (identical(other.studentNo, studentNo) ||
+                other.studentNo == studentNo));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, classroomId, period,
+      startTime, endTime, subject, className, section, teacher, studentNo);
+
+  /// Create a copy of OngoingClassModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OngoingClassModelImplCopyWith<_$OngoingClassModelImpl> get copyWith =>
+      __$$OngoingClassModelImplCopyWithImpl<_$OngoingClassModelImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$OngoingClassModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OngoingClassModel implements OngoingClassModel {
+  const factory _OngoingClassModel(
+          {@JsonKey(name: 'id') final int? id,
+          @JsonKey(name: 'classroom_id') final String? classroomId,
+          @JsonKey(name: 'period') final String? period,
+          @JsonKey(name: 'start_time') final String? startTime,
+          @JsonKey(name: 'end_time') final String? endTime,
+          @JsonKey(name: 'subject') final String? subject,
+          @JsonKey(name: 'class') final String? className,
+          @JsonKey(name: 'section') final String? section,
+          @JsonKey(name: 'teacher') final String? teacher,
+          @JsonKey(name: 'student_no') final String? studentNo}) =
+      _$OngoingClassModelImpl;
+
+  factory _OngoingClassModel.fromJson(Map<String, dynamic> json) =
+      _$OngoingClassModelImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'id')
+  int? get id;
+  @override
+  @JsonKey(name: 'classroom_id')
+  String? get classroomId;
+  @override
+  @JsonKey(name: 'period')
+  String? get period;
+  @override
+  @JsonKey(name: 'start_time')
+  String? get startTime;
+  @override
+  @JsonKey(name: 'end_time')
+  String? get endTime;
+  @override
+  @JsonKey(name: 'subject')
+  String? get subject;
+  @override
+  @JsonKey(name: 'class')
+  String? get className;
+  @override
+  @JsonKey(name: 'section')
+  String? get section;
+  @override
+  @JsonKey(name: 'teacher')
+  String? get teacher;
+  @override
+  @JsonKey(name: 'student_no')
+  String? get studentNo;
+
+  /// Create a copy of OngoingClassModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$OngoingClassModelImplCopyWith<_$OngoingClassModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

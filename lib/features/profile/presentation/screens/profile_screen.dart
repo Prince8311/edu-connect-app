@@ -264,6 +264,23 @@ class TeacherProfileScreen extends HookConsumerWidget {
                 ),
               ),
               Gap(24.h),
+              GridView.count(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                crossAxisCount: 4,
+                crossAxisSpacing: 10.w,
+                mainAxisSpacing: 10.h,
+                childAspectRatio: 0.83,
+                children: [
+                  _buildFeatureTile(Icons.description_outlined, 'Documents'),
+                  _buildFeatureTile(
+                      Icons.calendar_today_outlined, 'Attendance'),
+                  // _buildFeatureTile(Icons.beach_access_outlined, 'Leaves'),
+                  _buildFeatureTile(Icons.directions_bus_outlined, 'Transport'),
+                  _buildFeatureTile(Icons.insert_chart_outlined, 'Report Card'),
+                ],
+              ),
+              Gap(24.h),
               Padding(
                 padding: const EdgeInsets.only(left: 8),
                 child: Text(
@@ -395,7 +412,7 @@ class TeacherProfileScreen extends HookConsumerWidget {
                 ),
               ],
             ),
-            child: Icon(icon, color: ColorName.blueColor, size: 30.sp),
+            child: Icon(icon, color: ColorName.blueColor1, size: 30.sp),
           ),
           Gap(10.h),
           Text(

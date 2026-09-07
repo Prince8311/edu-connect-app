@@ -21,6 +21,7 @@ List<RouteBase> get $appRoutes => [
       $bookDetailsRoute,
       $addBookRoute,
       $addChapterRoute,
+      $privacyPolicyRoute,
     ];
 
 RouteBase get $splashRoute => GoRouteData.$route(
@@ -526,6 +527,35 @@ mixin _$AddChapterRoute on GoRouteData {
           'book-id': _self.bookId,
           'book-name': _self.bookName,
         },
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $privacyPolicyRoute => GoRouteData.$route(
+      path: '/privacy-policy',
+      name: 'privacyPolicy',
+      factory: _$PrivacyPolicyRoute._fromState,
+    );
+
+mixin _$PrivacyPolicyRoute on GoRouteData {
+  static PrivacyPolicyRoute _fromState(GoRouterState state) =>
+      const PrivacyPolicyRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/privacy-policy',
       );
 
   @override

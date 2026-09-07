@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:edu_connect/core/router/app_router.dart';
 import 'package:edu_connect/features/auth/presentation/providers/auth_token_provider.dart';
@@ -13,8 +14,11 @@ import 'package:edu_connect/gen/assets.gen.dart';
 import 'package:edu_connect/gen/colors.gen.dart';
 import 'package:edu_connect/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AuthScreen extends HookConsumerWidget {
   const AuthScreen({super.key});
@@ -25,6 +29,36 @@ class AuthScreen extends HookConsumerWidget {
     final showOtpField = useState(false);
     final nameController = useTextEditingController();
     final passwordController = useTextEditingController();
+    final termsRecognizer = useMemoized(() => TapGestureRecognizer());
+    final privacyRecognizer = useMemoized(() => TapGestureRecognizer());
+
+    Future<void> openLegalLink(String url) async {
+      try {
+        final launched = await launchUrl(
+          Uri.parse(url),
+          mode: LaunchMode.externalApplication,
+        );
+        if (!launched && context.mounted) {
+          errorToast('Unable to open link. Please try again.');
+        }
+      } catch (_) {
+        if (context.mounted) {
+          errorToast('Unable to open link. Please try again.');
+        }
+      }
+    }
+
+    termsRecognizer.onTap =
+        () => openLegalLink('https://educonnekt.in/terms-conditions');
+    privacyRecognizer.onTap =
+        () => openLegalLink('https://educonnekt.in/privacy-policy');
+
+    useEffect(() {
+      return () {
+        termsRecognizer.dispose();
+        privacyRecognizer.dispose();
+      };
+    }, [termsRecognizer, privacyRecognizer]);
 
     final controllers = useMemoized(
       () => List.generate(6, (_) => TextEditingController()),
@@ -37,6 +71,29 @@ class AuthScreen extends HookConsumerWidget {
     final secondsLeft = useState(0);
     final timer = useRef<Timer?>(null);
     final isLoading = useState(false);
+    final otpStatus = useState<_OtpStatus>(_OtpStatus.idle);
+    final completedTicks = useState(0);
+    final shakeController = useAnimationController(
+      duration: const Duration(milliseconds: 450),
+    );
+    final shakeProgress = useAnimation(shakeController);
+    final otpColor = switch (otpStatus.value) {
+      _OtpStatus.idle => null,
+      _OtpStatus.error => Colors.red.shade600,
+      _OtpStatus.success => Colors.green.shade600,
+    };
+
+    void resetOtpFeedback() {
+      otpStatus.value = _OtpStatus.idle;
+      completedTicks.value = 0;
+      shakeController.reset();
+    }
+
+    Future<void> showOtpError() async {
+      otpStatus.value = _OtpStatus.error;
+      unawaited(HapticFeedback.vibrate().catchError((Object _) {}));
+      await shakeController.forward(from: 0).orCancel;
+    }
 
     final otp = controllers.map((c) => c.text).join();
 
@@ -160,7 +217,12 @@ class AuthScreen extends HookConsumerWidget {
                           children: [
                             Expanded(
                               child: GestureDetector(
-                                onTap: () => isPassword.value = true,
+                                onTap: isLoading.value
+                                    ? null
+                                    : () {
+                                        resetOtpFeedback();
+                                        isPassword.value = true;
+                                      },
                                 child: Container(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 12),
@@ -198,7 +260,12 @@ class AuthScreen extends HookConsumerWidget {
                             ),
                             Expanded(
                               child: GestureDetector(
-                                onTap: () => isPassword.value = false,
+                                onTap: isLoading.value
+                                    ? null
+                                    : () {
+                                        resetOtpFeedback();
+                                        isPassword.value = false;
+                                      },
                                 child: Container(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 12),
@@ -266,55 +333,98 @@ class AuthScreen extends HookConsumerWidget {
                           ),
                         ),
                         Gap(6.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: List.generate(6, (index) {
-                            return SizedBox(
-                              width: 45,
-                              height: 45,
-                              child: TextField(
-                                controller: controllers[index],
-                                focusNode: focusNodes[index],
-                                keyboardType: TextInputType.number,
-                                textAlign: TextAlign.center,
-                                maxLength: 1,
-                                cursorColor: ColorName.black,
-                                style: TextStyle(
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: FontFamily.poppins,
+                        Transform.translate(
+                          offset: Offset(
+                            math.sin(shakeProgress * math.pi * 8) *
+                                9 *
+                                (1 - shakeProgress),
+                            0,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: List.generate(6, (index) {
+                              return SizedBox(
+                                width: 45,
+                                height: 45,
+                                child: AnimatedSwitcher(
+                                  duration: const Duration(milliseconds: 180),
+                                  child: index < completedTicks.value
+                                      ? Container(
+                                          key: ValueKey('otp-tick-$index'),
+                                          width: 45,
+                                          height: 45,
+                                          decoration: BoxDecoration(
+                                            color: otpColor?.withAlpha(24),
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            border: Border.all(
+                                              color: otpColor!,
+                                              width: 1.2,
+                                            ),
+                                          ),
+                                          child: Icon(Icons.check_rounded,
+                                              color: otpColor, size: 26),
+                                        )
+                                      : TextField(
+                                          key: ValueKey('otp-digit-$index'),
+                                          readOnly: isLoading.value,
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter
+                                                .digitsOnly
+                                          ],
+                                          controller: controllers[index],
+                                          focusNode: focusNodes[index],
+                                          keyboardType: TextInputType.number,
+                                          textAlign: TextAlign.center,
+                                          maxLength: 1,
+                                          cursorColor: ColorName.black,
+                                          style: TextStyle(
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: FontFamily.poppins,
+                                          ),
+                                          decoration: InputDecoration(
+                                            filled: otpColor != null,
+                                            fillColor: otpColor?.withAlpha(24),
+                                            counterText: "",
+                                            contentPadding: EdgeInsets.zero,
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              borderSide: BorderSide(
+                                                color: otpColor ??
+                                                    ColorName.borderColor,
+                                                width: 1.2,
+                                              ),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              borderSide: BorderSide(
+                                                color: otpColor ??
+                                                    ColorName.blueColor,
+                                                width: 1.3,
+                                              ),
+                                            ),
+                                          ),
+                                          onChanged: (value) {
+                                            resetOtpFeedback();
+                                            if (value.isNotEmpty && index < 5) {
+                                              FocusScope.of(context)
+                                                  .requestFocus(
+                                                      focusNodes[index + 1]);
+                                            }
+                                            if (value.isEmpty && index > 0) {
+                                              FocusScope.of(context)
+                                                  .requestFocus(
+                                                      focusNodes[index - 1]);
+                                            }
+                                          },
+                                        ),
                                 ),
-                                decoration: InputDecoration(
-                                  counterText: "",
-                                  contentPadding: EdgeInsets.zero,
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: const BorderSide(
-                                      color: ColorName.borderColor,
-                                      width: 1.2,
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: const BorderSide(
-                                      color: ColorName.blueColor,
-                                      width: 1.3,
-                                    ),
-                                  ),
-                                ),
-                                onChanged: (value) {
-                                  if (value.isNotEmpty && index < 5) {
-                                    FocusScope.of(context)
-                                        .requestFocus(focusNodes[index + 1]);
-                                  }
-                                  if (value.isEmpty && index > 0) {
-                                    FocusScope.of(context)
-                                        .requestFocus(focusNodes[index - 1]);
-                                  }
-                                },
-                              ),
-                            );
-                          }),
+                              );
+                            }),
+                          ),
                         ),
                       ],
                       if (!isPassword.value && showOtpField.value) ...[
@@ -333,10 +443,13 @@ class AuthScreen extends HookConsumerWidget {
                                     ),
                                   )
                                 : GestureDetector(
-                                    onTap: () {
-                                      startTimer();
-                                      successToast("OTP resent");
-                                    },
+                                    onTap: isLoading.value
+                                        ? null
+                                        : () {
+                                            resetOtpFeedback();
+                                            startTimer();
+                                            successToast("OTP resent");
+                                          },
                                     child: Text(
                                       'Resend OTP',
                                       style: TextStyle(
@@ -395,29 +508,75 @@ class AuthScreen extends HookConsumerWidget {
                                     }
                                   } else {
                                     isLoading.value = true;
+                                    resetOtpFeedback();
+                                    FocusScope.of(context).unfocus();
                                     final request = LoginRequest(
                                       name: nameController.text.trim(),
                                       loginByOtp: true,
                                       otp: otp,
                                     );
-                                    final result = await ref.read(
-                                        loginProvider(requestBody: request)
-                                            .future);
-                                    isLoading.value = false;
-                                    if (!context.mounted) return;
-                                    ref.invalidate(authTokenProvider);
-
-                                    if (result?.nextScreen == 'home') {
-                                      if (result?.authToken != null &&
-                                          context.mounted) {
-                                        HomeRoute().go(context);
+                                    try {
+                                      final result = await ref.refresh(
+                                          loginProvider(requestBody: request)
+                                              .future);
+                                      if (!context.mounted) return;
+                                      if (result == null) {
+                                        await showOtpError();
+                                        return;
                                       }
-                                    } else if (result?.nextScreen ==
-                                        'selectRole') {
-                                      RoleSelectRoute().push(context);
-                                    } else if (result?.nextScreen ==
-                                        'selectStudent') {
-                                      StudentSelectRoute().push(context);
+                                      final canNavigate = (result.nextScreen ==
+                                                  'home' &&
+                                              result.authToken != null) ||
+                                          result.nextScreen == 'selectRole' ||
+                                          result.nextScreen == 'selectStudent';
+                                      if (!canNavigate) {
+                                        errorToast(
+                                            'Unable to complete sign in. Please try again.');
+                                        return;
+                                      }
+                                      otpStatus.value = _OtpStatus.success;
+                                      await Future<void>.delayed(
+                                          const Duration(milliseconds: 200));
+                                      for (var i = 1; i <= 6; i++) {
+                                        if (!context.mounted) return;
+                                        completedTicks.value = i;
+                                        await Future<void>.delayed(
+                                            const Duration(milliseconds: 160));
+                                      }
+                                      await Future<void>.delayed(
+                                          const Duration(milliseconds: 250));
+                                      if (!context.mounted) return;
+                                      ref.invalidate(authTokenProvider);
+
+                                      if (result.nextScreen == 'home') {
+                                        if (result.authToken != null &&
+                                            context.mounted) {
+                                          HomeRoute().go(context);
+                                        }
+                                      } else if (result.nextScreen ==
+                                          'selectRole') {
+                                        await RoleSelectRoute()
+                                            .push<void>(context);
+                                      } else if (result.nextScreen ==
+                                          'selectStudent') {
+                                        await StudentSelectRoute()
+                                            .push<void>(context);
+                                      }
+                                    } on TickerCanceled {
+                                      // The screen was disposed during the shake.
+                                    } catch (_) {
+                                      if (context.mounted) {
+                                        errorToast(
+                                            'Unable to verify OTP. Please try again.');
+                                      }
+                                    } finally {
+                                      if (context.mounted) {
+                                        isLoading.value = false;
+                                        if (otpStatus.value ==
+                                            _OtpStatus.success) {
+                                          resetOtpFeedback();
+                                        }
+                                      }
                                     }
                                   }
                                 }
@@ -501,17 +660,17 @@ class AuthScreen extends HookConsumerWidget {
                             children: [
                               TextSpan(
                                 text: 'Terms & Conditions',
+                                recognizer: termsRecognizer,
                                 style: TextStyle(
                                   color: ColorName.blueColor,
-                                  decoration: TextDecoration.underline,
                                 ),
                               ),
                               const TextSpan(text: ' and '),
                               TextSpan(
                                 text: 'Privacy Policy',
+                                recognizer: privacyRecognizer,
                                 style: TextStyle(
                                   color: ColorName.blueColor,
-                                  decoration: TextDecoration.underline,
                                 ),
                               ),
                             ],
@@ -530,6 +689,8 @@ class AuthScreen extends HookConsumerWidget {
     );
   }
 }
+
+enum _OtpStatus { idle, error, success }
 
 class _AuthIconButton extends StatelessWidget {
   const _AuthIconButton({

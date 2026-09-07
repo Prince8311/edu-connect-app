@@ -6,6 +6,7 @@ class PublicRoutes {
     RoutePath.comingSoon,
     RoutePath.maintenance,
     RoutePath.auth,
+    RoutePath.privacyPolicy,
     RoutePath.roleSelect,
     RoutePath.studentSelect,
   ];

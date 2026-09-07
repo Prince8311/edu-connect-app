@@ -1,3 +1,4 @@
+import 'package:edu_connect/features/profile/presentation/screens/privacy_policy_screen.dart';
 import 'dart:async';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +54,7 @@ class RoutePath {
   static const String addBook = '/add-book';
   static const String addChapter = '/add-chapter';
   static const String settings = '/settings';
+  static const String privacyPolicy = '/privacy-policy';
 
   // classroom
   static const String classRooms = '/classrooms';
@@ -79,6 +81,7 @@ class RouteName {
   static const String addBook = 'addBook';
   static const String addChapter = 'addChapter';
   static const String settings = 'settings';
+  static const String privacyPolicy = 'privacyPolicy';
 
   // classroom
   static const String classRooms = 'classRooms';
@@ -365,4 +368,17 @@ Page slideTransitionPage(
       child: child,
     ),
   );
+}
+
+@TypedGoRoute<PrivacyPolicyRoute>(
+  path: RoutePath.privacyPolicy,
+  name: RouteName.privacyPolicy,
+)
+class PrivacyPolicyRoute extends GoRouteData with _$PrivacyPolicyRoute {
+  const PrivacyPolicyRoute();
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return slideTransitionPage(const PrivacyPolicyScreen());
+  }
 }

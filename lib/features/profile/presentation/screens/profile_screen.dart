@@ -1,3 +1,4 @@
+import 'package:edu_connect/features/profile/presentation/widgets/profile_settings_sections.dart';
 import 'package:edu_connect/core/shared/miscellaneous/app_extensions.dart';
 import 'package:edu_connect/core/shared/miscellaneous/gap.dart';
 import 'package:edu_connect/core/shared/widgets/app_bar.dart';
@@ -386,6 +387,7 @@ class TeacherProfileScreen extends HookConsumerWidget {
                   ],
                 ),
               ),
+              const ProfileSettingsSections(),
             ],
           ),
         ),

@@ -331,7 +331,10 @@ class _TimeTableDaySection extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.only(bottom: 14.h),
                     child: GestureDetector(
-                      onTap: () => ClassRoomDetailsRoute().push(context),
+                      onTap: slot.id == null
+                          ? null
+                          : () =>
+                              ClassRoomDetailsRoute(id: slot.id!).push(context),
                       child: Container(
                         padding: const EdgeInsets.all(14),
                         decoration: BoxDecoration(

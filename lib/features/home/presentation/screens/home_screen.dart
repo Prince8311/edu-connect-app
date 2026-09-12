@@ -472,8 +472,11 @@ class HomeScreen extends HookConsumerWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: ElevatedButton(
-                            onPressed: () =>
-                                ClassRoomDetailsRoute().push(context),
+                            onPressed: ongoingClass.id == null
+                                ? null
+                                : () =>
+                                    ClassRoomDetailsRoute(id: ongoingClass.id!)
+                                        .push(context),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: ColorName.transparent,
                               foregroundColor: ColorName.white,
@@ -822,7 +825,9 @@ class HomeScreen extends HookConsumerWidget {
     required bool isTeacher,
   }) {
     return GestureDetector(
-      onTap: () => ClassRoomDetailsRoute().push(context),
+      onTap: slot.id == null
+          ? null
+          : () => ClassRoomDetailsRoute(id: slot.id!).push(context),
       child: Container(
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(

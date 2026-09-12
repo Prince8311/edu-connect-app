@@ -1,3 +1,9 @@
+import 'package:edu_connect/core/shared/widgets/loader.dart';
+import 'package:edu_connect/core/api/end_points.dart';
+import 'package:edu_connect/features/auth/presentation/providers/auth_provider.dart';
+import 'package:edu_connect/features/classroom/domain/models/classroom_model.dart';
+import 'package:edu_connect/features/classroom/presentation/providers/classroom_provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:edu_connect/core/shared/miscellaneous/gap.dart';
 import 'package:edu_connect/core/shared/widgets/app_bar.dart';
 import 'package:edu_connect/gen/fonts.gen.dart';
@@ -9,78 +15,20 @@ const _muted = Color(0xFF748198);
 const _blue = Color(0xFF2364DB);
 const _border = Color(0xFFE6ECF4);
 
-enum _Attendance {
-  present('Present', Color(0xFF22A06B)),
-  absent('Absent', Color(0xFFDE5058)),
-  notMarked('Not marked', Color(0xFF98A2B3));
+class ClassroomDetailsScreen extends ConsumerStatefulWidget {
+  const ClassroomDetailsScreen({super.key, required this.id});
 
-  const _Attendance(this.label, this.color);
-  final String label;
-  final Color color;
-}
-
-/// Preview content until the classroom data source is available.
-class ClassroomDetailsScreen extends StatefulWidget {
-  const ClassroomDetailsScreen({super.key});
+  final int id;
 
   @override
-  State<ClassroomDetailsScreen> createState() => _ClassroomDetailsScreenState();
+  ConsumerState<ClassroomDetailsScreen> createState() =>
+      _ClassroomDetailsScreenState();
 }
 
-class _ClassroomDetailsScreenState extends State<ClassroomDetailsScreen> {
+class _ClassroomDetailsScreenState
+    extends ConsumerState<ClassroomDetailsScreen> {
   final _search = TextEditingController();
   bool _sortByName = false;
-
-  static const _students = [
-    (
-      name: 'Aarav Sharma',
-      roll: '01',
-      initials: 'AS',
-      attendance: _Attendance.present
-    ),
-    (
-      name: 'Ananya Rao',
-      roll: '02',
-      initials: 'AR',
-      attendance: _Attendance.present
-    ),
-    (
-      name: 'Diya Patel',
-      roll: '03',
-      initials: 'DP',
-      attendance: _Attendance.absent
-    ),
-    (
-      name: 'Ishaan Kumar',
-      roll: '04',
-      initials: 'IK',
-      attendance: _Attendance.notMarked
-    ),
-    (
-      name: 'Meera Nair',
-      roll: '05',
-      initials: 'MN',
-      attendance: _Attendance.present
-    ),
-    (
-      name: 'Rohan Reddy',
-      roll: '06',
-      initials: 'RR',
-      attendance: _Attendance.notMarked
-    ),
-    (
-      name: 'Saanvi Shetty',
-      roll: '07',
-      initials: 'SS',
-      attendance: _Attendance.present
-    ),
-    (
-      name: 'Vivaan Joshi',
-      roll: '08',
-      initials: 'VJ',
-      attendance: _Attendance.absent
-    ),
-  ];
 
   static const _apps = [
     (
@@ -123,13 +71,10 @@ class _ClassroomDetailsScreenState extends State<ClassroomDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final query = _search.text.trim().toLowerCase();
-    final students = _students
-        .where((student) =>
-            student.name.toLowerCase().contains(query) ||
-            student.roll.contains(query))
-        .toList();
-    if (_sortByName) students.sort((a, b) => a.name.compareTo(b.name));
+    final isTeacher =
+        ref.watch(savedUserInfoProvider).asData?.value?.type?.toLowerCase() ==
+            'teacher';
+    final details = ref.watch(getClassroomDetailsProvider(id: widget.id));
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FB),
       appBar: const PrimaryAppBar(
@@ -138,194 +83,310 @@ class _ClassroomDetailsScreenState extends State<ClassroomDetailsScreen> {
         showSettings: false,
         useHomeRouteOnBack: false,
       ),
-      body: DefaultTextStyle(
-        style: const TextStyle(
-            fontFamily: FontFamily.poppins, color: _ink, fontSize: 14),
-        child: SafeArea(
-          top: false,
-          child: LayoutBuilder(builder: (context, constraints) {
-            final horizontal = constraints.maxWidth > 760
-                ? (constraints.maxWidth - 720) / 2
-                : 20.0;
-            return CustomScrollView(slivers: [
-              SliverPadding(
-                padding: EdgeInsets.fromLTRB(horizontal, 24, horizontal, 0),
-                sliver: SliverToBoxAdapter(
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                      _summary(),
-                      const Gap(30),
-                      const _SectionTitle(
-                          title: 'Classroom apps',
-                          subtitle: 'Everything you need, in one place'),
-                      const Gap(16),
-                      _appGrid(),
-                      const Gap(30),
-                      Row(children: [
-                        const Expanded(
-                            child: _SectionTitle(
-                                title: 'Students',
-                                subtitle: 'Your classroom community')),
-                        _Pill(
-                            label: '${_students.length} students',
-                            color: _blue),
-                      ]),
-                      const Gap(16),
-                      _searchField(),
-                      const Gap(12),
-                      Row(children: [
-                        Expanded(
-                            child: Text(
-                                '${students.length} of ${_students.length} students',
-                                style: const TextStyle(
-                                    color: _muted, fontSize: 12))),
-                        PopupMenuButton<bool>(
-                          tooltip: 'Sort students',
-                          initialValue: _sortByName,
-                          onSelected: (value) =>
-                              setState(() => _sortByName = value),
-                          itemBuilder: (_) => const [
-                            PopupMenuItem(
-                                value: false, child: Text('Roll number')),
-                            PopupMenuItem(value: true, child: Text('Name A–Z')),
-                          ],
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 14, horizontal: 6),
-                            child: Row(children: [
-                              const Icon(Icons.sort_rounded,
-                                  size: 18, color: _muted),
-                              const Gap(6),
-                              Text(_sortByName ? 'Name A–Z' : 'Roll number',
-                                  style: const TextStyle(
-                                      fontSize: 12, color: _muted)),
-                              const Icon(Icons.keyboard_arrow_down_rounded,
-                                  size: 18, color: _muted),
-                            ]),
-                          ),
-                        ),
-                      ]),
-                    ])),
-              ),
-              if (students.isEmpty)
-                SliverPadding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: horizontal, vertical: 24),
-                  sliver: SliverToBoxAdapter(
-                      child: Column(children: [
-                    const Icon(Icons.person_search_outlined,
-                        size: 42, color: _muted),
-                    const Gap(12),
-                    const Text('No students found',
-                        style: TextStyle(fontWeight: FontWeight.w600)),
-                    const Gap(4),
-                    const Text('Try a different name or roll number.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: _muted)),
-                    TextButton(
-                        onPressed: _clearSearch,
-                        child: const Text('Clear search')),
-                  ])),
-                )
-              else
-                SliverPadding(
-                  padding: EdgeInsets.symmetric(horizontal: horizontal),
-                  sliver: SliverList(
-                      delegate: SliverChildBuilderDelegate((context, index) {
-                    final student = students[index];
-                    final color =
-                        _apps[int.parse(student.roll) % _apps.length].color;
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Material(
-                        color: Colors.white,
-                        textStyle: const TextStyle(
-                            fontFamily: FontFamily.poppins,
-                            color: _ink,
-                            fontSize: 14),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                            side: const BorderSide(color: _border)),
-                        clipBehavior: Clip.antiAlias,
-                        child: InkWell(
-                          onTap: () => _showPanel(
-                              icon: Icons.person_outline_rounded,
-                              color: color,
-                              title: student.name,
-                              description:
-                                  'Roll number ${student.roll} · Class 10C\nKannada'),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    width: 48,
-                                    height: 48,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        color: color.withAlpha(22),
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    child: Text(student.initials,
-                                        style: TextStyle(
-                                            fontSize: 17,
-                                            color: color,
-                                            fontWeight: FontWeight.w600)),
-                                  ),
-                                  const Gap(14),
-                                  Expanded(
-                                      child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                        Text(student.name,
-                                            style: const TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w600)),
-                                        const Gap(4),
-                                        Text('Roll no. ${student.roll}',
-                                            style: const TextStyle(
-                                                fontSize: 12, color: _muted)),
-                                      ])),
-                                  const Gap(12),
-                                  Tooltip(
-                                    message: student.attendance.label,
-                                    child: Semantics(
-                                      label:
-                                          'Attendance: ${student.attendance.label}',
-                                      child: Container(
-                                        width: 22,
-                                        height: 22,
-                                        padding: const EdgeInsets.all(5),
-                                        decoration: BoxDecoration(
-                                            color: student.attendance.color
-                                                .withAlpha(24),
-                                            shape: BoxShape.circle),
-                                        child: DecoratedBox(
-                                            decoration: BoxDecoration(
-                                                color: student.attendance.color,
-                                                shape: BoxShape.circle)),
-                                      ),
-                                    ),
-                                  ),
-                                ]),
-                          ),
-                        ),
-                      ),
-                    );
-                  }, childCount: students.length)),
-                ),
-              const SliverToBoxAdapter(child: Gap(30)),
-            ]);
-          }),
-        ),
+      body: details.when(
+        loading: () => _loadingSkeleton(isTeacher: isTeacher),
+        error: (error, stackTrace) => _unavailable(),
+        data: (classroom) => classroom == null
+            ? _unavailable()
+            : _content(classroom, isTeacher: isTeacher),
       ),
     );
   }
 
-  Widget _summary() => Container(
+  Widget _loadingSkeleton({required bool isTeacher}) => SafeArea(
+        top: false,
+        child: LayoutBuilder(builder: (context, constraints) {
+          final horizontal = constraints.maxWidth > 760
+              ? (constraints.maxWidth - 720) / 2
+              : 20.0;
+          final width = constraints.maxWidth - horizontal * 2;
+          final scale = MediaQuery.textScalerOf(context).scale(14) / 14;
+          final columns = width >= 600 && scale <= 1.3
+              ? 5
+              : width >= 320 && scale <= 1.3
+                  ? 3
+                  : 2;
+          final tileWidth = (width - (columns - 1) * 12) / columns;
+          return Semantics(
+            label: 'Loading classroom details',
+            child: SingleChildScrollView(
+              padding: EdgeInsets.fromLTRB(horizontal, 24, horizontal, 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Classroom summary, teacher and schedule.
+                  const SkeletonLoader(height: 260, width: double.infinity),
+                  const Gap(30),
+                  const SkeletonLoader(height: 24, width: 160),
+                  const Gap(8),
+                  const SkeletonLoader(height: 14, width: 220),
+                  const Gap(16),
+                  Wrap(
+                    spacing: 12,
+                    runSpacing: 12,
+                    children: List.generate(
+                        isTeacher ? 5 : 4,
+                        (_) => SkeletonLoader(
+                            height: 80 + 28.8 * scale, width: tileWidth)),
+                  ),
+                  const Gap(30),
+                  const Row(children: [
+                    Expanded(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SkeletonLoader(height: 24, width: 110),
+                        Gap(8),
+                        SkeletonLoader(height: 14, width: 150),
+                      ],
+                    )),
+                    Gap(12),
+                    SkeletonLoader(height: 26, width: 75),
+                  ]),
+                  const Gap(16),
+                  const SkeletonLoader(height: 54, width: double.infinity),
+                  const Gap(16),
+                  const Row(children: [
+                    SkeletonLoader(height: 14, width: 110),
+                    Spacer(),
+                    SkeletonLoader(height: 14, width: 90),
+                  ]),
+                  const Gap(16),
+                  for (var index = 0; index < 5; index++)
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: _border),
+                      ),
+                      child: const Row(children: [
+                        SkeletonLoader(height: 45, width: 45),
+                        Gap(14),
+                        Expanded(
+                            child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SkeletonLoader(height: 18, width: double.infinity),
+                            Gap(8),
+                            FractionallySizedBox(
+                                widthFactor: 0.65,
+                                child: SkeletonLoader(
+                                    height: 12, width: double.infinity)),
+                          ],
+                        )),
+                      ]),
+                    ),
+                ],
+              ),
+            ),
+          );
+        }),
+      );
+
+  Widget _unavailable() => Center(
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          const Text('Classroom details are unavailable.'),
+          const Gap(12),
+          FilledButton(
+            onPressed: () =>
+                ref.invalidate(getClassroomDetailsProvider(id: widget.id)),
+            child: const Text('Retry'),
+          ),
+        ]),
+      );
+
+  String _classLabel(ClassroomModel classroom) =>
+      'Class ${classroom.className ?? '-'}${classroom.section ?? ''}';
+
+  String _initials(String? name) {
+    final words = (name ?? '')
+        .trim()
+        .split(RegExp(r'\s+'))
+        .where((word) => word.isNotEmpty);
+    return words.isEmpty
+        ? '?'
+        : words
+            .take(2)
+            .map((word) => word.characters.first)
+            .join()
+            .toUpperCase();
+  }
+
+  Widget _content(ClassroomModel classroom, {required bool isTeacher}) {
+    final allStudents = classroom.students ?? const <ClassroomStudentModel>[];
+    final query = _search.text.trim().toLowerCase();
+    final students = allStudents
+        .where((student) =>
+            (student.name ?? '').toLowerCase().contains(query) ||
+            (student.enrollmentId ?? '').toLowerCase().contains(query))
+        .toList();
+    students.sort((a, b) => _sortByName
+        ? (a.name ?? '').toLowerCase().compareTo((b.name ?? '').toLowerCase())
+        : (a.enrollmentId ?? '').compareTo(b.enrollmentId ?? ''));
+    return DefaultTextStyle(
+      style: const TextStyle(
+          fontFamily: FontFamily.poppins, color: _ink, fontSize: 14),
+      child: SafeArea(
+        top: false,
+        child: LayoutBuilder(builder: (context, constraints) {
+          final horizontal = constraints.maxWidth > 760
+              ? (constraints.maxWidth - 720) / 2
+              : 20.0;
+          return CustomScrollView(slivers: [
+            SliverPadding(
+              padding: EdgeInsets.fromLTRB(horizontal, 24, horizontal, 0),
+              sliver: SliverToBoxAdapter(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                    _summary(classroom),
+                    const Gap(30),
+                    const _SectionTitle(
+                        title: 'Classroom apps',
+                        subtitle: 'Everything you need, in one place'),
+                    const Gap(16),
+                    _appGrid(isTeacher: isTeacher),
+                    const Gap(30),
+                    Row(children: [
+                      const Expanded(
+                          child: _SectionTitle(
+                              title: 'Students',
+                              subtitle: 'Your classroom community')),
+                      _Pill(
+                          label: '${allStudents.length} students',
+                          color: _blue),
+                    ]),
+                    const Gap(16),
+                    _searchField(),
+                    const Gap(12),
+                    Row(children: [
+                      Expanded(
+                          child: Text(
+                              '${students.length} of ${allStudents.length} students',
+                              style: const TextStyle(
+                                  color: _muted, fontSize: 12))),
+                      Flexible(
+                          child: PopupMenuButton<bool>(
+                        tooltip: 'Sort students',
+                        initialValue: _sortByName,
+                        onSelected: (value) =>
+                            setState(() => _sortByName = value),
+                        itemBuilder: (_) => const [
+                          PopupMenuItem(
+                              value: false, child: Text('Enrollment ID')),
+                          PopupMenuItem(value: true, child: Text('Name A–Z')),
+                        ],
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 14, horizontal: 6),
+                          child: Row(children: [
+                            const Icon(Icons.sort_rounded,
+                                size: 18, color: _muted),
+                            const Gap(6),
+                            Flexible(
+                                child: Text(
+                                    _sortByName ? 'Name A–Z' : 'Enrollment ID',
+                                    style: const TextStyle(
+                                        fontSize: 12, color: _muted))),
+                            const Icon(Icons.keyboard_arrow_down_rounded,
+                                size: 18, color: _muted),
+                          ]),
+                        ),
+                      )),
+                    ]),
+                  ])),
+            ),
+            if (students.isEmpty)
+              SliverPadding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: horizontal, vertical: 24),
+                sliver: SliverToBoxAdapter(
+                    child: Column(children: [
+                  const Icon(Icons.person_search_outlined,
+                      size: 42, color: _muted),
+                  const Gap(12),
+                  const Text('No students found',
+                      style: TextStyle(fontWeight: FontWeight.w600)),
+                  const Gap(4),
+                  Text(
+                      allStudents.isEmpty
+                          ? 'No students have been added to this classroom.'
+                          : 'Try a different name or enrollment ID.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: _muted)),
+                  if (query.isNotEmpty)
+                    TextButton(
+                        onPressed: _clearSearch,
+                        child: const Text('Clear search')),
+                ])),
+              )
+            else
+              SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: horizontal),
+                sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                  final student = students[index];
+                  final color =
+                      _apps[(student.studentId ?? index).abs() % _apps.length]
+                          .color;
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Material(
+                      color: Colors.white,
+                      textStyle: const TextStyle(
+                          fontFamily: FontFamily.poppins,
+                          color: _ink,
+                          fontSize: 14),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          side: const BorderSide(color: _border)),
+                      clipBehavior: Clip.antiAlias,
+                      child: InkWell(
+                        onTap: () => _showPanel(
+                            icon: Icons.person_outline_rounded,
+                            color: color,
+                            title: student.name ?? 'Student',
+                            description:
+                                'Enrollment ID ${student.enrollmentId ?? '-'} / ${_classLabel(classroom)}\n${classroom.subject ?? '-'}'),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _studentAvatar(student, color),
+                                const Gap(14),
+                                Expanded(
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                      Text(student.name ?? 'Student',
+                                          style: const TextStyle(
+                                              fontSize: 15.5,
+                                              fontWeight: FontWeight.w600)),
+                                      const Gap(3),
+                                      Text(
+                                          'Enrollment ID: ${student.enrollmentId ?? '-'}',
+                                          style: const TextStyle(
+                                              fontSize: 12, color: _muted)),
+                                    ])),
+                              ]),
+                        ),
+                      ),
+                    ),
+                  );
+                }, childCount: students.length)),
+              ),
+            const SliverToBoxAdapter(child: Gap(30)),
+          ]);
+        }),
+      ),
+    );
+  }
+
+  Widget _summary(ClassroomModel classroom) => Container(
         width: double.infinity,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
@@ -357,14 +418,14 @@ class _ClassroomDetailsScreenState extends State<ClassroomDetailsScreen> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                      const Text('Class 10C',
+                      Text(_classLabel(classroom),
                           style: TextStyle(
                               fontSize: 23,
                               fontWeight: FontWeight.w600,
                               letterSpacing: -1,
                               color: Colors.white)),
                       const Gap(3),
-                      Text('Kannada',
+                      Text(classroom.subject ?? '-',
                           style: TextStyle(
                               fontSize: 14,
                               color: Colors.white.withAlpha(220))),
@@ -380,27 +441,30 @@ class _ClassroomDetailsScreenState extends State<ClassroomDetailsScreen> {
                 ),
               ]),
               Wrap(crossAxisAlignment: WrapCrossAlignment.center, children: [
-                Text('Classroom ID  ·  389803196',
+                Text('Classroom ID: ${classroom.classroomId ?? '-'}',
                     style: TextStyle(
                         fontSize: 12, color: Colors.white.withAlpha(210))),
                 IconButton(
                   tooltip: 'Copy classroom ID',
-                  onPressed: () async {
-                    await Clipboard.setData(
-                        const ClipboardData(text: '389803196'));
-                    if (!mounted) return;
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Classroom ID copied')));
-                  },
+                  onPressed: classroom.classroomId == null
+                      ? null
+                      : () async {
+                          await Clipboard.setData(
+                              ClipboardData(text: classroom.classroomId!));
+                          if (!mounted) return;
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Classroom ID copied')));
+                        },
                   icon: const Icon(Icons.copy_rounded,
                       size: 16, color: Colors.white),
                 ),
               ]),
               Divider(color: Colors.white.withAlpha(45), height: 12),
-              const _SummaryDetail(
+              _SummaryDetail(
                   icon: Icons.person_outline_rounded,
-                  label: 'CLASS TEACHER',
-                  value: 'Ms. Kavya Rao'),
+                  label: 'TEACHER',
+                  value: classroom.teacher ?? '-'),
               const Gap(12),
               Container(
                 width: double.infinity,
@@ -409,21 +473,22 @@ class _ClassroomDetailsScreenState extends State<ClassroomDetailsScreen> {
                     color: const Color(0xFF103F7C).withAlpha(65),
                     borderRadius: BorderRadius.circular(16)),
                 child: LayoutBuilder(builder: (context, constraints) {
-                  const day = _SummaryDetail(
+                  final day = _SummaryDetail(
                       icon: Icons.calendar_today_outlined,
                       label: 'DAY',
-                      value: 'Monday');
-                  const time = _SummaryDetail(
+                      value: classroom.day ?? '-');
+                  final time = _SummaryDetail(
                       icon: Icons.schedule_rounded,
                       label: 'TIME SLOT',
-                      value: '09:00 – 09:45 AM');
+                      value:
+                          '${classroom.period ?? '-'}\n${classroom.time ?? '-'}');
                   if (constraints.maxWidth < 250 ||
                       MediaQuery.textScalerOf(context).scale(12) > 15) {
-                    return const Column(
+                    return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [day, Gap(10), time]);
                   }
-                  return const Row(children: [
+                  return Row(children: [
                     Expanded(flex: 2, child: day),
                     Gap(12),
                     Expanded(flex: 3, child: time)
@@ -443,7 +508,35 @@ class _ClassroomDetailsScreenState extends State<ClassroomDetailsScreen> {
             border: Border.all(color: Colors.white.withAlpha(18))),
       );
 
-  Widget _appGrid() => LayoutBuilder(builder: (context, constraints) {
+  Widget _studentAvatar(ClassroomStudentModel student, Color color) {
+    final profileImage = student.profileImage?.trim();
+    final initials = Center(
+      child: Text(_initials(student.name),
+          style: TextStyle(
+              fontSize: 17, color: color, fontWeight: FontWeight.w600)),
+    );
+    return Container(
+      width: 45,
+      height: 45,
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        color: color.withAlpha(22),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: profileImage == null || profileImage.isEmpty
+          ? initials
+          : Image.network(
+              '${Endpoints.profileImageBaseURL}/student/$profileImage',
+              fit: BoxFit.cover,
+              frameBuilder: (context, child, frame, wasSynchronouslyLoaded) =>
+                  frame == null ? initials : child,
+              errorBuilder: (context, error, stackTrace) => initials,
+            ),
+    );
+  }
+
+  Widget _appGrid({required bool isTeacher}) =>
+      LayoutBuilder(builder: (context, constraints) {
         final scale = MediaQuery.textScalerOf(context).scale(14) / 14;
         final columns = constraints.maxWidth >= 600 && scale <= 1.3
             ? 5
@@ -455,9 +548,10 @@ class _ClassroomDetailsScreenState extends State<ClassroomDetailsScreen> {
             spacing: 12,
             runSpacing: 12,
             children: _apps
+                .where((app) => app.label != 'Attendance' || isTeacher)
                 .map((app) => SizedBox(
                       width: size,
-                      height: 64 + 28.8 * scale,
+                      height: 80 + 28.8 * scale,
                       child: Material(
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
@@ -508,7 +602,7 @@ class _ClassroomDetailsScreenState extends State<ClassroomDetailsScreen> {
         style: const TextStyle(
             fontFamily: FontFamily.poppins, fontSize: 13, color: _ink),
         decoration: InputDecoration(
-          hintText: 'Search name or roll number',
+          hintText: 'Search name or enrollment ID',
           hintStyle: const TextStyle(color: _muted, fontSize: 13),
           prefixIcon: const Icon(Icons.search_rounded, color: _muted, size: 22),
           suffixIcon: _search.text.isEmpty
@@ -643,15 +737,15 @@ class _SummaryDetail extends StatelessWidget {
   Widget build(BuildContext context) =>
       Row(mainAxisSize: MainAxisSize.min, children: [
         Container(
-          width: 36,
-          height: 36,
+          width: 34,
+          height: 34,
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: Colors.white.withAlpha(25),
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: Colors.white.withAlpha(45)),
           ),
-          child: Icon(icon, color: Colors.white.withAlpha(210), size: 20),
+          child: Icon(icon, color: Colors.white.withAlpha(210), size: 18),
         ),
         const Gap(10),
         Flexible(
@@ -663,10 +757,10 @@ class _SummaryDetail extends StatelessWidget {
                   letterSpacing: 1,
                   color: Colors.white.withAlpha(175),
                   fontWeight: FontWeight.w500)),
-          const Gap(4),
+          Gap(1),
           Text(value,
               style: const TextStyle(
-                  fontSize: 12,
+                  fontSize: 13.5,
                   color: Colors.white,
                   fontWeight: FontWeight.w500)),
         ])),

@@ -359,18 +359,22 @@ mixin _$ClassRoomsRoute on GoRouteData {
 }
 
 RouteBase get $classRoomDetailsRoute => GoRouteData.$route(
-      path: '/classroom-details',
+      path: '/classroom-details/:id',
       name: 'classRoomDetails',
       factory: _$ClassRoomDetailsRoute._fromState,
     );
 
 mixin _$ClassRoomDetailsRoute on GoRouteData {
   static ClassRoomDetailsRoute _fromState(GoRouterState state) =>
-      ClassRoomDetailsRoute();
+      ClassRoomDetailsRoute(
+        id: int.parse(state.pathParameters['id']!)!,
+      );
+
+  ClassRoomDetailsRoute get _self => this as ClassRoomDetailsRoute;
 
   @override
   String get location => GoRouteData.$location(
-        '/classroom-details',
+        '/classroom-details/${Uri.encodeComponent(_self.id.toString())}',
       );
 
   @override

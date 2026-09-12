@@ -74,7 +74,7 @@ class ClassroomListScreen extends HookConsumerWidget {
   Widget _buildClassroomCard(
       BuildContext context, String label, String subject, String subtitle) {
     return GestureDetector(
-      onTap: () => ClassRoomDetailsRoute().push(context),
+      // Sample cards have no API class ID yet.
       child: Container(
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(

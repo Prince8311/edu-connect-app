@@ -58,7 +58,7 @@ class RoutePath {
 
   // classroom
   static const String classRooms = '/classrooms';
-  static const String classRoomDetails = '/classroom-details';
+  static const String classRoomDetails = '/classroom-details/:id';
   static const String createClassRoom = '/create-classroom';
 }
 
@@ -272,9 +272,13 @@ class ClassRoomsRoute extends GoRouteData with _$ClassRoomsRoute {
   name: RouteName.classRoomDetails,
 )
 class ClassRoomDetailsRoute extends GoRouteData with _$ClassRoomDetailsRoute {
+  const ClassRoomDetailsRoute({required this.id});
+
+  final int id;
+
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return slideTransitionPage(ClassroomDetailsScreen());
+    return slideTransitionPage(ClassroomDetailsScreen(id: id));
   }
 }
 

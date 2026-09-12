@@ -19,6 +19,9 @@ class Endpoints {
   static const String scheduledClasses = '/api/dashboard/scheduled-classes.php';
   static const String ongoingClass = '/api/dashboard/ongoing-class.php';
 
+  // -------- Classroom --------
+  static const String classroomDetails = '/api/class/details.php';
+
   // -------- Library --------
   static const String bookAdd = '/api/library/books/insert.php';
   static const String bookList = '/api/library/books/list.php';

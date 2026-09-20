@@ -14,14 +14,18 @@ List<RouteBase> get $appRoutes => [
       $roleSelectRoute,
       $studentSelectRoute,
       $bottomNavRoute,
+      $changePasswordRoute,
       $classRoomsRoute,
       $classRoomDetailsRoute,
       $createClassRoomRoute,
-      $settingsRoute,
       $bookDetailsRoute,
       $addBookRoute,
       $addChapterRoute,
       $privacyPolicyRoute,
+      $termsConditionsRoute,
+      $welcomeRoute,
+      $helpCenterRoute,
+      $biometricSetupRoute,
     ];
 
 RouteBase get $splashRoute => GoRouteData.$route(
@@ -227,9 +231,9 @@ RouteBase get $bottomNavRoute => StatefulShellRouteData.$route(
         StatefulShellBranchData.$branch(
           routes: [
             GoRouteData.$route(
-              path: '/teacher-profile',
-              name: 'teacherProfile',
-              factory: _$TeacherProfileRoute._fromState,
+              path: '/profile',
+              name: 'profile',
+              factory: _$ProfileRoute._fromState,
             ),
           ],
         ),
@@ -307,13 +311,41 @@ mixin _$LibraryRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$TeacherProfileRoute on GoRouteData {
-  static TeacherProfileRoute _fromState(GoRouterState state) =>
-      TeacherProfileRoute();
+mixin _$ProfileRoute on GoRouteData {
+  static ProfileRoute _fromState(GoRouterState state) => ProfileRoute();
 
   @override
   String get location => GoRouteData.$location(
-        '/teacher-profile',
+        '/profile',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $changePasswordRoute => GoRouteData.$route(
+      path: '/change-password',
+      name: 'changePassword',
+      factory: _$ChangePasswordRoute._fromState,
+    );
+
+mixin _$ChangePasswordRoute on GoRouteData {
+  static ChangePasswordRoute _fromState(GoRouterState state) =>
+      ChangePasswordRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/change-password',
       );
 
   @override
@@ -404,34 +436,6 @@ mixin _$CreateClassRoomRoute on GoRouteData {
   @override
   String get location => GoRouteData.$location(
         '/create-classroom',
-      );
-
-  @override
-  void go(BuildContext context) => context.go(location);
-
-  @override
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  @override
-  void replace(BuildContext context) => context.replace(location);
-}
-
-RouteBase get $settingsRoute => GoRouteData.$route(
-      path: '/settings',
-      name: 'settings',
-      factory: _$SettingsRoute._fromState,
-    );
-
-mixin _$SettingsRoute on GoRouteData {
-  static SettingsRoute _fromState(GoRouterState state) => SettingsRoute();
-
-  @override
-  String get location => GoRouteData.$location(
-        '/settings',
       );
 
   @override
@@ -560,6 +564,121 @@ mixin _$PrivacyPolicyRoute on GoRouteData {
   @override
   String get location => GoRouteData.$location(
         '/privacy-policy',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $termsConditionsRoute => GoRouteData.$route(
+      path: '/terms-conditions',
+      name: 'termsConditions',
+      factory: _$TermsConditionsRoute._fromState,
+    );
+
+mixin _$TermsConditionsRoute on GoRouteData {
+  static TermsConditionsRoute _fromState(GoRouterState state) =>
+      const TermsConditionsRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/terms-conditions',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $welcomeRoute => GoRouteData.$route(
+      path: '/welcome',
+      name: 'welcome',
+      factory: _$WelcomeRoute._fromState,
+    );
+
+mixin _$WelcomeRoute on GoRouteData {
+  static WelcomeRoute _fromState(GoRouterState state) => WelcomeRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/welcome',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $helpCenterRoute => GoRouteData.$route(
+      path: '/help-center',
+      name: 'helpCenter',
+      factory: _$HelpCenterRoute._fromState,
+    );
+
+mixin _$HelpCenterRoute on GoRouteData {
+  static HelpCenterRoute _fromState(GoRouterState state) =>
+      const HelpCenterRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/help-center',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $biometricSetupRoute => GoRouteData.$route(
+      path: '/biometric-setup',
+      name: 'biometricSetup',
+      factory: _$BiometricSetupRoute._fromState,
+    );
+
+mixin _$BiometricSetupRoute on GoRouteData {
+  static BiometricSetupRoute _fromState(GoRouterState state) =>
+      const BiometricSetupRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/biometric-setup',
       );
 
   @override

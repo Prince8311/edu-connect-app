@@ -9,8 +9,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class PrivacyPolicyScreen extends HookConsumerWidget {
-  const PrivacyPolicyScreen({super.key});
+class TermsConditionsScreen extends HookConsumerWidget {
+  const TermsConditionsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -105,7 +105,7 @@ class PrivacyPolicyScreen extends HookConsumerWidget {
     return Scaffold(
       backgroundColor: ColorName.lightBackground4,
       appBar: const PrimaryAppBar(
-        title: 'Privacy Policy',
+        title: 'Terms & Conditions',
         showNotification: false,
         useHomeRouteOnBack: false,
       ),
@@ -210,8 +210,10 @@ class PrivacyPolicyScreen extends HookConsumerWidget {
                                         borderRadius: BorderRadius.circular(16),
                                         border: Border.all(
                                             color: Colors.white.withAlpha(40))),
-                                    child: const Icon(Icons.shield_outlined,
-                                        color: Colors.white, size: 30)),
+                                    child: const Icon(
+                                        Icons.description_outlined,
+                                        color: Colors.white,
+                                        size: 30)),
                                 Gap(14.w),
                                 Expanded(
                                   child: Column(
@@ -229,7 +231,7 @@ class PrivacyPolicyScreen extends HookConsumerWidget {
                                       ),
                                       Gap(2.h),
                                       Text(
-                                        'Privacy Policy',
+                                        'Terms & Conditions',
                                         style: TextStyle(
                                             fontFamily: FontFamily.poppins,
                                             fontSize: 26.sp,
@@ -243,8 +245,7 @@ class PrivacyPolicyScreen extends HookConsumerWidget {
                               ],
                             ),
                             Gap(20.h),
-                            Text(
-                                'Your information. Your trust. Our responsibility.',
+                            Text('Clear terms. Shared responsibilities.',
                                 style: TextStyle(
                                     fontFamily: FontFamily.poppins,
                                     fontSize: 14.sp,
@@ -425,177 +426,212 @@ class _PolicySection {
   final List<_PolicyBlock> blocks;
 }
 
-// Policy wording from https://educonnekt.in/privacy-policy.
+// Terms wording from https://educonnekt.in/terms-conditions.
 const _introduction =
-    "Edu Connekt (“we”, “our”, “us”) is committed to protecting the privacy and security of users (“you”, “your”). This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform.";
+    "These Terms & Conditions (“Terms”) govern your access and use of the Edu Connekt platform (“Service”), operated by Shetty Ticket Counter Pvt Ltd (“Company”, “we”, “our”, “us”). By signing this Agreement, the School is agreeing to be bound by the following terms and conditions (\"Terms of Service\"). The Service provider reserves the right to update and change the Terms of Service from time to time without notice. Any new features that augment or enhance the current Service, including the release of new tools and resources, shall be subject to the Terms of Service. Continued use of the Service after any such changes shall constitute your consent to such changes. Violation of any of the terms below will result in the termination of your Account. While service provider prohibits such conduct and Content on the Service, you understand and agree that the service provider cannot be responsible for the Content posted on the Service and you nonetheless may be exposed to such materials. You agree to use the Service at your own risk.\n\nPlease read this agreement (\"TOS\") carefully. By using or accessing any Service, you (as the \"User\") agree to the terms of this TOS. \"Service\" means the Edu Connekt service. If you do not agree, do not use this Service.\n\nThis TOS is a legal agreement between you and Edu Connekt This TOS governs the Service, and content available through it. It also governs support services (if any) available as part of your subscription. If a separate or supplemental TOS appears when you access any element of the Service, its terms will control as to that element.\n\nEdu Connekt reserves the right to update and change the Terms of Service from time to time without notice. Any new features that augment or enhance the current Service, including the release of new tools and resources, shall be subject to the Terms of Service. Continued use of the Service after any such changes shall constitute your consent to such changes. You can review the most current version of the Terms of Service at any time.\n\nViolation of any of the terms below will result in the termination of your Account. While Edu Connekt prohibits such conduct and Content on the Service, you understand and agree that Edu Connekt cannot be responsible for the Content posted on the Service and you nonetheless may be exposed to such materials. You agree to use the Service at your own risk.";
 const _sections = <_PolicySection>[
-  _PolicySection("1. Scope of Policy", [
-    _PolicyBlock("This policy applies to:", kind: _BlockKind.paragraph),
-    _PolicyBlock("Website users", kind: _BlockKind.bullet),
-    _PolicyBlock("Mobile application users", kind: _BlockKind.bullet),
-    _PolicyBlock("Schools, teachers, students, and parents using the platform",
+  _PolicySection("1. Definitions", [
+    _PolicyBlock("Platform : Edu Connekt web and mobile application",
         kind: _BlockKind.bullet),
-  ]),
-  _PolicySection("2. Information We Collect", [
-    _PolicyBlock("2.1 Personal Information", kind: _BlockKind.heading),
-    _PolicyBlock("We may collect:", kind: _BlockKind.paragraph),
-    _PolicyBlock("Name, email address, phone number", kind: _BlockKind.bullet),
-    _PolicyBlock("Profile details (photo, designation, class details)",
+    _PolicyBlock("User : Any individual or entity using the platform",
         kind: _BlockKind.bullet),
-    _PolicyBlock("Login credentials (encrypted)", kind: _BlockKind.bullet),
-    _PolicyBlock("2.2 Student Data (Sensitive)", kind: _BlockKind.heading),
-    _PolicyBlock("Attendance records", kind: _BlockKind.bullet),
-    _PolicyBlock("Academic performance, marks, report cards",
-        kind: _BlockKind.bullet),
-    _PolicyBlock("Behavioral or disciplinary records", kind: _BlockKind.bullet),
-    _PolicyBlock("Health-related basic information (if provided by school)",
-        kind: _BlockKind.bullet),
-    _PolicyBlock("2.3 Technical & Usage Data", kind: _BlockKind.heading),
-    _PolicyBlock("IP address", kind: _BlockKind.bullet),
-    _PolicyBlock("Browser type, device information", kind: _BlockKind.bullet),
-    _PolicyBlock("Login time, activity logs", kind: _BlockKind.bullet),
-    _PolicyBlock("Location data (if enabled)", kind: _BlockKind.bullet),
-    _PolicyBlock("2.4 Payment Information", kind: _BlockKind.heading),
-    _PolicyBlock("Billing details", kind: _BlockKind.bullet),
     _PolicyBlock(
-        "Transaction history (Note: Payment data is processed securely via third-party payment gateways)",
+        "Content/Data : Any information uploaded (student records, attendance, etc.)",
         kind: _BlockKind.bullet),
   ]),
-  _PolicySection("3. How We Use Your Information", [
-    _PolicyBlock("We use collected data to:", kind: _BlockKind.paragraph),
-    _PolicyBlock("Provide and operate the platform", kind: _BlockKind.bullet),
-    _PolicyBlock("Manage school administration and communication",
-        kind: _BlockKind.bullet),
-    _PolicyBlock("Generate reports, analytics, and insights",
-        kind: _BlockKind.bullet),
-    _PolicyBlock("Send notifications (SMS, email, app alerts)",
-        kind: _BlockKind.bullet),
-    _PolicyBlock("Improve performance, security, and user experience",
-        kind: _BlockKind.bullet),
-    _PolicyBlock("Comply with legal obligations", kind: _BlockKind.bullet),
-  ]),
-  _PolicySection("4. Legal Basis for Processing", [
-    _PolicyBlock("We process data based on:", kind: _BlockKind.paragraph),
-    _PolicyBlock("Consent (user / institution approval)",
-        kind: _BlockKind.bullet),
-    _PolicyBlock("Contractual necessity (service delivery)",
-        kind: _BlockKind.bullet),
-    _PolicyBlock("Legal compliance (as per Indian law)",
-        kind: _BlockKind.bullet),
-    _PolicyBlock("Legitimate interest (platform improvement, security)",
-        kind: _BlockKind.bullet),
-  ]),
-  _PolicySection("5. Data Sharing & Disclosure", [
-    _PolicyBlock("We do NOT sell personal data.", kind: _BlockKind.paragraph),
-    _PolicyBlock("We may share data with:", kind: _BlockKind.paragraph),
-    _PolicyBlock("5.1 Institution ", kind: _BlockKind.heading),
+  _PolicySection("2. Eligibility", [
     _PolicyBlock(
-        "Authorized admins, teachers, and staff can access relevant data",
+        "You must be at least 18 years old or using under institutional authority",
         kind: _BlockKind.bullet),
-    _PolicyBlock("5.2 Service Providers ", kind: _BlockKind.heading),
-    _PolicyBlock("Cloud hosting providers (e.g., AWS, Azure)",
+    _PolicyBlock("Institutions must provide valid registration details",
         kind: _BlockKind.bullet),
-    _PolicyBlock("SMS / Email service providers", kind: _BlockKind.bullet),
+    _PolicyBlock("Users must comply with applicable Indian laws",
+        kind: _BlockKind.bullet),
+  ]),
+  _PolicySection("3. Account Registration & Security", [
+    _PolicyBlock("Users must provide accurate and complete information",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("Login credentials are confidential and must not be shared",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("Institution Admin is responsible for all sub-user activities",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("Any unauthorized access must be reported immediately",
+        kind: _BlockKind.bullet),
+  ]),
+  _PolicySection("4. Roles & Responsibilities", [
+    _PolicyBlock("4.1 Institution ", kind: _BlockKind.heading),
+    _PolicyBlock("Responsible for accuracy of student and staff data",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("Must obtain consent for student data collection",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("Responsible for assigning roles and permissions",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("4.2 Teachers / Staff ", kind: _BlockKind.heading),
+    _PolicyBlock(
+        "Must use the system only for academic and administrative purposes",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("Cannot misuse student data", kind: _BlockKind.bullet),
+    _PolicyBlock("4.3 Students / Parents", kind: _BlockKind.heading),
+    _PolicyBlock("Must not misuse platform features", kind: _BlockKind.bullet),
+    _PolicyBlock("Must maintain login confidentiality",
+        kind: _BlockKind.bullet),
+  ]),
+  _PolicySection("5. Acceptable Use Policy", [
+    _PolicyBlock("Users agree NOT to:", kind: _BlockKind.paragraph),
+    _PolicyBlock("Use the platform for unlawful or fraudulent purposes",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("Upload viruses, malware, or harmful code",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("Attempt hacking, reverse engineering, or system abuse",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("Share offensive, abusive, or illegal content",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("Interfere with platform performance or security",
+        kind: _BlockKind.bullet),
+  ]),
+  _PolicySection("6. Data Ownership & Processing", [
+    _PolicyBlock("All institutional data belongs to the respective Institution",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("Edu Connekt acts as a data processor, not data owner",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("We process data only for service delivery purposes",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("We may use anonymized data for analytics and improvement",
+        kind: _BlockKind.bullet),
+  ]),
+  _PolicySection("7. Data Backup & Loss", [
+    _PolicyBlock(
+        "We perform periodic backups but do NOT guarantee zero data loss",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("Institutions are advised to maintain their own backups",
+        kind: _BlockKind.bullet),
+    _PolicyBlock(
+        "We are not liable for loss due to user actions or third-party failures",
+        kind: _BlockKind.bullet),
+  ]),
+  _PolicySection("8. Subscription, Fees & Billing", [
+    _PolicyBlock("The platform may be offered on a subscription basis",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("Fees may vary based on modules, users, or features",
+        kind: _BlockKind.bullet),
+    _PolicyBlock(
+        "Payment terms: advance / monthly / quaterly / yearly (as agreed)",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("Non-payment may result in service suspension",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("All payments are non-refundable, unless explicitly stated",
+        kind: _BlockKind.bullet),
+  ]),
+  _PolicySection("9. Free Trial & Demo", [
+    _PolicyBlock(
+        "Free trials (if provided) are limited-time and feature-restricted",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("Company reserves the right to terminate trial access anytime",
+        kind: _BlockKind.bullet),
+  ]),
+  _PolicySection("10. Third-Party Integrations", [
+    _PolicyBlock("The platform may integrate with:",
+        kind: _BlockKind.paragraph),
+    _PolicyBlock("SMS / WhatsApp APIs", kind: _BlockKind.bullet),
     _PolicyBlock("Payment gateways", kind: _BlockKind.bullet),
-    _PolicyBlock("5.3 Legal Authorities", kind: _BlockKind.heading),
-    _PolicyBlock("When required by law or court order",
-        kind: _BlockKind.bullet),
-    _PolicyBlock("5.4 Business Transfers", kind: _BlockKind.heading),
-    _PolicyBlock("In case of merger, acquisition, or restructuring",
+    _PolicyBlock("Cloud hosting providers", kind: _BlockKind.bullet),
+    _PolicyBlock(
+        "We are not responsible for downtime or issues caused by third-party services.",
         kind: _BlockKind.bullet),
   ]),
-  _PolicySection("6. Data Security Measures", [
-    _PolicyBlock("We implement industry-standard security:",
-        kind: _BlockKind.paragraph),
-    _PolicyBlock("End-to-end encryption (where applicable)",
-        kind: _BlockKind.bullet),
-    _PolicyBlock("Secure APIs and authentication (JWT/OAuth)",
-        kind: _BlockKind.bullet),
-    _PolicyBlock("Role-based access control (RBAC)", kind: _BlockKind.bullet),
-    _PolicyBlock("Firewalls and intrusion detection systems",
-        kind: _BlockKind.bullet),
-    _PolicyBlock("Regular security audits", kind: _BlockKind.bullet),
-  ]),
-  _PolicySection("7. Data Retention Policy", [
-    _PolicyBlock("We implement industry-standard security:",
-        kind: _BlockKind.paragraph),
-    _PolicyBlock("Data is retained as long as the institution is active",
+  _PolicySection("11. Intellectual Property Rights", [
+    _PolicyBlock(
+        "All software, UI/UX, branding, and code belong to Edu Connekt",
         kind: _BlockKind.bullet),
     _PolicyBlock(
-        "After account termination, data may be deleted within 30–90 days",
-        kind: _BlockKind.bullet),
-    _PolicyBlock("Backup data may be retained longer for compliance",
-        kind: _BlockKind.bullet),
-  ]),
-  _PolicySection("8. User Rights", [
-    _PolicyBlock("Users (or institutions) have the right to:",
-        kind: _BlockKind.paragraph),
-    _PolicyBlock("Access their personal data", kind: _BlockKind.bullet),
-    _PolicyBlock("Request correction or updates", kind: _BlockKind.bullet),
-    _PolicyBlock("Request deletion (subject to legal obligations)",
-        kind: _BlockKind.bullet),
-    _PolicyBlock("Restrict or object to processing", kind: _BlockKind.bullet),
-    _PolicyBlock("Withdraw consent", kind: _BlockKind.bullet),
-    _PolicyBlock("You can request via: support@educonnekt.in",
-        kind: _BlockKind.paragraph, url: "mailto:support@educonnekt.in"),
-  ]),
-  _PolicySection("9. Children’s Privacy", [
-    _PolicyBlock("Edu Connekt is used by minors (students)",
+        "Institutions cannot copy, resell, or redistribute the platform",
         kind: _BlockKind.bullet),
     _PolicyBlock(
-        "Schools are responsible for obtaining parental/guardian consent",
+        "Custom developments remain property of the Company unless agreed",
+        kind: _BlockKind.bullet),
+  ]),
+  _PolicySection("12. Confidentiality", [
+    _PolicyBlock("Both parties agree to keep sensitive data confidential",
         kind: _BlockKind.bullet),
     _PolicyBlock(
-        "We do not knowingly collect data directly from children without authorization",
+        "This includes student records, internal communication, and credentials",
         kind: _BlockKind.bullet),
   ]),
-  _PolicySection("10. Cookies & Tracking Technologies", [
-    _PolicyBlock("We use cookies and similar technologies to:",
-        kind: _BlockKind.paragraph),
-    _PolicyBlock("Maintain user sessions", kind: _BlockKind.bullet),
-    _PolicyBlock("Improve performance and usability", kind: _BlockKind.bullet),
-    _PolicyBlock("Analyze traffic and behavior", kind: _BlockKind.bullet),
-    _PolicyBlock("Users can control cookies through browser settings.",
-        kind: _BlockKind.paragraph),
-  ]),
-  _PolicySection("11. Third-Party Services", [
-    _PolicyBlock("Our platform may integrate with:",
-        kind: _BlockKind.paragraph),
-    _PolicyBlock("Payment gateways", kind: _BlockKind.bullet),
-    _PolicyBlock("SMS/WhatsApp APIs", kind: _BlockKind.bullet),
-    _PolicyBlock("Analytics tools", kind: _BlockKind.bullet),
+  _PolicySection("13. Service Availability (SLA)", [
     _PolicyBlock(
-        "These third parties have their own privacy policies, and we are not responsible for their practices.",
+        "We aim for high uptime but do not guarantee uninterrupted service",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("Maintenance or updates may cause temporary downtime",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("Emergency outages may occur beyond our control",
+        kind: _BlockKind.bullet),
+  ]),
+  _PolicySection("14. Account Suspension & Termination", [
+    _PolicyBlock("We may suspend or terminate accounts if:",
         kind: _BlockKind.paragraph),
-  ]),
-  _PolicySection("12. Cross-Border Data Transfer", [
-    _PolicyBlock(
-        "Data may be stored on servers located outside India (e.g., cloud providers)",
+    _PolicyBlock("Terms are violated", kind: _BlockKind.bullet),
+    _PolicyBlock("Payment is overdue", kind: _BlockKind.bullet),
+    _PolicyBlock("Suspicious or illegal activity is detected",
         kind: _BlockKind.bullet),
-    _PolicyBlock("We ensure appropriate safeguards are in place",
-        kind: _BlockKind.bullet),
-  ]),
-  _PolicySection("13. Data Breach Notification", [
-    _PolicyBlock("In case of a data breach:", kind: _BlockKind.paragraph),
-    _PolicyBlock(
-        "We will notify affected institutions/users as required by law",
-        kind: _BlockKind.bullet),
-    _PolicyBlock("Immediate steps will be taken to mitigate risks",
+    _PolicyBlock("Upon termination:", kind: _BlockKind.paragraph),
+    _PolicyBlock("Access will be revoked", kind: _BlockKind.bullet),
+    _PolicyBlock("Data may be deleted after a defined period",
         kind: _BlockKind.bullet),
   ]),
-  _PolicySection("14. Changes to Privacy Policy", [
-    _PolicyBlock("We may update this Privacy Policy from time to time.",
+  _PolicySection("15. Limitation of Liability", [
+    _PolicyBlock("Edu Connekt shall NOT be liable for:",
         kind: _BlockKind.paragraph),
-    _PolicyBlock("Users will be notified via:", kind: _BlockKind.paragraph),
-    _PolicyBlock("Website notice", kind: _BlockKind.bullet),
-    _PolicyBlock("Email notification (if applicable)", kind: _BlockKind.bullet),
-  ]),
-  _PolicySection("15. Disclaimer", [
+    _PolicyBlock("Indirect or consequential damages", kind: _BlockKind.bullet),
+    _PolicyBlock("Data inaccuracies entered by users", kind: _BlockKind.bullet),
+    _PolicyBlock("Business loss or academic decisions based on system data",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("Third-party service failures", kind: _BlockKind.bullet),
     _PolicyBlock(
-        "While we implement strong security measures, no system is 100% secure. Users share data at their own risk.",
-        kind: _BlockKind.paragraph),
+        "Maximum liability (if applicable) shall not exceed the fees paid in last 3 months.",
+        kind: _BlockKind.bullet),
   ]),
-  _PolicySection("16. Contact Information", [
+  _PolicySection("16. Indemnification", [
+    _PolicyBlock(
+        "You agree to indemnify and hold harmless Edu Connekt against:",
+        kind: _BlockKind.paragraph),
+    _PolicyBlock("Legal claims arising from misuse", kind: _BlockKind.bullet),
+    _PolicyBlock("Data breaches caused by institution negligence",
+        kind: _BlockKind.bullet),
+    _PolicyBlock("Violation of applicable laws", kind: _BlockKind.bullet),
+  ]),
+  _PolicySection("17. Force Majeure", [
+    _PolicyBlock(
+        "We are not responsible for failure due to events beyond control:",
+        kind: _BlockKind.paragraph),
+    _PolicyBlock("Natural disasters", kind: _BlockKind.bullet),
+    _PolicyBlock("Government actions", kind: _BlockKind.bullet),
+    _PolicyBlock("Internet failures", kind: _BlockKind.bullet),
+  ]),
+  _PolicySection("18. Updates & Modifications", [
+    _PolicyBlock(
+        "We are not responsible for failure due to events beyond control:",
+        kind: _BlockKind.paragraph),
+    _PolicyBlock("Terms may be updated at any time", kind: _BlockKind.bullet),
+    _PolicyBlock("Continued use = acceptance of updated Terms",
+        kind: _BlockKind.bullet),
+  ]),
+  _PolicySection("19. Governing Law & Jurisdiction", [
+    _PolicyBlock(
+        "We are not responsible for failure due to events beyond control:",
+        kind: _BlockKind.paragraph),
+    _PolicyBlock("Governed by the laws of India", kind: _BlockKind.bullet),
+    _PolicyBlock("Jurisdiction: Karnataka, Chikkamagaluru",
+        kind: _BlockKind.bullet),
+  ]),
+  _PolicySection("20. Refund and Cancellation", [
+    _PolicyBlock(
+        "For staffs or Students: For refund or cancellation contact your respective institutions",
+        kind: _BlockKind.bullet),
+    _PolicyBlock(
+        "For Institutions: There is no Refund for the subscription you have taken. You can cancel the subscription  within your subscription time ends.",
+        kind: _BlockKind.bullet),
+  ]),
+  _PolicySection("21. Contact Information", [
     _PolicyBlock("Email: support@educonnekt.in",
         kind: _BlockKind.paragraph, url: "mailto:support@educonnekt.in"),
     _PolicyBlock("Phone: +91 9449618559",

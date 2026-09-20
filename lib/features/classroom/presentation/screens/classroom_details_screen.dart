@@ -1,8 +1,13 @@
+import 'package:edu_connect/gen/colors.gen.dart';
+import 'package:lottie/lottie.dart';
+import 'package:edu_connect/gen/assets.gen.dart';
+import 'package:edu_connect/core/shared/miscellaneous/app_extensions.dart';
 import 'package:edu_connect/core/shared/widgets/loader.dart';
 import 'package:edu_connect/core/api/end_points.dart';
 import 'package:edu_connect/features/auth/presentation/providers/auth_provider.dart';
 import 'package:edu_connect/features/classroom/domain/models/classroom_model.dart';
 import 'package:edu_connect/features/classroom/presentation/providers/classroom_provider.dart';
+import 'package:edu_connect/features/classroom/presentation/widgets/attendance_student_deck.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:edu_connect/core/shared/miscellaneous/gap.dart';
 import 'package:edu_connect/core/shared/widgets/app_bar.dart';
@@ -28,7 +33,7 @@ class ClassroomDetailsScreen extends ConsumerStatefulWidget {
 class _ClassroomDetailsScreenState
     extends ConsumerState<ClassroomDetailsScreen> {
   final _search = TextEditingController();
-  bool _sortByName = false;
+  final Map<String, bool> _attendanceDraft = {};
 
   static const _apps = [
     (
@@ -80,7 +85,6 @@ class _ClassroomDetailsScreenState
       appBar: const PrimaryAppBar(
         title: 'My classroom',
         showNotification: false,
-        showSettings: false,
         useHomeRouteOnBack: false,
       ),
       body: details.when(
@@ -145,12 +149,6 @@ class _ClassroomDetailsScreenState
                   ]),
                   const Gap(16),
                   const SkeletonLoader(height: 54, width: double.infinity),
-                  const Gap(16),
-                  const Row(children: [
-                    SkeletonLoader(height: 14, width: 110),
-                    Spacer(),
-                    SkeletonLoader(height: 14, width: 90),
-                  ]),
                   const Gap(16),
                   for (var index = 0; index < 5; index++)
                     Container(
@@ -222,9 +220,8 @@ class _ClassroomDetailsScreenState
             (student.name ?? '').toLowerCase().contains(query) ||
             (student.enrollmentId ?? '').toLowerCase().contains(query))
         .toList();
-    students.sort((a, b) => _sortByName
-        ? (a.name ?? '').toLowerCase().compareTo((b.name ?? '').toLowerCase())
-        : (a.enrollmentId ?? '').compareTo(b.enrollmentId ?? ''));
+    students
+        .sort((a, b) => (a.enrollmentId ?? '').compareTo(b.enrollmentId ?? ''));
     return DefaultTextStyle(
       style: const TextStyle(
           fontFamily: FontFamily.poppins, color: _ink, fontSize: 14),
@@ -244,14 +241,18 @@ class _ClassroomDetailsScreenState
                     _summary(classroom),
                     const Gap(30),
                     const _SectionTitle(
+                        icon: Icons.dashboard_outlined,
+                        color: _blue,
                         title: 'Classroom apps',
                         subtitle: 'Everything you need, in one place'),
                     const Gap(16),
-                    _appGrid(isTeacher: isTeacher),
+                    _appGrid(classroom, isTeacher: isTeacher),
                     const Gap(30),
                     Row(children: [
                       const Expanded(
                           child: _SectionTitle(
+                              icon: Icons.groups_rounded,
+                              color: Color(0xFF138777),
                               title: 'Students',
                               subtitle: 'Your classroom community')),
                       _Pill(
@@ -261,41 +262,6 @@ class _ClassroomDetailsScreenState
                     const Gap(16),
                     _searchField(),
                     const Gap(12),
-                    Row(children: [
-                      Expanded(
-                          child: Text(
-                              '${students.length} of ${allStudents.length} students',
-                              style: const TextStyle(
-                                  color: _muted, fontSize: 12))),
-                      Flexible(
-                          child: PopupMenuButton<bool>(
-                        tooltip: 'Sort students',
-                        initialValue: _sortByName,
-                        onSelected: (value) =>
-                            setState(() => _sortByName = value),
-                        itemBuilder: (_) => const [
-                          PopupMenuItem(
-                              value: false, child: Text('Enrollment ID')),
-                          PopupMenuItem(value: true, child: Text('Name A–Z')),
-                        ],
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 14, horizontal: 6),
-                          child: Row(children: [
-                            const Icon(Icons.sort_rounded,
-                                size: 18, color: _muted),
-                            const Gap(6),
-                            Flexible(
-                                child: Text(
-                                    _sortByName ? 'Name A–Z' : 'Enrollment ID',
-                                    style: const TextStyle(
-                                        fontSize: 12, color: _muted))),
-                            const Icon(Icons.keyboard_arrow_down_rounded,
-                                size: 18, color: _muted),
-                          ]),
-                        ),
-                      )),
-                    ]),
                   ])),
             ),
             if (students.isEmpty)
@@ -304,12 +270,18 @@ class _ClassroomDetailsScreenState
                     EdgeInsets.symmetric(horizontal: horizontal, vertical: 24),
                 sliver: SliverToBoxAdapter(
                     child: Column(children: [
-                  const Icon(Icons.person_search_outlined,
-                      size: 42, color: _muted),
-                  const Gap(12),
+                  Lottie.asset(
+                    Assets.animations.searchNotFound,
+                    width: 220.w,
+                    height: 220.h,
+                    animate: !MediaQuery.disableAnimationsOf(context),
+                    repeat: false,
+                  ),
+                  Gap(16.h),
                   const Text('No students found',
-                      style: TextStyle(fontWeight: FontWeight.w600)),
-                  const Gap(4),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                  Gap(6.h),
                   Text(
                       allStudents.isEmpty
                           ? 'No students have been added to this classroom.'
@@ -352,27 +324,40 @@ class _ClassroomDetailsScreenState
                                 'Enrollment ID ${student.enrollmentId ?? '-'} / ${_classLabel(classroom)}\n${classroom.subject ?? '-'}'),
                         child: Padding(
                           padding: const EdgeInsets.all(16),
-                          child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                _studentAvatar(student, color),
-                                const Gap(14),
-                                Expanded(
-                                    child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                      Text(student.name ?? 'Student',
-                                          style: const TextStyle(
-                                              fontSize: 15.5,
-                                              fontWeight: FontWeight.w600)),
-                                      const Gap(3),
-                                      Text(
-                                          'Enrollment ID: ${student.enrollmentId ?? '-'}',
-                                          style: const TextStyle(
-                                              fontSize: 12, color: _muted)),
-                                    ])),
-                              ]),
+                          child: Row(children: [
+                            _studentAvatar(student, color),
+                            const Gap(14),
+                            Expanded(
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                  Text(student.name ?? 'Student',
+                                      style: TextStyle(
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w500)),
+                                  Gap(2.h),
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.badge,
+                                        size: 16.sp,
+                                        color: ColorName.blueColor1,
+                                      ),
+                                      Gap(3.w),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 1),
+                                        child: Text(
+                                            '${student.enrollmentId ?? '-'}',
+                                            style: const TextStyle(
+                                                fontSize: 11, color: _muted)),
+                                      ),
+                                    ],
+                                  ),
+                                ])),
+                          ]),
                         ),
                       ),
                     ),
@@ -386,117 +371,167 @@ class _ClassroomDetailsScreenState
     );
   }
 
-  Widget _summary(ClassroomModel classroom) => Container(
-        width: double.infinity,
-        clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          gradient: const LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color(0xFF174CA8),
-                Color(0xFF2376C3),
-                Color(0xFF168F9C)
-              ]),
-          boxShadow: [
-            BoxShadow(
-                color: _blue.withAlpha(35),
-                blurRadius: 24,
-                offset: const Offset(0, 10))
-          ],
-        ),
-        child: Stack(children: [
-          Positioned(right: -42, top: -54, child: _ring(190)),
-          Positioned(right: -24, top: -36, child: _ring(154)),
-          Padding(
-            padding: const EdgeInsets.all(18),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Row(children: [
-                Expanded(
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _summary(ClassroomModel classroom) => Column(
+        children: [
+          Container(
+            width: double.infinity,
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              gradient: const LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0xFF174CA8),
+                    Color(0xFF2376C3),
+                    Color(0xFF168F9C)
+                  ]),
+              boxShadow: [
+                BoxShadow(
+                    color: _blue.withAlpha(35),
+                    blurRadius: 24,
+                    offset: const Offset(0, 10))
+              ],
+            ),
+            child: Stack(children: [
+              Positioned(right: -42, top: -54, child: _ring(190)),
+              Positioned(right: -24, top: -36, child: _ring(154)),
+              Padding(
+                padding: const EdgeInsets.all(18),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Expanded(
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                              Text(_classLabel(classroom),
+                                  style: TextStyle(
+                                      fontSize: 23,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white)),
+                              const Gap(2),
+                              Text(classroom.subject ?? '-',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.white.withAlpha(220))),
+                            ])),
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                              color: Colors.white.withAlpha(25),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                  color: Colors.white.withAlpha(45))),
+                          child: const Icon(Icons.school_outlined,
+                              color: Colors.white, size: 26),
+                        ),
+                      ]),
+                      Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            Text(
+                                'Classroom ID: ${classroom.classroomId ?? '-'}',
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.white.withAlpha(210))),
+                            IconButton(
+                              tooltip: 'Copy classroom ID',
+                              onPressed: classroom.classroomId == null
+                                  ? null
+                                  : () async {
+                                      await Clipboard.setData(ClipboardData(
+                                          text: classroom.classroomId!));
+                                      if (!mounted) return;
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content:
+                                                  Text('Classroom ID copied')));
+                                    },
+                              icon: const Icon(Icons.copy_rounded,
+                                  size: 16, color: Colors.white),
+                            ),
+                          ]),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
                         children: [
-                      Text(_classLabel(classroom),
-                          style: TextStyle(
-                              fontSize: 23,
-                              fontWeight: FontWeight.w600,
-                              letterSpacing: -1,
-                              color: Colors.white)),
-                      const Gap(3),
-                      Text(classroom.subject ?? '-',
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.white.withAlpha(220))),
-                    ])),
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                      color: Colors.white.withAlpha(25),
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Colors.white.withAlpha(45))),
-                  child: const Icon(Icons.school_outlined,
-                      color: Colors.white, size: 26),
-                ),
-              ]),
-              Wrap(crossAxisAlignment: WrapCrossAlignment.center, children: [
-                Text('Classroom ID: ${classroom.classroomId ?? '-'}',
-                    style: TextStyle(
-                        fontSize: 12, color: Colors.white.withAlpha(210))),
-                IconButton(
-                  tooltip: 'Copy classroom ID',
-                  onPressed: classroom.classroomId == null
-                      ? null
-                      : () async {
-                          await Clipboard.setData(
-                              ClipboardData(text: classroom.classroomId!));
-                          if (!mounted) return;
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text('Classroom ID copied')));
-                        },
-                  icon: const Icon(Icons.copy_rounded,
-                      size: 16, color: Colors.white),
-                ),
-              ]),
-              Divider(color: Colors.white.withAlpha(45), height: 12),
-              _SummaryDetail(
-                  icon: Icons.person_outline_rounded,
-                  label: 'TEACHER',
-                  value: classroom.teacher ?? '-'),
-              const Gap(12),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                    color: const Color(0xFF103F7C).withAlpha(65),
-                    borderRadius: BorderRadius.circular(16)),
-                child: LayoutBuilder(builder: (context, constraints) {
-                  final day = _SummaryDetail(
-                      icon: Icons.calendar_today_outlined,
-                      label: 'DAY',
-                      value: classroom.day ?? '-');
-                  final time = _SummaryDetail(
-                      icon: Icons.schedule_rounded,
-                      label: 'TIME SLOT',
-                      value:
-                          '${classroom.period ?? '-'}\n${classroom.time ?? '-'}');
-                  if (constraints.maxWidth < 250 ||
-                      MediaQuery.textScalerOf(context).scale(12) > 15) {
-                    return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [day, Gap(10), time]);
-                  }
-                  return Row(children: [
-                    Expanded(flex: 2, child: day),
-                    Gap(12),
-                    Expanded(flex: 3, child: time)
-                  ]);
-                }),
+                          _scheduleTag(Icons.calendar_today_outlined,
+                              classroom.day ?? '-'),
+                          _scheduleTag(
+                              Icons.layers_outlined, classroom.period ?? '-'),
+                        ],
+                      ),
+                      const Gap(14),
+                      Divider(color: Colors.white.withAlpha(45), height: 1),
+                      const Gap(14),
+                      _SummaryDetail(
+                          icon: Icons.person_outline_rounded,
+                          label: 'TEACHER',
+                          value: classroom.teacher ?? '-'),
+                    ]),
               ),
             ]),
           ),
+          const Gap(12),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: _border),
+            ),
+            child: Row(children: [
+              Container(
+                padding: const EdgeInsets.all(9),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFEDF3FF),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child:
+                    const Icon(Icons.schedule_rounded, color: _blue, size: 22),
+              ),
+              const Gap(12),
+              Expanded(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('Class time',
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: _muted,
+                          fontWeight: FontWeight.w500)),
+                  Gap(1.h),
+                  Text(classroom.time ?? '-',
+                      style: const TextStyle(
+                          fontSize: 15,
+                          color: _ink,
+                          fontWeight: FontWeight.w600)),
+                ],
+              )),
+            ]),
+          ),
+        ],
+      );
+
+  Widget _scheduleTag(IconData icon, String label) => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+        decoration: BoxDecoration(
+          color: Colors.white.withAlpha(22),
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: Colors.white.withAlpha(32)),
+        ),
+        child: Row(mainAxisSize: MainAxisSize.min, children: [
+          Icon(icon, size: 15, color: Colors.white.withAlpha(220)),
+          const Gap(7),
+          Flexible(
+              child: Text(label,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500))),
         ]),
       );
 
@@ -516,8 +551,8 @@ class _ClassroomDetailsScreenState
               fontSize: 17, color: color, fontWeight: FontWeight.w600)),
     );
     return Container(
-      width: 45,
-      height: 45,
+      width: 42,
+      height: 42,
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: color.withAlpha(22),
@@ -535,7 +570,7 @@ class _ClassroomDetailsScreenState
     );
   }
 
-  Widget _appGrid({required bool isTeacher}) =>
+  Widget _appGrid(ClassroomModel classroom, {required bool isTeacher}) =>
       LayoutBuilder(builder: (context, constraints) {
         final scale = MediaQuery.textScalerOf(context).scale(14) / 14;
         final columns = constraints.maxWidth >= 600 && scale <= 1.3
@@ -559,26 +594,29 @@ class _ClassroomDetailsScreenState
                             side: const BorderSide(color: _border)),
                         clipBehavior: Clip.antiAlias,
                         child: InkWell(
-                          onTap: () => _showPanel(
-                              icon: app.icon,
-                              color: app.color,
-                              title: app.label,
-                              description: app.description,
-                              comingSoon: true),
+                          onTap: () => app.label == 'Attendance'
+                              ? showAttendanceStudentDeck(context, classroom,
+                                  draft: _attendanceDraft)
+                              : _showPanel(
+                                  icon: app.icon,
+                                  color: app.color,
+                                  title: app.label,
+                                  description: app.description,
+                                  comingSoon: true),
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(10, 14, 10, 10),
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
-                                      padding: const EdgeInsets.all(8),
+                                      padding: const EdgeInsets.all(12),
                                       decoration: BoxDecoration(
                                           color: app.color.withAlpha(23),
                                           borderRadius:
                                               BorderRadius.circular(15)),
                                       child: Icon(app.icon,
-                                          color: app.color, size: 22)),
-                                  const Gap(9),
+                                          color: app.color, size: 24)),
+                                  Gap(12.h),
                                   Center(
                                       child: Text(app.label,
                                           textAlign: TextAlign.center,
@@ -692,19 +730,40 @@ class _ClassroomDetailsScreenState
 }
 
 class _SectionTitle extends StatelessWidget {
-  const _SectionTitle({required this.title, required this.subtitle});
+  const _SectionTitle({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.color,
+  });
   final String title;
   final String subtitle;
+  final IconData icon;
+  final Color color;
+
   @override
-  Widget build(BuildContext context) =>
-      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(title,
-            style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                letterSpacing: -0.5)),
-        const Gap(4),
-        Text(subtitle, style: const TextStyle(fontSize: 12, color: _muted)),
+  Widget build(BuildContext context) => Row(children: [
+        Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            color: color.withAlpha(22),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Icon(icon, size: 22, color: color),
+        ),
+        Gap(10.w),
+        Expanded(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title,
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+            Gap(1.h),
+            Text(subtitle, style: const TextStyle(fontSize: 12, color: _muted)),
+          ],
+        )),
       ]);
 }
 
@@ -734,35 +793,41 @@ class _SummaryDetail extends StatelessWidget {
   final String label;
   final String value;
   @override
-  Widget build(BuildContext context) =>
-      Row(mainAxisSize: MainAxisSize.min, children: [
-        Container(
-          width: 34,
-          height: 34,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: Colors.white.withAlpha(25),
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.white.withAlpha(45)),
+  Widget build(BuildContext context) => Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 34,
+            height: 34,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Colors.white.withAlpha(25),
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.white.withAlpha(45)),
+            ),
+            child: Icon(icon, color: Colors.white.withAlpha(210), size: 18),
           ),
-          child: Icon(icon, color: Colors.white.withAlpha(210), size: 18),
-        ),
-        const Gap(10),
-        Flexible(
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(label,
-              style: TextStyle(
-                  fontSize: 9,
-                  letterSpacing: 1,
-                  color: Colors.white.withAlpha(175),
-                  fontWeight: FontWeight.w500)),
-          Gap(1),
-          Text(value,
-              style: const TextStyle(
-                  fontSize: 13.5,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500)),
-        ])),
-      ]);
+          const Gap(10),
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(label,
+                    style: TextStyle(
+                        fontSize: 9,
+                        letterSpacing: 1,
+                        color: Colors.white.withAlpha(175),
+                        fontWeight: FontWeight.w500)),
+                Gap(1),
+                Text(value,
+                    style: const TextStyle(
+                        fontSize: 13.5,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500)),
+              ],
+            ),
+          ),
+        ],
+      );
 }

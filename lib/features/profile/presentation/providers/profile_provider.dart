@@ -1,4 +1,9 @@
+import 'dart:convert';
+
 import 'package:edu_connect/core/api/error_handler.dart';
+import 'package:edu_connect/core/shared/helpers/local_storage.dart';
+import 'package:edu_connect/features/auth/domain/models/auth_model.dart';
+import 'package:edu_connect/features/auth/presentation/providers/auth_token_provider.dart';
 import 'package:edu_connect/features/profile/data/repositories/profile_repo_impl.dart';
 import 'package:edu_connect/features/profile/domain/models/profile_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -52,7 +57,7 @@ Future<bool?> sendVerificationOtp(
   return result.fold(
     (l) {
       ApiError.commonErrorHandler(l);
-      return null;
+      return false;
     },
     (r) => r,
   );
@@ -75,10 +80,65 @@ Future<bool?> verifyOtp(
   );
 }
 
+@riverpod
+Future<List<GuardianStudent>?> getGuardianStudentList(
+  Ref ref, {
+  String? tempToken,
+}) async {
+  final repo = ref.read(profileRepoProvider);
+  final result = await repo.getGuardianStudentList();
 
+  return result.fold(
+    (l) {
+      ApiError.commonErrorHandler(l);
+      return null;
+    },
+    (r) => r,
+  );
+}
 
+@riverpod
+Future<AuthResponse?> studentSwitch(
+  Ref ref, {
+  required StudentSwitchRequest requestBody,
+}) async {
+  final repo = ref.read(profileRepoProvider);
+  final result = await repo.switchStudent(requestBody: requestBody);
+  return result.fold(
+    (l) {
+      ApiError.commonErrorHandler(l);
+      return null;
+    },
+    (r) async {
+      if (r == null) return null;
+      if (r.authToken != null) {
+        await ref.read(authTokenProvider.notifier).saveToken(r.authToken!);
+      }
+      if (r.user != null) {
+        await ref.read(secureStorageProvider).writeData(
+              'user',
+              jsonEncode(r.user!.toJson()),
+            );
+      }
+      return r;
+    },
+  );
+}
 
+@riverpod
+Future<bool?> changePassword(
+  Ref ref, {
+  required ChangePasswordRequest requestBody,
+}) async {
+  final result = await ref
+      .read(profileRepoProvider)
+      .changePassword(requestBody: requestBody);
 
-
-
-
+  return result.fold(
+    (l) {
+      ApiError.commonErrorHandler(l);
+      return false;
+    },
+    (r) => r,
+  );
+}

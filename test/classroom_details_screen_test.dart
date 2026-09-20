@@ -93,7 +93,9 @@ void main() {
     expect(find.text('Math'), findsOneWidget);
     expect(find.text('Classroom ID: 1AMM2688'), findsOneWidget);
     expect(find.text(classroom.teacher!), findsOneWidget);
-    expect(find.text('First Period\n09:30 AM - 10:30 AM'), findsOneWidget);
+    expect(find.text('Monday'), findsOneWidget);
+    expect(find.text('First Period'), findsOneWidget);
+    expect(find.text('09:30 AM - 10:30 AM'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 
@@ -146,7 +148,8 @@ void main() {
     await tester.enterText(find.byType(TextField), 'meera');
     await tester.pumpAndSettle();
     await tester.ensureVisible(find.text('Meera Nair'));
-    expect(find.text('1 of 8 students'), findsOneWidget);
+    expect(find.text('1 of 8 students'), findsNothing);
+    expect(find.byTooltip('Sort students'), findsNothing);
     await tester.enterText(find.byType(TextField), '03');
     await tester.pumpAndSettle();
     expect(find.text('Diya Patel'), findsOneWidget);
@@ -155,20 +158,53 @@ void main() {
     expect(find.text('No students found'), findsOneWidget);
     await tester.tap(find.byTooltip('Clear search'));
     await tester.pumpAndSettle();
-    expect(find.text('8 of 8 students'), findsOneWidget);
+    expect(find.text('No students found'), findsNothing);
+    expect(find.text('8 students'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
+  for (final size in [const Size(320, 740), const Size(1000, 900)]) {
+    testWidgets('Attendance deck navigates and closes at $size',
+        (tester) async {
+      await openScreen(tester, size, textScale: size.width == 320 ? 1.6 : 1);
+      await tester.scrollUntilVisible(
+          find.text('Attendance').hitTestable(), 200,
+          scrollable: find.byType(Scrollable).first);
+      await tester.tap(find.text('Attendance'));
+      await tester.pumpAndSettle();
+      expect(find.text('Meet your class'), findsOneWidget);
+      expect(find.text('AS'), findsWidgets);
+      expect(find.text('EN01'), findsOneWidget);
+      expect(find.text('1 / 8'), findsOneWidget);
+      await tester.ensureVisible(find.byTooltip('Next student'));
+      await tester.tap(find.byTooltip('Next student'));
+      await tester.pumpAndSettle();
+      expect(find.text('2 / 8'), findsOneWidget);
+      await tester.tap(find.byTooltip('Previous student'));
+      await tester.pumpAndSettle();
+      expect(find.text('1 / 8'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+      await tester.ensureVisible(find.byTooltip('Close attendance'));
+      await tester.tap(find.byTooltip('Close attendance'));
+      await tester.pumpAndSettle();
+      expect(find.text('Meet your class'), findsNothing);
+    });
+  }
+
+  testWidgets('Attendance handles an empty roster', (tester) async {
+    await openScreen(tester, const Size(390, 844),
+        load: () async => classroom.copyWith(students: []));
+    await tester.tap(find.text('Attendance'));
+    await tester.pumpAndSettle();
+    expect(find.text('No students yet'), findsOneWidget);
+    expect(find.byTooltip('Next student'), findsNothing);
     expect(tester.takeException(), isNull);
   });
 
   testWidgets('Classroom shortcuts open and dismiss their availability panel',
       (tester) async {
     await openScreen(tester, const Size(390, 844));
-    for (final label in [
-      'Attendance',
-      'Material',
-      'Homework',
-      'Tests',
-      'Notice'
-    ]) {
+    for (final label in ['Material', 'Homework', 'Tests', 'Notice']) {
       await tester.ensureVisible(find.text(label));
       await tester.tap(find.text(label));
       await tester.pumpAndSettle();

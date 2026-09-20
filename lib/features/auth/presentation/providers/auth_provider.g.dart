@@ -416,7 +416,7 @@ class _RoleSelectProviderElement
       (origin as RoleSelectProvider).requestBody;
 }
 
-String _$studentSelectHash() => r'1558e6c1640cd974050d9a5daaec8f5a36c834cd';
+String _$studentSelectHash() => r'cb87e0288891794d6f188c0b8e42385774d35e20';
 
 /// See also [studentSelect].
 @ProviderFor(studentSelect)

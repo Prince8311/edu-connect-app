@@ -11,6 +11,12 @@ final localStorageProvider = FutureProvider<LocalDB>((ref) async {
   return await LocalStorage.getInstance();
 });
 
+class LocalStorageKeys {
+  static const welcomeCompleted = 'welcome_completed';
+  static const biometricUserId = 'biometric_user_id';
+  static const biometricDeviceId = 'biometric_device_id';
+}
+
 abstract class LocalDB {
   Future<String?> readData(String key);
   Future<Map<String, String>> readAllData();
@@ -72,7 +78,8 @@ class LocalStorage implements LocalDB {
   @override
   Future<Map<String, String>> readAllData() async {
     return {
-      for (final k in preferences.getKeys()) k: preferences.getString(k) ?? ''
+      for (final k in preferences.getKeys())
+        k: preferences.get(k)?.toString() ?? ''
     };
   }
 }
@@ -133,11 +140,3 @@ class SecureLocalStorage implements LocalDB {
     }
   }
 }
-
-
-
-
-
-
-
-

@@ -1,6 +1,7 @@
 import 'package:edu_connect/core/api/api_handler.dart';
 import 'package:edu_connect/core/shared/miscellaneous/typedefs.dart';
 import 'package:edu_connect/core/shared/widgets/toast.dart';
+import 'package:edu_connect/features/auth/domain/models/auth_model.dart';
 import 'package:edu_connect/features/profile/domain/models/profile_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:edu_connect/features/profile/data/datasources/profile_api_service.dart';
@@ -46,12 +47,40 @@ class ProfileRepoImpl extends ProfileRepository {
       },
     );
   }
+
+  @override
+  FutureEither<List<GuardianStudent>?> getGuardianStudentList({
+    String? tempToken,
+  }) {
+    return apiHandler<List<GuardianStudent>?>(
+      () async {
+        final res = await _apiService.getGuardianStudentList();
+        return res.data;
+      },
+    );
+  }
+
+  @override
+  FutureEither<AuthResponse?> switchStudent(
+      {required StudentSwitchRequest requestBody}) {
+    return apiHandler<AuthResponse?>(
+      () async {
+        var res = await _apiService.switchStudent(requestBody);
+        successToast(res.message);
+        return res.data;
+      },
+    );
+  }
+
+  @override
+  FutureEither<bool?> changePassword(
+      {required ChangePasswordRequest requestBody}) {
+    return apiHandler<bool?>(
+      () async {
+        var res = await _apiService.changePassword(requestBody);
+        successToast(res.message);
+        return res.success;
+      },
+    );
+  }
 }
-
-
-
-
-
-
-
-

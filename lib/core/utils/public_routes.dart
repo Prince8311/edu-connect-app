@@ -3,6 +3,7 @@ import 'package:edu_connect/core/router/app_router.dart';
 class PublicRoutes {
   static const List<String> routes = <String>[
     RoutePath.initial,
+    RoutePath.welcome,
     RoutePath.comingSoon,
     RoutePath.maintenance,
     RoutePath.auth,

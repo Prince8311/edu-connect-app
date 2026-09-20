@@ -110,12 +110,6 @@ Future<AuthResponse?> studentSelect(
     },
     (r) async {
       if (r == null) return null;
-      if (r.tempToken != null) {
-        await ref.read(secureStorageProvider).writeData(
-              'tempToken',
-              r.tempToken!,
-            );
-      }
       if (r.authToken != null) {
         await ref.read(authTokenProvider.notifier).saveToken(r.authToken!);
       }

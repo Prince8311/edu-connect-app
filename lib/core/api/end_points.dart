@@ -35,4 +35,8 @@ class Endpoints {
   static const String sendVerificationOtp =
       '/api/account/send-verification-otp.php';
   static const String verifyOtp = '/api/account/verify-otp.php';
+  static const String guardianStudentList =
+      '/api/account/guardian-students.php';
+  static const String studentSwitch = '/api/account/switch-student.php';
+  static const String changePassword = '/api/account/change-password.php';
 }

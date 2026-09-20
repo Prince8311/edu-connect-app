@@ -72,6 +72,9 @@ class _AppTextFieldState extends State<AppTextField> {
                         size: 20.sp,
                         color: ColorName.black3,
                       ),
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      splashRadius: 0.1,
                       onPressed: () {
                         setState(() => _isObscured = !_isObscured);
                       },

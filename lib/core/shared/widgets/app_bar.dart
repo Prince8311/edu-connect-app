@@ -1,3 +1,4 @@
+import 'package:edu_connect/core/shared/widgets/animated_greeting.dart';
 import 'dart:async';
 
 import 'package:edu_connect/core/api/end_points.dart';
@@ -17,11 +18,9 @@ class HomeAppBar extends HookConsumerWidget implements PreferredSizeWidget {
   const HomeAppBar({
     super.key,
     this.onNotificationTap,
-    this.onSettingsTap,
   });
 
   final VoidCallback? onNotificationTap;
-  final VoidCallback? onSettingsTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,22 +38,17 @@ class HomeAppBar extends HookConsumerWidget implements PreferredSizeWidget {
     final now = timeNotifier.value;
     final hour = now.hour;
 
-    // Determine greeting and image
+    // Determine the greeting for the local time.
     String greeting = 'GOOD MORNING';
-    AssetGenImage greetingImage = Assets.images.morning;
 
     if (hour >= 5 && hour < 12) {
       greeting = 'GOOD MORNING';
-      greetingImage = Assets.images.morning;
     } else if (hour >= 12 && hour < 17) {
       greeting = 'GOOD AFTERNOON';
-      greetingImage = Assets.images.afternoon;
     } else if (hour >= 17 && hour < 21) {
       greeting = 'GOOD EVENING';
-      greetingImage = Assets.images.evening;
     } else {
       greeting = 'GOOD NIGHT';
-      greetingImage = Assets.images.night;
     }
 
     final userName = savedUserAsync.asData?.value?.name ?? 'User';
@@ -64,110 +58,106 @@ class HomeAppBar extends HookConsumerWidget implements PreferredSizeWidget {
             ? '${Endpoints.profileImageBaseURL}/student/$profileImageFileName'
             : null;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: ColorName.white,
-        border: Border(
-          bottom: BorderSide(color: ColorName.borderColor),
-        ),
-      ),
-      child: SafeArea(
-        bottom: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  // Profile Image
-                  Container(
-                    width: 46,
-                    height: 46,
-                    decoration: BoxDecoration(
-                      color: ColorName.lightBackground4,
-                      borderRadius: BorderRadius.circular(14),
-                      border: Border.all(color: ColorName.borderColor),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: profileImageUrl != null &&
-                              profileImageUrl.isNotEmpty
-                          ? Image.network(
-                              profileImageUrl,
-                              width: 46,
-                              height: 46,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Assets.images.profileImage.image(
-                                    width: 46, height: 46, fit: BoxFit.cover);
-                              },
-                            )
-                          : Assets.images.profileImage
-                              .image(width: 46, height: 46, fit: BoxFit.cover),
-                    ),
-                  ),
-                  Gap(12.w),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            greeting,
-                            style: TextStyle(
-                              color: ColorName.black3,
-                              fontSize: 12.sp,
-                              height: 1.2,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: FontFamily.poppins,
-                            ),
-                          ),
-                          Gap(4.w),
-                          greetingImage.image(height: 20),
-                        ],
-                      ),
-                      Gap(2.h),
-                      Text(
-                        userName.toUpperCase(),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: ColorName.black,
-                          fontSize: 17.sp,
-                          letterSpacing: -0.1,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: FontFamily.poppins,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  _NavIconButton(
-                    icon: Icons.notifications,
-                    onTap: onNotificationTap,
-                  ),
-                  Gap(12.w),
-                  _NavIconButton(
-                    icon: Icons.settings,
-                    onTap: () => SettingsRoute().push(context),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+    final night = hour < 5 || hour >= 21;
+    final subtitle = night
+        ? 'Rest well for a brighter tomorrow!'
+        : hour < 12
+            ? 'A fresh start to a day of learning.'
+            : hour < 17
+                ? 'Keep your curiosity shining.'
+                : 'Take a moment to unwind.';
+    final accent = night ? const Color(0xFF555DAB) : const Color(0xFF167D9A);
+    return ClipRRect(
+      borderRadius: const BorderRadius.vertical(bottom: Radius.circular(24)),
+      child: Stack(children: [
+        Positioned.fill(
+            child: IgnorePointer(
+                child: AnimatedGreeting(hour: hour, background: true))),
+        SafeArea(
+            bottom: false,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(children: [
+                      ClipOval(
+                          child: profileImageUrl == null
+                              ? Assets.images.profileImage.image(
+                                  width: 48, height: 48, fit: BoxFit.cover)
+                              : Image.network(profileImageUrl,
+                                  width: 48,
+                                  height: 48,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stack) =>
+                                      Assets.images.profileImage.image(
+                                          width: 48,
+                                          height: 48,
+                                          fit: BoxFit.cover))),
+                      Gap(12.w),
+                      Expanded(
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                            Text(
+                                greeting
+                                        .toLowerCase()
+                                        .split(' ')
+                                        .map((word) =>
+                                            word[0].toUpperCase() +
+                                            word.substring(1))
+                                        .join(' ') +
+                                    ',',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontFamily: FontFamily.poppins,
+                                    fontSize: 12.sp,
+                                    color: const Color(0xFF616777),
+                                    height: 1.3)),
+                            Gap(3.h),
+                            Text(userName.toUpperCase(),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontFamily: FontFamily.poppins,
+                                    fontSize: 17.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: ColorName.black)),
+                          ])),
+                      const Gap(54),
+                      Material(
+                          color: Colors.white.withAlpha(240),
+                          borderRadius: BorderRadius.circular(16),
+                          child: IconButton(
+                              tooltip: 'Notifications',
+                              onPressed: onNotificationTap,
+                              icon: Icon(Icons.notifications, color: accent),
+                              constraints: const BoxConstraints(
+                                  minWidth: 44, minHeight: 44))),
+                    ]),
+                    Row(children: [
+                      const SizedBox(width: 55),
+                      Icon(Icons.auto_awesome_outlined,
+                          size: 14, color: accent.withAlpha(160)),
+                      const Gap(4),
+                      Expanded(
+                          child: Text(subtitle,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontFamily: FontFamily.poppins,
+                                  fontSize: 11.sp,
+                                  color: const Color(0xFF717787)))),
+                    ]),
+                  ]),
+            )),
+      ]),
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(75);
+  Size get preferredSize => const Size.fromHeight(106);
 }
 
 class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -175,13 +165,11 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     required this.title,
     this.showNotification = true,
-    this.showSettings = true,
     this.useHomeRouteOnBack = true,
   });
 
   final String title;
   final bool showNotification;
-  final bool showSettings;
   final bool useHomeRouteOnBack;
 
   @override
@@ -254,15 +242,7 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
                 children: [
                   if (showNotification) ...[
                     _NavIconButton(
-                      icon: Icons.notifications_none,
-                      onTap: () => SettingsRoute().push(context),
-                    ),
-                  ],
-                  if (showSettings) ...[
-                    Gap(12.w),
-                    _NavIconButton(
-                      icon: Icons.settings,
-                      onTap: () => SettingsRoute().push(context),
+                      icon: Icons.notifications,
                     ),
                   ],
                 ],
@@ -281,16 +261,13 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
 class _NavIconButton extends StatelessWidget {
   const _NavIconButton({
     required this.icon,
-    this.onTap,
   });
 
   final IconData icon;
-  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
       child: Container(
         width: 42,
         height: 42,

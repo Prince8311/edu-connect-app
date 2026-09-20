@@ -85,6 +85,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/relax.svg
   SvgGenImage get relax => const SvgGenImage('assets/images/relax.svg');
 
+  /// File path: assets/images/splash-campus.png
+  AssetGenImage get splashCampus => const AssetGenImage('assets/images/splash-campus.png');
+
   /// File path: assets/images/splash_logo.gif
   AssetGenImage get splashLogo => const AssetGenImage('assets/images/splash_logo.gif');
 
@@ -102,6 +105,15 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/warning.gif
   AssetGenImage get warning => const AssetGenImage('assets/images/warning.gif');
+
+  /// File path: assets/images/welcome-community.png
+  AssetGenImage get welcomeCommunity => const AssetGenImage('assets/images/welcome-community.png');
+
+  /// File path: assets/images/welcome-library.png
+  AssetGenImage get welcomeLibrary => const AssetGenImage('assets/images/welcome-library.png');
+
+  /// File path: assets/images/welcome-schedule.png
+  AssetGenImage get welcomeSchedule => const AssetGenImage('assets/images/welcome-schedule.png');
 
   /// List of all assets
   List<dynamic> get values => [
@@ -124,12 +136,16 @@ class $AssetsImagesGen {
         noFields,
         profileImage,
         relax,
+        splashCampus,
         splashLogo,
         success,
         teacherRoleBg,
         teacherRole,
         underConstruction,
-        warning
+        warning,
+        welcomeCommunity,
+        welcomeLibrary,
+        welcomeSchedule
       ];
 }
 

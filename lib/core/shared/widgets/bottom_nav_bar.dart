@@ -69,7 +69,7 @@ class _BottomNavScreenState extends ConsumerState<BottomNavScreen> {
       BottomNavItem(
         label: 'Profile',
         icon: Icon(Icons.person),
-        initialLocation: RoutePath.teacherProfile,
+        initialLocation: RoutePath.profile,
       ),
     ];
   }

@@ -1,4 +1,4 @@
-import 'package:edu_connect/features/profile/presentation/screens/privacy_policy_screen.dart';
+import 'package:edu_connect/features/profile/presentation/screens/biometric_setup_screen.dart';
 import 'dart:async';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
@@ -21,12 +21,15 @@ import 'package:edu_connect/features/library/presentation/screens/book_details_s
 import 'package:edu_connect/features/library/presentation/screens/chapter_add_screen.dart';
 import 'package:edu_connect/features/library/presentation/screens/library_screen.dart';
 import 'package:edu_connect/features/library/domain/models/library_model.dart';
-import 'package:edu_connect/features/profile/presentation/screens/settings_screen.dart';
 
 import 'package:edu_connect/features/home/presentation/screens/home_screen.dart';
 import 'package:edu_connect/features/time-table/presentation/screens/time_table_screen.dart';
 import 'package:edu_connect/features/profile/presentation/screens/profile_screen.dart';
-
+import 'package:edu_connect/features/profile/presentation/screens/change_password_screen.dart';
+import 'package:edu_connect/features/profile/presentation/screens/help_center_screen.dart';
+import 'package:edu_connect/features/onboarding/welcome_screen.dart';
+import 'package:edu_connect/features/profile/presentation/screens/terms_conditions_screen.dart';
+import 'package:edu_connect/features/profile/presentation/screens/privacy_policy_screen.dart';
 import 'package:edu_connect/features/classroom/presentation/screens/classroom_list_screen.dart';
 import 'package:edu_connect/features/classroom/presentation/screens/classroom_details_screen.dart';
 import 'package:edu_connect/features/classroom/presentation/screens/classroom_create_screen.dart';
@@ -37,6 +40,7 @@ final rootNavigatorKey = GlobalKey<NavigatorState>();
 
 class RoutePath {
   static const String initial = '/';
+  static const String welcome = '/welcome';
   static const String comingSoon = '/coming-soon';
   static const String maintenance = '/maintenance';
 
@@ -47,14 +51,16 @@ class RoutePath {
 
   static const String home = '/home';
   static const String timeTable = '/time-table';
-  static const String teacherProfile = '/teacher-profile';
+  static const String profile = '/profile';
+  static const String changePassword = '/change-password';
 
   static const String library = '/library';
   static const String bookDetails = '/book-details';
   static const String addBook = '/add-book';
   static const String addChapter = '/add-chapter';
-  static const String settings = '/settings';
+  static const String helpCenter = '/help-center';
   static const String privacyPolicy = '/privacy-policy';
+  static const String termsConditions = '/terms-conditions';
 
   // classroom
   static const String classRooms = '/classrooms';
@@ -64,6 +70,7 @@ class RoutePath {
 
 class RouteName {
   static const String initial = 'initial';
+  static const String welcome = 'welcome';
   static const String comingSoon = 'comingSoon';
   static const String maintenance = 'maintenance';
 
@@ -74,14 +81,16 @@ class RouteName {
 
   static const String home = 'home';
   static const String timeTable = 'timeTable';
-  static const String teacherProfile = 'teacherProfile';
+  static const String profile = 'profile';
+  static const String changePassword = 'changePassword';
 
   static const String library = 'library';
   static const String bookDetails = 'bookDetails';
   static const String addBook = 'addBook';
   static const String addChapter = 'addChapter';
-  static const String settings = 'settings';
+  static const String helpCenter = 'helpCenter';
   static const String privacyPolicy = 'privacyPolicy';
+  static const String termsConditions = 'termsConditions';
 
   // classroom
   static const String classRooms = 'classRooms';
@@ -203,9 +212,9 @@ class StudentSelectRoute extends GoRouteData with _$StudentSelectRoute {
     // Profile Route
     TypedStatefulShellBranch(
       routes: [
-        TypedGoRoute<TeacherProfileRoute>(
-          path: RoutePath.teacherProfile,
-          name: RouteName.teacherProfile,
+        TypedGoRoute<ProfileRoute>(
+          path: RoutePath.profile,
+          name: RouteName.profile,
         ),
       ],
     ),
@@ -249,10 +258,21 @@ class LibraryRoute extends GoRouteData with _$LibraryRoute {
   }
 }
 
-class TeacherProfileRoute extends GoRouteData with _$TeacherProfileRoute {
+class ProfileRoute extends GoRouteData with _$ProfileRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return slideTransitionPage(TeacherProfileScreen());
+    return slideTransitionPage(ProfileScreen());
+  }
+}
+
+@TypedGoRoute<ChangePasswordRoute>(
+  path: RoutePath.changePassword,
+  name: RouteName.changePassword,
+)
+class ChangePasswordRoute extends GoRouteData with _$ChangePasswordRoute {
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return slideTransitionPage(ChangePasswordScreen());
   }
 }
 
@@ -290,17 +310,6 @@ class CreateClassRoomRoute extends GoRouteData with _$CreateClassRoomRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return slideTransitionPage(ClassroomCreateScreen());
-  }
-}
-
-@TypedGoRoute<SettingsRoute>(
-  path: RoutePath.settings,
-  name: RouteName.settings,
-)
-class SettingsRoute extends GoRouteData with _$SettingsRoute {
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return slideTransitionPage(SettingsScreen());
   }
 }
 
@@ -385,4 +394,50 @@ class PrivacyPolicyRoute extends GoRouteData with _$PrivacyPolicyRoute {
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return slideTransitionPage(const PrivacyPolicyScreen());
   }
+}
+
+@TypedGoRoute<TermsConditionsRoute>(
+  path: RoutePath.termsConditions,
+  name: RouteName.termsConditions,
+)
+class TermsConditionsRoute extends GoRouteData with _$TermsConditionsRoute {
+  const TermsConditionsRoute();
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return slideTransitionPage(const TermsConditionsScreen());
+  }
+}
+
+@TypedGoRoute<WelcomeRoute>(path: RoutePath.welcome, name: RouteName.welcome)
+class WelcomeRoute extends GoRouteData with _$WelcomeRoute {
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return CustomTransitionPage<void>(
+      key: state.pageKey,
+      child: const WelcomeScreen(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+          FadeTransition(opacity: animation, child: child),
+    );
+  }
+}
+
+@TypedGoRoute<HelpCenterRoute>(
+    path: RoutePath.helpCenter, name: RouteName.helpCenter)
+class HelpCenterRoute extends GoRouteData with _$HelpCenterRoute {
+  const HelpCenterRoute();
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return slideTransitionPage(const HelpCenterScreen());
+  }
+}
+
+@TypedGoRoute<BiometricSetupRoute>(
+    path: '/biometric-setup', name: 'biometricSetup')
+class BiometricSetupRoute extends GoRouteData with _$BiometricSetupRoute {
+  const BiometricSetupRoute();
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      slideTransitionPage(const BiometricSetupScreen());
 }

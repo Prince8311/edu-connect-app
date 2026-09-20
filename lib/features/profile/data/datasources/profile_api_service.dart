@@ -2,6 +2,7 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:edu_connect/core/api/api_client.dart';
 import 'package:edu_connect/core/api/end_points.dart';
 import 'package:edu_connect/core/shared/models/api_response_model.dart';
+import 'package:edu_connect/features/auth/domain/models/auth_model.dart';
 import 'package:edu_connect/features/profile/domain/models/profile_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:retrofit/retrofit.dart';
@@ -26,12 +27,14 @@ abstract class ProfileApiService {
   @POST(Endpoints.verifyOtp)
   @Headers(<String, dynamic>{'Content-Type': 'application/json'})
   Future<ApiResponse> verifyOtp(@Body() OtpVerifyResquest body);
+
+  @GET(Endpoints.guardianStudentList)
+  Future<ApiResponse<List<GuardianStudent>>> getGuardianStudentList();
+
+  @POST(Endpoints.studentSwitch)
+  Future<ApiResponse<AuthResponse>> switchStudent(
+      @Body() StudentSwitchRequest body);
+
+  @POST(Endpoints.changePassword)
+  Future<ApiResponse> changePassword(@Body() ChangePasswordRequest body);
 }
-
-
-
-
-
-
-
-

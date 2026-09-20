@@ -48,7 +48,6 @@ class _ChapterPdfViewerScreenState extends State<ChapterPdfViewerScreen> {
         title: widget.title,
         useHomeRouteOnBack: false,
         showNotification: false,
-        showSettings: false,
       ),
       body: Stack(
         children: [

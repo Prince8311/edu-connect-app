@@ -6,11 +6,13 @@ import 'package:edu_connect/core/shared/helpers/local_storage.dart';
 import 'package:edu_connect/core/shared/miscellaneous/app_extensions.dart';
 import 'package:edu_connect/core/shared/miscellaneous/gap.dart';
 import 'package:edu_connect/core/shared/widgets/app_bar.dart';
+import 'package:edu_connect/core/shared/widgets/text_field.dart';
 import 'package:edu_connect/core/shared/widgets/toast.dart';
 import 'package:edu_connect/features/profile/presentation/providers/biometric_provider.dart';
 import 'package:edu_connect/gen/colors.gen.dart';
 import 'package:edu_connect/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class BiometricSetupScreen extends ConsumerStatefulWidget {
@@ -26,15 +28,16 @@ class _BiometricSetupScreenState extends ConsumerState<BiometricSetupScreen> {
   bool _filled = false;
   bool _saving = false;
   bool _passwordStep = false;
-  bool _hidePassword = true;
   final _password = TextEditingController();
-  final _passwordForm = GlobalKey<FormState>();
   late final BiometricService _service;
 
   @override
   void initState() {
     super.initState();
     _service = ref.read(biometricServiceProvider);
+    _password.addListener(() {
+      setState(() {});
+    });
   }
 
   Future<void> _verify() async {
@@ -64,7 +67,10 @@ class _BiometricSetupScreenState extends ConsumerState<BiometricSetupScreen> {
 
   Future<void> _finish() async {
     if (!_verified || !_filled || !_passwordStep || _saving) return;
-    if (!(_passwordForm.currentState?.validate() ?? false)) return;
+    if (_password.text.trim().isEmpty) {
+      errorToast('Please enter your current password.');
+      return;
+    }
     setState(() => _saving = true);
     try {
       final storage = ref.read(secureStorageProvider);
@@ -109,6 +115,7 @@ class _BiometricSetupScreenState extends ConsumerState<BiometricSetupScreen> {
         'user_id': userId,
         'platform':
             defaultTargetPlatform == TargetPlatform.android ? 'android' : 'ios',
+        'password': _password.text.trim(),
       };
       // Metadata only. Password and token must never be logged.
       debugPrint(jsonEncode(payload));
@@ -137,78 +144,49 @@ class _BiometricSetupScreenState extends ConsumerState<BiometricSetupScreen> {
       child: Center(
           child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 560),
-        child: Form(
-            key: _passwordForm,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Gap(24.h),
-                Container(
-                  padding: const EdgeInsets.all(24),
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                        colors: [ColorName.blueColor2, ColorName.blueColor1]),
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Icon(Icons.lock_outline_rounded,
-                            color: Colors.white, size: 36),
-                        Gap(20.h),
-                        const Text('One final step',
-                            style: TextStyle(
-                                fontFamily: FontFamily.poppins,
-                                color: Colors.white,
-                                fontSize: 26,
-                                fontWeight: FontWeight.w600)),
-                        Gap(10.h),
-                        const Text(
-                            'Enter your current account password to continue with biometric setup.',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                height: 1.6)),
-                      ]),
-                ),
-                Gap(28.h),
-                TextFormField(
-                  controller: _password,
-                  obscureText: _hidePassword,
-                  enabled: !_saving,
-                  autocorrect: false,
-                  enableSuggestions: false,
-                  textInputAction: TextInputAction.done,
-                  onFieldSubmitted: (_) => _finish(),
-                  validator: (value) => value == null || value.trim().isEmpty
-                      ? 'Enter your current password.'
-                      : null,
-                  decoration: InputDecoration(
-                    labelText: 'Current password',
-                    filled: true,
-                    fillColor: Colors.white,
-                    prefixIcon: const Icon(Icons.lock_outline,
-                        color: ColorName.blueColor2),
-                    suffixIcon: IconButton(
-                      tooltip:
-                          _hidePassword ? 'Show password' : 'Hide password',
-                      onPressed: () =>
-                          setState(() => _hidePassword = !_hidePassword),
-                      icon: Icon(_hidePassword
-                          ? Icons.visibility_off_outlined
-                          : Icons.visibility_outlined),
-                    ),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16)),
-                  ),
-                ),
-                Gap(16.h),
-                const Text(
-                    'Password verification is not connected yet. Confirm saves this device setup locally; your password is not sent or stored.',
-                    style: TextStyle(
-                        fontSize: 12, height: 1.6, color: ColorName.black2)),
-              ],
-            )),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Gap(24.h),
+            Container(
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                    colors: [ColorName.blueColor2, ColorName.blueColor1]),
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(Icons.lock_outline_rounded,
+                        color: Colors.white, size: 36),
+                    Gap(20.h),
+                    const Text('One final step',
+                        style: TextStyle(
+                            fontFamily: FontFamily.poppins,
+                            color: Colors.white,
+                            fontSize: 26,
+                            fontWeight: FontWeight.w600)),
+                    Gap(10.h),
+                    const Text(
+                        'Enter your current account password to continue with biometric setup.',
+                        style: TextStyle(
+                            color: Colors.white, fontSize: 14, height: 1.6)),
+                  ]),
+            ),
+            Gap(28.h),
+            AppTextField(
+              label: 'Current Password',
+              controller: _password,
+              obscureText: true,
+            ),
+            Gap(16.h),
+            const Text(
+                'Password verification is not connected yet. Confirm saves this device setup locally; your password is not sent or stored.',
+                style: TextStyle(
+                    fontSize: 12, height: 1.6, color: ColorName.black2)),
+          ],
+        ),
       )),
     );
   }
@@ -228,18 +206,21 @@ class _BiometricSetupScreenState extends ConsumerState<BiometricSetupScreen> {
                 onPressed: _saving
                     ? null
                     : _passwordStep
-                        ? _finish
+                        ? (_password.text.trim().isNotEmpty ? _finish : null)
                         : () => setState(() => _passwordStep = true),
                 style: FilledButton.styleFrom(
                     backgroundColor: ColorName.blueColor2,
                     minimumSize: const Size.fromHeight(54),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18))),
-                child: Text(_saving
-                    ? 'Saving...'
-                    : _passwordStep
-                        ? 'Confirm'
-                        : 'Next'),
+                child: _saving
+                    ? SpinKitThreeBounce(
+                        color: Colors.white,
+                        size: 20.sp,
+                      )
+                    : Text(
+                        _passwordStep ? 'Confirm' : 'Next',
+                      ),
               )
             : const SizedBox.shrink(),
       ),

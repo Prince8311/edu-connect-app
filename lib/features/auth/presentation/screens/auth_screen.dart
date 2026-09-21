@@ -121,9 +121,9 @@ class AuthScreen extends HookConsumerWidget {
             result.authToken?.isNotEmpty == true) {
           HomeRoute().go(context);
         } else if (result.nextScreen == 'selectRole') {
-          RoleSelectRoute().go(context);
+          RoleSelectRoute().push(context);
         } else if (result.nextScreen == 'selectStudent') {
-          StudentSelectRoute().go(context);
+          StudentSelectRoute().push(context);
         } else {
           errorToast('Unable to complete sign in. Please try again.');
         }
@@ -555,10 +555,10 @@ class AuthScreen extends HookConsumerWidget {
                                     }
                                   } else if (result?.nextScreen ==
                                       'selectRole') {
-                                    RoleSelectRoute().go(context);
+                                    RoleSelectRoute().push(context);
                                   } else if (result?.nextScreen ==
                                       'selectStudent') {
-                                    StudentSelectRoute().go(context);
+                                    StudentSelectRoute().push(context);
                                   }
                                 } else {
                                   if (!showOtpField.value) {
@@ -709,9 +709,7 @@ class AuthScreen extends HookConsumerWidget {
                             if (fingerprintEnabled)
                               _AuthIconButton(
                                 icon: Icons.fingerprint,
-                                onTap: authBusy
-                                    ? null
-                                    : loginWithBiometric,
+                                onTap: authBusy ? null : loginWithBiometric,
                                 isLoading: biometricBusy.value,
                               ),
                           ],

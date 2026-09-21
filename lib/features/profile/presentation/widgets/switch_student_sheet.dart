@@ -3,6 +3,7 @@ import 'package:edu_connect/core/shared/miscellaneous/gap.dart';
 import 'package:edu_connect/core/shared/widgets/loader.dart';
 import 'package:edu_connect/core/router/app_router.dart';
 import 'package:edu_connect/features/auth/presentation/widgets/student_card.dart';
+import 'package:edu_connect/features/auth/presentation/providers/auth_provider.dart';
 import 'package:edu_connect/features/profile/domain/models/profile_model.dart';
 import 'package:edu_connect/features/profile/presentation/providers/profile_provider.dart';
 import 'package:edu_connect/gen/colors.gen.dart';
@@ -17,6 +18,8 @@ class SwitchStudentSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final students = ref.watch(getGuardianStudentListProvider());
+    final currentStudentId =
+        ref.watch(savedUserInfoProvider).valueOrNull?.student;
 
     Widget loadError() => Column(
           children: [
@@ -84,6 +87,8 @@ class SwitchStudentSheet extends ConsumerWidget {
                         for (var i = 0; i < items.length; i++) ...[
                           StudentCard(
                             student: items[i],
+                            isSelected: currentStudentId != null &&
+                                items[i].id == currentStudentId,
                             loadingLabel: 'Switching',
                             onSelect: () async {
                               final result = await ref.refresh(
@@ -100,7 +105,7 @@ class SwitchStudentSheet extends ConsumerWidget {
                               router.go(HomeRoute().location);
                             },
                           ),
-                          if (i < items.length - 1) Gap(16.h),
+                          if (i < items.length - 1) Gap(14.h),
                         ],
                       ],
                     );

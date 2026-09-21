@@ -1,3 +1,4 @@
+import 'package:go_router/go_router.dart';
 import 'package:edu_connect/core/router/app_router.dart';
 import 'package:edu_connect/core/shared/helpers/local_storage.dart';
 import 'package:edu_connect/core/shared/miscellaneous/app_extensions.dart';
@@ -59,7 +60,13 @@ class RoleSelectScreen extends HookConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GestureDetector(
-                  onTap: () => Navigator.of(context).pop(),
+                  onTap: () {
+                    if (context.canPop()) {
+                      context.pop();
+                    } else {
+                      AuthRoute().go(context);
+                    }
+                  },
                   child: Container(
                     width: 100,
                     padding: EdgeInsets.fromLTRB(0, 6.0, 10, 6.0),

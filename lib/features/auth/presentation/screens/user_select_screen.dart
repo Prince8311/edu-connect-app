@@ -72,9 +72,9 @@ class UserSelectScreen extends HookConsumerWidget {
         if (!context.mounted || result == null) return;
         final nextScreen = result.nextScreen?.trim();
         if (nextScreen == 'selectRole') {
-          RoleSelectRoute().go(context);
+          RoleSelectRoute().push(context);
         } else if (nextScreen == 'selectStudent') {
-          StudentSelectRoute().go(context);
+          StudentSelectRoute().push(context);
         } else if (result.authToken?.trim().isNotEmpty == true &&
             (nextScreen == null ||
                 nextScreen.isEmpty ||
@@ -198,7 +198,7 @@ class UserSelectScreen extends HookConsumerWidget {
                         onTap: user.id == null || isSigningIn.value
                             ? null
                             : () => selectUser(user)),
-                    Gap(18.h),
+                    Gap(15.h),
                   ],
                 ]);
               },

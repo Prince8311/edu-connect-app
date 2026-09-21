@@ -20,12 +20,14 @@ class StudentCard extends HookConsumerWidget {
     this.tempToken,
     this.onSelect,
     this.loadingLabel = 'Signing in',
+    this.isSelected = false,
   });
 
   final GuardianStudent student;
   final String? tempToken;
   final Future<void> Function()? onSelect;
   final String loadingLabel;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,7 +37,7 @@ class StudentCard extends HookConsumerWidget {
     final isLoading = useState(false);
 
     Future<void> handleStudentSelect() async {
-      if (isLoading.value) return;
+      if (isLoading.value || isSelected) return;
       isLoading.value = true;
 
       try {
@@ -78,18 +80,21 @@ class StudentCard extends HookConsumerWidget {
 
     return Semantics(
       button: true,
-      selected: isLoading.value,
+      selected: isSelected,
+      enabled: !isSelected && !isLoading.value,
       label:
           'Select ${student.name?.trim().isNotEmpty == true ? student.name : 'student'}',
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 180),
         decoration: BoxDecoration(
-          color: isLoading.value
+          color: isLoading.value || isSelected
               ? ColorName.blueColor.withAlpha(10)
               : ColorName.white,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isLoading.value ? ColorName.blueColor : Colors.transparent,
+            color: isLoading.value || isSelected
+                ? ColorName.blueColor
+                : Colors.transparent,
           ),
           boxShadow: [
             BoxShadow(
@@ -102,7 +107,7 @@ class StudentCard extends HookConsumerWidget {
         child: Material(
           color: Colors.transparent,
           child: InkWell(
-            onTap: isLoading.value ? null : handleStudentSelect,
+            onTap: isLoading.value || isSelected ? null : handleStudentSelect,
             borderRadius: BorderRadius.circular(12),
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -185,10 +190,10 @@ class StudentCard extends HookConsumerWidget {
                     ],
                   ),
                 ),
-                Gap(8.w),
+                if (!isSelected) Gap(8.w),
                 if (isLoading.value)
                   _StudentSignInLoader(label: loadingLabel)
-                else
+                else if (!isSelected)
                   Container(
                     width: 34,
                     height: 34,

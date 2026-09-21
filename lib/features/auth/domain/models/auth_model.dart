@@ -17,6 +17,19 @@ class LoginRequest with _$LoginRequest {
 }
 
 @freezed
+class BiometricLoginRequest with _$BiometricLoginRequest {
+  const factory BiometricLoginRequest({
+    @JsonKey(name: 'user_id', includeIfNull: false) int? userId,
+    @JsonKey(name: 'device_id') String? deviceId,
+    @JsonKey(name: 'device_token') String? deviceToken,
+    @JsonKey(name: 'biometric_type') String? biometricType,
+  }) = _BiometricLoginRequest;
+
+  factory BiometricLoginRequest.fromJson(Map<String, dynamic> json) =>
+      _$BiometricLoginRequestFromJson(json);
+}
+
+@freezed
 class RoleSelectRequest with _$RoleSelectRequest {
   const factory RoleSelectRequest({
     @JsonKey(name: 'tempToken') String? tempToken,
@@ -42,6 +55,7 @@ class StudentSelectRequest with _$StudentSelectRequest {
 class AuthResponse with _$AuthResponse {
   const factory AuthResponse({
     @JsonKey(name: 'next_screen') String? nextScreen,
+    @JsonKey(name: 'userChoose') bool? userChoose,
     @JsonKey(name: 'tempToken') String? tempToken,
     @JsonKey(name: 'user') UserInfo? user,
     @JsonKey(name: 'authToken') String? authToken,
@@ -70,9 +84,22 @@ class GuardianStudent with _$GuardianStudent {
 }
 
 @freezed
+class BiometricUserInfo with _$BiometricUserInfo {
+  const factory BiometricUserInfo({
+    @JsonKey(name: 'id') int? id,
+    @JsonKey(name: 'name') String? name,
+    @JsonKey(name: 'profile_image') String? profileImage,
+    @JsonKey(name: 'user_type') List<String>? userType,
+  }) = _BiometricUserInfo;
+
+  factory BiometricUserInfo.fromJson(Map<String, dynamic> json) =>
+      _$BiometricUserInfoFromJson(json);
+}
+
+@freezed
 class UserInfo with _$UserInfo {
   const factory UserInfo({
-    @JsonKey(name: 'id') String? id,
+    @JsonKey(name: 'id') int? id,
     @JsonKey(name: 'name') String? name,
     @JsonKey(name: 'email') String? email,
     @JsonKey(name: 'phone') String? phone,

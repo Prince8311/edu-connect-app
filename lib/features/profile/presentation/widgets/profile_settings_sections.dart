@@ -1,4 +1,4 @@
-import 'package:edu_connect/core/shared/helpers/local_storage.dart';
+import 'package:edu_connect/features/profile/presentation/widgets/biometric_reset_sheet.dart';
 import 'package:edu_connect/features/profile/presentation/providers/biometric_provider.dart';
 import 'package:edu_connect/core/router/app_router.dart';
 import 'package:edu_connect/core/shared/miscellaneous/app_extensions.dart';
@@ -18,7 +18,6 @@ class ProfileSettingsSections extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final biometricEnabled = ref.watch(biometricEnabledProvider);
     final checkingBiometric = useState(false);
-    final faceLoginEnabled = useState(false);
     final isLoggingOut = useState(false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,23 +53,22 @@ class ProfileSettingsSections extends HookConsumerWidget {
               _buildPrivacyRow(
                 icon: Icons.fingerprint,
                 title: 'Enable Biometric Login',
-                switchValue: biometricEnabled.asData?.value ?? false,
+                switchValue: !biometricEnabled.isLoading &&
+                    (biometricEnabled.asData?.value ?? false),
                 onSwitchChanged: (value) async {
                   if (checkingBiometric.value || biometricEnabled.isLoading)
                     return;
                   checkingBiometric.value = true;
                   try {
                     if (!value) {
-                      final saved = await ref
-                          .read(secureStorageProvider)
-                          .writeBool(biometricEnabledKey, false);
-                      if (!context.mounted) return;
-                      if (!saved) {
-                        errorToast(
-                            'Unable to save your preference. Please try again.');
-                        return;
-                      }
-                      ref.invalidate(biometricEnabledProvider);
+                      await showModalBottomSheet<bool>(
+                        context: context,
+                        useRootNavigator: true,
+                        isScrollControlled: true,
+                        isDismissible: false,
+                        enableDrag: false,
+                        builder: (_) => const BiometricResetSheet(),
+                      );
                       return;
                     }
                     final error = await ref
@@ -89,13 +87,6 @@ class ProfileSettingsSections extends HookConsumerWidget {
                     if (context.mounted) checkingBiometric.value = false;
                   }
                 },
-              ),
-              Divider(color: ColorName.lightBackground3, height: 1),
-              _buildPrivacyRow(
-                icon: Icons.face,
-                title: 'Face ID / Face Login',
-                switchValue: faceLoginEnabled.value,
-                onSwitchChanged: (value) => faceLoginEnabled.value = value,
               ),
               Divider(color: ColorName.lightBackground3, height: 1),
               _buildPrivacyRow(

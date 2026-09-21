@@ -99,11 +99,7 @@ void main() {
         }
         await tester.pumpAndSettle();
         expect(
-            find.text(!completed
-                ? 'Skip'
-                : token == null
-                    ? 'Auth destination'
-                    : 'Home destination'),
+            find.text(token == null ? 'Auth destination' : 'Home destination'),
             findsOneWidget);
         verifyNever(
             () => storage.writeBool(LocalStorageKeys.welcomeCompleted, true));

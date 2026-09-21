@@ -1,4 +1,3 @@
-import 'package:edu_connect/features/profile/presentation/screens/biometric_setup_screen.dart';
 import 'dart:async';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +12,7 @@ import 'package:edu_connect/features/onboarding/splash_screen.dart';
 import 'package:edu_connect/features/onboarding/maintenance_screen.dart';
 
 import 'package:edu_connect/features/auth/presentation/screens/auth_screen.dart';
+import 'package:edu_connect/features/auth/presentation/screens/user_select_screen.dart';
 import 'package:edu_connect/features/auth/presentation/screens/role_select_screen.dart';
 import 'package:edu_connect/features/auth/presentation/screens/student_select_screen.dart';
 
@@ -27,6 +27,7 @@ import 'package:edu_connect/features/time-table/presentation/screens/time_table_
 import 'package:edu_connect/features/profile/presentation/screens/profile_screen.dart';
 import 'package:edu_connect/features/profile/presentation/screens/change_password_screen.dart';
 import 'package:edu_connect/features/profile/presentation/screens/help_center_screen.dart';
+import 'package:edu_connect/features/profile/presentation/screens/biometric_setup_screen.dart';
 import 'package:edu_connect/features/onboarding/welcome_screen.dart';
 import 'package:edu_connect/features/profile/presentation/screens/terms_conditions_screen.dart';
 import 'package:edu_connect/features/profile/presentation/screens/privacy_policy_screen.dart';
@@ -46,6 +47,7 @@ class RoutePath {
 
   // auth screen
   static const String auth = '/auth';
+  static const String userSelect = '/user-select';
   static const String roleSelect = '/role-select';
   static const String studentSelect = '/student-select';
 
@@ -76,6 +78,7 @@ class RouteName {
 
   // auth screens
   static const String auth = 'auth';
+  static const String userSelect = 'userSelect';
   static const String roleSelect = 'roleSelect';
   static const String studentSelect = 'studentSelect';
 
@@ -152,6 +155,17 @@ class AuthRoute extends GoRouteData with _$AuthRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return const NoTransitionPage(child: AuthScreen());
+  }
+}
+
+@TypedGoRoute<UserSelectRoute>(
+  path: RoutePath.userSelect,
+  name: RouteName.userSelect,
+)
+class UserSelectRoute extends GoRouteData with _$UserSelectRoute {
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return const NoTransitionPage(child: UserSelectScreen());
   }
 }
 

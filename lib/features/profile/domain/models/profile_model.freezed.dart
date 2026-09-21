@@ -1756,3 +1756,284 @@ abstract class _ChangePasswordRequest implements ChangePasswordRequest {
   _$$ChangePasswordRequestImplCopyWith<_$ChangePasswordRequestImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
+
+BiometricRequest _$BiometricRequestFromJson(Map<String, dynamic> json) {
+  return _BiometricRequest.fromJson(json);
+}
+
+/// @nodoc
+mixin _$BiometricRequest {
+  @JsonKey(name: 'device_id')
+  String? get deviceId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'device_name')
+  String? get deviceName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'platform')
+  String? get platform => throw _privateConstructorUsedError;
+  @JsonKey(name: 'device_token')
+  String? get deviceToken => throw _privateConstructorUsedError;
+  @JsonKey(name: 'biometric_type')
+  String? get biometricType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'password')
+  String? get password => throw _privateConstructorUsedError;
+
+  /// Serializes this BiometricRequest to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of BiometricRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $BiometricRequestCopyWith<BiometricRequest> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $BiometricRequestCopyWith<$Res> {
+  factory $BiometricRequestCopyWith(
+          BiometricRequest value, $Res Function(BiometricRequest) then) =
+      _$BiometricRequestCopyWithImpl<$Res, BiometricRequest>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'device_id') String? deviceId,
+      @JsonKey(name: 'device_name') String? deviceName,
+      @JsonKey(name: 'platform') String? platform,
+      @JsonKey(name: 'device_token') String? deviceToken,
+      @JsonKey(name: 'biometric_type') String? biometricType,
+      @JsonKey(name: 'password') String? password});
+}
+
+/// @nodoc
+class _$BiometricRequestCopyWithImpl<$Res, $Val extends BiometricRequest>
+    implements $BiometricRequestCopyWith<$Res> {
+  _$BiometricRequestCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of BiometricRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? deviceId = freezed,
+    Object? deviceName = freezed,
+    Object? platform = freezed,
+    Object? deviceToken = freezed,
+    Object? biometricType = freezed,
+    Object? password = freezed,
+  }) {
+    return _then(_value.copyWith(
+      deviceId: freezed == deviceId
+          ? _value.deviceId
+          : deviceId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      deviceName: freezed == deviceName
+          ? _value.deviceName
+          : deviceName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      platform: freezed == platform
+          ? _value.platform
+          : platform // ignore: cast_nullable_to_non_nullable
+              as String?,
+      deviceToken: freezed == deviceToken
+          ? _value.deviceToken
+          : deviceToken // ignore: cast_nullable_to_non_nullable
+              as String?,
+      biometricType: freezed == biometricType
+          ? _value.biometricType
+          : biometricType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      password: freezed == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$BiometricRequestImplCopyWith<$Res>
+    implements $BiometricRequestCopyWith<$Res> {
+  factory _$$BiometricRequestImplCopyWith(_$BiometricRequestImpl value,
+          $Res Function(_$BiometricRequestImpl) then) =
+      __$$BiometricRequestImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'device_id') String? deviceId,
+      @JsonKey(name: 'device_name') String? deviceName,
+      @JsonKey(name: 'platform') String? platform,
+      @JsonKey(name: 'device_token') String? deviceToken,
+      @JsonKey(name: 'biometric_type') String? biometricType,
+      @JsonKey(name: 'password') String? password});
+}
+
+/// @nodoc
+class __$$BiometricRequestImplCopyWithImpl<$Res>
+    extends _$BiometricRequestCopyWithImpl<$Res, _$BiometricRequestImpl>
+    implements _$$BiometricRequestImplCopyWith<$Res> {
+  __$$BiometricRequestImplCopyWithImpl(_$BiometricRequestImpl _value,
+      $Res Function(_$BiometricRequestImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of BiometricRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? deviceId = freezed,
+    Object? deviceName = freezed,
+    Object? platform = freezed,
+    Object? deviceToken = freezed,
+    Object? biometricType = freezed,
+    Object? password = freezed,
+  }) {
+    return _then(_$BiometricRequestImpl(
+      deviceId: freezed == deviceId
+          ? _value.deviceId
+          : deviceId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      deviceName: freezed == deviceName
+          ? _value.deviceName
+          : deviceName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      platform: freezed == platform
+          ? _value.platform
+          : platform // ignore: cast_nullable_to_non_nullable
+              as String?,
+      deviceToken: freezed == deviceToken
+          ? _value.deviceToken
+          : deviceToken // ignore: cast_nullable_to_non_nullable
+              as String?,
+      biometricType: freezed == biometricType
+          ? _value.biometricType
+          : biometricType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      password: freezed == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(includeIfNull: false)
+class _$BiometricRequestImpl implements _BiometricRequest {
+  const _$BiometricRequestImpl(
+      {@JsonKey(name: 'device_id') this.deviceId,
+      @JsonKey(name: 'device_name') this.deviceName,
+      @JsonKey(name: 'platform') this.platform,
+      @JsonKey(name: 'device_token') this.deviceToken,
+      @JsonKey(name: 'biometric_type') this.biometricType,
+      @JsonKey(name: 'password') this.password});
+
+  factory _$BiometricRequestImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BiometricRequestImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'device_id')
+  final String? deviceId;
+  @override
+  @JsonKey(name: 'device_name')
+  final String? deviceName;
+  @override
+  @JsonKey(name: 'platform')
+  final String? platform;
+  @override
+  @JsonKey(name: 'device_token')
+  final String? deviceToken;
+  @override
+  @JsonKey(name: 'biometric_type')
+  final String? biometricType;
+  @override
+  @JsonKey(name: 'password')
+  final String? password;
+
+  @override
+  String toString() {
+    return 'BiometricRequest(deviceId: $deviceId, deviceName: $deviceName, platform: $platform, deviceToken: $deviceToken, biometricType: $biometricType, password: $password)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BiometricRequestImpl &&
+            (identical(other.deviceId, deviceId) ||
+                other.deviceId == deviceId) &&
+            (identical(other.deviceName, deviceName) ||
+                other.deviceName == deviceName) &&
+            (identical(other.platform, platform) ||
+                other.platform == platform) &&
+            (identical(other.deviceToken, deviceToken) ||
+                other.deviceToken == deviceToken) &&
+            (identical(other.biometricType, biometricType) ||
+                other.biometricType == biometricType) &&
+            (identical(other.password, password) ||
+                other.password == password));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, deviceId, deviceName, platform,
+      deviceToken, biometricType, password);
+
+  /// Create a copy of BiometricRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BiometricRequestImplCopyWith<_$BiometricRequestImpl> get copyWith =>
+      __$$BiometricRequestImplCopyWithImpl<_$BiometricRequestImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$BiometricRequestImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _BiometricRequest implements BiometricRequest {
+  const factory _BiometricRequest(
+          {@JsonKey(name: 'device_id') final String? deviceId,
+          @JsonKey(name: 'device_name') final String? deviceName,
+          @JsonKey(name: 'platform') final String? platform,
+          @JsonKey(name: 'device_token') final String? deviceToken,
+          @JsonKey(name: 'biometric_type') final String? biometricType,
+          @JsonKey(name: 'password') final String? password}) =
+      _$BiometricRequestImpl;
+
+  factory _BiometricRequest.fromJson(Map<String, dynamic> json) =
+      _$BiometricRequestImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'device_id')
+  String? get deviceId;
+  @override
+  @JsonKey(name: 'device_name')
+  String? get deviceName;
+  @override
+  @JsonKey(name: 'platform')
+  String? get platform;
+  @override
+  @JsonKey(name: 'device_token')
+  String? get deviceToken;
+  @override
+  @JsonKey(name: 'biometric_type')
+  String? get biometricType;
+  @override
+  @JsonKey(name: 'password')
+  String? get password;
+
+  /// Create a copy of BiometricRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$BiometricRequestImplCopyWith<_$BiometricRequestImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

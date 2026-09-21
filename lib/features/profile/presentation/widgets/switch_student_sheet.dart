@@ -2,8 +2,6 @@ import 'package:edu_connect/core/shared/miscellaneous/app_extensions.dart';
 import 'package:edu_connect/core/shared/miscellaneous/gap.dart';
 import 'package:edu_connect/core/shared/widgets/loader.dart';
 import 'package:edu_connect/core/router/app_router.dart';
-import 'package:edu_connect/features/auth/presentation/providers/auth_provider.dart';
-import 'package:edu_connect/features/auth/presentation/providers/auth_token_provider.dart';
 import 'package:edu_connect/features/auth/presentation/widgets/student_card.dart';
 import 'package:edu_connect/features/profile/domain/models/profile_model.dart';
 import 'package:edu_connect/features/profile/presentation/providers/profile_provider.dart';
@@ -86,8 +84,9 @@ class SwitchStudentSheet extends ConsumerWidget {
                         for (var i = 0; i < items.length; i++) ...[
                           StudentCard(
                             student: items[i],
+                            loadingLabel: 'Switching',
                             onSelect: () async {
-                              final result = await ref.read(
+                              final result = await ref.refresh(
                                 studentSwitchProvider(
                                   requestBody: StudentSwitchRequest(
                                     studentId: items[i].id.toString(),
@@ -96,9 +95,6 @@ class SwitchStudentSheet extends ConsumerWidget {
                               );
                               if (!context.mounted || result == null) return;
 
-                              ref.invalidate(authTokenProvider);
-                              ref.invalidate(savedUserInfoProvider);
-                              ref.invalidate(userDetailsNotifierProvider);
                               final router = GoRouter.of(context);
                               Navigator.of(context).pop();
                               router.go(HomeRoute().location);

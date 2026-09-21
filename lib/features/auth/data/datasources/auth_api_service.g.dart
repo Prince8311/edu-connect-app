@@ -62,6 +62,45 @@ class _AuthApiService implements AuthApiService {
   }
 
   @override
+  Future<ApiResponse<AuthResponse>> biometricLogin(
+      BiometricLoginRequest body) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = body;
+    final _options = _setStreamType<ApiResponse<AuthResponse>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'application/json',
+    )
+        .compose(
+          _dio.options,
+          '/auth/biometric-login.php',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ApiResponse<AuthResponse> _value;
+    try {
+      _value = ApiResponse<AuthResponse>.fromJson(
+        _result.data!,
+        (json) => AuthResponse.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<ApiResponse<dynamic>> sendAuthOtp(OtpRequest body) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -170,6 +209,57 @@ class _AuthApiService implements AuthApiService {
             ? json
                 .map<GuardianStudent>(
                     (i) => GuardianStudent.fromJson(i as Map<String, dynamic>))
+                .toList()
+            : List.empty(),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<ApiResponse<List<BiometricUserInfo>>> getBiometricUsers({
+    String? deviceId,
+    String? deviceToken,
+    String? biometricType,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'device_id': deviceId,
+      r'device_token': deviceToken,
+      r'biometric_type': biometricType,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options =
+        _setStreamType<ApiResponse<List<BiometricUserInfo>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/auth/biometric-users.php',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ApiResponse<List<BiometricUserInfo>> _value;
+    try {
+      _value = ApiResponse<List<BiometricUserInfo>>.fromJson(
+        _result.data!,
+        (json) => json is List<dynamic>
+            ? json
+                .map<BiometricUserInfo>((i) =>
+                    BiometricUserInfo.fromJson(i as Map<String, dynamic>))
                 .toList()
             : List.empty(),
       );

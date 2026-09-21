@@ -12,6 +12,17 @@ final profileRepoProvider = Provider<ProfileRepository>((ref) {
 });
 
 class ProfileRepoImpl extends ProfileRepository {
+  @override
+  FutureEither<bool?> resetBiometric({required BiometricRequest requestBody}) {
+    return apiHandler<bool?>(() async {
+      final res = await _apiService.resetBiometric(requestBody);
+      if (res.success != true) {
+        errorToast(res.message ?? 'Unable to disable fingerprint login.');
+      }
+      return res.success;
+    });
+  }
+
   final ProfileApiService _apiService;
   final Ref ref;
 
@@ -82,5 +93,14 @@ class ProfileRepoImpl extends ProfileRepository {
         return res.success;
       },
     );
+  }
+
+  @override
+  FutureEither<bool?> setupBiometric({required BiometricRequest requestBody}) {
+    return apiHandler<bool?>(() async {
+      var res = await _apiService.setupBiometric(requestBody);
+      successToast(res.message);
+      return res.success;
+    });
   }
 }

@@ -29,6 +29,18 @@ class AuthRepoImpl extends AuthRepository {
   }
 
   @override
+  FutureEither<AuthResponse?> biometricLogin(
+      {required BiometricLoginRequest requestBody}) {
+    return apiHandler<AuthResponse?>(
+      () async {
+        var res = await _apiService.biometricLogin(requestBody);
+        successToast(res.message);
+        return res.data;
+      },
+    );
+  }
+
+  @override
   FutureEither<bool?> sendAuthOtp({required OtpRequest requestBody}) {
     return apiHandler<bool?>(
       () async {
@@ -58,7 +70,24 @@ class AuthRepoImpl extends AuthRepository {
     return apiHandler<List<GuardianStudent>?>(
       () async {
         final res = await _apiService.getGuardianStudents(tempToken: tempToken);
-        successToast(res.message);
+        return res.data;
+      },
+    );
+  }
+
+  @override
+  FutureEither<List<BiometricUserInfo>?> getBiometricUsers({
+    String? deviceId,
+    String? deviceToken,
+    String? biometricType,
+  }) {
+    return apiHandler<List<BiometricUserInfo>?>(
+      () async {
+        final res = await _apiService.getBiometricUsers(
+          deviceId: deviceId,
+          deviceToken: deviceToken,
+          biometricType: biometricType,
+        );
         return res.data;
       },
     );

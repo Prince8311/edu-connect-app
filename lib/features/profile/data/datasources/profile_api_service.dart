@@ -37,4 +37,10 @@ abstract class ProfileApiService {
 
   @POST(Endpoints.changePassword)
   Future<ApiResponse> changePassword(@Body() ChangePasswordRequest body);
+
+  @POST(Endpoints.biometric)
+  Future<ApiResponse> setupBiometric(@Body() BiometricRequest body);
+
+  @POST(Endpoints.resetBiometric)
+  Future<ApiResponse> resetBiometric(@Body() BiometricRequest body);
 }

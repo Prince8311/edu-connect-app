@@ -3,4 +3,6 @@ import 'package:edu_connect/features/classroom/domain/models/classroom_model.dar
 
 abstract class ClassroomRepository {
   FutureEither<ClassroomModel?> getClassroomDetails({required int id});
+  FutureEither<List<ClassroomStudentModel>> getClassroomStudents(
+      {required int id});
 }

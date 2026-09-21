@@ -39,6 +39,42 @@ Future<AuthResponse?> login(
               jsonEncode(r.user!.toJson()),
             );
       }
+      ref.invalidate(savedUserInfoProvider);
+      return r;
+    },
+  );
+}
+
+@riverpod
+Future<AuthResponse?> biometricLogin(
+  Ref ref, {
+  required BiometricLoginRequest requestBody,
+}) async {
+  final repo = ref.read(authRepoProvider);
+  final result = await repo.biometricLogin(requestBody: requestBody);
+  return result.fold(
+    (l) {
+      ApiError.commonErrorHandler(l);
+      return null;
+    },
+    (r) async {
+      if (r == null) return null;
+      if (r.tempToken != null) {
+        await ref.read(secureStorageProvider).writeData(
+              'tempToken',
+              r.tempToken!,
+            );
+      }
+      if (r.authToken != null) {
+        await ref.read(authTokenProvider.notifier).saveToken(r.authToken!);
+      }
+      if (r.user != null) {
+        await ref.read(secureStorageProvider).writeData(
+              'user',
+              jsonEncode(r.user!.toJson()),
+            );
+      }
+      ref.invalidate(savedUserInfoProvider);
       return r;
     },
   );
@@ -91,6 +127,7 @@ Future<AuthResponse?> roleSelect(
               jsonEncode(r.user!.toJson()),
             );
       }
+      ref.invalidate(savedUserInfoProvider);
       return r;
     },
   );
@@ -119,6 +156,7 @@ Future<AuthResponse?> studentSelect(
               jsonEncode(r.user!.toJson()),
             );
       }
+      ref.invalidate(savedUserInfoProvider);
       return r;
     },
   );
@@ -131,6 +169,29 @@ Future<List<GuardianStudent>?> getGuardianStudents(
 }) async {
   final repo = ref.read(authRepoProvider);
   final result = await repo.getGuardianStudents(tempToken: tempToken);
+
+  return result.fold(
+    (l) {
+      ApiError.commonErrorHandler(l);
+      return null;
+    },
+    (r) => r,
+  );
+}
+
+@riverpod
+Future<List<BiometricUserInfo>?> getBiometricUsers(
+  Ref ref, {
+  String? deviceId,
+  String? deviceToken,
+  String? biometricType,
+}) async {
+  final repo = ref.read(authRepoProvider);
+  final result = await repo.getBiometricUsers(
+    deviceId: deviceId,
+    deviceToken: deviceToken,
+    biometricType: biometricType,
+  );
 
   return result.fold(
     (l) {
@@ -171,6 +232,7 @@ Future<bool?> logout(Ref ref) async {
       if (r != null) {
         await ref.read(authTokenProvider.notifier).clear();
         await ref.read(secureStorageProvider).deleteData('user');
+        ref.invalidate(savedUserInfoProvider);
       }
 
       return r?.success;

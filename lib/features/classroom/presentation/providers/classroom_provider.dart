@@ -19,3 +19,18 @@ Future<ClassroomModel?> getClassroomDetails(Ref ref, {required int id}) async {
     (r) => r,
   );
 }
+
+@riverpod
+Future<List<ClassroomStudentModel>> getClassroomStudents(Ref ref,
+    {required int id}) async {
+  final repo = ref.read(classroomRepoProvider);
+  final result = await repo.getClassroomStudents(id: id);
+
+  return result.fold(
+    (l) {
+      ApiError.commonErrorHandler(l);
+      return const [];
+    },
+    (r) => r,
+  );
+}

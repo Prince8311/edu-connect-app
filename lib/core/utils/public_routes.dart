@@ -9,6 +9,7 @@ class PublicRoutes {
     RoutePath.auth,
     RoutePath.privacyPolicy,
     RoutePath.roleSelect,
+    RoutePath.userSelect,
     RoutePath.studentSelect,
   ];
 

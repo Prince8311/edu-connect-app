@@ -11,24 +11,30 @@ const _absent = Color(0xFFFF929F);
 const _present = Color(0xFF7DE1BA);
 const _pending = Color(0xFFFFD775);
 
-void showAttendanceStudentDeck(BuildContext context, ClassroomModel classroom,
-    {Map<String, bool>? draft}) {
+void showAttendanceStudentDeck(
+  BuildContext context,
+  ClassroomModel classroom, {
+  required List<ClassroomStudentModel> students,
+  Map<String, bool>? draft,
+}) {
   showGeneralDialog<void>(
     context: context,
     barrierDismissible: true,
     barrierLabel: 'Close attendance',
     barrierColor: const Color(0xF5101728),
     transitionDuration: const Duration(milliseconds: 350),
-    pageBuilder: (context, animation, secondaryAnimation) =>
-        _StudentDeck(classroom: classroom, draft: draft ?? {}),
+    pageBuilder: (context, animation, secondaryAnimation) => _StudentDeck(
+        classroom: classroom, students: students, draft: draft ?? {}),
     transitionBuilder: (context, animation, secondaryAnimation, child) =>
         FadeTransition(opacity: animation, child: child),
   );
 }
 
 class _StudentDeck extends StatefulWidget {
-  const _StudentDeck({required this.classroom, required this.draft});
+  const _StudentDeck(
+      {required this.classroom, required this.students, required this.draft});
   final ClassroomModel classroom;
+  final List<ClassroomStudentModel> students;
   final Map<String, bool> draft;
 
   @override
@@ -44,8 +50,7 @@ class _StudentDeckState extends State<_StudentDeck>
   int? _flying;
   bool _destination = false;
 
-  List<ClassroomStudentModel> get _students =>
-      widget.classroom.students ?? const [];
+  List<ClassroomStudentModel> get _students => widget.students;
   String _key(int i) {
     final student = _students[i];
     if (student.studentId != null) return 'id:${student.studentId}';
@@ -70,6 +75,7 @@ class _StudentDeckState extends State<_StudentDeck>
   @override
   void dispose() {
     _flight.dispose();
+    widget.draft.clear();
     super.dispose();
   }
 
@@ -89,7 +95,7 @@ class _StudentDeckState extends State<_StudentDeck>
       _flying = student;
       _destination = present;
     });
-    // Commit immediately so closing the overlay during flight retains the mark.
+    // Update the draft immediately so the counts reflect the moving card.
     widget.draft[_key(student)] = present;
     _history.add(_key(student));
     _flight.duration = MediaQuery.disableAnimationsOf(context)
@@ -417,6 +423,42 @@ class _StudentDeckState extends State<_StudentDeck>
                               style: const TextStyle(
                                   fontFamily: FontFamily.poppins,
                                   color: Colors.white70)),
+                          if (_students.isNotEmpty) ...[
+                            const SizedBox(height: 24),
+                            FilledButton.icon(
+                              onPressed: () => showDialog<void>(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text('Attendance summary'),
+                                  content: Text(
+                                      'Present: ${_group(true).length}\n'
+                                      'Absent: ${_group(false).length}\n\n'
+                                      'Attendance is still a draft. Submission is not connected yet.'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              style: FilledButton.styleFrom(
+                                backgroundColor: _present,
+                                foregroundColor: const Color(0xFF172B4D),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 32, vertical: 14),
+                                textStyle: const TextStyle(
+                                    fontFamily: FontFamily.poppins,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              icon: const Icon(
+                                Icons.check_rounded,
+                                color: const Color(0xFF172B4D),
+                              ),
+                              label: const Text('Submit'),
+                            ),
+                          ],
                         ])),
                   for (var depth = visible.length - 1; depth >= 0; depth--)
                     Positioned(
@@ -577,7 +619,7 @@ class _StudentDeckState extends State<_StudentDeck>
                       left: 12,
                       right: 12,
                       child: Text(
-                          'Draft stays while this classroom is open · Not submitted',
+                          'Closing attendance clears this draft · Not submitted',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontFamily: FontFamily.poppins,
@@ -716,7 +758,7 @@ class _StudentCard extends StatelessWidget {
     final imageUrl =
         uri != null && (uri.scheme == 'https' || uri.scheme == 'http')
             ? profile
-            : '${Endpoints.profileImageBaseURL}/student/$profile';
+            : '${Endpoints.profileImageBaseURL}/user/$profile';
     final fallback = Center(
         child: Text(initials,
             style: const TextStyle(

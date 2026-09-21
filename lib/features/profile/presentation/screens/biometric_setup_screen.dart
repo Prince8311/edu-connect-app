@@ -9,6 +9,7 @@ import 'package:edu_connect/core/shared/widgets/app_bar.dart';
 import 'package:edu_connect/core/shared/widgets/text_field.dart';
 import 'package:edu_connect/core/shared/widgets/toast.dart';
 import 'package:edu_connect/features/profile/presentation/providers/biometric_provider.dart';
+import 'package:edu_connect/features/profile/domain/models/profile_model.dart';
 import 'package:edu_connect/gen/colors.gen.dart';
 import 'package:edu_connect/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
@@ -103,25 +104,20 @@ class _BiometricSetupScreenState extends ConsumerState<BiometricSetupScreen> {
         }
       }
       if (!mounted) return;
-      // Reuse the existing secure access token; do not create a stale second copy.
-      if (!await storage.writeData('authToken', token) ||
-          !await storage.writeData(LocalStorageKeys.biometricUserId, userId) ||
-          !await storage.writeBool(biometricEnabledKey, true)) {
-        throw StateError('Unable to save biometric setup');
-      }
-      final payload = <String, String>{
-        'device_id': deviceId,
-        'device_name': deviceName,
-        'user_id': userId,
-        'platform':
-            defaultTargetPlatform == TargetPlatform.android ? 'android' : 'ios',
-        'password': _password.text.trim(),
-      };
-      // Metadata only. Password and token must never be logged.
-      debugPrint(jsonEncode(payload));
+      final success = await ref.read(biometricSetupProvider).setup(
+            requestBody: BiometricRequest(
+              deviceId: deviceId,
+              deviceName: deviceName,
+              platform: defaultTargetPlatform == TargetPlatform.android
+                  ? 'android'
+                  : 'ios',
+              biometricType: 'fingerPrint',
+              password: _password.text,
+            ),
+            userId: userId,
+          );
+      if (!mounted || !success) return;
       _password.clear();
-      if (!mounted) return;
-      ref.invalidate(biometricEnabledProvider);
       Navigator.of(context).pop(true);
     } catch (_) {
       if (mounted)
@@ -147,7 +143,6 @@ class _BiometricSetupScreenState extends ConsumerState<BiometricSetupScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Gap(24.h),
             Container(
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
@@ -182,9 +177,12 @@ class _BiometricSetupScreenState extends ConsumerState<BiometricSetupScreen> {
             ),
             Gap(16.h),
             const Text(
-                'Password verification is not connected yet. Confirm saves this device setup locally; your password is not sent or stored.',
+                'Confirm verifies your password and enables fingerprint login on this device. Your password is not stored.',
                 style: TextStyle(
-                    fontSize: 12, height: 1.6, color: ColorName.black2)),
+                    fontSize: 12,
+                    height: 1.6,
+                    color: ColorName.black2,
+                    fontFamily: FontFamily.poppins)),
           ],
         ),
       )),
@@ -214,17 +212,23 @@ class _BiometricSetupScreenState extends ConsumerState<BiometricSetupScreen> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18))),
                 child: _saving
-                    ? SpinKitThreeBounce(
-                        color: Colors.white,
-                        size: 20.sp,
+                    ? SizedBox(
+                        height: 20,
+                        child: SpinKitThreeBounce(
+                          color: Colors.white,
+                          size: 20.sp,
+                        ),
                       )
-                    : Text(
-                        _passwordStep ? 'Confirm' : 'Next',
-                      ),
+                    : Text(_passwordStep ? 'Confirm' : 'Next',
+                        style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: FontFamily.poppins)),
               )
             : const SizedBox.shrink(),
       ),
       body: SafeArea(
+          top: false,
           child: _passwordStep
               ? _buildPasswordStep()
               : SingleChildScrollView(
@@ -331,6 +335,10 @@ class _BiometricSetupScreenState extends ConsumerState<BiometricSetupScreen> {
                               : 'Verify fingerprint'),
                           style: FilledButton.styleFrom(
                               backgroundColor: ColorName.blueColor2,
+                              textStyle: const TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: FontFamily.poppins),
                               minimumSize: const Size.fromHeight(52),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16))),
@@ -342,7 +350,8 @@ class _BiometricSetupScreenState extends ConsumerState<BiometricSetupScreen> {
                             style: TextStyle(
                                 fontSize: 12,
                                 height: 1.6,
-                                color: ColorName.black2)),
+                                color: ColorName.black2,
+                                fontFamily: FontFamily.poppins)),
                       ] else
                         const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -373,6 +382,7 @@ class _BiometricSetupScreenState extends ConsumerState<BiometricSetupScreen> {
                                           style: TextStyle(
                                               fontSize: 12,
                                               height: 1.7,
+                                              fontFamily: FontFamily.poppins,
                                               color: ColorName.black2)))),
                             ]),
                       ),

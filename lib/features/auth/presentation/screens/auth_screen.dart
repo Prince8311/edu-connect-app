@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:edu_connect/core/router/app_router.dart';
+import 'package:edu_connect/core/shared/helpers/local_storage.dart';
+import 'package:edu_connect/features/profile/presentation/providers/biometric_provider.dart';
 import 'package:edu_connect/features/auth/presentation/providers/auth_token_provider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:edu_connect/core/shared/miscellaneous/app_extensions.dart';
@@ -25,6 +27,8 @@ class AuthScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final fingerprintEnabled =
+        ref.watch(biometricLoginAvailableProvider).asData?.value ?? false;
     final isPassword = useState(true);
     final showOtpField = useState(false);
     final nameController = useTextEditingController();
@@ -71,6 +75,70 @@ class AuthScreen extends HookConsumerWidget {
     final secondsLeft = useState(0);
     final timer = useRef<Timer?>(null);
     final isLoading = useState(false);
+    final biometricBusy = useState(false);
+    final authBusy = isLoading.value || biometricBusy.value;
+
+    Future<void> loginWithBiometric() async {
+      if (isLoading.value || biometricBusy.value) return;
+      biometricBusy.value = true;
+      const label = 'Fingerprint';
+      try {
+        final service = ref.read(biometricServiceProvider);
+        final unavailable = await service.availabilityError();
+        if (!context.mounted) return;
+        if (unavailable != null) {
+          errorToast(unavailable);
+          return;
+        }
+        final verified = await service.verify();
+        if (!context.mounted || !verified) return;
+        final storage = ref.read(secureStorageProvider);
+        final deviceId =
+            await storage.readData(LocalStorageKeys.biometricDeviceId);
+        final config = await readBiometricConfig(storage);
+        if (deviceId == null ||
+            deviceId.isEmpty ||
+            config == null ||
+            config.type != fingerprintBiometricType ||
+            config.deviceToken.isEmpty ||
+            config.users.isEmpty) {
+          errorToast(
+              '$label login is unavailable. Please sign in with your password and set it up again.');
+          return;
+        }
+        final deviceToken = config.deviceToken;
+        final result = await ref.refresh(biometricLoginProvider(
+          requestBody: BiometricLoginRequest(
+            deviceId: deviceId,
+            deviceToken: deviceToken,
+            biometricType: fingerprintBiometricType,
+          ),
+        ).future);
+        if (!context.mounted || result == null) return;
+        if (result.userChoose == true) {
+          UserSelectRoute().go(context);
+        } else if (result.nextScreen == 'home' &&
+            result.authToken?.isNotEmpty == true) {
+          HomeRoute().go(context);
+        } else if (result.nextScreen == 'selectRole') {
+          RoleSelectRoute().go(context);
+        } else if (result.nextScreen == 'selectStudent') {
+          StudentSelectRoute().go(context);
+        } else {
+          errorToast('Unable to complete sign in. Please try again.');
+        }
+      } on PlatformException catch (error) {
+        if (context.mounted) errorToast(BiometricService.errorMessage(error));
+      } catch (_) {
+        if (context.mounted)
+          errorToast('Unable to sign in with $label. Please try again.');
+      } finally {
+        if (context.mounted) {
+          biometricBusy.value = false;
+        }
+      }
+    }
+
     final otpStatus = useState<_OtpStatus>(_OtpStatus.idle);
     final completedTicks = useState(0);
     final shakeController = useAnimationController(
@@ -217,7 +285,7 @@ class AuthScreen extends HookConsumerWidget {
                           children: [
                             Expanded(
                               child: GestureDetector(
-                                onTap: isLoading.value
+                                onTap: authBusy
                                     ? null
                                     : () {
                                         resetOtpFeedback();
@@ -260,7 +328,7 @@ class AuthScreen extends HookConsumerWidget {
                             ),
                             Expanded(
                               child: GestureDetector(
-                                onTap: isLoading.value
+                                onTap: authBusy
                                     ? null
                                     : () {
                                         resetOtpFeedback();
@@ -367,7 +435,7 @@ class AuthScreen extends HookConsumerWidget {
                                         )
                                       : TextField(
                                           key: ValueKey('otp-digit-$index'),
-                                          readOnly: isLoading.value,
+                                          readOnly: authBusy,
                                           inputFormatters: [
                                             FilteringTextInputFormatter
                                                 .digitsOnly
@@ -443,7 +511,7 @@ class AuthScreen extends HookConsumerWidget {
                                     ),
                                   )
                                 : GestureDetector(
-                                    onTap: isLoading.value
+                                    onTap: authBusy
                                         ? null
                                         : () {
                                             resetOtpFeedback();
@@ -465,7 +533,7 @@ class AuthScreen extends HookConsumerWidget {
                       ],
                       Gap(isPassword.value ? 30.h : 20.h),
                       FilledButton(
-                        onPressed: (isFormValid && !isLoading.value)
+                        onPressed: (isFormValid && !authBusy)
                             ? () async {
                                 if (isPassword.value) {
                                   isLoading.value = true;
@@ -611,42 +679,44 @@ class AuthScreen extends HookConsumerWidget {
                                         : 'Send OTP',
                               ),
                       ),
-                      Gap(24.h),
-                      Row(
-                        children: [
-                          Expanded(
-                              child: Divider(color: ColorName.borderColor1)),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            child: Text(
-                              'OR ACCESS VIA',
-                              style: TextStyle(
-                                color: ColorName.black3,
-                                fontSize: 13.sp,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: FontFamily.poppins,
+                      if (fingerprintEnabled) ...[
+                        Gap(24.h),
+                        Row(
+                          children: [
+                            Expanded(
+                                child: Divider(color: ColorName.borderColor1)),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12),
+                              child: Text(
+                                'OR ACCESS VIA',
+                                style: TextStyle(
+                                  color: ColorName.black3,
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: FontFamily.poppins,
+                                ),
                               ),
                             ),
-                          ),
-                          Expanded(
-                              child: Divider(color: ColorName.borderColor1)),
-                        ],
-                      ),
-                      Gap(20.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          _AuthIconButton(
-                            icon: Icons.fingerprint,
-                            onTap: () => RoleSelectRoute().push(context),
-                          ),
-                          Gap(16.w),
-                          _AuthIconButton(
-                            icon: Icons.face,
-                            onTap: () {},
-                          ),
-                        ],
-                      ),
+                            Expanded(
+                                child: Divider(color: ColorName.borderColor1)),
+                          ],
+                        ),
+                        Gap(20.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            if (fingerprintEnabled)
+                              _AuthIconButton(
+                                icon: Icons.fingerprint,
+                                onTap: authBusy
+                                    ? null
+                                    : loginWithBiometric,
+                                isLoading: biometricBusy.value,
+                              ),
+                          ],
+                        ),
+                      ],
                       Gap(24.h),
                       Center(
                         child: Text.rich(
@@ -692,34 +762,145 @@ class AuthScreen extends HookConsumerWidget {
 
 enum _OtpStatus { idle, error, success }
 
-class _AuthIconButton extends StatelessWidget {
+class _AuthIconButton extends HookWidget {
   const _AuthIconButton({
     required this.icon,
     required this.onTap,
+    this.isLoading = false,
   });
 
   final IconData icon;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(16),
-      child: Container(
-        width: 52,
-        height: 52,
-        decoration: BoxDecoration(
-          color: ColorName.lightBackground4,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: ColorName.borderColor),
-        ),
-        child: Icon(
-          icon,
-          color: ColorName.blueColor,
-          size: 32.sp,
+    final reduceMotion = MediaQuery.disableAnimationsOf(context);
+    final controller = useAnimationController(
+      duration: const Duration(milliseconds: 1800),
+    );
+    useEffect(() {
+      if (isLoading && !reduceMotion) {
+        controller.repeat();
+      } else {
+        controller.stop();
+        controller.value = 0;
+      }
+      return null;
+    }, [isLoading, reduceMotion]);
+    final progress = useAnimation(controller);
+    final pulse = (1 - math.cos(progress * math.pi * 2)) / 2;
+
+    return Semantics(
+      button: true,
+      enabled: onTap != null,
+      liveRegion: true,
+      label: 'Fingerprint sign in',
+      value: isLoading ? 'Verifying identity' : null,
+      child: InkWell(
+        onTap: isLoading ? null : onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: Container(
+          width: 52,
+          height: 52,
+          decoration: BoxDecoration(
+            color: isLoading
+                ? ColorName.blueColor.withAlpha(18)
+                : ColorName.lightBackground4,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: isLoading
+                  ? ColorName.blueColor.withAlpha(100)
+                  : ColorName.borderColor,
+            ),
+            boxShadow: isLoading
+                ? [
+                    BoxShadow(
+                      color: ColorName.blueColor
+                          .withAlpha((25 + pulse * 25).round()),
+                      blurRadius: 8 + pulse * 8,
+                      spreadRadius: pulse * 2,
+                    )
+                  ]
+                : null,
+          ),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Transform.scale(
+                scale: isLoading ? 0.94 + pulse * 0.06 : 1,
+                child: Icon(icon, color: ColorName.blueColor, size: 32.sp),
+              ),
+              if (isLoading)
+                Positioned.fill(
+                  child: IgnorePointer(
+                    child: CustomPaint(
+                      painter: _FingerprintScanPainter(
+                        progress: reduceMotion ? 0.5 : progress,
+                        color: ColorName.blueColor,
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );
   }
+}
+
+class _FingerprintScanPainter extends CustomPainter {
+  const _FingerprintScanPainter({required this.progress, required this.color});
+
+  final double progress;
+  final Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final bounds = Offset.zero & size;
+    final outline =
+        RRect.fromRectAndRadius(bounds.deflate(2), const Radius.circular(14));
+    final path = Path()..addRRect(outline);
+    final metric = path.computeMetrics().first;
+    final start = progress * metric.length;
+    final length = metric.length * 0.28;
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2
+      ..strokeCap = StrokeCap.round;
+    canvas.drawPath(
+        metric.extractPath(start, math.min(start + length, metric.length)),
+        paint);
+    if (start + length > metric.length) {
+      canvas.drawPath(
+          metric.extractPath(0, start + length - metric.length), paint);
+    }
+
+    canvas.save();
+    canvas.clipRRect(outline);
+    final y =
+        10 + (size.height - 20) * (1 - math.cos(progress * math.pi * 2)) / 2;
+    final scan = Rect.fromLTWH(9, y - 7, size.width - 18, 9);
+    canvas.drawRect(
+        scan,
+        Paint()
+          ..shader = LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [color.withAlpha(0), color.withAlpha(65)],
+          ).createShader(scan));
+    canvas.drawLine(
+        Offset(10, y + 2),
+        Offset(size.width - 10, y + 2),
+        Paint()
+          ..color = color.withAlpha(190)
+          ..strokeWidth = 1.5);
+    canvas.restore();
+  }
+
+  @override
+  bool shouldRepaint(_FingerprintScanPainter oldDelegate) =>
+      progress != oldDelegate.progress || color != oldDelegate.color;
 }

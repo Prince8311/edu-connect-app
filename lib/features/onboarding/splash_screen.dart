@@ -1,4 +1,3 @@
-import 'package:edu_connect/core/shared/helpers/local_storage.dart';
 import 'dart:math' as math;
 
 import 'package:edu_connect/core/router/app_router.dart';
@@ -66,13 +65,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
       }
       await Future<void>.delayed(const Duration(milliseconds: 200));
       final token = await tokenFuture;
-      final storage = await ref.read(localStorageProvider.future);
-      final welcomeCompleted =
-          await storage.readBool(LocalStorageKeys.welcomeCompleted) ?? false;
       if (!mounted) return;
-      if (!welcomeCompleted) {
-        WelcomeRoute().go(context);
-      } else if (token != null && token.isNotEmpty) {
+      if (token != null && token.isNotEmpty) {
         HomeRoute().go(context);
       } else {
         AuthRoute().go(context);
@@ -166,7 +160,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                 Positioned(
                   left: 0,
                   right: 0,
-                  bottom: 18,
+                  bottom: 30,
                   child: Opacity(
                     opacity: background,
                     child: Transform.translate(
@@ -188,7 +182,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                 Positioned(
                   left: 0,
                   right: 0,
-                  bottom: 0,
+                  bottom: -6,
                   child: Opacity(
                     opacity: wave,
                     child: Transform.translate(
@@ -206,7 +200,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                   ),
                 ),
                 Positioned(
-                  top: height * 0.25,
+                  top: height * 0.27,
                   left: 24,
                   right: 24,
                   child: Column(

@@ -11,4 +11,6 @@ abstract class ProfileRepository {
       {required StudentSwitchRequest requestBody});
   FutureEither<bool?> changePassword(
       {required ChangePasswordRequest requestBody});
+  FutureEither<bool?> setupBiometric({required BiometricRequest requestBody});
+  FutureEither<bool?> resetBiometric({required BiometricRequest requestBody});
 }

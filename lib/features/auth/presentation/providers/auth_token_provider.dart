@@ -7,36 +7,41 @@ final authTokenProvider = StateNotifierProvider<AuthTokenNotifier, String?>(
 
 class AuthTokenNotifier extends StateNotifier<String?> {
   final Ref ref;
+  Future<void>? _loading;
+  int _revision = 0;
 
-  AuthTokenNotifier(this.ref) : super(null) {
-    _loadToken();
-  }
+  AuthTokenNotifier(this.ref) : super(null);
 
   Future<void> _loadToken() async {
-    state = await ref.read(secureStorageProvider).readData('authToken');
+    final revision = _revision;
+    final token = await ref.read(secureStorageProvider).readData('authToken');
+    if (mounted && revision == _revision) state = token;
   }
 
   Future<String?> getToken() async {
     if (state != null) return state;
-    await _loadToken();
+    final loading = _loading ??= _loadToken();
+    try {
+      await loading;
+    } finally {
+      if (identical(_loading, loading)) _loading = null;
+    }
     return state;
   }
 
   Future<void> saveToken(String token) async {
-    await ref.read(secureStorageProvider).writeData('authToken', token);
-    state = token;
+    if (token.trim().isEmpty) throw StateError('Missing session token');
+    final saved =
+        await ref.read(secureStorageProvider).writeData('authToken', token);
+    if (!saved)
+      throw StateError('Unable to save your session. Please sign in again.');
+    _revision++;
+    if (mounted) state = token;
   }
 
   Future<void> clear() async {
     await ref.read(secureStorageProvider).deleteData('authToken');
-    state = null;
+    _revision++;
+    if (mounted) state = null;
   }
 }
-
-
-
-
-
-
-
-

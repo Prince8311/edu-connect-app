@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:edu_connect/core/api/end_points.dart';
 import 'package:edu_connect/core/router/app_router.dart';
 import 'package:edu_connect/core/shared/miscellaneous/app_extensions.dart';
@@ -17,17 +19,18 @@ class StudentCard extends HookConsumerWidget {
     required this.student,
     this.tempToken,
     this.onSelect,
+    this.loadingLabel = 'Signing in',
   });
 
   final GuardianStudent student;
   final String? tempToken;
   final Future<void> Function()? onSelect;
+  final String loadingLabel;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final String imagePath = student.profileImage ?? '';
-    final String imageUrl =
-        '${Endpoints.profileImageBaseURL}/student/$imagePath';
+    final String imageUrl = '${Endpoints.profileImageBaseURL}/user/$imagePath';
 
     final isLoading = useState(false);
 
@@ -73,115 +76,203 @@ class StudentCard extends HookConsumerWidget {
       }
     }
 
-    return GestureDetector(
-      onTap: handleStudentSelect,
-      child: AnimatedOpacity(
-        opacity: isLoading.value ? 0.55 : 1.0,
+    return Semantics(
+      button: true,
+      selected: isLoading.value,
+      label:
+          'Select ${student.name?.trim().isNotEmpty == true ? student.name : 'student'}',
+      child: AnimatedContainer(
         duration: const Duration(milliseconds: 180),
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: ColorName.white,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: ColorName.black.withAlpha(30),
-                blurRadius: 10,
-                offset: const Offset(2, 4),
-              ),
-            ],
+        decoration: BoxDecoration(
+          color: isLoading.value
+              ? ColorName.blueColor.withAlpha(10)
+              : ColorName.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: isLoading.value ? ColorName.blueColor : Colors.transparent,
           ),
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            children: [
-              Container(
-                width: 54,
-                height: 54,
-                padding: const EdgeInsets.all(3),
-                decoration: BoxDecoration(
-                  color: ColorName.lightBackground4,
-                  border: Border.all(color: ColorName.black.withAlpha(40)),
-                  shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: ColorName.black.withAlpha(20),
+              blurRadius: 10,
+              offset: const Offset(2, 4),
+            ),
+          ],
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: isLoading.value ? null : handleStudentSelect,
+            borderRadius: BorderRadius.circular(12),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(children: [
+                Container(
+                  width: 54,
+                  height: 54,
+                  padding: const EdgeInsets.all(3),
+                  decoration: BoxDecoration(
+                    color: ColorName.lightBackground4,
+                    border: Border.all(color: ColorName.black.withAlpha(40)),
+                    shape: BoxShape.circle,
+                  ),
+                  child: ClipOval(
+                    child: imagePath.isEmpty
+                        ? Assets.images.profileImage.image(
+                            width: 45,
+                            height: 45,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.network(
+                            imageUrl,
+                            width: 45,
+                            height: 45,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) {
+                              return Assets.images.profileImage.image(
+                                width: 45,
+                                height: 45,
+                                fit: BoxFit.cover,
+                              );
+                            },
+                          ),
+                  ),
                 ),
-                child: ClipOval(
-                  child: imagePath.isEmpty
-                      ? Assets.images.profileImage.image(
-                          width: 45,
-                          height: 45,
-                          fit: BoxFit.cover,
-                        )
-                      : Image.network(
-                          imageUrl,
-                          width: 45,
-                          height: 45,
-                          fit: BoxFit.cover,
-                          errorBuilder: (_, __, ___) {
-                            return Assets.images.profileImage.image(
-                              width: 45,
-                              height: 45,
-                              fit: BoxFit.cover,
-                            );
-                          },
+                Gap(12.w),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        student.name ?? '-',
+                        style: TextStyle(
+                          fontSize: 16.5.sp,
+                          fontWeight: FontWeight.w500,
+                          color: ColorName.black,
+                          fontFamily: FontFamily.poppins,
                         ),
-                ),
-              ),
-              Gap(12.w),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      student.name ?? '-',
-                      style: TextStyle(
-                        fontSize: 16.5.sp,
-                        fontWeight: FontWeight.w500,
-                        color: ColorName.black,
-                        fontFamily: FontFamily.poppins,
                       ),
-                    ),
-                    Gap(3.h),
-                    Wrap(
-                      spacing: 8.w,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: [
-                        Text(
-                          '#${student.enrollmentId ?? '-'}',
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                            color: ColorName.blueColor1,
-                            fontFamily: FontFamily.poppins,
+                      Gap(3.h),
+                      Wrap(
+                        spacing: 8.w,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          Text(
+                            '#${student.enrollmentId ?? '-'}',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
+                              color: ColorName.blueColor1,
+                              fontFamily: FontFamily.poppins,
+                            ),
                           ),
-                        ),
-                        Icon(
-                          Icons.circle,
-                          size: 5,
-                          color: ColorName.black.withAlpha(80),
-                        ),
-                        Text(
-                          'Class: ${student.className ?? '-'} - ${student.section ?? '-'}',
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            color: ColorName.black.withAlpha(120),
-                            fontFamily: FontFamily.poppins,
+                          Icon(
+                            Icons.circle,
+                            size: 5,
+                            color: ColorName.black.withAlpha(80),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          Text(
+                            'Class: ${student.className ?? '-'} - ${student.section ?? '-'}',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                              color: ColorName.black.withAlpha(120),
+                              fontFamily: FontFamily.poppins,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Gap(15.w),
-              const Icon(
-                Icons.arrow_forward_ios,
-                size: 18,
-                color: ColorName.blueColor1,
-              ),
-            ],
+                Gap(8.w),
+                if (isLoading.value)
+                  _StudentSignInLoader(label: loadingLabel)
+                else
+                  Container(
+                    width: 34,
+                    height: 34,
+                    decoration: BoxDecoration(
+                      color: ColorName.blueColor.withAlpha(12),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Icon(
+                      Icons.arrow_forward_rounded,
+                      color: ColorName.blueColor,
+                      size: 20,
+                    ),
+                  ),
+              ]),
+            ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _StudentSignInLoader extends HookWidget {
+  const _StudentSignInLoader({required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final reduceMotion = MediaQuery.disableAnimationsOf(context);
+    final controller = useAnimationController(
+      duration: const Duration(milliseconds: 1200),
+    );
+    useEffect(() {
+      if (!reduceMotion) controller.repeat();
+      return controller.stop;
+    }, [reduceMotion]);
+    final progress = useAnimation(controller);
+
+    return Semantics(
+      label: label,
+      liveRegion: true,
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Container(
+          width: 48,
+          height: 34,
+          decoration: BoxDecoration(
+            color: ColorName.blueColor.withAlpha(14),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            for (var index = 0; index < 3; index++)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 2),
+                child: Transform.translate(
+                  offset: Offset(
+                    0,
+                    reduceMotion
+                        ? 0
+                        : -3 *
+                            math.sin((progress - index * 0.18) * math.pi * 2),
+                  ),
+                  child: Container(
+                    width: 6,
+                    height: 6,
+                    decoration: const BoxDecoration(
+                      color: ColorName.blueColor,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+              ),
+          ]),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 10,
+            color: ColorName.blueColor,
+            fontFamily: FontFamily.poppins,
+          ),
+        ),
+      ]),
     );
   }
 }

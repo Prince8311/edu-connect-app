@@ -25,14 +25,18 @@ mixin _$ClassroomModel {
   String? get classroomId => throw _privateConstructorUsedError;
   @JsonKey(name: 'class')
   String? get className => throw _privateConstructorUsedError;
+  @JsonKey(name: 'section')
   String? get section => throw _privateConstructorUsedError;
+  @JsonKey(name: 'day')
   String? get day => throw _privateConstructorUsedError;
+  @JsonKey(name: 'period')
   String? get period => throw _privateConstructorUsedError;
+  @JsonKey(name: 'time')
   String? get time => throw _privateConstructorUsedError;
+  @JsonKey(name: 'subject')
   String? get subject => throw _privateConstructorUsedError;
+  @JsonKey(name: 'teacher')
   String? get teacher => throw _privateConstructorUsedError;
-  List<ClassroomStudentModel>? get students =>
-      throw _privateConstructorUsedError;
 
   /// Serializes this ClassroomModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -54,13 +58,12 @@ abstract class $ClassroomModelCopyWith<$Res> {
       {int? id,
       @JsonKey(name: 'classroom_id') String? classroomId,
       @JsonKey(name: 'class') String? className,
-      String? section,
-      String? day,
-      String? period,
-      String? time,
-      String? subject,
-      String? teacher,
-      List<ClassroomStudentModel>? students});
+      @JsonKey(name: 'section') String? section,
+      @JsonKey(name: 'day') String? day,
+      @JsonKey(name: 'period') String? period,
+      @JsonKey(name: 'time') String? time,
+      @JsonKey(name: 'subject') String? subject,
+      @JsonKey(name: 'teacher') String? teacher});
 }
 
 /// @nodoc
@@ -87,7 +90,6 @@ class _$ClassroomModelCopyWithImpl<$Res, $Val extends ClassroomModel>
     Object? time = freezed,
     Object? subject = freezed,
     Object? teacher = freezed,
-    Object? students = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -126,10 +128,6 @@ class _$ClassroomModelCopyWithImpl<$Res, $Val extends ClassroomModel>
           ? _value.teacher
           : teacher // ignore: cast_nullable_to_non_nullable
               as String?,
-      students: freezed == students
-          ? _value.students
-          : students // ignore: cast_nullable_to_non_nullable
-              as List<ClassroomStudentModel>?,
     ) as $Val);
   }
 }
@@ -146,13 +144,12 @@ abstract class _$$ClassroomModelImplCopyWith<$Res>
       {int? id,
       @JsonKey(name: 'classroom_id') String? classroomId,
       @JsonKey(name: 'class') String? className,
-      String? section,
-      String? day,
-      String? period,
-      String? time,
-      String? subject,
-      String? teacher,
-      List<ClassroomStudentModel>? students});
+      @JsonKey(name: 'section') String? section,
+      @JsonKey(name: 'day') String? day,
+      @JsonKey(name: 'period') String? period,
+      @JsonKey(name: 'time') String? time,
+      @JsonKey(name: 'subject') String? subject,
+      @JsonKey(name: 'teacher') String? teacher});
 }
 
 /// @nodoc
@@ -177,7 +174,6 @@ class __$$ClassroomModelImplCopyWithImpl<$Res>
     Object? time = freezed,
     Object? subject = freezed,
     Object? teacher = freezed,
-    Object? students = freezed,
   }) {
     return _then(_$ClassroomModelImpl(
       id: freezed == id
@@ -216,10 +212,6 @@ class __$$ClassroomModelImplCopyWithImpl<$Res>
           ? _value.teacher
           : teacher // ignore: cast_nullable_to_non_nullable
               as String?,
-      students: freezed == students
-          ? _value._students
-          : students // ignore: cast_nullable_to_non_nullable
-              as List<ClassroomStudentModel>?,
     ));
   }
 }
@@ -232,14 +224,12 @@ class _$ClassroomModelImpl implements _ClassroomModel {
       {this.id,
       @JsonKey(name: 'classroom_id') this.classroomId,
       @JsonKey(name: 'class') this.className,
-      this.section,
-      this.day,
-      this.period,
-      this.time,
-      this.subject,
-      this.teacher,
-      final List<ClassroomStudentModel>? students})
-      : _students = students;
+      @JsonKey(name: 'section') this.section,
+      @JsonKey(name: 'day') this.day,
+      @JsonKey(name: 'period') this.period,
+      @JsonKey(name: 'time') this.time,
+      @JsonKey(name: 'subject') this.subject,
+      @JsonKey(name: 'teacher') this.teacher});
 
   factory _$ClassroomModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ClassroomModelImplFromJson(json);
@@ -253,30 +243,27 @@ class _$ClassroomModelImpl implements _ClassroomModel {
   @JsonKey(name: 'class')
   final String? className;
   @override
+  @JsonKey(name: 'section')
   final String? section;
   @override
+  @JsonKey(name: 'day')
   final String? day;
   @override
+  @JsonKey(name: 'period')
   final String? period;
   @override
+  @JsonKey(name: 'time')
   final String? time;
   @override
+  @JsonKey(name: 'subject')
   final String? subject;
   @override
+  @JsonKey(name: 'teacher')
   final String? teacher;
-  final List<ClassroomStudentModel>? _students;
-  @override
-  List<ClassroomStudentModel>? get students {
-    final value = _students;
-    if (value == null) return null;
-    if (_students is EqualUnmodifiableListView) return _students;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
 
   @override
   String toString() {
-    return 'ClassroomModel(id: $id, classroomId: $classroomId, className: $className, section: $section, day: $day, period: $period, time: $time, subject: $subject, teacher: $teacher, students: $students)';
+    return 'ClassroomModel(id: $id, classroomId: $classroomId, className: $className, section: $section, day: $day, period: $period, time: $time, subject: $subject, teacher: $teacher)';
   }
 
   @override
@@ -294,24 +281,13 @@ class _$ClassroomModelImpl implements _ClassroomModel {
             (identical(other.period, period) || other.period == period) &&
             (identical(other.time, time) || other.time == time) &&
             (identical(other.subject, subject) || other.subject == subject) &&
-            (identical(other.teacher, teacher) || other.teacher == teacher) &&
-            const DeepCollectionEquality().equals(other._students, _students));
+            (identical(other.teacher, teacher) || other.teacher == teacher));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      classroomId,
-      className,
-      section,
-      day,
-      period,
-      time,
-      subject,
-      teacher,
-      const DeepCollectionEquality().hash(_students));
+  int get hashCode => Object.hash(runtimeType, id, classroomId, className,
+      section, day, period, time, subject, teacher);
 
   /// Create a copy of ClassroomModel
   /// with the given fields replaced by the non-null parameter values.
@@ -335,13 +311,12 @@ abstract class _ClassroomModel implements ClassroomModel {
       {final int? id,
       @JsonKey(name: 'classroom_id') final String? classroomId,
       @JsonKey(name: 'class') final String? className,
-      final String? section,
-      final String? day,
-      final String? period,
-      final String? time,
-      final String? subject,
-      final String? teacher,
-      final List<ClassroomStudentModel>? students}) = _$ClassroomModelImpl;
+      @JsonKey(name: 'section') final String? section,
+      @JsonKey(name: 'day') final String? day,
+      @JsonKey(name: 'period') final String? period,
+      @JsonKey(name: 'time') final String? time,
+      @JsonKey(name: 'subject') final String? subject,
+      @JsonKey(name: 'teacher') final String? teacher}) = _$ClassroomModelImpl;
 
   factory _ClassroomModel.fromJson(Map<String, dynamic> json) =
       _$ClassroomModelImpl.fromJson;
@@ -355,19 +330,23 @@ abstract class _ClassroomModel implements ClassroomModel {
   @JsonKey(name: 'class')
   String? get className;
   @override
+  @JsonKey(name: 'section')
   String? get section;
   @override
+  @JsonKey(name: 'day')
   String? get day;
   @override
+  @JsonKey(name: 'period')
   String? get period;
   @override
+  @JsonKey(name: 'time')
   String? get time;
   @override
+  @JsonKey(name: 'subject')
   String? get subject;
   @override
+  @JsonKey(name: 'teacher')
   String? get teacher;
-  @override
-  List<ClassroomStudentModel>? get students;
 
   /// Create a copy of ClassroomModel
   /// with the given fields replaced by the non-null parameter values.
@@ -386,11 +365,14 @@ ClassroomStudentModel _$ClassroomStudentModelFromJson(
 mixin _$ClassroomStudentModel {
   @JsonKey(name: 'student_id')
   int? get studentId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'name')
   String? get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'enrollment_id')
   String? get enrollmentId => throw _privateConstructorUsedError;
   @JsonKey(name: 'profile_image')
   String? get profileImage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'attendance_status')
+  String? get attendanceStatus => throw _privateConstructorUsedError;
 
   /// Serializes this ClassroomStudentModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -410,9 +392,10 @@ abstract class $ClassroomStudentModelCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'student_id') int? studentId,
-      String? name,
+      @JsonKey(name: 'name') String? name,
       @JsonKey(name: 'enrollment_id') String? enrollmentId,
-      @JsonKey(name: 'profile_image') String? profileImage});
+      @JsonKey(name: 'profile_image') String? profileImage,
+      @JsonKey(name: 'attendance_status') String? attendanceStatus});
 }
 
 /// @nodoc
@@ -435,6 +418,7 @@ class _$ClassroomStudentModelCopyWithImpl<$Res,
     Object? name = freezed,
     Object? enrollmentId = freezed,
     Object? profileImage = freezed,
+    Object? attendanceStatus = freezed,
   }) {
     return _then(_value.copyWith(
       studentId: freezed == studentId
@@ -453,6 +437,10 @@ class _$ClassroomStudentModelCopyWithImpl<$Res,
           ? _value.profileImage
           : profileImage // ignore: cast_nullable_to_non_nullable
               as String?,
+      attendanceStatus: freezed == attendanceStatus
+          ? _value.attendanceStatus
+          : attendanceStatus // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -468,9 +456,10 @@ abstract class _$$ClassroomStudentModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'student_id') int? studentId,
-      String? name,
+      @JsonKey(name: 'name') String? name,
       @JsonKey(name: 'enrollment_id') String? enrollmentId,
-      @JsonKey(name: 'profile_image') String? profileImage});
+      @JsonKey(name: 'profile_image') String? profileImage,
+      @JsonKey(name: 'attendance_status') String? attendanceStatus});
 }
 
 /// @nodoc
@@ -491,6 +480,7 @@ class __$$ClassroomStudentModelImplCopyWithImpl<$Res>
     Object? name = freezed,
     Object? enrollmentId = freezed,
     Object? profileImage = freezed,
+    Object? attendanceStatus = freezed,
   }) {
     return _then(_$ClassroomStudentModelImpl(
       studentId: freezed == studentId
@@ -509,6 +499,10 @@ class __$$ClassroomStudentModelImplCopyWithImpl<$Res>
           ? _value.profileImage
           : profileImage // ignore: cast_nullable_to_non_nullable
               as String?,
+      attendanceStatus: freezed == attendanceStatus
+          ? _value.attendanceStatus
+          : attendanceStatus // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -518,9 +512,10 @@ class __$$ClassroomStudentModelImplCopyWithImpl<$Res>
 class _$ClassroomStudentModelImpl implements _ClassroomStudentModel {
   const _$ClassroomStudentModelImpl(
       {@JsonKey(name: 'student_id') this.studentId,
-      this.name,
+      @JsonKey(name: 'name') this.name,
       @JsonKey(name: 'enrollment_id') this.enrollmentId,
-      @JsonKey(name: 'profile_image') this.profileImage});
+      @JsonKey(name: 'profile_image') this.profileImage,
+      @JsonKey(name: 'attendance_status') this.attendanceStatus});
 
   factory _$ClassroomStudentModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ClassroomStudentModelImplFromJson(json);
@@ -529,6 +524,7 @@ class _$ClassroomStudentModelImpl implements _ClassroomStudentModel {
   @JsonKey(name: 'student_id')
   final int? studentId;
   @override
+  @JsonKey(name: 'name')
   final String? name;
   @override
   @JsonKey(name: 'enrollment_id')
@@ -536,10 +532,13 @@ class _$ClassroomStudentModelImpl implements _ClassroomStudentModel {
   @override
   @JsonKey(name: 'profile_image')
   final String? profileImage;
+  @override
+  @JsonKey(name: 'attendance_status')
+  final String? attendanceStatus;
 
   @override
   String toString() {
-    return 'ClassroomStudentModel(studentId: $studentId, name: $name, enrollmentId: $enrollmentId, profileImage: $profileImage)';
+    return 'ClassroomStudentModel(studentId: $studentId, name: $name, enrollmentId: $enrollmentId, profileImage: $profileImage, attendanceStatus: $attendanceStatus)';
   }
 
   @override
@@ -553,13 +552,15 @@ class _$ClassroomStudentModelImpl implements _ClassroomStudentModel {
             (identical(other.enrollmentId, enrollmentId) ||
                 other.enrollmentId == enrollmentId) &&
             (identical(other.profileImage, profileImage) ||
-                other.profileImage == profileImage));
+                other.profileImage == profileImage) &&
+            (identical(other.attendanceStatus, attendanceStatus) ||
+                other.attendanceStatus == attendanceStatus));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, studentId, name, enrollmentId, profileImage);
+  int get hashCode => Object.hash(runtimeType, studentId, name, enrollmentId,
+      profileImage, attendanceStatus);
 
   /// Create a copy of ClassroomStudentModel
   /// with the given fields replaced by the non-null parameter values.
@@ -581,9 +582,10 @@ class _$ClassroomStudentModelImpl implements _ClassroomStudentModel {
 abstract class _ClassroomStudentModel implements ClassroomStudentModel {
   const factory _ClassroomStudentModel(
           {@JsonKey(name: 'student_id') final int? studentId,
-          final String? name,
+          @JsonKey(name: 'name') final String? name,
           @JsonKey(name: 'enrollment_id') final String? enrollmentId,
-          @JsonKey(name: 'profile_image') final String? profileImage}) =
+          @JsonKey(name: 'profile_image') final String? profileImage,
+          @JsonKey(name: 'attendance_status') final String? attendanceStatus}) =
       _$ClassroomStudentModelImpl;
 
   factory _ClassroomStudentModel.fromJson(Map<String, dynamic> json) =
@@ -593,6 +595,7 @@ abstract class _ClassroomStudentModel implements ClassroomStudentModel {
   @JsonKey(name: 'student_id')
   int? get studentId;
   @override
+  @JsonKey(name: 'name')
   String? get name;
   @override
   @JsonKey(name: 'enrollment_id')
@@ -600,6 +603,9 @@ abstract class _ClassroomStudentModel implements ClassroomStudentModel {
   @override
   @JsonKey(name: 'profile_image')
   String? get profileImage;
+  @override
+  @JsonKey(name: 'attendance_status')
+  String? get attendanceStatus;
 
   /// Create a copy of ClassroomStudentModel
   /// with the given fields replaced by the non-null parameter values.

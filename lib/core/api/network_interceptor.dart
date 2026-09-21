@@ -1,3 +1,4 @@
+import 'package:edu_connect/core/api/auth_error_policy.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -11,130 +12,71 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class NetworkInterceptor extends Interceptor {
   final Ref ref;
   final Dio dio;
-
   NetworkInterceptor(this.ref, this.dio);
 
-  /// 🔐 Refresh control
-  bool _isRefreshing = false;
-  Completer<void>? _refreshCompleter;
+  Future<bool>? _refreshing;
+  static const _retried = 'session_refresh_retried';
 
-  /// 🧵 Request queue
-  final List<_QueuedRequest> _requestQueue = [];
-
-  // ---------------------------------------------------------------------------
-  // REQUEST
-  // ---------------------------------------------------------------------------
   @override
   Future<void> onRequest(
-    RequestOptions options,
-    RequestInterceptorHandler handler,
-  ) async {
-    final token = await ref.read(authTokenProvider.notifier).getToken();
-    debugPrint("🌐 Request: ${options.path}");
-    debugPrint("🔐 Interceptor Token: $token");
-    if (token != null) {
-      options.headers['Authorization'] = 'Bearer $token';
+      RequestOptions options, RequestInterceptorHandler handler) async {
+    try {
+      final token = await ref.read(authTokenProvider.notifier).getToken();
+      if (token != null) options.headers['Authorization'] = 'Bearer $token';
+      handler.next(options);
+    } catch (error) {
+      handler.reject(DioException(requestOptions: options, error: error));
     }
-
-    handler.next(options);
   }
 
-  // ---------------------------------------------------------------------------
-  // ERROR
-  // ---------------------------------------------------------------------------
   @override
   Future<void> onError(
-    DioException err,
-    ErrorInterceptorHandler handler,
-  ) async {
-    final statusCode = err.response?.statusCode;
-
-    /// ❌ If NOT 401 → just pass error (no refresh)
-    if (statusCode != 401) {
-      handler.next(err); // 🔥 This was missing
+      DioException err, ErrorInterceptorHandler handler) async {
+    if (err.response?.statusCode != 401 ||
+        err.requestOptions.uri.path.endsWith(Endpoints.biometricLogin) ||
+        isBiometricPasswordError(err) ||
+        err.requestOptions.uri.path.endsWith(Endpoints.refreshToken) ||
+        err.requestOptions.extra[_retried] == true) {
+      handler.next(err);
       return;
     }
 
-    /// 🧵 Queue the failed request
-    final completer = Completer<Response>();
-    _requestQueue.add(_QueuedRequest(err.requestOptions, completer));
-
-    /// 🔐 If refresh already in progress → wait
-    if (_isRefreshing) {
+    try {
+      final refreshing = _refreshing ??= _refreshToken();
+      final bool refreshed;
       try {
-        final response = await completer.future;
-        handler.resolve(response);
-      } catch (e) {
-        handler.reject(err);
+        refreshed = await refreshing;
+      } finally {
+        if (identical(_refreshing, refreshing)) _refreshing = null;
       }
-      return;
-    }
-
-    /// 🔐 Start refresh
-    _isRefreshing = true;
-    _refreshCompleter = Completer<void>();
-
-    final refreshed = await _refreshToken();
-
-    _isRefreshing = false;
-    _refreshCompleter?.complete();
-
-    if (!refreshed) {
-      for (final req in _requestQueue) {
-        req.completer.completeError(err);
+      if (!refreshed) {
+        handler.next(err);
+        return;
       }
-      _requestQueue.clear();
-      handler.reject(err);
-      return;
+      err.requestOptions.extra[_retried] = true;
+      final response = await dio.fetch<dynamic>(err.requestOptions);
+      handler.resolve(response);
+    } on DioException catch (error) {
+      handler.next(error);
+    } catch (_) {
+      handler.next(err);
     }
-
-    /// ✅ Retry queued requests
-    final newToken = await ref.read(authTokenProvider.notifier).getToken();
-
-    for (final queued in _requestQueue) {
-      try {
-        queued.options.headers['Authorization'] = 'Bearer $newToken';
-        final response = await dio.fetch(queued.options);
-        queued.completer.complete(response);
-      } catch (e) {
-        queued.completer.completeError(e);
-      }
-    }
-
-    _requestQueue.clear();
-
-    final response = await completer.future;
-    handler.resolve(response);
   }
 
-  // ---------------------------------------------------------------------------
-  // REFRESH TOKEN
-  // ---------------------------------------------------------------------------
   Future<bool> _refreshToken() async {
     try {
-      final response = await dio.get(Endpoints.refreshToken);
-
-      final token = response.data['newToken'];
-      if (token != null) {
+      final response = await dio.get<dynamic>(Endpoints.refreshToken);
+      final data = response.data;
+      final token = data is Map ? data['newToken'] : null;
+      if (token is String && token.trim().isNotEmpty) {
         await ref.read(authTokenProvider.notifier).saveToken(token);
         return true;
       }
-    } catch (_) {}
-
-    /// ❌ Refresh failed → logout
-    await ref.read(authTokenProvider.notifier).clear();
+    } catch (_) {
+      // A failed refresh must finish the original request, never refresh itself.
+    }
     return false;
   }
-}
-
-// -----------------------------------------------------------------------------
-// QUEUED REQUEST MODEL
-// -----------------------------------------------------------------------------
-class _QueuedRequest {
-  final RequestOptions options;
-  final Completer<Response> completer;
-
-  _QueuedRequest(this.options, this.completer);
 }
 
 class RetryOnConnectionChangeInterceptor extends Interceptor {

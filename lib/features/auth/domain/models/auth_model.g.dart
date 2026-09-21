@@ -22,6 +22,24 @@ Map<String, dynamic> _$$LoginRequestImplToJson(_$LoginRequestImpl instance) =>
       'otp': instance.otp,
     };
 
+_$BiometricLoginRequestImpl _$$BiometricLoginRequestImplFromJson(
+        Map<String, dynamic> json) =>
+    _$BiometricLoginRequestImpl(
+      userId: (json['user_id'] as num?)?.toInt(),
+      deviceId: json['device_id'] as String?,
+      deviceToken: json['device_token'] as String?,
+      biometricType: json['biometric_type'] as String?,
+    );
+
+Map<String, dynamic> _$$BiometricLoginRequestImplToJson(
+        _$BiometricLoginRequestImpl instance) =>
+    <String, dynamic>{
+      if (instance.userId case final value?) 'user_id': value,
+      'device_id': instance.deviceId,
+      'device_token': instance.deviceToken,
+      'biometric_type': instance.biometricType,
+    };
+
 _$RoleSelectRequestImpl _$$RoleSelectRequestImplFromJson(
         Map<String, dynamic> json) =>
     _$RoleSelectRequestImpl(
@@ -53,6 +71,7 @@ Map<String, dynamic> _$$StudentSelectRequestImplToJson(
 _$AuthResponseImpl _$$AuthResponseImplFromJson(Map<String, dynamic> json) =>
     _$AuthResponseImpl(
       nextScreen: json['next_screen'] as String?,
+      userChoose: json['userChoose'] as bool?,
       tempToken: json['tempToken'] as String?,
       user: json['user'] == null
           ? null
@@ -63,6 +82,7 @@ _$AuthResponseImpl _$$AuthResponseImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$AuthResponseImplToJson(_$AuthResponseImpl instance) =>
     <String, dynamic>{
       'next_screen': instance.nextScreen,
+      'userChoose': instance.userChoose,
       'tempToken': instance.tempToken,
       'user': instance.user,
       'authToken': instance.authToken,
@@ -96,9 +116,29 @@ Map<String, dynamic> _$$GuardianStudentImplToJson(
       'section': instance.section,
     };
 
+_$BiometricUserInfoImpl _$$BiometricUserInfoImplFromJson(
+        Map<String, dynamic> json) =>
+    _$BiometricUserInfoImpl(
+      id: (json['id'] as num?)?.toInt(),
+      name: json['name'] as String?,
+      profileImage: json['profile_image'] as String?,
+      userType: (json['user_type'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+    );
+
+Map<String, dynamic> _$$BiometricUserInfoImplToJson(
+        _$BiometricUserInfoImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'profile_image': instance.profileImage,
+      'user_type': instance.userType,
+    };
+
 _$UserInfoImpl _$$UserInfoImplFromJson(Map<String, dynamic> json) =>
     _$UserInfoImpl(
-      id: json['id'] as String?,
+      id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
       email: json['email'] as String?,
       phone: json['phone'] as String?,

@@ -429,7 +429,7 @@ class _GetGuardianStudentListProviderElement
   String? get tempToken => (origin as GetGuardianStudentListProvider).tempToken;
 }
 
-String _$studentSwitchHash() => r'd748d0133f706086790768d0275a6520d03c8a86';
+String _$studentSwitchHash() => r'46e6f04cfd4ae4ebf1a1dc7e5705b43cb8254b40';
 
 /// See also [studentSwitch].
 @ProviderFor(studentSwitch)

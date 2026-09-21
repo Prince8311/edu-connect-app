@@ -135,3 +135,25 @@ Map<String, dynamic> _$$ChangePasswordRequestImplToJson(
       'newPassword': instance.newPassword,
       'confirmPassword': instance.confirmPassword,
     };
+
+_$BiometricRequestImpl _$$BiometricRequestImplFromJson(
+        Map<String, dynamic> json) =>
+    _$BiometricRequestImpl(
+      deviceId: json['device_id'] as String?,
+      deviceName: json['device_name'] as String?,
+      platform: json['platform'] as String?,
+      deviceToken: json['device_token'] as String?,
+      biometricType: json['biometric_type'] as String?,
+      password: json['password'] as String?,
+    );
+
+Map<String, dynamic> _$$BiometricRequestImplToJson(
+        _$BiometricRequestImpl instance) =>
+    <String, dynamic>{
+      if (instance.deviceId case final value?) 'device_id': value,
+      if (instance.deviceName case final value?) 'device_name': value,
+      if (instance.platform case final value?) 'platform': value,
+      if (instance.deviceToken case final value?) 'device_token': value,
+      if (instance.biometricType case final value?) 'biometric_type': value,
+      if (instance.password case final value?) 'password': value,
+    };

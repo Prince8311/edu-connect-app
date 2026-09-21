@@ -80,6 +80,8 @@ class _ClassroomDetailsScreenState
         ref.watch(savedUserInfoProvider).asData?.value?.type?.toLowerCase() ==
             'teacher';
     final details = ref.watch(getClassroomDetailsProvider(id: widget.id));
+    final classroomStudents =
+        ref.watch(getClassroomStudentsProvider(id: widget.id));
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FB),
       appBar: const PrimaryAppBar(
@@ -92,7 +94,8 @@ class _ClassroomDetailsScreenState
         error: (error, stackTrace) => _unavailable(),
         data: (classroom) => classroom == null
             ? _unavailable()
-            : _content(classroom, isTeacher: isTeacher),
+            : _content(classroom,
+                isTeacher: isTeacher, classroomStudents: classroomStudents),
       ),
     );
   }
@@ -212,8 +215,11 @@ class _ClassroomDetailsScreenState
             .toUpperCase();
   }
 
-  Widget _content(ClassroomModel classroom, {required bool isTeacher}) {
-    final allStudents = classroom.students ?? const <ClassroomStudentModel>[];
+  Widget _content(ClassroomModel classroom,
+      {required bool isTeacher,
+      required AsyncValue<List<ClassroomStudentModel>> classroomStudents}) {
+    final allStudents =
+        classroomStudents.valueOrNull ?? const <ClassroomStudentModel>[];
     final query = _search.text.trim().toLowerCase();
     final students = allStudents
         .where((student) =>
@@ -246,7 +252,8 @@ class _ClassroomDetailsScreenState
                         title: 'Classroom apps',
                         subtitle: 'Everything you need, in one place'),
                     const Gap(16),
-                    _appGrid(classroom, isTeacher: isTeacher),
+                    _appGrid(classroom,
+                        isTeacher: isTeacher, students: allStudents),
                     const Gap(30),
                     Row(children: [
                       const Expanded(
@@ -256,7 +263,9 @@ class _ClassroomDetailsScreenState
                               title: 'Students',
                               subtitle: 'Your classroom community')),
                       _Pill(
-                          label: '${allStudents.length} students',
+                          label: classroomStudents.isLoading
+                              ? 'Loading students'
+                              : '${allStudents.length} students',
                           color: _blue),
                     ]),
                     const Gap(16),
@@ -264,7 +273,37 @@ class _ClassroomDetailsScreenState
                     const Gap(12),
                   ])),
             ),
-            if (students.isEmpty)
+            if (classroomStudents.isLoading)
+              SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: horizontal),
+                sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                        (context, index) => const Padding(
+                              padding: EdgeInsets.only(bottom: 10),
+                              child: SkeletonLoader(
+                                  height: 74, width: double.infinity),
+                            ),
+                        childCount: 5)),
+              )
+            else if (classroomStudents.hasError)
+              SliverPadding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: horizontal, vertical: 24),
+                sliver: SliverToBoxAdapter(
+                  child: Center(
+                    child: Column(mainAxisSize: MainAxisSize.min, children: [
+                      const Text('Students are unavailable.'),
+                      const Gap(12),
+                      FilledButton(
+                        onPressed: () => ref.invalidate(
+                            getClassroomStudentsProvider(id: widget.id)),
+                        child: const Text('Retry'),
+                      ),
+                    ]),
+                  ),
+                ),
+              )
+            else if (students.isEmpty)
               SliverPadding(
                 padding:
                     EdgeInsets.symmetric(horizontal: horizontal, vertical: 24),
@@ -333,10 +372,12 @@ class _ClassroomDetailsScreenState
                                         CrossAxisAlignment.start,
                                     children: [
                                   Text(student.name ?? 'Student',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                           fontSize: 16.sp,
                                           fontWeight: FontWeight.w500)),
-                                  Gap(2.h),
+                                  Gap(1.h),
                                   Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -352,7 +393,9 @@ class _ClassroomDetailsScreenState
                                         child: Text(
                                             '${student.enrollmentId ?? '-'}',
                                             style: const TextStyle(
-                                                fontSize: 11, color: _muted)),
+                                                fontSize: 11,
+                                                color: _muted,
+                                                fontWeight: FontWeight.w500)),
                                       ),
                                     ],
                                   ),
@@ -550,27 +593,67 @@ class _ClassroomDetailsScreenState
           style: TextStyle(
               fontSize: 17, color: color, fontWeight: FontWeight.w600)),
     );
-    return Container(
-      width: 42,
-      height: 42,
-      clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(
-        color: color.withAlpha(22),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: profileImage == null || profileImage.isEmpty
-          ? initials
-          : Image.network(
-              '${Endpoints.profileImageBaseURL}/student/$profileImage',
-              fit: BoxFit.cover,
-              frameBuilder: (context, child, frame, wasSynchronouslyLoaded) =>
-                  frame == null ? initials : child,
-              errorBuilder: (context, error, stackTrace) => initials,
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          width: 42,
+          height: 42,
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(
+            color: color.withAlpha(22),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: profileImage == null || profileImage.isEmpty
+              ? initials
+              : Image.network(
+                  '${Endpoints.profileImageBaseURL}/user/$profileImage',
+                  fit: BoxFit.cover,
+                  frameBuilder:
+                      (context, child, frame, wasSynchronouslyLoaded) =>
+                          frame == null ? initials : child,
+                  errorBuilder: (context, error, stackTrace) => initials,
+                ),
+        ),
+        Positioned(
+          right: -3,
+          bottom: -3,
+          child: DecoratedBox(
+            decoration: const BoxDecoration(
+                color: Colors.white, shape: BoxShape.circle),
+            child: Padding(
+              padding: const EdgeInsets.all(2),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: _attendanceStatusColor(student.attendanceStatus),
+                  shape: BoxShape.circle,
+                ),
+                child: const SizedBox(width: 9, height: 9),
+              ),
             ),
+          ),
+        ),
+      ],
     );
   }
 
-  Widget _appGrid(ClassroomModel classroom, {required bool isTeacher}) =>
+  Color _attendanceStatusColor(String? status) {
+    switch (status?.trim().toLowerCase()) {
+      case 'present':
+        return const Color(0xFF22A06B);
+      case 'absent':
+        return const Color(0xFFE5484D);
+      case 'not marked':
+      case 'not_marked':
+      case 'not-marked':
+      default:
+        return const Color(0xFF98A2B3);
+    }
+  }
+
+  Widget _appGrid(ClassroomModel classroom,
+          {required bool isTeacher,
+          required List<ClassroomStudentModel> students}) =>
       LayoutBuilder(builder: (context, constraints) {
         final scale = MediaQuery.textScalerOf(context).scale(14) / 14;
         final columns = constraints.maxWidth >= 600 && scale <= 1.3
@@ -596,7 +679,7 @@ class _ClassroomDetailsScreenState
                         child: InkWell(
                           onTap: () => app.label == 'Attendance'
                               ? showAttendanceStudentDeck(context, classroom,
-                                  draft: _attendanceDraft)
+                                  students: students, draft: _attendanceDraft)
                               : _showPanel(
                                   icon: app.icon,
                                   color: app.color,

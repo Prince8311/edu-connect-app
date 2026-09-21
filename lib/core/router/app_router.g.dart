@@ -11,6 +11,7 @@ List<RouteBase> get $appRoutes => [
       $comingSoonRoute,
       $maintainanceRoute,
       $authRoute,
+      $userSelectRoute,
       $roleSelectRoute,
       $studentSelectRoute,
       $bottomNavRoute,
@@ -125,6 +126,34 @@ mixin _$AuthRoute on GoRouteData {
   @override
   String get location => GoRouteData.$location(
         '/auth',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $userSelectRoute => GoRouteData.$route(
+      path: '/user-select',
+      name: 'userSelect',
+      factory: _$UserSelectRoute._fromState,
+    );
+
+mixin _$UserSelectRoute on GoRouteData {
+  static UserSelectRoute _fromState(GoRouterState state) => UserSelectRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/user-select',
       );
 
   @override

@@ -17,10 +17,6 @@ _$ClassroomModelImpl _$$ClassroomModelImplFromJson(Map<String, dynamic> json) =>
       time: json['time'] as String?,
       subject: json['subject'] as String?,
       teacher: json['teacher'] as String?,
-      students: (json['students'] as List<dynamic>?)
-          ?.map(
-              (e) => ClassroomStudentModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
     );
 
 Map<String, dynamic> _$$ClassroomModelImplToJson(
@@ -35,7 +31,6 @@ Map<String, dynamic> _$$ClassroomModelImplToJson(
       'time': instance.time,
       'subject': instance.subject,
       'teacher': instance.teacher,
-      'students': instance.students?.map((e) => e.toJson()).toList(),
     };
 
 _$ClassroomStudentModelImpl _$$ClassroomStudentModelImplFromJson(
@@ -45,6 +40,7 @@ _$ClassroomStudentModelImpl _$$ClassroomStudentModelImplFromJson(
       name: json['name'] as String?,
       enrollmentId: json['enrollment_id'] as String?,
       profileImage: json['profile_image'] as String?,
+      attendanceStatus: json['attendance_status'] as String?,
     );
 
 Map<String, dynamic> _$$ClassroomStudentModelImplToJson(
@@ -54,4 +50,5 @@ Map<String, dynamic> _$$ClassroomStudentModelImplToJson(
       'name': instance.name,
       'enrollment_id': instance.enrollmentId,
       'profile_image': instance.profileImage,
+      'attendance_status': instance.attendanceStatus,
     };

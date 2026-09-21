@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'package:flutter/foundation.dart';
+import 'package:edu_connect/core/shared/helpers/local_storage.dart';
+import 'package:edu_connect/features/profile/presentation/providers/biometric_provider.dart';
 import 'package:edu_connect/features/profile/presentation/widgets/switch_student_sheet.dart';
 import 'dart:async';
 import 'package:edu_connect/core/api/end_points.dart';
@@ -27,6 +31,31 @@ class ProfileScreen extends HookConsumerWidget {
     final userAsync = ref.watch(userDetailsNotifierProvider);
     final savedUserAsync = ref.watch(savedUserInfoProvider);
     final requestingContact = useState<bool?>(null);
+    final isVisible = TickerMode.of(context);
+    useEffect(() {
+      if (!kDebugMode || !isVisible) return null;
+      final storage = ref.read(secureStorageProvider);
+      // Temporary diagnostics: rerun when the retained Profile tab is reopened.
+      Future<void> printBiometricConfig() async {
+        for (final type in ['fingerPrint']) {
+          try {
+            final config = await readBiometricConfig(storage);
+            debugPrint('[Profile biometrics] ${jsonEncode(config?.toJson() ?? {
+                  'deviceToken': null,
+                  'type': type,
+                  'users': <String>[],
+                })}');
+          } catch (_) {
+            debugPrint(
+                '[Profile biometrics] Unable to read saved $type configuration.');
+          }
+        }
+      }
+
+      unawaited(printBiometricConfig());
+      return null;
+    }, [isVisible]);
+
     void openOTPVerifyDrawer({required String value, required bool isMail}) {
       final controllers = List.generate(6, (index) => TextEditingController());
       final focusNodes = List.generate(6, (index) => FocusNode());
@@ -833,7 +862,7 @@ class ProfileScreen extends HookConsumerWidget {
     if (filename == null || filename.trim().isEmpty) return fallback();
     final url = filename.startsWith('http')
         ? filename
-        : '${Endpoints.profileImageBaseURL}/$type/$filename';
+        : '${Endpoints.profileImageBaseURL}/user/$filename';
     return Image.network(
       url,
       width: size,

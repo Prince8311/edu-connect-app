@@ -97,3 +97,19 @@ class ChangePasswordRequest with _$ChangePasswordRequest {
   factory ChangePasswordRequest.fromJson(Map<String, dynamic> json) =>
       _$ChangePasswordRequestFromJson(json);
 }
+
+@freezed
+class BiometricRequest with _$BiometricRequest {
+  @JsonSerializable(includeIfNull: false)
+  const factory BiometricRequest({
+    @JsonKey(name: 'device_id') String? deviceId,
+    @JsonKey(name: 'device_name') String? deviceName,
+    @JsonKey(name: 'platform') String? platform,
+    @JsonKey(name: 'device_token') String? deviceToken,
+    @JsonKey(name: 'biometric_type') String? biometricType,
+    @JsonKey(name: 'password') String? password,
+  }) = _BiometricRequest;
+
+  factory BiometricRequest.fromJson(Map<String, dynamic> json) =>
+      _$BiometricRequestFromJson(json);
+}

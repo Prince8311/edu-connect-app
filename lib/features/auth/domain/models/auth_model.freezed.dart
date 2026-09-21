@@ -241,6 +241,241 @@ abstract class _LoginRequest implements LoginRequest {
       throw _privateConstructorUsedError;
 }
 
+BiometricLoginRequest _$BiometricLoginRequestFromJson(
+    Map<String, dynamic> json) {
+  return _BiometricLoginRequest.fromJson(json);
+}
+
+/// @nodoc
+mixin _$BiometricLoginRequest {
+  @JsonKey(name: 'user_id', includeIfNull: false)
+  int? get userId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'device_id')
+  String? get deviceId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'device_token')
+  String? get deviceToken => throw _privateConstructorUsedError;
+  @JsonKey(name: 'biometric_type')
+  String? get biometricType => throw _privateConstructorUsedError;
+
+  /// Serializes this BiometricLoginRequest to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of BiometricLoginRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $BiometricLoginRequestCopyWith<BiometricLoginRequest> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $BiometricLoginRequestCopyWith<$Res> {
+  factory $BiometricLoginRequestCopyWith(BiometricLoginRequest value,
+          $Res Function(BiometricLoginRequest) then) =
+      _$BiometricLoginRequestCopyWithImpl<$Res, BiometricLoginRequest>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'user_id', includeIfNull: false) int? userId,
+      @JsonKey(name: 'device_id') String? deviceId,
+      @JsonKey(name: 'device_token') String? deviceToken,
+      @JsonKey(name: 'biometric_type') String? biometricType});
+}
+
+/// @nodoc
+class _$BiometricLoginRequestCopyWithImpl<$Res,
+        $Val extends BiometricLoginRequest>
+    implements $BiometricLoginRequestCopyWith<$Res> {
+  _$BiometricLoginRequestCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of BiometricLoginRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? userId = freezed,
+    Object? deviceId = freezed,
+    Object? deviceToken = freezed,
+    Object? biometricType = freezed,
+  }) {
+    return _then(_value.copyWith(
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      deviceId: freezed == deviceId
+          ? _value.deviceId
+          : deviceId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      deviceToken: freezed == deviceToken
+          ? _value.deviceToken
+          : deviceToken // ignore: cast_nullable_to_non_nullable
+              as String?,
+      biometricType: freezed == biometricType
+          ? _value.biometricType
+          : biometricType // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$BiometricLoginRequestImplCopyWith<$Res>
+    implements $BiometricLoginRequestCopyWith<$Res> {
+  factory _$$BiometricLoginRequestImplCopyWith(
+          _$BiometricLoginRequestImpl value,
+          $Res Function(_$BiometricLoginRequestImpl) then) =
+      __$$BiometricLoginRequestImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'user_id', includeIfNull: false) int? userId,
+      @JsonKey(name: 'device_id') String? deviceId,
+      @JsonKey(name: 'device_token') String? deviceToken,
+      @JsonKey(name: 'biometric_type') String? biometricType});
+}
+
+/// @nodoc
+class __$$BiometricLoginRequestImplCopyWithImpl<$Res>
+    extends _$BiometricLoginRequestCopyWithImpl<$Res,
+        _$BiometricLoginRequestImpl>
+    implements _$$BiometricLoginRequestImplCopyWith<$Res> {
+  __$$BiometricLoginRequestImplCopyWithImpl(_$BiometricLoginRequestImpl _value,
+      $Res Function(_$BiometricLoginRequestImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of BiometricLoginRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? userId = freezed,
+    Object? deviceId = freezed,
+    Object? deviceToken = freezed,
+    Object? biometricType = freezed,
+  }) {
+    return _then(_$BiometricLoginRequestImpl(
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      deviceId: freezed == deviceId
+          ? _value.deviceId
+          : deviceId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      deviceToken: freezed == deviceToken
+          ? _value.deviceToken
+          : deviceToken // ignore: cast_nullable_to_non_nullable
+              as String?,
+      biometricType: freezed == biometricType
+          ? _value.biometricType
+          : biometricType // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$BiometricLoginRequestImpl implements _BiometricLoginRequest {
+  const _$BiometricLoginRequestImpl(
+      {@JsonKey(name: 'user_id', includeIfNull: false) this.userId,
+      @JsonKey(name: 'device_id') this.deviceId,
+      @JsonKey(name: 'device_token') this.deviceToken,
+      @JsonKey(name: 'biometric_type') this.biometricType});
+
+  factory _$BiometricLoginRequestImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BiometricLoginRequestImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'user_id', includeIfNull: false)
+  final int? userId;
+  @override
+  @JsonKey(name: 'device_id')
+  final String? deviceId;
+  @override
+  @JsonKey(name: 'device_token')
+  final String? deviceToken;
+  @override
+  @JsonKey(name: 'biometric_type')
+  final String? biometricType;
+
+  @override
+  String toString() {
+    return 'BiometricLoginRequest(userId: $userId, deviceId: $deviceId, deviceToken: $deviceToken, biometricType: $biometricType)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BiometricLoginRequestImpl &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.deviceId, deviceId) ||
+                other.deviceId == deviceId) &&
+            (identical(other.deviceToken, deviceToken) ||
+                other.deviceToken == deviceToken) &&
+            (identical(other.biometricType, biometricType) ||
+                other.biometricType == biometricType));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, userId, deviceId, deviceToken, biometricType);
+
+  /// Create a copy of BiometricLoginRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BiometricLoginRequestImplCopyWith<_$BiometricLoginRequestImpl>
+      get copyWith => __$$BiometricLoginRequestImplCopyWithImpl<
+          _$BiometricLoginRequestImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$BiometricLoginRequestImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _BiometricLoginRequest implements BiometricLoginRequest {
+  const factory _BiometricLoginRequest(
+          {@JsonKey(name: 'user_id', includeIfNull: false) final int? userId,
+          @JsonKey(name: 'device_id') final String? deviceId,
+          @JsonKey(name: 'device_token') final String? deviceToken,
+          @JsonKey(name: 'biometric_type') final String? biometricType}) =
+      _$BiometricLoginRequestImpl;
+
+  factory _BiometricLoginRequest.fromJson(Map<String, dynamic> json) =
+      _$BiometricLoginRequestImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'user_id', includeIfNull: false)
+  int? get userId;
+  @override
+  @JsonKey(name: 'device_id')
+  String? get deviceId;
+  @override
+  @JsonKey(name: 'device_token')
+  String? get deviceToken;
+  @override
+  @JsonKey(name: 'biometric_type')
+  String? get biometricType;
+
+  /// Create a copy of BiometricLoginRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$BiometricLoginRequestImplCopyWith<_$BiometricLoginRequestImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
 RoleSelectRequest _$RoleSelectRequestFromJson(Map<String, dynamic> json) {
   return _RoleSelectRequest.fromJson(json);
 }
@@ -615,6 +850,8 @@ AuthResponse _$AuthResponseFromJson(Map<String, dynamic> json) {
 mixin _$AuthResponse {
   @JsonKey(name: 'next_screen')
   String? get nextScreen => throw _privateConstructorUsedError;
+  @JsonKey(name: 'userChoose')
+  bool? get userChoose => throw _privateConstructorUsedError;
   @JsonKey(name: 'tempToken')
   String? get tempToken => throw _privateConstructorUsedError;
   @JsonKey(name: 'user')
@@ -640,6 +877,7 @@ abstract class $AuthResponseCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'next_screen') String? nextScreen,
+      @JsonKey(name: 'userChoose') bool? userChoose,
       @JsonKey(name: 'tempToken') String? tempToken,
       @JsonKey(name: 'user') UserInfo? user,
       @JsonKey(name: 'authToken') String? authToken});
@@ -663,6 +901,7 @@ class _$AuthResponseCopyWithImpl<$Res, $Val extends AuthResponse>
   @override
   $Res call({
     Object? nextScreen = freezed,
+    Object? userChoose = freezed,
     Object? tempToken = freezed,
     Object? user = freezed,
     Object? authToken = freezed,
@@ -672,6 +911,10 @@ class _$AuthResponseCopyWithImpl<$Res, $Val extends AuthResponse>
           ? _value.nextScreen
           : nextScreen // ignore: cast_nullable_to_non_nullable
               as String?,
+      userChoose: freezed == userChoose
+          ? _value.userChoose
+          : userChoose // ignore: cast_nullable_to_non_nullable
+              as bool?,
       tempToken: freezed == tempToken
           ? _value.tempToken
           : tempToken // ignore: cast_nullable_to_non_nullable
@@ -712,6 +955,7 @@ abstract class _$$AuthResponseImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'next_screen') String? nextScreen,
+      @JsonKey(name: 'userChoose') bool? userChoose,
       @JsonKey(name: 'tempToken') String? tempToken,
       @JsonKey(name: 'user') UserInfo? user,
       @JsonKey(name: 'authToken') String? authToken});
@@ -734,6 +978,7 @@ class __$$AuthResponseImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? nextScreen = freezed,
+    Object? userChoose = freezed,
     Object? tempToken = freezed,
     Object? user = freezed,
     Object? authToken = freezed,
@@ -743,6 +988,10 @@ class __$$AuthResponseImplCopyWithImpl<$Res>
           ? _value.nextScreen
           : nextScreen // ignore: cast_nullable_to_non_nullable
               as String?,
+      userChoose: freezed == userChoose
+          ? _value.userChoose
+          : userChoose // ignore: cast_nullable_to_non_nullable
+              as bool?,
       tempToken: freezed == tempToken
           ? _value.tempToken
           : tempToken // ignore: cast_nullable_to_non_nullable
@@ -764,6 +1013,7 @@ class __$$AuthResponseImplCopyWithImpl<$Res>
 class _$AuthResponseImpl implements _AuthResponse {
   const _$AuthResponseImpl(
       {@JsonKey(name: 'next_screen') this.nextScreen,
+      @JsonKey(name: 'userChoose') this.userChoose,
       @JsonKey(name: 'tempToken') this.tempToken,
       @JsonKey(name: 'user') this.user,
       @JsonKey(name: 'authToken') this.authToken});
@@ -774,6 +1024,9 @@ class _$AuthResponseImpl implements _AuthResponse {
   @override
   @JsonKey(name: 'next_screen')
   final String? nextScreen;
+  @override
+  @JsonKey(name: 'userChoose')
+  final bool? userChoose;
   @override
   @JsonKey(name: 'tempToken')
   final String? tempToken;
@@ -786,7 +1039,7 @@ class _$AuthResponseImpl implements _AuthResponse {
 
   @override
   String toString() {
-    return 'AuthResponse(nextScreen: $nextScreen, tempToken: $tempToken, user: $user, authToken: $authToken)';
+    return 'AuthResponse(nextScreen: $nextScreen, userChoose: $userChoose, tempToken: $tempToken, user: $user, authToken: $authToken)';
   }
 
   @override
@@ -796,6 +1049,8 @@ class _$AuthResponseImpl implements _AuthResponse {
             other is _$AuthResponseImpl &&
             (identical(other.nextScreen, nextScreen) ||
                 other.nextScreen == nextScreen) &&
+            (identical(other.userChoose, userChoose) ||
+                other.userChoose == userChoose) &&
             (identical(other.tempToken, tempToken) ||
                 other.tempToken == tempToken) &&
             (identical(other.user, user) || other.user == user) &&
@@ -805,8 +1060,8 @@ class _$AuthResponseImpl implements _AuthResponse {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, nextScreen, tempToken, user, authToken);
+  int get hashCode => Object.hash(
+      runtimeType, nextScreen, userChoose, tempToken, user, authToken);
 
   /// Create a copy of AuthResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -827,6 +1082,7 @@ class _$AuthResponseImpl implements _AuthResponse {
 abstract class _AuthResponse implements AuthResponse {
   const factory _AuthResponse(
           {@JsonKey(name: 'next_screen') final String? nextScreen,
+          @JsonKey(name: 'userChoose') final bool? userChoose,
           @JsonKey(name: 'tempToken') final String? tempToken,
           @JsonKey(name: 'user') final UserInfo? user,
           @JsonKey(name: 'authToken') final String? authToken}) =
@@ -838,6 +1094,9 @@ abstract class _AuthResponse implements AuthResponse {
   @override
   @JsonKey(name: 'next_screen')
   String? get nextScreen;
+  @override
+  @JsonKey(name: 'userChoose')
+  bool? get userChoose;
   @override
   @JsonKey(name: 'tempToken')
   String? get tempToken;
@@ -1201,6 +1460,243 @@ abstract class _GuardianStudent implements GuardianStudent {
       throw _privateConstructorUsedError;
 }
 
+BiometricUserInfo _$BiometricUserInfoFromJson(Map<String, dynamic> json) {
+  return _BiometricUserInfo.fromJson(json);
+}
+
+/// @nodoc
+mixin _$BiometricUserInfo {
+  @JsonKey(name: 'id')
+  int? get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'name')
+  String? get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'profile_image')
+  String? get profileImage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_type')
+  List<String>? get userType => throw _privateConstructorUsedError;
+
+  /// Serializes this BiometricUserInfo to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of BiometricUserInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $BiometricUserInfoCopyWith<BiometricUserInfo> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $BiometricUserInfoCopyWith<$Res> {
+  factory $BiometricUserInfoCopyWith(
+          BiometricUserInfo value, $Res Function(BiometricUserInfo) then) =
+      _$BiometricUserInfoCopyWithImpl<$Res, BiometricUserInfo>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'id') int? id,
+      @JsonKey(name: 'name') String? name,
+      @JsonKey(name: 'profile_image') String? profileImage,
+      @JsonKey(name: 'user_type') List<String>? userType});
+}
+
+/// @nodoc
+class _$BiometricUserInfoCopyWithImpl<$Res, $Val extends BiometricUserInfo>
+    implements $BiometricUserInfoCopyWith<$Res> {
+  _$BiometricUserInfoCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of BiometricUserInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? profileImage = freezed,
+    Object? userType = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      profileImage: freezed == profileImage
+          ? _value.profileImage
+          : profileImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userType: freezed == userType
+          ? _value.userType
+          : userType // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$BiometricUserInfoImplCopyWith<$Res>
+    implements $BiometricUserInfoCopyWith<$Res> {
+  factory _$$BiometricUserInfoImplCopyWith(_$BiometricUserInfoImpl value,
+          $Res Function(_$BiometricUserInfoImpl) then) =
+      __$$BiometricUserInfoImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'id') int? id,
+      @JsonKey(name: 'name') String? name,
+      @JsonKey(name: 'profile_image') String? profileImage,
+      @JsonKey(name: 'user_type') List<String>? userType});
+}
+
+/// @nodoc
+class __$$BiometricUserInfoImplCopyWithImpl<$Res>
+    extends _$BiometricUserInfoCopyWithImpl<$Res, _$BiometricUserInfoImpl>
+    implements _$$BiometricUserInfoImplCopyWith<$Res> {
+  __$$BiometricUserInfoImplCopyWithImpl(_$BiometricUserInfoImpl _value,
+      $Res Function(_$BiometricUserInfoImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of BiometricUserInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? profileImage = freezed,
+    Object? userType = freezed,
+  }) {
+    return _then(_$BiometricUserInfoImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      profileImage: freezed == profileImage
+          ? _value.profileImage
+          : profileImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userType: freezed == userType
+          ? _value._userType
+          : userType // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$BiometricUserInfoImpl implements _BiometricUserInfo {
+  const _$BiometricUserInfoImpl(
+      {@JsonKey(name: 'id') this.id,
+      @JsonKey(name: 'name') this.name,
+      @JsonKey(name: 'profile_image') this.profileImage,
+      @JsonKey(name: 'user_type') final List<String>? userType})
+      : _userType = userType;
+
+  factory _$BiometricUserInfoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BiometricUserInfoImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'id')
+  final int? id;
+  @override
+  @JsonKey(name: 'name')
+  final String? name;
+  @override
+  @JsonKey(name: 'profile_image')
+  final String? profileImage;
+  final List<String>? _userType;
+  @override
+  @JsonKey(name: 'user_type')
+  List<String>? get userType {
+    final value = _userType;
+    if (value == null) return null;
+    if (_userType is EqualUnmodifiableListView) return _userType;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  String toString() {
+    return 'BiometricUserInfo(id: $id, name: $name, profileImage: $profileImage, userType: $userType)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BiometricUserInfoImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.profileImage, profileImage) ||
+                other.profileImage == profileImage) &&
+            const DeepCollectionEquality().equals(other._userType, _userType));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name, profileImage,
+      const DeepCollectionEquality().hash(_userType));
+
+  /// Create a copy of BiometricUserInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BiometricUserInfoImplCopyWith<_$BiometricUserInfoImpl> get copyWith =>
+      __$$BiometricUserInfoImplCopyWithImpl<_$BiometricUserInfoImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$BiometricUserInfoImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _BiometricUserInfo implements BiometricUserInfo {
+  const factory _BiometricUserInfo(
+          {@JsonKey(name: 'id') final int? id,
+          @JsonKey(name: 'name') final String? name,
+          @JsonKey(name: 'profile_image') final String? profileImage,
+          @JsonKey(name: 'user_type') final List<String>? userType}) =
+      _$BiometricUserInfoImpl;
+
+  factory _BiometricUserInfo.fromJson(Map<String, dynamic> json) =
+      _$BiometricUserInfoImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'id')
+  int? get id;
+  @override
+  @JsonKey(name: 'name')
+  String? get name;
+  @override
+  @JsonKey(name: 'profile_image')
+  String? get profileImage;
+  @override
+  @JsonKey(name: 'user_type')
+  List<String>? get userType;
+
+  /// Create a copy of BiometricUserInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$BiometricUserInfoImplCopyWith<_$BiometricUserInfoImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 UserInfo _$UserInfoFromJson(Map<String, dynamic> json) {
   return _UserInfo.fromJson(json);
 }
@@ -1208,7 +1704,7 @@ UserInfo _$UserInfoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UserInfo {
   @JsonKey(name: 'id')
-  String? get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'name')
   String? get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'email')
@@ -1238,7 +1734,7 @@ abstract class $UserInfoCopyWith<$Res> {
       _$UserInfoCopyWithImpl<$Res, UserInfo>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') String? id,
+      {@JsonKey(name: 'id') int? id,
       @JsonKey(name: 'name') String? name,
       @JsonKey(name: 'email') String? email,
       @JsonKey(name: 'phone') String? phone,
@@ -1274,7 +1770,7 @@ class _$UserInfoCopyWithImpl<$Res, $Val extends UserInfo>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1312,7 +1808,7 @@ abstract class _$$UserInfoImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') String? id,
+      {@JsonKey(name: 'id') int? id,
       @JsonKey(name: 'name') String? name,
       @JsonKey(name: 'email') String? email,
       @JsonKey(name: 'phone') String? phone,
@@ -1346,7 +1842,7 @@ class __$$UserInfoImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1392,7 +1888,7 @@ class _$UserInfoImpl implements _UserInfo {
 
   @override
   @JsonKey(name: 'id')
-  final String? id;
+  final int? id;
   @override
   @JsonKey(name: 'name')
   final String? name;
@@ -1455,7 +1951,7 @@ class _$UserInfoImpl implements _UserInfo {
 
 abstract class _UserInfo implements UserInfo {
   const factory _UserInfo(
-      {@JsonKey(name: 'id') final String? id,
+      {@JsonKey(name: 'id') final int? id,
       @JsonKey(name: 'name') final String? name,
       @JsonKey(name: 'email') final String? email,
       @JsonKey(name: 'phone') final String? phone,
@@ -1468,7 +1964,7 @@ abstract class _UserInfo implements UserInfo {
 
   @override
   @JsonKey(name: 'id')
-  String? get id;
+  int? get id;
   @override
   @JsonKey(name: 'name')
   String? get name;

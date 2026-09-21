@@ -55,7 +55,7 @@ class HomeAppBar extends HookConsumerWidget implements PreferredSizeWidget {
     final profileImageFileName = savedUserAsync.asData?.value?.profileImage;
     final profileImageUrl =
         profileImageFileName != null && profileImageFileName.isNotEmpty
-            ? '${Endpoints.profileImageBaseURL}/student/$profileImageFileName'
+            ? '${Endpoints.profileImageBaseURL}/user/$profileImageFileName'
             : null;
 
     final night = hour < 5 || hour >= 21;
@@ -115,7 +115,7 @@ class HomeAppBar extends HookConsumerWidget implements PreferredSizeWidget {
                                     fontSize: 12.sp,
                                     color: const Color(0xFF616777),
                                     height: 1.3)),
-                            Gap(3.h),
+                            Gap(1.25.h),
                             Text(userName.toUpperCase(),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,

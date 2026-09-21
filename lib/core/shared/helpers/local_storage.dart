@@ -15,6 +15,8 @@ class LocalStorageKeys {
   static const welcomeCompleted = 'welcome_completed';
   static const biometricUserId = 'biometric_user_id';
   static const biometricDeviceId = 'biometric_device_id';
+  static const biometricDeviceToken = 'biometric_device_token';
+  static const fingerprintEnabled = 'biometric_login_enabled';
 }
 
 abstract class LocalDB {

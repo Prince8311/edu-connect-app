@@ -6,7 +6,7 @@ part of 'auth_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$loginHash() => r'f75b6885d32557324b6a8661fd113d318e0d5dfc';
+String _$loginHash() => r'3d3e5dbc8ec34f2b074282c74df9703b1f66ca5a';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -156,6 +156,138 @@ class _LoginProviderElement
   LoginRequest get requestBody => (origin as LoginProvider).requestBody;
 }
 
+String _$biometricLoginHash() => r'baab722efdb4fe38999358de7e80b501fc1bc024';
+
+/// See also [biometricLogin].
+@ProviderFor(biometricLogin)
+const biometricLoginProvider = BiometricLoginFamily();
+
+/// See also [biometricLogin].
+class BiometricLoginFamily extends Family<AsyncValue<AuthResponse?>> {
+  /// See also [biometricLogin].
+  const BiometricLoginFamily();
+
+  /// See also [biometricLogin].
+  BiometricLoginProvider call({
+    required BiometricLoginRequest requestBody,
+  }) {
+    return BiometricLoginProvider(
+      requestBody: requestBody,
+    );
+  }
+
+  @override
+  BiometricLoginProvider getProviderOverride(
+    covariant BiometricLoginProvider provider,
+  ) {
+    return call(
+      requestBody: provider.requestBody,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'biometricLoginProvider';
+}
+
+/// See also [biometricLogin].
+class BiometricLoginProvider extends AutoDisposeFutureProvider<AuthResponse?> {
+  /// See also [biometricLogin].
+  BiometricLoginProvider({
+    required BiometricLoginRequest requestBody,
+  }) : this._internal(
+          (ref) => biometricLogin(
+            ref as BiometricLoginRef,
+            requestBody: requestBody,
+          ),
+          from: biometricLoginProvider,
+          name: r'biometricLoginProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$biometricLoginHash,
+          dependencies: BiometricLoginFamily._dependencies,
+          allTransitiveDependencies:
+              BiometricLoginFamily._allTransitiveDependencies,
+          requestBody: requestBody,
+        );
+
+  BiometricLoginProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.requestBody,
+  }) : super.internal();
+
+  final BiometricLoginRequest requestBody;
+
+  @override
+  Override overrideWith(
+    FutureOr<AuthResponse?> Function(BiometricLoginRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: BiometricLoginProvider._internal(
+        (ref) => create(ref as BiometricLoginRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        requestBody: requestBody,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<AuthResponse?> createElement() {
+    return _BiometricLoginProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is BiometricLoginProvider && other.requestBody == requestBody;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, requestBody.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin BiometricLoginRef on AutoDisposeFutureProviderRef<AuthResponse?> {
+  /// The parameter `requestBody` of this provider.
+  BiometricLoginRequest get requestBody;
+}
+
+class _BiometricLoginProviderElement
+    extends AutoDisposeFutureProviderElement<AuthResponse?>
+    with BiometricLoginRef {
+  _BiometricLoginProviderElement(super.provider);
+
+  @override
+  BiometricLoginRequest get requestBody =>
+      (origin as BiometricLoginProvider).requestBody;
+}
+
 String _$sendOtpHash() => r'96bfc5bf887d38a23992432a492fd09872294379';
 
 /// See also [sendOtp].
@@ -285,7 +417,7 @@ class _SendOtpProviderElement extends AutoDisposeFutureProviderElement<bool?>
   OtpRequest get requestBody => (origin as SendOtpProvider).requestBody;
 }
 
-String _$roleSelectHash() => r'5e81028c0a685c26c0d3efdbb2fa11da94579564';
+String _$roleSelectHash() => r'f51115af4c99ad7e90d43e50c559a29c74c47a12';
 
 /// See also [roleSelect].
 @ProviderFor(roleSelect)
@@ -416,7 +548,7 @@ class _RoleSelectProviderElement
       (origin as RoleSelectProvider).requestBody;
 }
 
-String _$studentSelectHash() => r'cb87e0288891794d6f188c0b8e42385774d35e20';
+String _$studentSelectHash() => r'c379e42c34f0b9a971981bee2a986e215036a91f';
 
 /// See also [studentSelect].
 @ProviderFor(studentSelect)
@@ -684,6 +816,175 @@ class _GetGuardianStudentsProviderElement
   String? get tempToken => (origin as GetGuardianStudentsProvider).tempToken;
 }
 
+String _$getBiometricUsersHash() => r'3adc809355b33570417ae7923e28ac2251670163';
+
+/// See also [getBiometricUsers].
+@ProviderFor(getBiometricUsers)
+const getBiometricUsersProvider = GetBiometricUsersFamily();
+
+/// See also [getBiometricUsers].
+class GetBiometricUsersFamily
+    extends Family<AsyncValue<List<BiometricUserInfo>?>> {
+  /// See also [getBiometricUsers].
+  const GetBiometricUsersFamily();
+
+  /// See also [getBiometricUsers].
+  GetBiometricUsersProvider call({
+    String? deviceId,
+    String? deviceToken,
+    String? biometricType,
+  }) {
+    return GetBiometricUsersProvider(
+      deviceId: deviceId,
+      deviceToken: deviceToken,
+      biometricType: biometricType,
+    );
+  }
+
+  @override
+  GetBiometricUsersProvider getProviderOverride(
+    covariant GetBiometricUsersProvider provider,
+  ) {
+    return call(
+      deviceId: provider.deviceId,
+      deviceToken: provider.deviceToken,
+      biometricType: provider.biometricType,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getBiometricUsersProvider';
+}
+
+/// See also [getBiometricUsers].
+class GetBiometricUsersProvider
+    extends AutoDisposeFutureProvider<List<BiometricUserInfo>?> {
+  /// See also [getBiometricUsers].
+  GetBiometricUsersProvider({
+    String? deviceId,
+    String? deviceToken,
+    String? biometricType,
+  }) : this._internal(
+          (ref) => getBiometricUsers(
+            ref as GetBiometricUsersRef,
+            deviceId: deviceId,
+            deviceToken: deviceToken,
+            biometricType: biometricType,
+          ),
+          from: getBiometricUsersProvider,
+          name: r'getBiometricUsersProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$getBiometricUsersHash,
+          dependencies: GetBiometricUsersFamily._dependencies,
+          allTransitiveDependencies:
+              GetBiometricUsersFamily._allTransitiveDependencies,
+          deviceId: deviceId,
+          deviceToken: deviceToken,
+          biometricType: biometricType,
+        );
+
+  GetBiometricUsersProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.deviceId,
+    required this.deviceToken,
+    required this.biometricType,
+  }) : super.internal();
+
+  final String? deviceId;
+  final String? deviceToken;
+  final String? biometricType;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<BiometricUserInfo>?> Function(GetBiometricUsersRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GetBiometricUsersProvider._internal(
+        (ref) => create(ref as GetBiometricUsersRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        deviceId: deviceId,
+        deviceToken: deviceToken,
+        biometricType: biometricType,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<List<BiometricUserInfo>?> createElement() {
+    return _GetBiometricUsersProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetBiometricUsersProvider &&
+        other.deviceId == deviceId &&
+        other.deviceToken == deviceToken &&
+        other.biometricType == biometricType;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, deviceId.hashCode);
+    hash = _SystemHash.combine(hash, deviceToken.hashCode);
+    hash = _SystemHash.combine(hash, biometricType.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin GetBiometricUsersRef
+    on AutoDisposeFutureProviderRef<List<BiometricUserInfo>?> {
+  /// The parameter `deviceId` of this provider.
+  String? get deviceId;
+
+  /// The parameter `deviceToken` of this provider.
+  String? get deviceToken;
+
+  /// The parameter `biometricType` of this provider.
+  String? get biometricType;
+}
+
+class _GetBiometricUsersProviderElement
+    extends AutoDisposeFutureProviderElement<List<BiometricUserInfo>?>
+    with GetBiometricUsersRef {
+  _GetBiometricUsersProviderElement(super.provider);
+
+  @override
+  String? get deviceId => (origin as GetBiometricUsersProvider).deviceId;
+  @override
+  String? get deviceToken => (origin as GetBiometricUsersProvider).deviceToken;
+  @override
+  String? get biometricType =>
+      (origin as GetBiometricUsersProvider).biometricType;
+}
+
 String _$savedUserInfoHash() => r'98914033ae1f7ed1dba44bf29c6cefb2c73b4122';
 
 /// See also [savedUserInfo].
@@ -701,7 +1002,7 @@ final savedUserInfoProvider = AutoDisposeFutureProvider<UserInfo?>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef SavedUserInfoRef = AutoDisposeFutureProviderRef<UserInfo?>;
-String _$logoutHash() => r'0199adf3d4584bbb3b2034b864fb35f57c3a685b';
+String _$logoutHash() => r'8455cc66ddd1a51a9efa9104151df5432a00d54c';
 
 /// See also [logout].
 @ProviderFor(logout)

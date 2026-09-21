@@ -23,4 +23,13 @@ class ClassroomRepoImpl extends ClassroomRepository {
       return res.data;
     });
   }
+
+  @override
+  FutureEither<List<ClassroomStudentModel>> getClassroomStudents(
+      {required int id}) {
+    return apiHandler<List<ClassroomStudentModel>>(() async {
+      final res = await _apiService.getClassroomStudents(id: id);
+      return res.data ?? [];
+    });
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:edu_connect/core/api/auth_error_policy.dart';
 import 'package:edu_connect/core/router/app_router.dart';
 import 'package:edu_connect/core/shared/miscellaneous/failure.dart';
 import 'package:edu_connect/core/shared/widgets/toast.dart';
@@ -34,7 +35,7 @@ class ApiError implements Exception {
 
           if (statusCode == 503) {
             handleMaintenance();
-          } else if (statusCode == 401) {
+          } else if (statusCode == 401 && !isBiometricPasswordError(dioError)) {
             handleUnAuthorized();
           }
 
@@ -140,11 +141,3 @@ class AppErrorHandler {
     return;
   }
 }
-
-
-
-
-
-
-
-

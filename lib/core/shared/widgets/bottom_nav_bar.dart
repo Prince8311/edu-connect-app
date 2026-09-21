@@ -114,8 +114,12 @@ class CustomBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final bottomInset = MediaQuery.viewPaddingOf(context).bottom;
     return Container(
-      margin: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 14),
-      padding: EdgeInsets.fromLTRB(8, 2, 8, 5 + bottomInset),
+      // Keep the visible pill at 66 logical pixels. Device navigation insets
+      // belong outside the decoration so gesture navigation cannot stretch it.
+      height: 66,
+      margin: EdgeInsets.only(
+          left: 16, right: 16, top: 8, bottom: 14 + bottomInset),
+      padding: const EdgeInsets.fromLTRB(8, 2, 8, 5),
       decoration: BoxDecoration(
         color: ColorName.white,
         borderRadius: BorderRadius.circular(25),

@@ -20,6 +20,11 @@ abstract class AuthApiService {
   @Headers(<String, dynamic>{'Content-Type': 'application/json'})
   Future<ApiResponse<AuthResponse>> login(@Body() LoginRequest body);
 
+  @POST(Endpoints.biometricLogin)
+  @Headers(<String, dynamic>{'Content-Type': 'application/json'})
+  Future<ApiResponse<AuthResponse>> biometricLogin(
+      @Body() BiometricLoginRequest body);
+
   @POST(Endpoints.sendOTP)
   @Headers(<String, dynamic>{'Content-Type': 'application/json'})
   Future<ApiResponse> sendAuthOtp(@Body() OtpRequest body);
@@ -31,6 +36,13 @@ abstract class AuthApiService {
   @GET(Endpoints.guardianStudents)
   Future<ApiResponse<List<GuardianStudent>>> getGuardianStudents({
     @Query("tempToken") String? tempToken,
+  });
+
+  @GET(Endpoints.biometricUsers)
+  Future<ApiResponse<List<BiometricUserInfo>>> getBiometricUsers({
+    @Query("device_id") String? deviceId,
+    @Query("device_token") String? deviceToken,
+    @Query("biometric_type") String? biometricType,
   });
 
   @POST(Endpoints.studentSelect)

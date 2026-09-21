@@ -20,4 +20,9 @@ abstract class ClassroomApiService {
   Future<ApiResponse<ClassroomModel>> getClassroomDetails({
     @Query('id') required int id,
   });
+
+  @GET(Endpoints.classroomStudents)
+  Future<ApiResponse<List<ClassroomStudentModel>>> getClassroomStudents({
+    @Query('id') required int id,
+  });
 }

@@ -50,7 +50,7 @@ void main() {
           userDetailsNotifierProvider.overrideWith(_Details.new),
         ],
         child: MaterialApp(
-            navigatorKey: rootNavigatorKey, home: const TeacherProfileScreen()),
+            navigatorKey: rootNavigatorKey, home: const ProfileScreen()),
       ));
       await tester.pumpAndSettle();
       expect(find.text('Profile Person'), findsOneWidget);

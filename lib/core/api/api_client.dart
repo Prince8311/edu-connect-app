@@ -23,6 +23,11 @@ final apiClientProvider = Provider<Dio>((ref) {
   if (kDebugMode) {
     dio.interceptors.add(
       PrettyDioLogger(
+        // Biometric enrollment contains the password and device secret.
+        filter: (options, _) =>
+            !options.uri.path.endsWith(Endpoints.biometric) &&
+            !options.uri.path.endsWith(Endpoints.biometricLogin) &&
+            !options.uri.path.endsWith(Endpoints.resetBiometric),
         request: true,
         requestHeader: true,
         requestBody: true,
@@ -50,11 +55,3 @@ final apiClientProvider = Provider<Dio>((ref) {
 
   return dio;
 });
-
-
-
-
-
-
-
-

@@ -7,9 +7,11 @@ class Endpoints {
 
   // -------- Auth --------
   static const String login = '/auth/login.php';
+  static const String biometricLogin = '/auth/biometric-login.php';
   static const String sendOTP = '/auth/send-otp.php';
   static const String roleSelect = '/auth/role-select.php';
   static const String studentSelect = '/auth/student-select.php';
+  static const String biometricUsers = '/auth/biometric-users.php';
   static const String guardianStudents = '/auth/guardian-students.php';
   static const String refreshToken = '/user/auth/refresh-token.php';
   static const String logout = '/auth/logout.php';
@@ -21,6 +23,7 @@ class Endpoints {
 
   // -------- Classroom --------
   static const String classroomDetails = '/api/class/details.php';
+  static const String classroomStudents = '/api/class/students.php';
 
   // -------- Library --------
   static const String bookAdd = '/api/library/books/insert.php';
@@ -39,4 +42,6 @@ class Endpoints {
       '/api/account/guardian-students.php';
   static const String studentSwitch = '/api/account/switch-student.php';
   static const String changePassword = '/api/account/change-password.php';
+  static const String biometric = '/api/account/biometric-setup.php';
+  static const String resetBiometric = '/api/account/reset-biometric-setup.php';
 }

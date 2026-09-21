@@ -4,6 +4,8 @@ import 'package:edu_connect/core/api/error_handler.dart';
 import 'package:edu_connect/core/shared/helpers/local_storage.dart';
 import 'package:edu_connect/features/auth/domain/models/auth_model.dart';
 import 'package:edu_connect/features/auth/presentation/providers/auth_token_provider.dart';
+import 'package:edu_connect/features/auth/presentation/providers/auth_provider.dart';
+import 'package:edu_connect/features/home/presentation/providers/schedule_classes_provider.dart';
 import 'package:edu_connect/features/profile/data/repositories/profile_repo_impl.dart';
 import 'package:edu_connect/features/profile/domain/models/profile_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -120,6 +122,12 @@ Future<AuthResponse?> studentSwitch(
               jsonEncode(r.user!.toJson()),
             );
       }
+      // Refresh student-scoped data only after the new session is saved.
+      ref.invalidate(savedUserInfoProvider);
+      ref.invalidate(userDetailsNotifierProvider);
+      ref.invalidate(getScheduleClassesProvider);
+      ref.invalidate(ongoingClassProvider);
+      ref.invalidate(getTimeSlotsProvider);
       return r;
     },
   );

@@ -54,6 +54,9 @@ class NetworkInterceptor extends Interceptor {
         return;
       }
       err.requestOptions.extra[_retried] = true;
+      if (err.requestOptions.data is FormData) {
+        err.requestOptions.data = (err.requestOptions.data as FormData).clone();
+      }
       final response = await dio.fetch<dynamic>(err.requestOptions);
       handler.resolve(response);
     } on DioException catch (error) {
@@ -146,7 +149,9 @@ class DioConnectivityRequestRetrier {
             dio.request(
               requestOptions.path,
               cancelToken: requestOptions.cancelToken,
-              data: requestOptions.data,
+              data: requestOptions.data is FormData
+                  ? (requestOptions.data as FormData).clone()
+                  : requestOptions.data,
               onReceiveProgress: requestOptions.onReceiveProgress,
               onSendProgress: requestOptions.onSendProgress,
               queryParameters: requestOptions.queryParameters,

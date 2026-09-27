@@ -693,7 +693,7 @@ class _ChangePasswordProviderElement
 }
 
 String _$userDetailsNotifierHash() =>
-    r'1de554d6567b051009c49103723ca7ef2e67208a';
+    r'01f48c6d5a3689c74d31f3364ec7ba7c578aec80';
 
 /// See also [UserDetailsNotifier].
 @ProviderFor(UserDetailsNotifier)

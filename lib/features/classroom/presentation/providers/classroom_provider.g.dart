@@ -297,5 +297,155 @@ class _GetClassroomStudentsProviderElement
   @override
   int get id => (origin as GetClassroomStudentsProvider).id;
 }
+
+String _$classroomAttendanceHash() =>
+    r'af3559da5dbfd7cdabc99e649746638a903b931a';
+
+/// See also [classroomAttendance].
+@ProviderFor(classroomAttendance)
+const classroomAttendanceProvider = ClassroomAttendanceFamily();
+
+/// See also [classroomAttendance].
+class ClassroomAttendanceFamily extends Family<AsyncValue<bool?>> {
+  /// See also [classroomAttendance].
+  const ClassroomAttendanceFamily();
+
+  /// See also [classroomAttendance].
+  ClassroomAttendanceProvider call({
+    required String intent,
+    required AttendanceRequestModel body,
+  }) {
+    return ClassroomAttendanceProvider(
+      intent: intent,
+      body: body,
+    );
+  }
+
+  @override
+  ClassroomAttendanceProvider getProviderOverride(
+    covariant ClassroomAttendanceProvider provider,
+  ) {
+    return call(
+      intent: provider.intent,
+      body: provider.body,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'classroomAttendanceProvider';
+}
+
+/// See also [classroomAttendance].
+class ClassroomAttendanceProvider extends AutoDisposeFutureProvider<bool?> {
+  /// See also [classroomAttendance].
+  ClassroomAttendanceProvider({
+    required String intent,
+    required AttendanceRequestModel body,
+  }) : this._internal(
+          (ref) => classroomAttendance(
+            ref as ClassroomAttendanceRef,
+            intent: intent,
+            body: body,
+          ),
+          from: classroomAttendanceProvider,
+          name: r'classroomAttendanceProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$classroomAttendanceHash,
+          dependencies: ClassroomAttendanceFamily._dependencies,
+          allTransitiveDependencies:
+              ClassroomAttendanceFamily._allTransitiveDependencies,
+          intent: intent,
+          body: body,
+        );
+
+  ClassroomAttendanceProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.intent,
+    required this.body,
+  }) : super.internal();
+
+  final String intent;
+  final AttendanceRequestModel body;
+
+  @override
+  Override overrideWith(
+    FutureOr<bool?> Function(ClassroomAttendanceRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: ClassroomAttendanceProvider._internal(
+        (ref) => create(ref as ClassroomAttendanceRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        intent: intent,
+        body: body,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<bool?> createElement() {
+    return _ClassroomAttendanceProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ClassroomAttendanceProvider &&
+        other.intent == intent &&
+        other.body == body;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, intent.hashCode);
+    hash = _SystemHash.combine(hash, body.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin ClassroomAttendanceRef on AutoDisposeFutureProviderRef<bool?> {
+  /// The parameter `intent` of this provider.
+  String get intent;
+
+  /// The parameter `body` of this provider.
+  AttendanceRequestModel get body;
+}
+
+class _ClassroomAttendanceProviderElement
+    extends AutoDisposeFutureProviderElement<bool?>
+    with ClassroomAttendanceRef {
+  _ClassroomAttendanceProviderElement(super.provider);
+
+  @override
+  String get intent => (origin as ClassroomAttendanceProvider).intent;
+  @override
+  AttendanceRequestModel get body =>
+      (origin as ClassroomAttendanceProvider).body;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

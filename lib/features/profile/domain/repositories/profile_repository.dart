@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:edu_connect/core/shared/miscellaneous/typedefs.dart';
 import 'package:edu_connect/features/auth/domain/models/auth_model.dart';
 import 'package:edu_connect/features/profile/domain/models/profile_model.dart';
@@ -13,4 +15,8 @@ abstract class ProfileRepository {
       {required ChangePasswordRequest requestBody});
   FutureEither<bool?> setupBiometric({required BiometricRequest requestBody});
   FutureEither<bool?> resetBiometric({required BiometricRequest requestBody});
+  FutureEither<UpdateProfileImageResponse> updateProfileImage({
+    required Uint8List bytes,
+    required String filename,
+  });
 }

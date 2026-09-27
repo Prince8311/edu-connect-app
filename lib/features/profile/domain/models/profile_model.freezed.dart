@@ -14,6 +14,213 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+UpdateProfileImageResponse _$UpdateProfileImageResponseFromJson(
+    Map<String, dynamic> json) {
+  return _UpdateProfileImageResponse.fromJson(json);
+}
+
+/// @nodoc
+mixin _$UpdateProfileImageResponse {
+  int get status => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  @JsonKey(name: 'profile_image')
+  String? get profileImage => throw _privateConstructorUsedError;
+
+  /// Serializes this UpdateProfileImageResponse to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of UpdateProfileImageResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $UpdateProfileImageResponseCopyWith<UpdateProfileImageResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UpdateProfileImageResponseCopyWith<$Res> {
+  factory $UpdateProfileImageResponseCopyWith(UpdateProfileImageResponse value,
+          $Res Function(UpdateProfileImageResponse) then) =
+      _$UpdateProfileImageResponseCopyWithImpl<$Res,
+          UpdateProfileImageResponse>;
+  @useResult
+  $Res call(
+      {int status,
+      String? message,
+      @JsonKey(name: 'profile_image') String? profileImage});
+}
+
+/// @nodoc
+class _$UpdateProfileImageResponseCopyWithImpl<$Res,
+        $Val extends UpdateProfileImageResponse>
+    implements $UpdateProfileImageResponseCopyWith<$Res> {
+  _$UpdateProfileImageResponseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of UpdateProfileImageResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? status = null,
+    Object? message = freezed,
+    Object? profileImage = freezed,
+  }) {
+    return _then(_value.copyWith(
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      profileImage: freezed == profileImage
+          ? _value.profileImage
+          : profileImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$UpdateProfileImageResponseImplCopyWith<$Res>
+    implements $UpdateProfileImageResponseCopyWith<$Res> {
+  factory _$$UpdateProfileImageResponseImplCopyWith(
+          _$UpdateProfileImageResponseImpl value,
+          $Res Function(_$UpdateProfileImageResponseImpl) then) =
+      __$$UpdateProfileImageResponseImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int status,
+      String? message,
+      @JsonKey(name: 'profile_image') String? profileImage});
+}
+
+/// @nodoc
+class __$$UpdateProfileImageResponseImplCopyWithImpl<$Res>
+    extends _$UpdateProfileImageResponseCopyWithImpl<$Res,
+        _$UpdateProfileImageResponseImpl>
+    implements _$$UpdateProfileImageResponseImplCopyWith<$Res> {
+  __$$UpdateProfileImageResponseImplCopyWithImpl(
+      _$UpdateProfileImageResponseImpl _value,
+      $Res Function(_$UpdateProfileImageResponseImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of UpdateProfileImageResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? status = null,
+    Object? message = freezed,
+    Object? profileImage = freezed,
+  }) {
+    return _then(_$UpdateProfileImageResponseImpl(
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      profileImage: freezed == profileImage
+          ? _value.profileImage
+          : profileImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$UpdateProfileImageResponseImpl implements _UpdateProfileImageResponse {
+  const _$UpdateProfileImageResponseImpl(
+      {required this.status,
+      this.message,
+      @JsonKey(name: 'profile_image') this.profileImage});
+
+  factory _$UpdateProfileImageResponseImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$UpdateProfileImageResponseImplFromJson(json);
+
+  @override
+  final int status;
+  @override
+  final String? message;
+  @override
+  @JsonKey(name: 'profile_image')
+  final String? profileImage;
+
+  @override
+  String toString() {
+    return 'UpdateProfileImageResponse(status: $status, message: $message, profileImage: $profileImage)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdateProfileImageResponseImpl &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.profileImage, profileImage) ||
+                other.profileImage == profileImage));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, status, message, profileImage);
+
+  /// Create a copy of UpdateProfileImageResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateProfileImageResponseImplCopyWith<_$UpdateProfileImageResponseImpl>
+      get copyWith => __$$UpdateProfileImageResponseImplCopyWithImpl<
+          _$UpdateProfileImageResponseImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$UpdateProfileImageResponseImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _UpdateProfileImageResponse
+    implements UpdateProfileImageResponse {
+  const factory _UpdateProfileImageResponse(
+          {required final int status,
+          final String? message,
+          @JsonKey(name: 'profile_image') final String? profileImage}) =
+      _$UpdateProfileImageResponseImpl;
+
+  factory _UpdateProfileImageResponse.fromJson(Map<String, dynamic> json) =
+      _$UpdateProfileImageResponseImpl.fromJson;
+
+  @override
+  int get status;
+  @override
+  String? get message;
+  @override
+  @JsonKey(name: 'profile_image')
+  String? get profileImage;
+
+  /// Create a copy of UpdateProfileImageResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UpdateProfileImageResponseImplCopyWith<_$UpdateProfileImageResponseImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
 UserDetails _$UserDetailsFromJson(Map<String, dynamic> json) {
   return _UserDetails.fromJson(json);
 }

@@ -33,7 +33,6 @@ class ClassroomDetailsScreen extends ConsumerStatefulWidget {
 class _ClassroomDetailsScreenState
     extends ConsumerState<ClassroomDetailsScreen> {
   final _search = TextEditingController();
-  final Map<String, bool> _attendanceDraft = {};
 
   static const _apps = [
     (
@@ -679,7 +678,27 @@ class _ClassroomDetailsScreenState
                         child: InkWell(
                           onTap: () => app.label == 'Attendance'
                               ? showAttendanceStudentDeck(context, classroom,
-                                  students: students, draft: _attendanceDraft)
+                                  students: students,
+                                  onSubmit: (body) async {
+                                    final attendanceAlreadyMarked =
+                                        classroom.attendanceMarked == true;
+                                    final success = await ref.read(
+                                        classroomAttendanceProvider(
+                                                intent: attendanceAlreadyMarked
+                                                    ? 'update'
+                                                    : 'add',
+                                                body: body)
+                                            .future);
+                                    if (success == true) {
+                                      ref.invalidate(
+                                          getClassroomDetailsProvider(
+                                              id: widget.id));
+                                      ref.invalidate(
+                                          getClassroomStudentsProvider(
+                                              id: widget.id));
+                                    }
+                                    return success;
+                                  })
                               : _showPanel(
                                   icon: app.icon,
                                   color: app.color,

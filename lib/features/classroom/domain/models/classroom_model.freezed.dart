@@ -37,6 +37,10 @@ mixin _$ClassroomModel {
   String? get subject => throw _privateConstructorUsedError;
   @JsonKey(name: 'teacher')
   String? get teacher => throw _privateConstructorUsedError;
+  @JsonKey(name: 'attendance_type')
+  String? get attendanceType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'attendance_marked')
+  bool? get attendanceMarked => throw _privateConstructorUsedError;
 
   /// Serializes this ClassroomModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -63,7 +67,9 @@ abstract class $ClassroomModelCopyWith<$Res> {
       @JsonKey(name: 'period') String? period,
       @JsonKey(name: 'time') String? time,
       @JsonKey(name: 'subject') String? subject,
-      @JsonKey(name: 'teacher') String? teacher});
+      @JsonKey(name: 'teacher') String? teacher,
+      @JsonKey(name: 'attendance_type') String? attendanceType,
+      @JsonKey(name: 'attendance_marked') bool? attendanceMarked});
 }
 
 /// @nodoc
@@ -90,6 +96,8 @@ class _$ClassroomModelCopyWithImpl<$Res, $Val extends ClassroomModel>
     Object? time = freezed,
     Object? subject = freezed,
     Object? teacher = freezed,
+    Object? attendanceType = freezed,
+    Object? attendanceMarked = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -128,6 +136,14 @@ class _$ClassroomModelCopyWithImpl<$Res, $Val extends ClassroomModel>
           ? _value.teacher
           : teacher // ignore: cast_nullable_to_non_nullable
               as String?,
+      attendanceType: freezed == attendanceType
+          ? _value.attendanceType
+          : attendanceType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      attendanceMarked: freezed == attendanceMarked
+          ? _value.attendanceMarked
+          : attendanceMarked // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -149,7 +165,9 @@ abstract class _$$ClassroomModelImplCopyWith<$Res>
       @JsonKey(name: 'period') String? period,
       @JsonKey(name: 'time') String? time,
       @JsonKey(name: 'subject') String? subject,
-      @JsonKey(name: 'teacher') String? teacher});
+      @JsonKey(name: 'teacher') String? teacher,
+      @JsonKey(name: 'attendance_type') String? attendanceType,
+      @JsonKey(name: 'attendance_marked') bool? attendanceMarked});
 }
 
 /// @nodoc
@@ -174,6 +192,8 @@ class __$$ClassroomModelImplCopyWithImpl<$Res>
     Object? time = freezed,
     Object? subject = freezed,
     Object? teacher = freezed,
+    Object? attendanceType = freezed,
+    Object? attendanceMarked = freezed,
   }) {
     return _then(_$ClassroomModelImpl(
       id: freezed == id
@@ -212,6 +232,14 @@ class __$$ClassroomModelImplCopyWithImpl<$Res>
           ? _value.teacher
           : teacher // ignore: cast_nullable_to_non_nullable
               as String?,
+      attendanceType: freezed == attendanceType
+          ? _value.attendanceType
+          : attendanceType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      attendanceMarked: freezed == attendanceMarked
+          ? _value.attendanceMarked
+          : attendanceMarked // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -229,7 +257,9 @@ class _$ClassroomModelImpl implements _ClassroomModel {
       @JsonKey(name: 'period') this.period,
       @JsonKey(name: 'time') this.time,
       @JsonKey(name: 'subject') this.subject,
-      @JsonKey(name: 'teacher') this.teacher});
+      @JsonKey(name: 'teacher') this.teacher,
+      @JsonKey(name: 'attendance_type') this.attendanceType,
+      @JsonKey(name: 'attendance_marked') this.attendanceMarked});
 
   factory _$ClassroomModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ClassroomModelImplFromJson(json);
@@ -260,10 +290,16 @@ class _$ClassroomModelImpl implements _ClassroomModel {
   @override
   @JsonKey(name: 'teacher')
   final String? teacher;
+  @override
+  @JsonKey(name: 'attendance_type')
+  final String? attendanceType;
+  @override
+  @JsonKey(name: 'attendance_marked')
+  final bool? attendanceMarked;
 
   @override
   String toString() {
-    return 'ClassroomModel(id: $id, classroomId: $classroomId, className: $className, section: $section, day: $day, period: $period, time: $time, subject: $subject, teacher: $teacher)';
+    return 'ClassroomModel(id: $id, classroomId: $classroomId, className: $className, section: $section, day: $day, period: $period, time: $time, subject: $subject, teacher: $teacher, attendanceType: $attendanceType, attendanceMarked: $attendanceMarked)';
   }
 
   @override
@@ -281,13 +317,28 @@ class _$ClassroomModelImpl implements _ClassroomModel {
             (identical(other.period, period) || other.period == period) &&
             (identical(other.time, time) || other.time == time) &&
             (identical(other.subject, subject) || other.subject == subject) &&
-            (identical(other.teacher, teacher) || other.teacher == teacher));
+            (identical(other.teacher, teacher) || other.teacher == teacher) &&
+            (identical(other.attendanceType, attendanceType) ||
+                other.attendanceType == attendanceType) &&
+            (identical(other.attendanceMarked, attendanceMarked) ||
+                other.attendanceMarked == attendanceMarked));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, classroomId, className,
-      section, day, period, time, subject, teacher);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      classroomId,
+      className,
+      section,
+      day,
+      period,
+      time,
+      subject,
+      teacher,
+      attendanceType,
+      attendanceMarked);
 
   /// Create a copy of ClassroomModel
   /// with the given fields replaced by the non-null parameter values.
@@ -308,15 +359,18 @@ class _$ClassroomModelImpl implements _ClassroomModel {
 
 abstract class _ClassroomModel implements ClassroomModel {
   const factory _ClassroomModel(
-      {final int? id,
-      @JsonKey(name: 'classroom_id') final String? classroomId,
-      @JsonKey(name: 'class') final String? className,
-      @JsonKey(name: 'section') final String? section,
-      @JsonKey(name: 'day') final String? day,
-      @JsonKey(name: 'period') final String? period,
-      @JsonKey(name: 'time') final String? time,
-      @JsonKey(name: 'subject') final String? subject,
-      @JsonKey(name: 'teacher') final String? teacher}) = _$ClassroomModelImpl;
+          {final int? id,
+          @JsonKey(name: 'classroom_id') final String? classroomId,
+          @JsonKey(name: 'class') final String? className,
+          @JsonKey(name: 'section') final String? section,
+          @JsonKey(name: 'day') final String? day,
+          @JsonKey(name: 'period') final String? period,
+          @JsonKey(name: 'time') final String? time,
+          @JsonKey(name: 'subject') final String? subject,
+          @JsonKey(name: 'teacher') final String? teacher,
+          @JsonKey(name: 'attendance_type') final String? attendanceType,
+          @JsonKey(name: 'attendance_marked') final bool? attendanceMarked}) =
+      _$ClassroomModelImpl;
 
   factory _ClassroomModel.fromJson(Map<String, dynamic> json) =
       _$ClassroomModelImpl.fromJson;
@@ -347,6 +401,12 @@ abstract class _ClassroomModel implements ClassroomModel {
   @override
   @JsonKey(name: 'teacher')
   String? get teacher;
+  @override
+  @JsonKey(name: 'attendance_type')
+  String? get attendanceType;
+  @override
+  @JsonKey(name: 'attendance_marked')
+  bool? get attendanceMarked;
 
   /// Create a copy of ClassroomModel
   /// with the given fields replaced by the non-null parameter values.
@@ -612,5 +672,381 @@ abstract class _ClassroomStudentModel implements ClassroomStudentModel {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ClassroomStudentModelImplCopyWith<_$ClassroomStudentModelImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+AttendanceRequestModel _$AttendanceRequestModelFromJson(
+    Map<String, dynamic> json) {
+  return _AttendanceRequestModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$AttendanceRequestModel {
+  @JsonKey(name: 'attendance_type')
+  String? get attendanceType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'class')
+  String? get className => throw _privateConstructorUsedError;
+  @JsonKey(name: 'section')
+  String? get section => throw _privateConstructorUsedError;
+  @JsonKey(name: 'date')
+  String? get date => throw _privateConstructorUsedError;
+  @JsonKey(name: 'present')
+  String? get present => throw _privateConstructorUsedError;
+  @JsonKey(name: 'absent')
+  String? get absent => throw _privateConstructorUsedError;
+  @JsonKey(name: 'classroom_id', includeIfNull: false)
+  String? get classroomId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'period', includeIfNull: false)
+  String? get period => throw _privateConstructorUsedError;
+  @JsonKey(name: 'time_slot', includeIfNull: false)
+  String? get timeSlot => throw _privateConstructorUsedError;
+  @JsonKey(name: 'subject', includeIfNull: false)
+  String? get subject => throw _privateConstructorUsedError;
+
+  /// Serializes this AttendanceRequestModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of AttendanceRequestModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $AttendanceRequestModelCopyWith<AttendanceRequestModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $AttendanceRequestModelCopyWith<$Res> {
+  factory $AttendanceRequestModelCopyWith(AttendanceRequestModel value,
+          $Res Function(AttendanceRequestModel) then) =
+      _$AttendanceRequestModelCopyWithImpl<$Res, AttendanceRequestModel>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'attendance_type') String? attendanceType,
+      @JsonKey(name: 'class') String? className,
+      @JsonKey(name: 'section') String? section,
+      @JsonKey(name: 'date') String? date,
+      @JsonKey(name: 'present') String? present,
+      @JsonKey(name: 'absent') String? absent,
+      @JsonKey(name: 'classroom_id', includeIfNull: false) String? classroomId,
+      @JsonKey(name: 'period', includeIfNull: false) String? period,
+      @JsonKey(name: 'time_slot', includeIfNull: false) String? timeSlot,
+      @JsonKey(name: 'subject', includeIfNull: false) String? subject});
+}
+
+/// @nodoc
+class _$AttendanceRequestModelCopyWithImpl<$Res,
+        $Val extends AttendanceRequestModel>
+    implements $AttendanceRequestModelCopyWith<$Res> {
+  _$AttendanceRequestModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of AttendanceRequestModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? attendanceType = freezed,
+    Object? className = freezed,
+    Object? section = freezed,
+    Object? date = freezed,
+    Object? present = freezed,
+    Object? absent = freezed,
+    Object? classroomId = freezed,
+    Object? period = freezed,
+    Object? timeSlot = freezed,
+    Object? subject = freezed,
+  }) {
+    return _then(_value.copyWith(
+      attendanceType: freezed == attendanceType
+          ? _value.attendanceType
+          : attendanceType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      className: freezed == className
+          ? _value.className
+          : className // ignore: cast_nullable_to_non_nullable
+              as String?,
+      section: freezed == section
+          ? _value.section
+          : section // ignore: cast_nullable_to_non_nullable
+              as String?,
+      date: freezed == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String?,
+      present: freezed == present
+          ? _value.present
+          : present // ignore: cast_nullable_to_non_nullable
+              as String?,
+      absent: freezed == absent
+          ? _value.absent
+          : absent // ignore: cast_nullable_to_non_nullable
+              as String?,
+      classroomId: freezed == classroomId
+          ? _value.classroomId
+          : classroomId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      period: freezed == period
+          ? _value.period
+          : period // ignore: cast_nullable_to_non_nullable
+              as String?,
+      timeSlot: freezed == timeSlot
+          ? _value.timeSlot
+          : timeSlot // ignore: cast_nullable_to_non_nullable
+              as String?,
+      subject: freezed == subject
+          ? _value.subject
+          : subject // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$AttendanceRequestModelImplCopyWith<$Res>
+    implements $AttendanceRequestModelCopyWith<$Res> {
+  factory _$$AttendanceRequestModelImplCopyWith(
+          _$AttendanceRequestModelImpl value,
+          $Res Function(_$AttendanceRequestModelImpl) then) =
+      __$$AttendanceRequestModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'attendance_type') String? attendanceType,
+      @JsonKey(name: 'class') String? className,
+      @JsonKey(name: 'section') String? section,
+      @JsonKey(name: 'date') String? date,
+      @JsonKey(name: 'present') String? present,
+      @JsonKey(name: 'absent') String? absent,
+      @JsonKey(name: 'classroom_id', includeIfNull: false) String? classroomId,
+      @JsonKey(name: 'period', includeIfNull: false) String? period,
+      @JsonKey(name: 'time_slot', includeIfNull: false) String? timeSlot,
+      @JsonKey(name: 'subject', includeIfNull: false) String? subject});
+}
+
+/// @nodoc
+class __$$AttendanceRequestModelImplCopyWithImpl<$Res>
+    extends _$AttendanceRequestModelCopyWithImpl<$Res,
+        _$AttendanceRequestModelImpl>
+    implements _$$AttendanceRequestModelImplCopyWith<$Res> {
+  __$$AttendanceRequestModelImplCopyWithImpl(
+      _$AttendanceRequestModelImpl _value,
+      $Res Function(_$AttendanceRequestModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AttendanceRequestModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? attendanceType = freezed,
+    Object? className = freezed,
+    Object? section = freezed,
+    Object? date = freezed,
+    Object? present = freezed,
+    Object? absent = freezed,
+    Object? classroomId = freezed,
+    Object? period = freezed,
+    Object? timeSlot = freezed,
+    Object? subject = freezed,
+  }) {
+    return _then(_$AttendanceRequestModelImpl(
+      attendanceType: freezed == attendanceType
+          ? _value.attendanceType
+          : attendanceType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      className: freezed == className
+          ? _value.className
+          : className // ignore: cast_nullable_to_non_nullable
+              as String?,
+      section: freezed == section
+          ? _value.section
+          : section // ignore: cast_nullable_to_non_nullable
+              as String?,
+      date: freezed == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String?,
+      present: freezed == present
+          ? _value.present
+          : present // ignore: cast_nullable_to_non_nullable
+              as String?,
+      absent: freezed == absent
+          ? _value.absent
+          : absent // ignore: cast_nullable_to_non_nullable
+              as String?,
+      classroomId: freezed == classroomId
+          ? _value.classroomId
+          : classroomId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      period: freezed == period
+          ? _value.period
+          : period // ignore: cast_nullable_to_non_nullable
+              as String?,
+      timeSlot: freezed == timeSlot
+          ? _value.timeSlot
+          : timeSlot // ignore: cast_nullable_to_non_nullable
+              as String?,
+      subject: freezed == subject
+          ? _value.subject
+          : subject // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$AttendanceRequestModelImpl implements _AttendanceRequestModel {
+  const _$AttendanceRequestModelImpl(
+      {@JsonKey(name: 'attendance_type') this.attendanceType,
+      @JsonKey(name: 'class') this.className,
+      @JsonKey(name: 'section') this.section,
+      @JsonKey(name: 'date') this.date,
+      @JsonKey(name: 'present') this.present,
+      @JsonKey(name: 'absent') this.absent,
+      @JsonKey(name: 'classroom_id', includeIfNull: false) this.classroomId,
+      @JsonKey(name: 'period', includeIfNull: false) this.period,
+      @JsonKey(name: 'time_slot', includeIfNull: false) this.timeSlot,
+      @JsonKey(name: 'subject', includeIfNull: false) this.subject});
+
+  factory _$AttendanceRequestModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AttendanceRequestModelImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'attendance_type')
+  final String? attendanceType;
+  @override
+  @JsonKey(name: 'class')
+  final String? className;
+  @override
+  @JsonKey(name: 'section')
+  final String? section;
+  @override
+  @JsonKey(name: 'date')
+  final String? date;
+  @override
+  @JsonKey(name: 'present')
+  final String? present;
+  @override
+  @JsonKey(name: 'absent')
+  final String? absent;
+  @override
+  @JsonKey(name: 'classroom_id', includeIfNull: false)
+  final String? classroomId;
+  @override
+  @JsonKey(name: 'period', includeIfNull: false)
+  final String? period;
+  @override
+  @JsonKey(name: 'time_slot', includeIfNull: false)
+  final String? timeSlot;
+  @override
+  @JsonKey(name: 'subject', includeIfNull: false)
+  final String? subject;
+
+  @override
+  String toString() {
+    return 'AttendanceRequestModel(attendanceType: $attendanceType, className: $className, section: $section, date: $date, present: $present, absent: $absent, classroomId: $classroomId, period: $period, timeSlot: $timeSlot, subject: $subject)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AttendanceRequestModelImpl &&
+            (identical(other.attendanceType, attendanceType) ||
+                other.attendanceType == attendanceType) &&
+            (identical(other.className, className) ||
+                other.className == className) &&
+            (identical(other.section, section) || other.section == section) &&
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.present, present) || other.present == present) &&
+            (identical(other.absent, absent) || other.absent == absent) &&
+            (identical(other.classroomId, classroomId) ||
+                other.classroomId == classroomId) &&
+            (identical(other.period, period) || other.period == period) &&
+            (identical(other.timeSlot, timeSlot) ||
+                other.timeSlot == timeSlot) &&
+            (identical(other.subject, subject) || other.subject == subject));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, attendanceType, className,
+      section, date, present, absent, classroomId, period, timeSlot, subject);
+
+  /// Create a copy of AttendanceRequestModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AttendanceRequestModelImplCopyWith<_$AttendanceRequestModelImpl>
+      get copyWith => __$$AttendanceRequestModelImplCopyWithImpl<
+          _$AttendanceRequestModelImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$AttendanceRequestModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _AttendanceRequestModel implements AttendanceRequestModel {
+  const factory _AttendanceRequestModel(
+      {@JsonKey(name: 'attendance_type') final String? attendanceType,
+      @JsonKey(name: 'class') final String? className,
+      @JsonKey(name: 'section') final String? section,
+      @JsonKey(name: 'date') final String? date,
+      @JsonKey(name: 'present') final String? present,
+      @JsonKey(name: 'absent') final String? absent,
+      @JsonKey(name: 'classroom_id', includeIfNull: false)
+      final String? classroomId,
+      @JsonKey(name: 'period', includeIfNull: false) final String? period,
+      @JsonKey(name: 'time_slot', includeIfNull: false) final String? timeSlot,
+      @JsonKey(name: 'subject', includeIfNull: false)
+      final String? subject}) = _$AttendanceRequestModelImpl;
+
+  factory _AttendanceRequestModel.fromJson(Map<String, dynamic> json) =
+      _$AttendanceRequestModelImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'attendance_type')
+  String? get attendanceType;
+  @override
+  @JsonKey(name: 'class')
+  String? get className;
+  @override
+  @JsonKey(name: 'section')
+  String? get section;
+  @override
+  @JsonKey(name: 'date')
+  String? get date;
+  @override
+  @JsonKey(name: 'present')
+  String? get present;
+  @override
+  @JsonKey(name: 'absent')
+  String? get absent;
+  @override
+  @JsonKey(name: 'classroom_id', includeIfNull: false)
+  String? get classroomId;
+  @override
+  @JsonKey(name: 'period', includeIfNull: false)
+  String? get period;
+  @override
+  @JsonKey(name: 'time_slot', includeIfNull: false)
+  String? get timeSlot;
+  @override
+  @JsonKey(name: 'subject', includeIfNull: false)
+  String? get subject;
+
+  /// Create a copy of AttendanceRequestModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$AttendanceRequestModelImplCopyWith<_$AttendanceRequestModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

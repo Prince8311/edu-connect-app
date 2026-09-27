@@ -423,7 +423,10 @@ class TermsConditionsRoute extends GoRouteData with _$TermsConditionsRoute {
   }
 }
 
-@TypedGoRoute<WelcomeRoute>(path: RoutePath.welcome, name: RouteName.welcome)
+@TypedGoRoute<WelcomeRoute>(
+  path: RoutePath.welcome,
+  name: RouteName.welcome,
+)
 class WelcomeRoute extends GoRouteData with _$WelcomeRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {

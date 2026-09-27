@@ -6,15 +6,37 @@ import 'package:edu_connect/gen/fonts.gen.dart';
 import 'package:edu_connect/gen/assets.gen.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 const _absent = Color(0xFFFF929F);
 const _present = Color(0xFF7DE1BA);
 const _pending = Color(0xFFFFD775);
 
+String _studentKey(ClassroomStudentModel student, int index) {
+  if (student.studentId != null) return 'id:${student.studentId}';
+  final enrollment = student.enrollmentId?.trim() ?? '';
+  return enrollment.isEmpty ? 'roster:$index' : 'enrollment:$enrollment';
+}
+
+Map<String, bool> _draftFromAttendanceStatus(
+    List<ClassroomStudentModel> students) {
+  final draft = <String, bool>{};
+  for (var i = 0; i < students.length; i++) {
+    final status = students[i].attendanceStatus?.trim().toLowerCase();
+    if (status == 'present') {
+      draft[_studentKey(students[i], i)] = true;
+    } else if (status == 'absent') {
+      draft[_studentKey(students[i], i)] = false;
+    }
+  }
+  return draft;
+}
+
 void showAttendanceStudentDeck(
   BuildContext context,
   ClassroomModel classroom, {
   required List<ClassroomStudentModel> students,
+  required Future<bool?> Function(AttendanceRequestModel body) onSubmit,
   Map<String, bool>? draft,
 }) {
   showGeneralDialog<void>(
@@ -24,7 +46,11 @@ void showAttendanceStudentDeck(
     barrierColor: const Color(0xF5101728),
     transitionDuration: const Duration(milliseconds: 350),
     pageBuilder: (context, animation, secondaryAnimation) => _StudentDeck(
-        classroom: classroom, students: students, draft: draft ?? {}),
+        classroom: classroom,
+        students: students,
+        onSubmit: onSubmit,
+        attendanceAlreadyMarked: classroom.attendanceMarked == true,
+        draft: draft ?? _draftFromAttendanceStatus(students)),
     transitionBuilder: (context, animation, secondaryAnimation, child) =>
         FadeTransition(opacity: animation, child: child),
   );
@@ -32,9 +58,15 @@ void showAttendanceStudentDeck(
 
 class _StudentDeck extends StatefulWidget {
   const _StudentDeck(
-      {required this.classroom, required this.students, required this.draft});
+      {required this.classroom,
+      required this.students,
+      required this.onSubmit,
+      required this.attendanceAlreadyMarked,
+      required this.draft});
   final ClassroomModel classroom;
   final List<ClassroomStudentModel> students;
+  final Future<bool?> Function(AttendanceRequestModel body) onSubmit;
+  final bool attendanceAlreadyMarked;
   final Map<String, bool> draft;
 
   @override
@@ -49,14 +81,11 @@ class _StudentDeckState extends State<_StudentDeck>
   double _drag = 0;
   int? _flying;
   bool _destination = false;
+  bool _submitting = false;
+  late final Map<String, bool> _initialDraft;
 
   List<ClassroomStudentModel> get _students => widget.students;
-  String _key(int i) {
-    final student = _students[i];
-    if (student.studentId != null) return 'id:${student.studentId}';
-    final enrollment = student.enrollmentId?.trim() ?? '';
-    return enrollment.isEmpty ? 'roster:$i' : 'enrollment:$enrollment';
-  }
+  String _key(int i) => _studentKey(_students[i], i);
 
   List<int> _group(bool? status) => [
         for (var i = 0; i < _students.length; i++)
@@ -65,9 +94,18 @@ class _StudentDeckState extends State<_StudentDeck>
   List<int> get _unmarked => _group(null);
   bool get _busy => _flying != null;
 
+  bool get _hasChanges {
+    if (widget.draft.length != _initialDraft.length) return true;
+    for (final entry in _initialDraft.entries) {
+      if (widget.draft[entry.key] != entry.value) return true;
+    }
+    return false;
+  }
+
   @override
   void initState() {
     super.initState();
+    _initialDraft = Map<String, bool>.from(widget.draft);
     _flight = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 650));
   }
@@ -127,6 +165,57 @@ class _StudentDeckState extends State<_StudentDeck>
     final index = List.generate(_students.length, (i) => i)
         .indexWhere((i) => _key(i) == key);
     if (index >= 0) _restore(index);
+  }
+
+  Future<void> _submit() async {
+    if (_submitting || _students.isEmpty) return;
+    final presentIds = <String>[];
+    final absentIds = <String>[];
+    for (var i = 0; i < _students.length; i++) {
+      final id = _students[i].studentId;
+      if (id == null) continue;
+      final status = widget.draft[_key(i)];
+      if (status == true) {
+        presentIds.add(id.toString());
+      } else if (status == false) {
+        absentIds.add(id.toString());
+      }
+    }
+    if (presentIds.isEmpty && absentIds.isEmpty) return;
+
+    final isPeriodWise =
+        widget.classroom.attendanceType?.trim().toLowerCase() == 'period_wise';
+    final now = DateTime.now();
+    final body = AttendanceRequestModel(
+      attendanceType: widget.classroom.attendanceType,
+      className: widget.classroom.className,
+      section: widget.classroom.section,
+      date: DateFormat('d MMMM, yyyy').format(now),
+      present: presentIds.isEmpty ? null : presentIds.join(','),
+      absent: absentIds.isEmpty ? null : absentIds.join(','),
+      period: isPeriodWise ? widget.classroom.period : null,
+      timeSlot: isPeriodWise ? widget.classroom.time : null,
+      subject: isPeriodWise ? widget.classroom.subject : null,
+      classroomId: isPeriodWise ? widget.classroom.classroomId : null,
+    );
+
+    setState(() => _submitting = true);
+    try {
+      final success = await widget.onSubmit(body);
+      if (!mounted) return;
+      if (success == true) {
+        Navigator.of(context).pop();
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Could not submit attendance. Please try again.')));
+      }
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Could not submit attendance. Please try again.')));
+    } finally {
+      if (mounted) setState(() => _submitting = false);
+    }
   }
 
   void _review(bool? status) {
@@ -423,26 +512,12 @@ class _StudentDeckState extends State<_StudentDeck>
                               style: const TextStyle(
                                   fontFamily: FontFamily.poppins,
                                   color: Colors.white70)),
-                          if (_students.isNotEmpty) ...[
+                          if (_students.isNotEmpty &&
+                              (!widget.attendanceAlreadyMarked ||
+                                  _hasChanges)) ...[
                             const SizedBox(height: 24),
                             FilledButton.icon(
-                              onPressed: () => showDialog<void>(
-                                context: context,
-                                builder: (context) => AlertDialog(
-                                  title: const Text('Attendance summary'),
-                                  content: Text(
-                                      'Present: ${_group(true).length}\n'
-                                      'Absent: ${_group(false).length}\n\n'
-                                      'Attendance is still a draft. Submission is not connected yet.'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.of(context).pop(),
-                                      child: const Text('OK'),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              onPressed: _submitting ? null : _submit,
                               style: FilledButton.styleFrom(
                                 backgroundColor: _present,
                                 foregroundColor: const Color(0xFF172B4D),
@@ -456,7 +531,15 @@ class _StudentDeckState extends State<_StudentDeck>
                                 Icons.check_rounded,
                                 color: const Color(0xFF172B4D),
                               ),
-                              label: const Text('Submit'),
+                              label: _submitting
+                                  ? const SizedBox(
+                                      width: 18,
+                                      height: 18,
+                                      child: CircularProgressIndicator(
+                                          strokeWidth: 2))
+                                  : Text(widget.attendanceAlreadyMarked
+                                      ? 'Update'
+                                      : 'Submit'),
                             ),
                           ],
                         ])),

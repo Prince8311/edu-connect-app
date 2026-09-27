@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:edu_connect/core/router/app_router.dart';
+import 'package:edu_connect/core/shared/helpers/local_storage.dart';
 import 'package:edu_connect/core/shared/miscellaneous/app_extensions.dart';
 import 'package:edu_connect/core/shared/miscellaneous/gap.dart';
 import 'package:edu_connect/features/auth/presentation/providers/auth_token_provider.dart';
@@ -49,8 +50,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   }
 
   Future<void> _start() async {
-    // Read the session while the artwork is decoded and the animation plays.
-    final tokenFuture = ref.read(authTokenProvider.notifier).getToken();
     await Future.wait([
       precacheImage(Assets.images.logo1Png.provider(), context),
       precacheImage(
@@ -64,7 +63,16 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
         await _controller.forward().orCancel;
       }
       await Future<void>.delayed(const Duration(milliseconds: 200));
-      final token = await tokenFuture;
+      final storage = await ref.read(localStorageProvider.future);
+      final welcomeCompleted =
+          await storage.readBool(LocalStorageKeys.welcomeCompleted) ?? false;
+      if (!mounted) return;
+      if (!welcomeCompleted) {
+        WelcomeRoute().go(context);
+        return;
+      }
+
+      final token = await ref.read(authTokenProvider.notifier).getToken();
       if (!mounted) return;
       if (token != null && token.isNotEmpty) {
         HomeRoute().go(context);

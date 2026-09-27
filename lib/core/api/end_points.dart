@@ -24,6 +24,7 @@ class Endpoints {
   // -------- Classroom --------
   static const String classroomDetails = '/api/class/details.php';
   static const String classroomStudents = '/api/class/students.php';
+  static const String classroomAttendance = '/api/class/attendance.php';
 
   // -------- Library --------
   static const String bookAdd = '/api/library/books/insert.php';
@@ -44,4 +45,6 @@ class Endpoints {
   static const String changePassword = '/api/account/change-password.php';
   static const String biometric = '/api/account/biometric-setup.php';
   static const String resetBiometric = '/api/account/reset-biometric-setup.php';
+  static const String updateProfileImage =
+      '/api/account/update-profile-image.php';
 }

@@ -4,6 +4,18 @@ part 'profile_model.freezed.dart';
 part 'profile_model.g.dart';
 
 @freezed
+class UpdateProfileImageResponse with _$UpdateProfileImageResponse {
+  const factory UpdateProfileImageResponse({
+    required int status,
+    String? message,
+    @JsonKey(name: 'profile_image') String? profileImage,
+  }) = _UpdateProfileImageResponse;
+
+  factory UpdateProfileImageResponse.fromJson(Map<String, dynamic> json) =>
+      _$UpdateProfileImageResponseFromJson(json);
+}
+
+@freezed
 class UserDetails with _$UserDetails {
   const factory UserDetails({
     @JsonKey(name: 'id') String? id,

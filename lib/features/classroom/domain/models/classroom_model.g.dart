@@ -17,6 +17,8 @@ _$ClassroomModelImpl _$$ClassroomModelImplFromJson(Map<String, dynamic> json) =>
       time: json['time'] as String?,
       subject: json['subject'] as String?,
       teacher: json['teacher'] as String?,
+      attendanceType: json['attendance_type'] as String?,
+      attendanceMarked: json['attendance_marked'] as bool?,
     );
 
 Map<String, dynamic> _$$ClassroomModelImplToJson(
@@ -31,6 +33,8 @@ Map<String, dynamic> _$$ClassroomModelImplToJson(
       'time': instance.time,
       'subject': instance.subject,
       'teacher': instance.teacher,
+      'attendance_type': instance.attendanceType,
+      'attendance_marked': instance.attendanceMarked,
     };
 
 _$ClassroomStudentModelImpl _$$ClassroomStudentModelImplFromJson(
@@ -51,4 +55,34 @@ Map<String, dynamic> _$$ClassroomStudentModelImplToJson(
       'enrollment_id': instance.enrollmentId,
       'profile_image': instance.profileImage,
       'attendance_status': instance.attendanceStatus,
+    };
+
+_$AttendanceRequestModelImpl _$$AttendanceRequestModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$AttendanceRequestModelImpl(
+      attendanceType: json['attendance_type'] as String?,
+      className: json['class'] as String?,
+      section: json['section'] as String?,
+      date: json['date'] as String?,
+      present: json['present'] as String?,
+      absent: json['absent'] as String?,
+      classroomId: json['classroom_id'] as String?,
+      period: json['period'] as String?,
+      timeSlot: json['time_slot'] as String?,
+      subject: json['subject'] as String?,
+    );
+
+Map<String, dynamic> _$$AttendanceRequestModelImplToJson(
+        _$AttendanceRequestModelImpl instance) =>
+    <String, dynamic>{
+      'attendance_type': instance.attendanceType,
+      'class': instance.className,
+      'section': instance.section,
+      'date': instance.date,
+      'present': instance.present,
+      'absent': instance.absent,
+      if (instance.classroomId case final value?) 'classroom_id': value,
+      if (instance.period case final value?) 'period': value,
+      if (instance.timeSlot case final value?) 'time_slot': value,
+      if (instance.subject case final value?) 'subject': value,
     };

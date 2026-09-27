@@ -5,4 +5,6 @@ abstract class ClassroomRepository {
   FutureEither<ClassroomModel?> getClassroomDetails({required int id});
   FutureEither<List<ClassroomStudentModel>> getClassroomStudents(
       {required int id});
+  FutureEither<bool?> classroomAttendance(
+      {required String intent, required AttendanceRequestModel body});
 }

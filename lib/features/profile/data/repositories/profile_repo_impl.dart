@@ -1,3 +1,6 @@
+import 'dart:typed_data';
+
+import 'package:dio/dio.dart';
 import 'package:edu_connect/core/api/api_handler.dart';
 import 'package:edu_connect/core/shared/miscellaneous/typedefs.dart';
 import 'package:edu_connect/core/shared/widgets/toast.dart';
@@ -101,6 +104,24 @@ class ProfileRepoImpl extends ProfileRepository {
       var res = await _apiService.setupBiometric(requestBody);
       successToast(res.message);
       return res.success;
+    });
+  }
+
+  @override
+  FutureEither<UpdateProfileImageResponse> updateProfileImage({
+    required Uint8List bytes,
+    required String filename,
+  }) {
+    return apiHandler(() async {
+      final response = await _apiService.updateProfileImage(FormData.fromMap({
+        'profile_image': MultipartFile.fromBytes(bytes, filename: filename),
+      }));
+      if (response.status != 200 ||
+          response.profileImage == null ||
+          response.profileImage!.trim().isEmpty) {
+        throw StateError(response.message ?? 'Unable to update profile photo.');
+      }
+      return response;
     });
   }
 }

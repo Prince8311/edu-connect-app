@@ -20,6 +20,10 @@ abstract class ProfileApiService {
   @GET(Endpoints.profileDetails)
   Future<ApiResponse<UserDetails>> getUserDetails();
 
+  @POST(Endpoints.updateProfileImage)
+  @Headers(<String, dynamic>{'Content-Type': 'multipart/form-data'})
+  Future<UpdateProfileImageResponse> updateProfileImage(@Body() FormData body);
+
   @POST(Endpoints.sendVerificationOtp)
   @Headers(<String, dynamic>{'Content-Type': 'application/json'})
   Future<ApiResponse> sendVerificationOtp(@Body() OtpResquest body);

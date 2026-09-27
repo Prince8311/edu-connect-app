@@ -6,6 +6,22 @@ part of 'profile_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_$UpdateProfileImageResponseImpl _$$UpdateProfileImageResponseImplFromJson(
+        Map<String, dynamic> json) =>
+    _$UpdateProfileImageResponseImpl(
+      status: (json['status'] as num).toInt(),
+      message: json['message'] as String?,
+      profileImage: json['profile_image'] as String?,
+    );
+
+Map<String, dynamic> _$$UpdateProfileImageResponseImplToJson(
+        _$UpdateProfileImageResponseImpl instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'profile_image': instance.profileImage,
+    };
+
 _$UserDetailsImpl _$$UserDetailsImplFromJson(Map<String, dynamic> json) =>
     _$UserDetailsImpl(
       id: json['id'] as String?,

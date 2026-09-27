@@ -1,5 +1,6 @@
 import 'package:edu_connect/core/api/api_handler.dart';
 import 'package:edu_connect/core/shared/miscellaneous/typedefs.dart';
+import 'package:edu_connect/core/shared/widgets/toast.dart';
 import 'package:edu_connect/features/classroom/data/datasources/classroom_api_service.dart';
 import 'package:edu_connect/features/classroom/domain/models/classroom_model.dart';
 import 'package:edu_connect/features/classroom/domain/repositories/classroom_repository.dart';
@@ -30,6 +31,17 @@ class ClassroomRepoImpl extends ClassroomRepository {
     return apiHandler<List<ClassroomStudentModel>>(() async {
       final res = await _apiService.getClassroomStudents(id: id);
       return res.data ?? [];
+    });
+  }
+
+  @override
+  FutureEither<bool?> classroomAttendance(
+      {required String intent, required AttendanceRequestModel body}) {
+    return apiHandler<bool?>(() async {
+      var res = await _apiService.classroomAttendance(
+          intent: intent, body: body);
+      successToast(res.message);
+      return res.success;
     });
   }
 }

@@ -25,4 +25,11 @@ abstract class ClassroomApiService {
   Future<ApiResponse<List<ClassroomStudentModel>>> getClassroomStudents({
     @Query('id') required int id,
   });
+
+  @POST(Endpoints.classroomAttendance)
+  @Headers(<String, dynamic>{'Content-Type': 'application/json'})
+  Future<ApiResponse> classroomAttendance({
+    @Query('intent') required String intent,
+    @Body() required AttendanceRequestModel body,
+  });
 }

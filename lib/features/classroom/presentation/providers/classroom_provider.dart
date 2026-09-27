@@ -34,3 +34,18 @@ Future<List<ClassroomStudentModel>> getClassroomStudents(Ref ref,
     (r) => r,
   );
 }
+
+@riverpod
+Future<bool?> classroomAttendance(Ref ref,
+    {required String intent, required AttendanceRequestModel body}) async {
+  final repo = ref.read(classroomRepoProvider);
+  final result = await repo.classroomAttendance(intent: intent, body: body);
+
+  return result.fold(
+    (l) {
+      ApiError.commonErrorHandler(l);
+      return null;
+    },
+    (r) => r,
+  );
+}

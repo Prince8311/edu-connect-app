@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:edu_connect/core/api/error_handler.dart';
 import 'package:edu_connect/core/shared/helpers/local_storage.dart';
@@ -15,6 +16,49 @@ part 'profile_provider.g.dart';
 
 @riverpod
 class UserDetailsNotifier extends _$UserDetailsNotifier {
+  Future<UpdateProfileImageResponse?> updateProfileImage({
+    required Uint8List bytes,
+    required String filename,
+  }) async {
+    final keepAlive = ref.keepAlive();
+    try {
+      final storage = ref.read(secureStorageProvider);
+      final savedUser = await storage.readData('user');
+      final result = await ref.read(profileRepoProvider).updateProfileImage(
+            bytes: bytes,
+            filename: filename,
+          );
+      return await result.fold<Future<UpdateProfileImageResponse?>>(
+        (error) async {
+          ApiError.commonErrorHandler(error);
+          return null;
+        },
+        (response) async {
+          // Do not apply an old upload result to a newly selected account.
+          if (await storage.readData('user') != savedUser) return response;
+          final current = state.valueOrNull;
+          if (current != null) {
+            state = AsyncData(
+                current.copyWith(profileImage: response.profileImage));
+          }
+          if (savedUser != null) {
+            final user = UserInfo.fromJson(
+                jsonDecode(savedUser) as Map<String, dynamic>);
+            await storage.writeData(
+                'user',
+                jsonEncode(
+                  user.copyWith(profileImage: response.profileImage).toJson(),
+                ));
+            ref.invalidate(savedUserInfoProvider);
+          }
+          return response;
+        },
+      );
+    } finally {
+      keepAlive.close();
+    }
+  }
+
   @override
   Future<UserDetails?> build() async {
     final result = await ref.read(profileRepoProvider).getUserDetails();

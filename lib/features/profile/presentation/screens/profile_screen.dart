@@ -1,3 +1,5 @@
+import 'package:edu_connect/features/profile/presentation/widgets/profile_photo_editor.dart';
+import 'package:edu_connect/core/router/app_router.dart';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:edu_connect/core/shared/helpers/local_storage.dart';
@@ -383,7 +385,9 @@ class ProfileScreen extends HookConsumerWidget {
             error: (error, stack) => _buildLoadError(ref),
             data: (data) {
               if (data == null) return _buildLoadError(ref);
-              if (savedUserAsync.isLoading) return const ProfileLoading();
+              if (savedUserAsync.isLoading && !savedUserAsync.hasValue) {
+                return const ProfileLoading();
+              }
               final type =
                   (savedUserAsync.asData?.value?.type ?? data.userType ?? '')
                       .trim()
@@ -416,51 +420,9 @@ class ProfileScreen extends HookConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Center(
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Container(
-                                width: 104,
-                                height: 104,
-                                decoration: BoxDecoration(
-                                  color: ColorName.blueColor2,
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                              Container(
-                                width: 98,
-                                height: 98,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: ColorName.white,
-                                    width: 3.5,
-                                  ),
-                                ),
-                                child: ClipOval(
-                                  child: _profileImage(data.profileImage, type),
-                                ),
-                              ),
-                              Positioned(
-                                right: 0,
-                                bottom: 0,
-                                child: Container(
-                                  width: 35,
-                                  height: 35,
-                                  decoration: BoxDecoration(
-                                    color: ColorName.blueColor2,
-                                    border: Border.all(
-                                        color: ColorName.white, width: 3),
-                                    borderRadius: BorderRadius.circular(55),
-                                  ),
-                                  child: Icon(
-                                    Icons.edit,
-                                    size: 16.sp,
-                                    color: ColorName.white,
-                                  ),
-                                ),
-                              )
-                            ],
+                          child: ProfilePhotoEditor(
+                            key: ValueKey('$type:${data.id}'),
+                            currentPhoto: _profileImage(data.profileImage, type),
                           ),
                         ),
                         Gap(15.h),
@@ -680,16 +642,17 @@ class ProfileScreen extends HookConsumerWidget {
                     childAspectRatio: 0.83,
                     children: [
                       _buildFeatureTile(
-                          Icons.description_outlined, 'Documents'),
+                          context, Icons.description_outlined, 'Documents'),
                       _buildFeatureTile(
-                          Icons.calendar_today_outlined, 'Attendance'),
+                          context, Icons.calendar_today_outlined, 'Attendance'),
                       _buildFeatureTile(
-                          Icons.directions_bus_outlined, 'Transport'),
+                          context, Icons.directions_bus_outlined, 'Transport'),
                       if (isTeacher)
-                        _buildFeatureTile(Icons.beach_access_outlined, 'Leaves')
-                      else if (isStudent || isGuardian)
                         _buildFeatureTile(
-                            Icons.insert_chart_outlined, 'Report Card'),
+                            context, Icons.beach_access_outlined, 'Leaves')
+                      else if (isStudent || isGuardian)
+                        _buildFeatureTile(context, Icons.insert_chart_outlined,
+                            'Report Card'),
                     ],
                   ),
                   if (isStudent || isTeacher) ...[
@@ -872,9 +835,10 @@ class ProfileScreen extends HookConsumerWidget {
     );
   }
 
-  Widget _buildFeatureTile(IconData icon, String label) {
-    return SizedBox(
-      width: 80,
+  Widget _buildFeatureTile(BuildContext context, IconData icon, String label) {
+    return InkWell(
+      onTap: () => ComingSoonRoute().push<void>(context),
+      borderRadius: BorderRadius.circular(16),
       child: Column(
         children: [
           Container(

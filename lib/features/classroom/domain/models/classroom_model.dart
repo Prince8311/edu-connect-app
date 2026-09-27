@@ -16,6 +16,8 @@ class ClassroomModel with _$ClassroomModel {
     @JsonKey(name: 'time') String? time,
     @JsonKey(name: 'subject') String? subject,
     @JsonKey(name: 'teacher') String? teacher,
+    @JsonKey(name: 'attendance_type') String? attendanceType,
+    @JsonKey(name: 'attendance_marked') bool? attendanceMarked,
   }) = _ClassroomModel;
 
   factory ClassroomModel.fromJson(Map<String, dynamic> json) =>
@@ -34,4 +36,23 @@ class ClassroomStudentModel with _$ClassroomStudentModel {
 
   factory ClassroomStudentModel.fromJson(Map<String, dynamic> json) =>
       _$ClassroomStudentModelFromJson(json);
+}
+
+@freezed
+class AttendanceRequestModel with _$AttendanceRequestModel {
+  const factory AttendanceRequestModel({
+    @JsonKey(name: 'attendance_type') String? attendanceType,
+    @JsonKey(name: 'class') String? className,
+    @JsonKey(name: 'section') String? section,
+    @JsonKey(name: 'date') String? date,
+    @JsonKey(name: 'present') String? present,
+    @JsonKey(name: 'absent') String? absent,
+    @JsonKey(name: 'classroom_id', includeIfNull: false) String? classroomId,
+    @JsonKey(name: 'period', includeIfNull: false) String? period,
+    @JsonKey(name: 'time_slot', includeIfNull: false) String? timeSlot,
+    @JsonKey(name: 'subject', includeIfNull: false) String? subject,
+  }) = _AttendanceRequestModel;
+
+  factory AttendanceRequestModel.fromJson(Map<String, dynamic> json) =>
+      _$AttendanceRequestModelFromJson(json);
 }

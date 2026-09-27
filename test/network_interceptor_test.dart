@@ -123,4 +123,33 @@ void main() {
     expect(results.every((response) => response.statusCode == 200), true);
     expect(refreshes, 1);
   });
+
+  test('profile image multipart upload can retry after token refresh',
+      () async {
+    final original = FormData.fromMap({
+      'profile_image':
+          MultipartFile.fromBytes([1, 2, 3], filename: 'photo.png'),
+    });
+    var uploads = 0;
+    dio.httpClientAdapter = _Adapter((options) {
+      if (options.path == Endpoints.refreshToken) {
+        return reply(200, {'newToken': 'new-access-token'});
+      }
+      uploads++;
+      final body = options.data as FormData;
+      expect(body.files.single.key, 'profile_image');
+      expect(body.files.single.value.length, 3);
+      if (uploads == 1) return reply(401, {'message': 'Session expired'});
+      expect(identical(body, original), false);
+      return reply(200, {'status': 200, 'profile_image': 'new.png'});
+    });
+    final response = await dio
+        .post<Map<String, dynamic>>(
+          '/user${Endpoints.updateProfileImage}',
+          data: original,
+        )
+        .timeout(const Duration(seconds: 2));
+    expect(response.data?['profile_image'], 'new.png');
+    expect(uploads, 2);
+  });
 }

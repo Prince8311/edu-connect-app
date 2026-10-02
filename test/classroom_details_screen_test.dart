@@ -11,7 +11,25 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
-  final classroom = ClassroomModel(
+  const students = [
+    ClassroomStudentModel(
+        studentId: 1, name: 'Aarav Sharma', enrollmentId: 'EN01'),
+    ClassroomStudentModel(
+        studentId: 2, name: 'Ananya Rao', enrollmentId: 'EN02'),
+    ClassroomStudentModel(
+        studentId: 3, name: 'Diya Patel', enrollmentId: 'EN03'),
+    ClassroomStudentModel(
+        studentId: 4, name: 'Ishaan Kumar', enrollmentId: 'EN04'),
+    ClassroomStudentModel(
+        studentId: 5, name: 'Meera Nair', enrollmentId: 'EN05'),
+    ClassroomStudentModel(
+        studentId: 6, name: 'Rohan Reddy', enrollmentId: 'EN06'),
+    ClassroomStudentModel(
+        studentId: 7, name: 'Saanvi Shetty', enrollmentId: 'EN07'),
+    ClassroomStudentModel(
+        studentId: 8, name: 'Vivaan Joshi', enrollmentId: 'EN08'),
+  ];
+  const classroom = ClassroomModel(
     id: 17,
     classroomId: '1AMM2688',
     className: '1',
@@ -21,26 +39,11 @@ void main() {
     time: '09:30 AM - 10:30 AM',
     subject: 'Math',
     teacher: 'Saanvi Mander Lakshay Chandran Anaya Sangha',
-    students: [
-      for (final (index, name) in [
-        'Aarav Sharma',
-        'Ananya Rao',
-        'Diya Patel',
-        'Ishaan Kumar',
-        'Meera Nair',
-        'Rohan Reddy',
-        'Saanvi Shetty',
-        'Vivaan Joshi'
-      ].indexed)
-        ClassroomStudentModel(
-            studentId: index + 1,
-            name: name,
-            enrollmentId: 'EN${(index + 1).toString().padLeft(2, '0')}'),
-    ],
   );
   Future<void> openScreen(WidgetTester tester, Size size,
       {double textScale = 1,
       Future<ClassroomModel?> Function()? load,
+      Future<List<ClassroomStudentModel>> Function()? loadStudents,
       bool settle = true,
       String? userType = 'teacher'}) async {
     tester.view.physicalSize = size;
@@ -48,11 +51,14 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     await tester.pumpWidget(ProviderScope(
+      retry: (_, _) => null,
       overrides: [
         savedUserInfoProvider
             .overrideWith((ref) async => UserInfo(type: userType)),
         getClassroomDetailsProvider(id: 17).overrideWith(
-            (ref) => load == null ? Future.value(classroom) : load())
+            (ref) => load == null ? Future.value(classroom) : load()),
+        getClassroomStudentsProvider(id: 17).overrideWith((ref) =>
+            loadStudents == null ? Future.value(students) : loadStudents()),
       ],
       child: MaterialApp(
         navigatorKey: rootNavigatorKey,
@@ -118,7 +124,7 @@ void main() {
 
   testWidgets('Shows an empty student roster', (tester) async {
     await openScreen(tester, const Size(390, 844),
-        load: () async => classroom.copyWith(students: []));
+        loadStudents: () async => []);
     await tester.scrollUntilVisible(find.text('No students found'), 200,
         scrollable: find.byType(Scrollable).first);
     expect(find.text('No students have been added to this classroom.'),
@@ -174,7 +180,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('Meet your class'), findsOneWidget);
       expect(find.text('AS'), findsWidgets);
-      expect(find.text('EN01'), findsOneWidget);
+      expect(find.text('EN01'), findsWidgets);
       expect(find.text('1 / 8'), findsOneWidget);
       await tester.ensureVisible(find.byTooltip('Next student'));
       await tester.tap(find.byTooltip('Next student'));
@@ -193,7 +199,7 @@ void main() {
 
   testWidgets('Attendance handles an empty roster', (tester) async {
     await openScreen(tester, const Size(390, 844),
-        load: () async => classroom.copyWith(students: []));
+        loadStudents: () async => []);
     await tester.tap(find.text('Attendance'));
     await tester.pumpAndSettle();
     expect(find.text('No students yet'), findsOneWidget);

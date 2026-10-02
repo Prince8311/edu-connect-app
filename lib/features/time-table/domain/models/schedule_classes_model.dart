@@ -4,7 +4,7 @@ part 'schedule_classes_model.freezed.dart';
 part 'schedule_classes_model.g.dart';
 
 @freezed
-class TimeTableResponse with _$TimeTableResponse {
+abstract class TimeTableResponse with _$TimeTableResponse {
   const factory TimeTableResponse({
     @JsonKey(name: 'scheduled_classes') List<ClassItem>? scheduledClasses,
     @JsonKey(name: 'weekly_scheduled_classes')
@@ -20,7 +20,7 @@ class TimeTableResponse with _$TimeTableResponse {
 }
 
 @freezed
-class WeeklyScheduleItem with _$WeeklyScheduleItem {
+abstract class WeeklyScheduleItem with _$WeeklyScheduleItem {
   const factory WeeklyScheduleItem({
     @JsonKey(name: 'day') String? day,
     @JsonKey(name: 'classes') List<ClassItem>? classes,
@@ -31,7 +31,7 @@ class WeeklyScheduleItem with _$WeeklyScheduleItem {
 }
 
 @freezed
-class ClassItem with _$ClassItem {
+abstract class ClassItem with _$ClassItem {
   const factory ClassItem({
     @JsonKey(name: 'id') int? id,
     @JsonKey(name: 'period') String? period,
@@ -48,7 +48,7 @@ class ClassItem with _$ClassItem {
 }
 
 @freezed
-class OngoingClassModel with _$OngoingClassModel {
+abstract class OngoingClassModel with _$OngoingClassModel {
   const factory OngoingClassModel({
     @JsonKey(name: 'id') int? id,
     @JsonKey(name: 'classroom_id') String? classroomId,

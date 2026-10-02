@@ -4,7 +4,7 @@ part 'time_slot_model.freezed.dart';
 part 'time_slot_model.g.dart';
 
 @freezed
-class TimeSlotModel with _$TimeSlotModel {
+abstract class TimeSlotModel with _$TimeSlotModel {
   const factory TimeSlotModel({
     @JsonKey(name: 'id') String? id,
     @JsonKey(name: 'inst_id') String? instId,

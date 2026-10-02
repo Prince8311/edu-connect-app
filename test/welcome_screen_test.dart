@@ -98,9 +98,14 @@ void main() {
           await tester.pump(const Duration(milliseconds: 100));
         }
         await tester.pumpAndSettle();
-        expect(
-            find.text(token == null ? 'Auth destination' : 'Home destination'),
-            findsOneWidget);
+        if (completed) {
+          expect(
+              find.text(
+                  token == null ? 'Auth destination' : 'Home destination'),
+              findsOneWidget);
+        } else {
+          expect(find.byType(WelcomeScreen), findsOneWidget);
+        }
         verifyNever(
             () => storage.writeBool(LocalStorageKeys.welcomeCompleted, true));
       });

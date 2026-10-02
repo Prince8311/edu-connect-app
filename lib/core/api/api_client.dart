@@ -4,7 +4,6 @@ import 'package:edu_connect/core/constants/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'network_interceptor.dart';
 
 final apiClientProvider = Provider<Dio>((ref) {
@@ -13,9 +12,8 @@ final apiClientProvider = Provider<Dio>((ref) {
       baseUrl: Endpoints.baseURL,
       connectTimeout: const Duration(seconds: AppConstants.connectionTimeout),
       receiveTimeout: const Duration(seconds: AppConstants.responseTimeout),
-      headers: const {
-        'Content-Type': 'application/json',
-      },
+      sendTimeout: const Duration(seconds: 60),
+      headers: const {'Content-Type': 'application/json'},
     ),
   );
 
@@ -29,13 +27,13 @@ final apiClientProvider = Provider<Dio>((ref) {
             !options.uri.path.endsWith(Endpoints.biometricLogin) &&
             !options.uri.path.endsWith(Endpoints.resetBiometric),
         request: true,
-        requestHeader: true,
-        requestBody: true,
+        requestHeader: false,
+        requestBody: false,
         responseHeader: true,
         responseBody: true,
-        error: true,
+        error: false,
         compact: true,
-        maxWidth: 90,
+        maxWidth: 120,
       ),
     );
   }
@@ -44,14 +42,8 @@ final apiClientProvider = Provider<Dio>((ref) {
   dio.interceptors.add(NetworkInterceptor(ref, dio));
 
   /// 🌐 Retry requests when internet reconnects
-  dio.interceptors.add(
-    RetryOnConnectionChangeInterceptor(
-      requestRetrier: DioConnectivityRequestRetrier(
-        dio: dio,
-        connectivity: Connectivity(),
-      ),
-    ),
-  );
+  // Offline requests must finish so users can retry instead of waiting forever.
+  ref.onDispose(() => dio.close(force: true));
 
   return dio;
 });

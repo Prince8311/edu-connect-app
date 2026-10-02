@@ -26,7 +26,7 @@ class BooksContent extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final booksState = ref.watch(libraryBooksNotifierProvider);
     final books = booksState.books;
-    final userInfo = ref.watch(savedUserInfoProvider).valueOrNull;
+    final userInfo = ref.watch(savedUserInfoProvider).value;
     final isTeacher = (userInfo?.type ?? '').trim().toLowerCase() == 'teacher';
 
     return Expanded(
@@ -475,8 +475,8 @@ class _BookFilterBottomSheetState extends ConsumerState<BookFilterBottomSheet> {
     );
 
     final values = selectedType == BookFilterType.classes
-        ? (classesAsync.valueOrNull ?? const <String>[])
-        : (subjectsAsync.valueOrNull ?? const <String>[]);
+        ? (classesAsync.value ?? const <String>[])
+        : (subjectsAsync.value ?? const <String>[]);
 
     final selected = selectedType == BookFilterType.classes
         ? selectedClasses

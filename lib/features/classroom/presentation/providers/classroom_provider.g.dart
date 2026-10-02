@@ -6,446 +6,243 @@ part of 'classroom_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getClassroomDetailsHash() =>
-    r'6fff0e84213f5d65841577d7d9118018a2d96734';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-/// See also [getClassroomDetails].
 @ProviderFor(getClassroomDetails)
-const getClassroomDetailsProvider = GetClassroomDetailsFamily();
+final getClassroomDetailsProvider = GetClassroomDetailsFamily._();
 
-/// See also [getClassroomDetails].
-class GetClassroomDetailsFamily extends Family<AsyncValue<ClassroomModel?>> {
-  /// See also [getClassroomDetails].
-  const GetClassroomDetailsFamily();
+final class GetClassroomDetailsProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<ClassroomModel?>,
+          ClassroomModel?,
+          FutureOr<ClassroomModel?>
+        >
+    with $FutureModifier<ClassroomModel?>, $FutureProvider<ClassroomModel?> {
+  GetClassroomDetailsProvider._({
+    required GetClassroomDetailsFamily super.from,
+    required int super.argument,
+  }) : super(
+         retry: null,
+         name: r'getClassroomDetailsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
-  /// See also [getClassroomDetails].
-  GetClassroomDetailsProvider call({
-    required int id,
-  }) {
-    return GetClassroomDetailsProvider(
-      id: id,
-    );
+  @override
+  String debugGetCreateSourceHash() => _$getClassroomDetailsHash();
+
+  @override
+  String toString() {
+    return r'getClassroomDetailsProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  GetClassroomDetailsProvider getProviderOverride(
-    covariant GetClassroomDetailsProvider provider,
-  ) {
-    return call(
-      id: provider.id,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
+  $FutureProviderElement<ClassroomModel?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'getClassroomDetailsProvider';
-}
-
-/// See also [getClassroomDetails].
-class GetClassroomDetailsProvider
-    extends AutoDisposeFutureProvider<ClassroomModel?> {
-  /// See also [getClassroomDetails].
-  GetClassroomDetailsProvider({
-    required int id,
-  }) : this._internal(
-          (ref) => getClassroomDetails(
-            ref as GetClassroomDetailsRef,
-            id: id,
-          ),
-          from: getClassroomDetailsProvider,
-          name: r'getClassroomDetailsProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$getClassroomDetailsHash,
-          dependencies: GetClassroomDetailsFamily._dependencies,
-          allTransitiveDependencies:
-              GetClassroomDetailsFamily._allTransitiveDependencies,
-          id: id,
-        );
-
-  GetClassroomDetailsProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.id,
-  }) : super.internal();
-
-  final int id;
-
-  @override
-  Override overrideWith(
-    FutureOr<ClassroomModel?> Function(GetClassroomDetailsRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: GetClassroomDetailsProvider._internal(
-        (ref) => create(ref as GetClassroomDetailsRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        id: id,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<ClassroomModel?> createElement() {
-    return _GetClassroomDetailsProviderElement(this);
+  FutureOr<ClassroomModel?> create(Ref ref) {
+    final argument = this.argument as int;
+    return getClassroomDetails(ref, id: argument);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is GetClassroomDetailsProvider && other.id == id;
+    return other is GetClassroomDetailsProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, id.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin GetClassroomDetailsRef on AutoDisposeFutureProviderRef<ClassroomModel?> {
-  /// The parameter `id` of this provider.
-  int get id;
-}
+String _$getClassroomDetailsHash() =>
+    r'6fff0e84213f5d65841577d7d9118018a2d96734';
 
-class _GetClassroomDetailsProviderElement
-    extends AutoDisposeFutureProviderElement<ClassroomModel?>
-    with GetClassroomDetailsRef {
-  _GetClassroomDetailsProviderElement(super.provider);
+final class GetClassroomDetailsFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<ClassroomModel?>, int> {
+  GetClassroomDetailsFamily._()
+    : super(
+        retry: null,
+        name: r'getClassroomDetailsProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  GetClassroomDetailsProvider call({required int id}) =>
+      GetClassroomDetailsProvider._(argument: id, from: this);
 
   @override
-  int get id => (origin as GetClassroomDetailsProvider).id;
+  String toString() => r'getClassroomDetailsProvider';
+}
+
+@ProviderFor(getClassroomStudents)
+final getClassroomStudentsProvider = GetClassroomStudentsFamily._();
+
+final class GetClassroomStudentsProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<ClassroomStudentModel>>,
+          List<ClassroomStudentModel>,
+          FutureOr<List<ClassroomStudentModel>>
+        >
+    with
+        $FutureModifier<List<ClassroomStudentModel>>,
+        $FutureProvider<List<ClassroomStudentModel>> {
+  GetClassroomStudentsProvider._({
+    required GetClassroomStudentsFamily super.from,
+    required int super.argument,
+  }) : super(
+         retry: null,
+         name: r'getClassroomStudentsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$getClassroomStudentsHash();
+
+  @override
+  String toString() {
+    return r'getClassroomStudentsProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<List<ClassroomStudentModel>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<ClassroomStudentModel>> create(Ref ref) {
+    final argument = this.argument as int;
+    return getClassroomStudents(ref, id: argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetClassroomStudentsProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
 String _$getClassroomStudentsHash() =>
     r'7a207e9597b6d5c40b006da528a7e6b10b7a18cd';
 
-/// See also [getClassroomStudents].
-@ProviderFor(getClassroomStudents)
-const getClassroomStudentsProvider = GetClassroomStudentsFamily();
+final class GetClassroomStudentsFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<List<ClassroomStudentModel>>, int> {
+  GetClassroomStudentsFamily._()
+    : super(
+        retry: null,
+        name: r'getClassroomStudentsProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
 
-/// See also [getClassroomStudents].
-class GetClassroomStudentsFamily
-    extends Family<AsyncValue<List<ClassroomStudentModel>>> {
-  /// See also [getClassroomStudents].
-  const GetClassroomStudentsFamily();
-
-  /// See also [getClassroomStudents].
-  GetClassroomStudentsProvider call({
-    required int id,
-  }) {
-    return GetClassroomStudentsProvider(
-      id: id,
-    );
-  }
+  GetClassroomStudentsProvider call({required int id}) =>
+      GetClassroomStudentsProvider._(argument: id, from: this);
 
   @override
-  GetClassroomStudentsProvider getProviderOverride(
-    covariant GetClassroomStudentsProvider provider,
-  ) {
-    return call(
-      id: provider.id,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'getClassroomStudentsProvider';
+  String toString() => r'getClassroomStudentsProvider';
 }
 
-/// See also [getClassroomStudents].
-class GetClassroomStudentsProvider
-    extends AutoDisposeFutureProvider<List<ClassroomStudentModel>> {
-  /// See also [getClassroomStudents].
-  GetClassroomStudentsProvider({
-    required int id,
-  }) : this._internal(
-          (ref) => getClassroomStudents(
-            ref as GetClassroomStudentsRef,
-            id: id,
-          ),
-          from: getClassroomStudentsProvider,
-          name: r'getClassroomStudentsProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$getClassroomStudentsHash,
-          dependencies: GetClassroomStudentsFamily._dependencies,
-          allTransitiveDependencies:
-              GetClassroomStudentsFamily._allTransitiveDependencies,
-          id: id,
-        );
+@ProviderFor(classroomAttendance)
+final classroomAttendanceProvider = ClassroomAttendanceFamily._();
 
-  GetClassroomStudentsProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.id,
-  }) : super.internal();
-
-  final int id;
+final class ClassroomAttendanceProvider
+    extends $FunctionalProvider<AsyncValue<bool?>, bool?, FutureOr<bool?>>
+    with $FutureModifier<bool?>, $FutureProvider<bool?> {
+  ClassroomAttendanceProvider._({
+    required ClassroomAttendanceFamily super.from,
+    required ({String intent, AttendanceRequestModel body}) super.argument,
+  }) : super(
+         retry: null,
+         name: r'classroomAttendanceProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
-  Override overrideWith(
-    FutureOr<List<ClassroomStudentModel>> Function(
-            GetClassroomStudentsRef provider)
-        create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: GetClassroomStudentsProvider._internal(
-        (ref) => create(ref as GetClassroomStudentsRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        id: id,
-      ),
-    );
+  String debugGetCreateSourceHash() => _$classroomAttendanceHash();
+
+  @override
+  String toString() {
+    return r'classroomAttendanceProvider'
+        ''
+        '$argument';
   }
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<List<ClassroomStudentModel>>
-      createElement() {
-    return _GetClassroomStudentsProviderElement(this);
+  $FutureProviderElement<bool?> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<bool?> create(Ref ref) {
+    final argument =
+        this.argument as ({String intent, AttendanceRequestModel body});
+    return classroomAttendance(
+      ref,
+      intent: argument.intent,
+      body: argument.body,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is GetClassroomStudentsProvider && other.id == id;
+    return other is ClassroomAttendanceProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, id.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin GetClassroomStudentsRef
-    on AutoDisposeFutureProviderRef<List<ClassroomStudentModel>> {
-  /// The parameter `id` of this provider.
-  int get id;
-}
-
-class _GetClassroomStudentsProviderElement
-    extends AutoDisposeFutureProviderElement<List<ClassroomStudentModel>>
-    with GetClassroomStudentsRef {
-  _GetClassroomStudentsProviderElement(super.provider);
-
-  @override
-  int get id => (origin as GetClassroomStudentsProvider).id;
 }
 
 String _$classroomAttendanceHash() =>
     r'af3559da5dbfd7cdabc99e649746638a903b931a';
 
-/// See also [classroomAttendance].
-@ProviderFor(classroomAttendance)
-const classroomAttendanceProvider = ClassroomAttendanceFamily();
+final class ClassroomAttendanceFamily extends $Family
+    with
+        $FunctionalFamilyOverride<
+          FutureOr<bool?>,
+          ({String intent, AttendanceRequestModel body})
+        > {
+  ClassroomAttendanceFamily._()
+    : super(
+        retry: null,
+        name: r'classroomAttendanceProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
 
-/// See also [classroomAttendance].
-class ClassroomAttendanceFamily extends Family<AsyncValue<bool?>> {
-  /// See also [classroomAttendance].
-  const ClassroomAttendanceFamily();
-
-  /// See also [classroomAttendance].
   ClassroomAttendanceProvider call({
     required String intent,
     required AttendanceRequestModel body,
-  }) {
-    return ClassroomAttendanceProvider(
-      intent: intent,
-      body: body,
-    );
-  }
+  }) => ClassroomAttendanceProvider._(
+    argument: (intent: intent, body: body),
+    from: this,
+  );
 
   @override
-  ClassroomAttendanceProvider getProviderOverride(
-    covariant ClassroomAttendanceProvider provider,
-  ) {
-    return call(
-      intent: provider.intent,
-      body: provider.body,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'classroomAttendanceProvider';
+  String toString() => r'classroomAttendanceProvider';
 }
-
-/// See also [classroomAttendance].
-class ClassroomAttendanceProvider extends AutoDisposeFutureProvider<bool?> {
-  /// See also [classroomAttendance].
-  ClassroomAttendanceProvider({
-    required String intent,
-    required AttendanceRequestModel body,
-  }) : this._internal(
-          (ref) => classroomAttendance(
-            ref as ClassroomAttendanceRef,
-            intent: intent,
-            body: body,
-          ),
-          from: classroomAttendanceProvider,
-          name: r'classroomAttendanceProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$classroomAttendanceHash,
-          dependencies: ClassroomAttendanceFamily._dependencies,
-          allTransitiveDependencies:
-              ClassroomAttendanceFamily._allTransitiveDependencies,
-          intent: intent,
-          body: body,
-        );
-
-  ClassroomAttendanceProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.intent,
-    required this.body,
-  }) : super.internal();
-
-  final String intent;
-  final AttendanceRequestModel body;
-
-  @override
-  Override overrideWith(
-    FutureOr<bool?> Function(ClassroomAttendanceRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: ClassroomAttendanceProvider._internal(
-        (ref) => create(ref as ClassroomAttendanceRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        intent: intent,
-        body: body,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<bool?> createElement() {
-    return _ClassroomAttendanceProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is ClassroomAttendanceProvider &&
-        other.intent == intent &&
-        other.body == body;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, intent.hashCode);
-    hash = _SystemHash.combine(hash, body.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin ClassroomAttendanceRef on AutoDisposeFutureProviderRef<bool?> {
-  /// The parameter `intent` of this provider.
-  String get intent;
-
-  /// The parameter `body` of this provider.
-  AttendanceRequestModel get body;
-}
-
-class _ClassroomAttendanceProviderElement
-    extends AutoDisposeFutureProviderElement<bool?>
-    with ClassroomAttendanceRef {
-  _ClassroomAttendanceProviderElement(super.provider);
-
-  @override
-  String get intent => (origin as ClassroomAttendanceProvider).intent;
-  @override
-  AttendanceRequestModel get body =>
-      (origin as ClassroomAttendanceProvider).body;
-}
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

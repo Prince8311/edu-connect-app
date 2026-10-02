@@ -2,6 +2,7 @@ import 'package:edu_connect/gen/colors.gen.dart';
 import 'package:edu_connect/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:hooks_riverpod/misc.dart' show Refreshable;
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 class AppRefreshIndicator<T> extends ConsumerWidget {
@@ -58,8 +59,11 @@ class AppRefreshButton<T> extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return TextButton(
-      onPressed: () async {
+      onPressed: () {
         onRefreshCalled?.call();
+        // Reading the returned value starts the provider refresh. This button
+        // intentionally does not wait for providers with asynchronous values.
+        // ignore: unused_result
         ref.refresh(provider);
       },
       child: Container(

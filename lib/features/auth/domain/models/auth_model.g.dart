@@ -6,15 +6,15 @@ part of 'auth_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$LoginRequestImpl _$$LoginRequestImplFromJson(Map<String, dynamic> json) =>
-    _$LoginRequestImpl(
+_LoginRequest _$LoginRequestFromJson(Map<String, dynamic> json) =>
+    _LoginRequest(
       name: json['name'] as String?,
       loginByOtp: json['loginByOtp'] as bool?,
       password: json['password'] as String?,
       otp: json['otp'] as String?,
     );
 
-Map<String, dynamic> _$$LoginRequestImplToJson(_$LoginRequestImpl instance) =>
+Map<String, dynamic> _$LoginRequestToJson(_LoginRequest instance) =>
     <String, dynamic>{
       'name': instance.name,
       'loginByOtp': instance.loginByOtp,
@@ -22,54 +22,49 @@ Map<String, dynamic> _$$LoginRequestImplToJson(_$LoginRequestImpl instance) =>
       'otp': instance.otp,
     };
 
-_$BiometricLoginRequestImpl _$$BiometricLoginRequestImplFromJson(
-        Map<String, dynamic> json) =>
-    _$BiometricLoginRequestImpl(
-      userId: (json['user_id'] as num?)?.toInt(),
-      deviceId: json['device_id'] as String?,
-      deviceToken: json['device_token'] as String?,
-      biometricType: json['biometric_type'] as String?,
-    );
+_BiometricLoginRequest _$BiometricLoginRequestFromJson(
+  Map<String, dynamic> json,
+) => _BiometricLoginRequest(
+  userId: (json['user_id'] as num?)?.toInt(),
+  deviceId: json['device_id'] as String?,
+  deviceToken: json['device_token'] as String?,
+  biometricType: json['biometric_type'] as String?,
+);
 
-Map<String, dynamic> _$$BiometricLoginRequestImplToJson(
-        _$BiometricLoginRequestImpl instance) =>
-    <String, dynamic>{
-      if (instance.userId case final value?) 'user_id': value,
-      'device_id': instance.deviceId,
-      'device_token': instance.deviceToken,
-      'biometric_type': instance.biometricType,
-    };
+Map<String, dynamic> _$BiometricLoginRequestToJson(
+  _BiometricLoginRequest instance,
+) => <String, dynamic>{
+  'user_id': ?instance.userId,
+  'device_id': instance.deviceId,
+  'device_token': instance.deviceToken,
+  'biometric_type': instance.biometricType,
+};
 
-_$RoleSelectRequestImpl _$$RoleSelectRequestImplFromJson(
-        Map<String, dynamic> json) =>
-    _$RoleSelectRequestImpl(
+_RoleSelectRequest _$RoleSelectRequestFromJson(Map<String, dynamic> json) =>
+    _RoleSelectRequest(
       tempToken: json['tempToken'] as String?,
       role: json['role'] as String?,
     );
 
-Map<String, dynamic> _$$RoleSelectRequestImplToJson(
-        _$RoleSelectRequestImpl instance) =>
-    <String, dynamic>{
-      'tempToken': instance.tempToken,
-      'role': instance.role,
-    };
+Map<String, dynamic> _$RoleSelectRequestToJson(_RoleSelectRequest instance) =>
+    <String, dynamic>{'tempToken': instance.tempToken, 'role': instance.role};
 
-_$StudentSelectRequestImpl _$$StudentSelectRequestImplFromJson(
-        Map<String, dynamic> json) =>
-    _$StudentSelectRequestImpl(
-      tempToken: json['tempToken'] as String?,
-      studentId: json['studentId'] as String?,
-    );
+_StudentSelectRequest _$StudentSelectRequestFromJson(
+  Map<String, dynamic> json,
+) => _StudentSelectRequest(
+  tempToken: json['tempToken'] as String?,
+  studentId: json['studentId'] as String?,
+);
 
-Map<String, dynamic> _$$StudentSelectRequestImplToJson(
-        _$StudentSelectRequestImpl instance) =>
-    <String, dynamic>{
-      'tempToken': instance.tempToken,
-      'studentId': instance.studentId,
-    };
+Map<String, dynamic> _$StudentSelectRequestToJson(
+  _StudentSelectRequest instance,
+) => <String, dynamic>{
+  'tempToken': instance.tempToken,
+  'studentId': instance.studentId,
+};
 
-_$AuthResponseImpl _$$AuthResponseImplFromJson(Map<String, dynamic> json) =>
-    _$AuthResponseImpl(
+_AuthResponse _$AuthResponseFromJson(Map<String, dynamic> json) =>
+    _AuthResponse(
       nextScreen: json['next_screen'] as String?,
       userChoose: json['userChoose'] as bool?,
       tempToken: json['tempToken'] as String?,
@@ -79,7 +74,7 @@ _$AuthResponseImpl _$$AuthResponseImplFromJson(Map<String, dynamic> json) =>
       authToken: json['authToken'] as String?,
     );
 
-Map<String, dynamic> _$$AuthResponseImplToJson(_$AuthResponseImpl instance) =>
+Map<String, dynamic> _$AuthResponseToJson(_AuthResponse instance) =>
     <String, dynamic>{
       'next_screen': instance.nextScreen,
       'userChoose': instance.userChoose,
@@ -88,9 +83,8 @@ Map<String, dynamic> _$$AuthResponseImplToJson(_$AuthResponseImpl instance) =>
       'authToken': instance.authToken,
     };
 
-_$GuardianStudentImpl _$$GuardianStudentImplFromJson(
-        Map<String, dynamic> json) =>
-    _$GuardianStudentImpl(
+_GuardianStudent _$GuardianStudentFromJson(Map<String, dynamic> json) =>
+    _GuardianStudent(
       id: (json['id'] as num?)?.toInt(),
       instId: json['inst_id'] as String?,
       name: json['name'] as String?,
@@ -102,8 +96,7 @@ _$GuardianStudentImpl _$$GuardianStudentImplFromJson(
       section: json['section'] as String?,
     );
 
-Map<String, dynamic> _$$GuardianStudentImplToJson(
-        _$GuardianStudentImpl instance) =>
+Map<String, dynamic> _$GuardianStudentToJson(_GuardianStudent instance) =>
     <String, dynamic>{
       'id': instance.id,
       'inst_id': instance.instId,
@@ -116,9 +109,8 @@ Map<String, dynamic> _$$GuardianStudentImplToJson(
       'section': instance.section,
     };
 
-_$BiometricUserInfoImpl _$$BiometricUserInfoImplFromJson(
-        Map<String, dynamic> json) =>
-    _$BiometricUserInfoImpl(
+_BiometricUserInfo _$BiometricUserInfoFromJson(Map<String, dynamic> json) =>
+    _BiometricUserInfo(
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
       profileImage: json['profile_image'] as String?,
@@ -127,8 +119,7 @@ _$BiometricUserInfoImpl _$$BiometricUserInfoImplFromJson(
           .toList(),
     );
 
-Map<String, dynamic> _$$BiometricUserInfoImplToJson(
-        _$BiometricUserInfoImpl instance) =>
+Map<String, dynamic> _$BiometricUserInfoToJson(_BiometricUserInfo instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
@@ -136,34 +127,28 @@ Map<String, dynamic> _$$BiometricUserInfoImplToJson(
       'user_type': instance.userType,
     };
 
-_$UserInfoImpl _$$UserInfoImplFromJson(Map<String, dynamic> json) =>
-    _$UserInfoImpl(
-      id: (json['id'] as num?)?.toInt(),
-      name: json['name'] as String?,
-      email: json['email'] as String?,
-      phone: json['phone'] as String?,
-      profileImage: json['profile_image'] as String?,
-      type: json['type'] as String?,
-      student: (json['student'] as num?)?.toInt(),
-    );
+_UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => _UserInfo(
+  id: (json['id'] as num?)?.toInt(),
+  name: json['name'] as String?,
+  email: json['email'] as String?,
+  phone: json['phone'] as String?,
+  profileImage: json['profile_image'] as String?,
+  type: json['type'] as String?,
+  student: (json['student'] as num?)?.toInt(),
+);
 
-Map<String, dynamic> _$$UserInfoImplToJson(_$UserInfoImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'email': instance.email,
-      'phone': instance.phone,
-      'profile_image': instance.profileImage,
-      'type': instance.type,
-      'student': instance.student,
-    };
+Map<String, dynamic> _$UserInfoToJson(_UserInfo instance) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'email': instance.email,
+  'phone': instance.phone,
+  'profile_image': instance.profileImage,
+  'type': instance.type,
+  'student': instance.student,
+};
 
-_$OtpRequestImpl _$$OtpRequestImplFromJson(Map<String, dynamic> json) =>
-    _$OtpRequestImpl(
-      name: json['name'] as String?,
-    );
+_OtpRequest _$OtpRequestFromJson(Map<String, dynamic> json) =>
+    _OtpRequest(name: json['name'] as String?);
 
-Map<String, dynamic> _$$OtpRequestImplToJson(_$OtpRequestImpl instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-    };
+Map<String, dynamic> _$OtpRequestToJson(_OtpRequest instance) =>
+    <String, dynamic>{'name': instance.name};

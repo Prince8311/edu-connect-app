@@ -1,6 +1,6 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: type=lint
+// coverage:ignore-file
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'library_model.dart';
@@ -9,1042 +9,1123 @@ part of 'library_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-BookListModel _$BookListModelFromJson(Map<String, dynamic> json) {
-  return _BookListModel.fromJson(json);
-}
 
 /// @nodoc
 mixin _$BookListModel {
-  @JsonKey(name: 'list')
-  List<BookItemModel>? get list => throw _privateConstructorUsedError;
-  @JsonKey(name: 'totalCount')
-  int? get totalCount => throw _privateConstructorUsedError;
-  @JsonKey(name: 'currentPage')
-  int? get currentPage => throw _privateConstructorUsedError;
+
+@JsonKey(name: 'list') List<BookItemModel>? get list;@JsonKey(name: 'totalCount') int? get totalCount;@JsonKey(name: 'currentPage') int? get currentPage;
+/// Create a copy of BookListModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$BookListModelCopyWith<BookListModel> get copyWith => _$BookListModelCopyWithImpl<BookListModel>(this as BookListModel, _$identity);
 
   /// Serializes this BookListModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of BookListModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $BookListModelCopyWith<BookListModel> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BookListModel&&const DeepCollectionEquality().equals(other.list, list)&&(identical(other.totalCount, totalCount) || other.totalCount == totalCount)&&(identical(other.currentPage, currentPage) || other.currentPage == currentPage));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(list),totalCount,currentPage);
+
+@override
+String toString() {
+  return 'BookListModel(list: $list, totalCount: $totalCount, currentPage: $currentPage)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $BookListModelCopyWith<$Res> {
-  factory $BookListModelCopyWith(
-          BookListModel value, $Res Function(BookListModel) then) =
-      _$BookListModelCopyWithImpl<$Res, BookListModel>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'list') List<BookItemModel>? list,
-      @JsonKey(name: 'totalCount') int? totalCount,
-      @JsonKey(name: 'currentPage') int? currentPage});
-}
+abstract mixin class $BookListModelCopyWith<$Res>  {
+  factory $BookListModelCopyWith(BookListModel value, $Res Function(BookListModel) _then) = _$BookListModelCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'list') List<BookItemModel>? list,@JsonKey(name: 'totalCount') int? totalCount,@JsonKey(name: 'currentPage') int? currentPage
+});
 
+
+
+
+}
 /// @nodoc
-class _$BookListModelCopyWithImpl<$Res, $Val extends BookListModel>
+class _$BookListModelCopyWithImpl<$Res>
     implements $BookListModelCopyWith<$Res> {
-  _$BookListModelCopyWithImpl(this._value, this._then);
+  _$BookListModelCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final BookListModel _self;
+  final $Res Function(BookListModel) _then;
 
-  /// Create a copy of BookListModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? list = freezed,
-    Object? totalCount = freezed,
-    Object? currentPage = freezed,
-  }) {
-    return _then(_value.copyWith(
-      list: freezed == list
-          ? _value.list
-          : list // ignore: cast_nullable_to_non_nullable
-              as List<BookItemModel>?,
-      totalCount: freezed == totalCount
-          ? _value.totalCount
-          : totalCount // ignore: cast_nullable_to_non_nullable
-              as int?,
-      currentPage: freezed == currentPage
-          ? _value.currentPage
-          : currentPage // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ) as $Val);
-  }
+/// Create a copy of BookListModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? list = freezed,Object? totalCount = freezed,Object? currentPage = freezed,}) {
+  return _then(BookListModel(
+list: freezed == list ? _self.list : list // ignore: cast_nullable_to_non_nullable
+as List<BookItemModel>?,totalCount: freezed == totalCount ? _self.totalCount : totalCount // ignore: cast_nullable_to_non_nullable
+as int?,currentPage: freezed == currentPage ? _self.currentPage : currentPage // ignore: cast_nullable_to_non_nullable
+as int?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$BookListModelImplCopyWith<$Res>
-    implements $BookListModelCopyWith<$Res> {
-  factory _$$BookListModelImplCopyWith(
-          _$BookListModelImpl value, $Res Function(_$BookListModelImpl) then) =
-      __$$BookListModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'list') List<BookItemModel>? list,
-      @JsonKey(name: 'totalCount') int? totalCount,
-      @JsonKey(name: 'currentPage') int? currentPage});
 }
 
-/// @nodoc
-class __$$BookListModelImplCopyWithImpl<$Res>
-    extends _$BookListModelCopyWithImpl<$Res, _$BookListModelImpl>
-    implements _$$BookListModelImplCopyWith<$Res> {
-  __$$BookListModelImplCopyWithImpl(
-      _$BookListModelImpl _value, $Res Function(_$BookListModelImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of BookListModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? list = freezed,
-    Object? totalCount = freezed,
-    Object? currentPage = freezed,
-  }) {
-    return _then(_$BookListModelImpl(
-      list: freezed == list
-          ? _value._list
-          : list // ignore: cast_nullable_to_non_nullable
-              as List<BookItemModel>?,
-      totalCount: freezed == totalCount
-          ? _value.totalCount
-          : totalCount // ignore: cast_nullable_to_non_nullable
-              as int?,
-      currentPage: freezed == currentPage
-          ? _value.currentPage
-          : currentPage // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ));
-  }
+/// Adds pattern-matching-related methods to [BookListModel].
+extension BookListModelPatterns on BookListModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _BookListModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _BookListModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _BookListModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _BookListModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _BookListModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _BookListModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'list')  List<BookItemModel>? list, @JsonKey(name: 'totalCount')  int? totalCount, @JsonKey(name: 'currentPage')  int? currentPage)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _BookListModel() when $default != null:
+return $default(_that.list,_that.totalCount,_that.currentPage);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'list')  List<BookItemModel>? list, @JsonKey(name: 'totalCount')  int? totalCount, @JsonKey(name: 'currentPage')  int? currentPage)  $default,) {final _that = this;
+switch (_that) {
+case _BookListModel():
+return $default(_that.list,_that.totalCount,_that.currentPage);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'list')  List<BookItemModel>? list, @JsonKey(name: 'totalCount')  int? totalCount, @JsonKey(name: 'currentPage')  int? currentPage)?  $default,) {final _that = this;
+switch (_that) {
+case _BookListModel() when $default != null:
+return $default(_that.list,_that.totalCount,_that.currentPage);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$BookListModelImpl implements _BookListModel {
-  const _$BookListModelImpl(
-      {@JsonKey(name: 'list') final List<BookItemModel>? list,
-      @JsonKey(name: 'totalCount') this.totalCount,
-      @JsonKey(name: 'currentPage') this.currentPage})
-      : _list = list;
 
-  factory _$BookListModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$BookListModelImplFromJson(json);
+class _BookListModel implements BookListModel {
+  const _BookListModel({@JsonKey(name: 'list')  List<BookItemModel>? list, @JsonKey(name: 'totalCount') this.totalCount, @JsonKey(name: 'currentPage') this.currentPage}): _list = list;
+  factory _BookListModel.fromJson(Map<String, dynamic> json) => _$BookListModelFromJson(json);
 
-  final List<BookItemModel>? _list;
-  @override
-  @JsonKey(name: 'list')
-  List<BookItemModel>? get list {
-    final value = _list;
-    if (value == null) return null;
-    if (_list is EqualUnmodifiableListView) return _list;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  @override
-  @JsonKey(name: 'totalCount')
-  final int? totalCount;
-  @override
-  @JsonKey(name: 'currentPage')
-  final int? currentPage;
-
-  @override
-  String toString() {
-    return 'BookListModel(list: $list, totalCount: $totalCount, currentPage: $currentPage)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$BookListModelImpl &&
-            const DeepCollectionEquality().equals(other._list, _list) &&
-            (identical(other.totalCount, totalCount) ||
-                other.totalCount == totalCount) &&
-            (identical(other.currentPage, currentPage) ||
-                other.currentPage == currentPage));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_list), totalCount, currentPage);
-
-  /// Create a copy of BookListModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$BookListModelImplCopyWith<_$BookListModelImpl> get copyWith =>
-      __$$BookListModelImplCopyWithImpl<_$BookListModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$BookListModelImplToJson(
-      this,
-    );
-  }
+ final  List<BookItemModel>? _list;
+@override@JsonKey(name: 'list') List<BookItemModel>? get list {
+  final value = _list;
+  if (value == null) return null;
+  if (_list is EqualUnmodifiableListView) return _list;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
 }
 
-abstract class _BookListModel implements BookListModel {
-  const factory _BookListModel(
-          {@JsonKey(name: 'list') final List<BookItemModel>? list,
-          @JsonKey(name: 'totalCount') final int? totalCount,
-          @JsonKey(name: 'currentPage') final int? currentPage}) =
-      _$BookListModelImpl;
+@override@JsonKey(name: 'totalCount') final  int? totalCount;
+@override@JsonKey(name: 'currentPage') final  int? currentPage;
 
-  factory _BookListModel.fromJson(Map<String, dynamic> json) =
-      _$BookListModelImpl.fromJson;
+/// Create a copy of BookListModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$BookListModelCopyWith<_BookListModel> get copyWith => __$BookListModelCopyWithImpl<_BookListModel>(this, _$identity);
 
-  @override
-  @JsonKey(name: 'list')
-  List<BookItemModel>? get list;
-  @override
-  @JsonKey(name: 'totalCount')
-  int? get totalCount;
-  @override
-  @JsonKey(name: 'currentPage')
-  int? get currentPage;
-
-  /// Create a copy of BookListModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$BookListModelImplCopyWith<_$BookListModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$BookListModelToJson(this, );
 }
 
-BookItemModel _$BookItemModelFromJson(Map<String, dynamic> json) {
-  return _BookItemModel.fromJson(json);
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BookListModel&&const DeepCollectionEquality().equals(other._list, _list)&&(identical(other.totalCount, totalCount) || other.totalCount == totalCount)&&(identical(other.currentPage, currentPage) || other.currentPage == currentPage));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_list),totalCount,currentPage);
+
+@override
+String toString() {
+  return 'BookListModel(list: $list, totalCount: $totalCount, currentPage: $currentPage)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$BookListModelCopyWith<$Res> implements $BookListModelCopyWith<$Res> {
+  factory _$BookListModelCopyWith(_BookListModel value, $Res Function(_BookListModel) _then) = __$BookListModelCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'list') List<BookItemModel>? list,@JsonKey(name: 'totalCount') int? totalCount,@JsonKey(name: 'currentPage') int? currentPage
+});
+
+
+
+
+}
+/// @nodoc
+class __$BookListModelCopyWithImpl<$Res>
+    implements _$BookListModelCopyWith<$Res> {
+  __$BookListModelCopyWithImpl(this._self, this._then);
+
+  final _BookListModel _self;
+  final $Res Function(_BookListModel) _then;
+
+/// Create a copy of BookListModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? list = freezed,Object? totalCount = freezed,Object? currentPage = freezed,}) {
+  return _then(_BookListModel(
+list: freezed == list ? _self._list : list // ignore: cast_nullable_to_non_nullable
+as List<BookItemModel>?,totalCount: freezed == totalCount ? _self.totalCount : totalCount // ignore: cast_nullable_to_non_nullable
+as int?,currentPage: freezed == currentPage ? _self.currentPage : currentPage // ignore: cast_nullable_to_non_nullable
+as int?,
+  ));
+}
+
+
+}
+
 
 /// @nodoc
 mixin _$BookItemModel {
-  @JsonKey(name: 'id')
-  String? get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'inst_id')
-  String? get instId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'name')
-  String? get name => throw _privateConstructorUsedError;
-  @JsonKey(name: 'short_code')
-  String? get shortCode => throw _privateConstructorUsedError;
-  @JsonKey(name: 'cover_image')
-  String? get coverImage => throw _privateConstructorUsedError;
-  @JsonKey(name: 'class')
-  String? get className => throw _privateConstructorUsedError;
-  @JsonKey(name: 'subject')
-  String? get subject => throw _privateConstructorUsedError;
-  @JsonKey(name: 'author')
-  String? get author => throw _privateConstructorUsedError;
-  @JsonKey(name: 'uploaded_by_name')
-  String? get uploadedByName => throw _privateConstructorUsedError;
-  @JsonKey(name: 'uploaded_at')
-  String? get uploadedAt => throw _privateConstructorUsedError;
+
+@JsonKey(name: 'id') String? get id;@JsonKey(name: 'inst_id') String? get instId;@JsonKey(name: 'name') String? get name;@JsonKey(name: 'short_code') String? get shortCode;@JsonKey(name: 'cover_image') String? get coverImage;@JsonKey(name: 'class') String? get className;@JsonKey(name: 'subject') String? get subject;@JsonKey(name: 'author') String? get author;@JsonKey(name: 'uploaded_by_name') String? get uploadedByName;@JsonKey(name: 'uploaded_at') String? get uploadedAt;
+/// Create a copy of BookItemModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$BookItemModelCopyWith<BookItemModel> get copyWith => _$BookItemModelCopyWithImpl<BookItemModel>(this as BookItemModel, _$identity);
 
   /// Serializes this BookItemModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of BookItemModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $BookItemModelCopyWith<BookItemModel> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BookItemModel&&(identical(other.id, id) || other.id == id)&&(identical(other.instId, instId) || other.instId == instId)&&(identical(other.name, name) || other.name == name)&&(identical(other.shortCode, shortCode) || other.shortCode == shortCode)&&(identical(other.coverImage, coverImage) || other.coverImage == coverImage)&&(identical(other.className, className) || other.className == className)&&(identical(other.subject, subject) || other.subject == subject)&&(identical(other.author, author) || other.author == author)&&(identical(other.uploadedByName, uploadedByName) || other.uploadedByName == uploadedByName)&&(identical(other.uploadedAt, uploadedAt) || other.uploadedAt == uploadedAt));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,instId,name,shortCode,coverImage,className,subject,author,uploadedByName,uploadedAt);
+
+@override
+String toString() {
+  return 'BookItemModel(id: $id, instId: $instId, name: $name, shortCode: $shortCode, coverImage: $coverImage, className: $className, subject: $subject, author: $author, uploadedByName: $uploadedByName, uploadedAt: $uploadedAt)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $BookItemModelCopyWith<$Res> {
-  factory $BookItemModelCopyWith(
-          BookItemModel value, $Res Function(BookItemModel) then) =
-      _$BookItemModelCopyWithImpl<$Res, BookItemModel>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'id') String? id,
-      @JsonKey(name: 'inst_id') String? instId,
-      @JsonKey(name: 'name') String? name,
-      @JsonKey(name: 'short_code') String? shortCode,
-      @JsonKey(name: 'cover_image') String? coverImage,
-      @JsonKey(name: 'class') String? className,
-      @JsonKey(name: 'subject') String? subject,
-      @JsonKey(name: 'author') String? author,
-      @JsonKey(name: 'uploaded_by_name') String? uploadedByName,
-      @JsonKey(name: 'uploaded_at') String? uploadedAt});
-}
+abstract mixin class $BookItemModelCopyWith<$Res>  {
+  factory $BookItemModelCopyWith(BookItemModel value, $Res Function(BookItemModel) _then) = _$BookItemModelCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'id') String? id,@JsonKey(name: 'inst_id') String? instId,@JsonKey(name: 'name') String? name,@JsonKey(name: 'short_code') String? shortCode,@JsonKey(name: 'cover_image') String? coverImage,@JsonKey(name: 'class') String? className,@JsonKey(name: 'subject') String? subject,@JsonKey(name: 'author') String? author,@JsonKey(name: 'uploaded_by_name') String? uploadedByName,@JsonKey(name: 'uploaded_at') String? uploadedAt
+});
 
+
+
+
+}
 /// @nodoc
-class _$BookItemModelCopyWithImpl<$Res, $Val extends BookItemModel>
+class _$BookItemModelCopyWithImpl<$Res>
     implements $BookItemModelCopyWith<$Res> {
-  _$BookItemModelCopyWithImpl(this._value, this._then);
+  _$BookItemModelCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final BookItemModel _self;
+  final $Res Function(BookItemModel) _then;
 
-  /// Create a copy of BookItemModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? instId = freezed,
-    Object? name = freezed,
-    Object? shortCode = freezed,
-    Object? coverImage = freezed,
-    Object? className = freezed,
-    Object? subject = freezed,
-    Object? author = freezed,
-    Object? uploadedByName = freezed,
-    Object? uploadedAt = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      instId: freezed == instId
-          ? _value.instId
-          : instId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      shortCode: freezed == shortCode
-          ? _value.shortCode
-          : shortCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      coverImage: freezed == coverImage
-          ? _value.coverImage
-          : coverImage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      className: freezed == className
-          ? _value.className
-          : className // ignore: cast_nullable_to_non_nullable
-              as String?,
-      subject: freezed == subject
-          ? _value.subject
-          : subject // ignore: cast_nullable_to_non_nullable
-              as String?,
-      author: freezed == author
-          ? _value.author
-          : author // ignore: cast_nullable_to_non_nullable
-              as String?,
-      uploadedByName: freezed == uploadedByName
-          ? _value.uploadedByName
-          : uploadedByName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      uploadedAt: freezed == uploadedAt
-          ? _value.uploadedAt
-          : uploadedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
+/// Create a copy of BookItemModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? instId = freezed,Object? name = freezed,Object? shortCode = freezed,Object? coverImage = freezed,Object? className = freezed,Object? subject = freezed,Object? author = freezed,Object? uploadedByName = freezed,Object? uploadedAt = freezed,}) {
+  return _then(BookItemModel(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,instId: freezed == instId ? _self.instId : instId // ignore: cast_nullable_to_non_nullable
+as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,shortCode: freezed == shortCode ? _self.shortCode : shortCode // ignore: cast_nullable_to_non_nullable
+as String?,coverImage: freezed == coverImage ? _self.coverImage : coverImage // ignore: cast_nullable_to_non_nullable
+as String?,className: freezed == className ? _self.className : className // ignore: cast_nullable_to_non_nullable
+as String?,subject: freezed == subject ? _self.subject : subject // ignore: cast_nullable_to_non_nullable
+as String?,author: freezed == author ? _self.author : author // ignore: cast_nullable_to_non_nullable
+as String?,uploadedByName: freezed == uploadedByName ? _self.uploadedByName : uploadedByName // ignore: cast_nullable_to_non_nullable
+as String?,uploadedAt: freezed == uploadedAt ? _self.uploadedAt : uploadedAt // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$BookItemModelImplCopyWith<$Res>
-    implements $BookItemModelCopyWith<$Res> {
-  factory _$$BookItemModelImplCopyWith(
-          _$BookItemModelImpl value, $Res Function(_$BookItemModelImpl) then) =
-      __$$BookItemModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'id') String? id,
-      @JsonKey(name: 'inst_id') String? instId,
-      @JsonKey(name: 'name') String? name,
-      @JsonKey(name: 'short_code') String? shortCode,
-      @JsonKey(name: 'cover_image') String? coverImage,
-      @JsonKey(name: 'class') String? className,
-      @JsonKey(name: 'subject') String? subject,
-      @JsonKey(name: 'author') String? author,
-      @JsonKey(name: 'uploaded_by_name') String? uploadedByName,
-      @JsonKey(name: 'uploaded_at') String? uploadedAt});
 }
 
-/// @nodoc
-class __$$BookItemModelImplCopyWithImpl<$Res>
-    extends _$BookItemModelCopyWithImpl<$Res, _$BookItemModelImpl>
-    implements _$$BookItemModelImplCopyWith<$Res> {
-  __$$BookItemModelImplCopyWithImpl(
-      _$BookItemModelImpl _value, $Res Function(_$BookItemModelImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of BookItemModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? instId = freezed,
-    Object? name = freezed,
-    Object? shortCode = freezed,
-    Object? coverImage = freezed,
-    Object? className = freezed,
-    Object? subject = freezed,
-    Object? author = freezed,
-    Object? uploadedByName = freezed,
-    Object? uploadedAt = freezed,
-  }) {
-    return _then(_$BookItemModelImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      instId: freezed == instId
-          ? _value.instId
-          : instId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      shortCode: freezed == shortCode
-          ? _value.shortCode
-          : shortCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      coverImage: freezed == coverImage
-          ? _value.coverImage
-          : coverImage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      className: freezed == className
-          ? _value.className
-          : className // ignore: cast_nullable_to_non_nullable
-              as String?,
-      subject: freezed == subject
-          ? _value.subject
-          : subject // ignore: cast_nullable_to_non_nullable
-              as String?,
-      author: freezed == author
-          ? _value.author
-          : author // ignore: cast_nullable_to_non_nullable
-              as String?,
-      uploadedByName: freezed == uploadedByName
-          ? _value.uploadedByName
-          : uploadedByName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      uploadedAt: freezed == uploadedAt
-          ? _value.uploadedAt
-          : uploadedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
+/// Adds pattern-matching-related methods to [BookItemModel].
+extension BookItemModelPatterns on BookItemModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _BookItemModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _BookItemModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _BookItemModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _BookItemModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _BookItemModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _BookItemModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'inst_id')  String? instId, @JsonKey(name: 'name')  String? name, @JsonKey(name: 'short_code')  String? shortCode, @JsonKey(name: 'cover_image')  String? coverImage, @JsonKey(name: 'class')  String? className, @JsonKey(name: 'subject')  String? subject, @JsonKey(name: 'author')  String? author, @JsonKey(name: 'uploaded_by_name')  String? uploadedByName, @JsonKey(name: 'uploaded_at')  String? uploadedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _BookItemModel() when $default != null:
+return $default(_that.id,_that.instId,_that.name,_that.shortCode,_that.coverImage,_that.className,_that.subject,_that.author,_that.uploadedByName,_that.uploadedAt);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'inst_id')  String? instId, @JsonKey(name: 'name')  String? name, @JsonKey(name: 'short_code')  String? shortCode, @JsonKey(name: 'cover_image')  String? coverImage, @JsonKey(name: 'class')  String? className, @JsonKey(name: 'subject')  String? subject, @JsonKey(name: 'author')  String? author, @JsonKey(name: 'uploaded_by_name')  String? uploadedByName, @JsonKey(name: 'uploaded_at')  String? uploadedAt)  $default,) {final _that = this;
+switch (_that) {
+case _BookItemModel():
+return $default(_that.id,_that.instId,_that.name,_that.shortCode,_that.coverImage,_that.className,_that.subject,_that.author,_that.uploadedByName,_that.uploadedAt);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'inst_id')  String? instId, @JsonKey(name: 'name')  String? name, @JsonKey(name: 'short_code')  String? shortCode, @JsonKey(name: 'cover_image')  String? coverImage, @JsonKey(name: 'class')  String? className, @JsonKey(name: 'subject')  String? subject, @JsonKey(name: 'author')  String? author, @JsonKey(name: 'uploaded_by_name')  String? uploadedByName, @JsonKey(name: 'uploaded_at')  String? uploadedAt)?  $default,) {final _that = this;
+switch (_that) {
+case _BookItemModel() when $default != null:
+return $default(_that.id,_that.instId,_that.name,_that.shortCode,_that.coverImage,_that.className,_that.subject,_that.author,_that.uploadedByName,_that.uploadedAt);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$BookItemModelImpl implements _BookItemModel {
-  const _$BookItemModelImpl(
-      {@JsonKey(name: 'id') this.id,
-      @JsonKey(name: 'inst_id') this.instId,
-      @JsonKey(name: 'name') this.name,
-      @JsonKey(name: 'short_code') this.shortCode,
-      @JsonKey(name: 'cover_image') this.coverImage,
-      @JsonKey(name: 'class') this.className,
-      @JsonKey(name: 'subject') this.subject,
-      @JsonKey(name: 'author') this.author,
-      @JsonKey(name: 'uploaded_by_name') this.uploadedByName,
-      @JsonKey(name: 'uploaded_at') this.uploadedAt});
 
-  factory _$BookItemModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$BookItemModelImplFromJson(json);
+class _BookItemModel implements BookItemModel {
+  const _BookItemModel({@JsonKey(name: 'id') this.id, @JsonKey(name: 'inst_id') this.instId, @JsonKey(name: 'name') this.name, @JsonKey(name: 'short_code') this.shortCode, @JsonKey(name: 'cover_image') this.coverImage, @JsonKey(name: 'class') this.className, @JsonKey(name: 'subject') this.subject, @JsonKey(name: 'author') this.author, @JsonKey(name: 'uploaded_by_name') this.uploadedByName, @JsonKey(name: 'uploaded_at') this.uploadedAt});
+  factory _BookItemModel.fromJson(Map<String, dynamic> json) => _$BookItemModelFromJson(json);
 
-  @override
-  @JsonKey(name: 'id')
-  final String? id;
-  @override
-  @JsonKey(name: 'inst_id')
-  final String? instId;
-  @override
-  @JsonKey(name: 'name')
-  final String? name;
-  @override
-  @JsonKey(name: 'short_code')
-  final String? shortCode;
-  @override
-  @JsonKey(name: 'cover_image')
-  final String? coverImage;
-  @override
-  @JsonKey(name: 'class')
-  final String? className;
-  @override
-  @JsonKey(name: 'subject')
-  final String? subject;
-  @override
-  @JsonKey(name: 'author')
-  final String? author;
-  @override
-  @JsonKey(name: 'uploaded_by_name')
-  final String? uploadedByName;
-  @override
-  @JsonKey(name: 'uploaded_at')
-  final String? uploadedAt;
+@override@JsonKey(name: 'id') final  String? id;
+@override@JsonKey(name: 'inst_id') final  String? instId;
+@override@JsonKey(name: 'name') final  String? name;
+@override@JsonKey(name: 'short_code') final  String? shortCode;
+@override@JsonKey(name: 'cover_image') final  String? coverImage;
+@override@JsonKey(name: 'class') final  String? className;
+@override@JsonKey(name: 'subject') final  String? subject;
+@override@JsonKey(name: 'author') final  String? author;
+@override@JsonKey(name: 'uploaded_by_name') final  String? uploadedByName;
+@override@JsonKey(name: 'uploaded_at') final  String? uploadedAt;
 
-  @override
-  String toString() {
-    return 'BookItemModel(id: $id, instId: $instId, name: $name, shortCode: $shortCode, coverImage: $coverImage, className: $className, subject: $subject, author: $author, uploadedByName: $uploadedByName, uploadedAt: $uploadedAt)';
-  }
+/// Create a copy of BookItemModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$BookItemModelCopyWith<_BookItemModel> get copyWith => __$BookItemModelCopyWithImpl<_BookItemModel>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$BookItemModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.instId, instId) || other.instId == instId) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.shortCode, shortCode) ||
-                other.shortCode == shortCode) &&
-            (identical(other.coverImage, coverImage) ||
-                other.coverImage == coverImage) &&
-            (identical(other.className, className) ||
-                other.className == className) &&
-            (identical(other.subject, subject) || other.subject == subject) &&
-            (identical(other.author, author) || other.author == author) &&
-            (identical(other.uploadedByName, uploadedByName) ||
-                other.uploadedByName == uploadedByName) &&
-            (identical(other.uploadedAt, uploadedAt) ||
-                other.uploadedAt == uploadedAt));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, instId, name, shortCode,
-      coverImage, className, subject, author, uploadedByName, uploadedAt);
-
-  /// Create a copy of BookItemModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$BookItemModelImplCopyWith<_$BookItemModelImpl> get copyWith =>
-      __$$BookItemModelImplCopyWithImpl<_$BookItemModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$BookItemModelImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$BookItemModelToJson(this, );
 }
 
-abstract class _BookItemModel implements BookItemModel {
-  const factory _BookItemModel(
-          {@JsonKey(name: 'id') final String? id,
-          @JsonKey(name: 'inst_id') final String? instId,
-          @JsonKey(name: 'name') final String? name,
-          @JsonKey(name: 'short_code') final String? shortCode,
-          @JsonKey(name: 'cover_image') final String? coverImage,
-          @JsonKey(name: 'class') final String? className,
-          @JsonKey(name: 'subject') final String? subject,
-          @JsonKey(name: 'author') final String? author,
-          @JsonKey(name: 'uploaded_by_name') final String? uploadedByName,
-          @JsonKey(name: 'uploaded_at') final String? uploadedAt}) =
-      _$BookItemModelImpl;
-
-  factory _BookItemModel.fromJson(Map<String, dynamic> json) =
-      _$BookItemModelImpl.fromJson;
-
-  @override
-  @JsonKey(name: 'id')
-  String? get id;
-  @override
-  @JsonKey(name: 'inst_id')
-  String? get instId;
-  @override
-  @JsonKey(name: 'name')
-  String? get name;
-  @override
-  @JsonKey(name: 'short_code')
-  String? get shortCode;
-  @override
-  @JsonKey(name: 'cover_image')
-  String? get coverImage;
-  @override
-  @JsonKey(name: 'class')
-  String? get className;
-  @override
-  @JsonKey(name: 'subject')
-  String? get subject;
-  @override
-  @JsonKey(name: 'author')
-  String? get author;
-  @override
-  @JsonKey(name: 'uploaded_by_name')
-  String? get uploadedByName;
-  @override
-  @JsonKey(name: 'uploaded_at')
-  String? get uploadedAt;
-
-  /// Create a copy of BookItemModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$BookItemModelImplCopyWith<_$BookItemModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BookItemModel&&(identical(other.id, id) || other.id == id)&&(identical(other.instId, instId) || other.instId == instId)&&(identical(other.name, name) || other.name == name)&&(identical(other.shortCode, shortCode) || other.shortCode == shortCode)&&(identical(other.coverImage, coverImage) || other.coverImage == coverImage)&&(identical(other.className, className) || other.className == className)&&(identical(other.subject, subject) || other.subject == subject)&&(identical(other.author, author) || other.author == author)&&(identical(other.uploadedByName, uploadedByName) || other.uploadedByName == uploadedByName)&&(identical(other.uploadedAt, uploadedAt) || other.uploadedAt == uploadedAt));
 }
 
-BookChapterListModel _$BookChapterListModelFromJson(Map<String, dynamic> json) {
-  return _BookChapterListModel.fromJson(json);
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,instId,name,shortCode,coverImage,className,subject,author,uploadedByName,uploadedAt);
+
+@override
+String toString() {
+  return 'BookItemModel(id: $id, instId: $instId, name: $name, shortCode: $shortCode, coverImage: $coverImage, className: $className, subject: $subject, author: $author, uploadedByName: $uploadedByName, uploadedAt: $uploadedAt)';
 }
+
+
+}
+
+/// @nodoc
+abstract mixin class _$BookItemModelCopyWith<$Res> implements $BookItemModelCopyWith<$Res> {
+  factory _$BookItemModelCopyWith(_BookItemModel value, $Res Function(_BookItemModel) _then) = __$BookItemModelCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'id') String? id,@JsonKey(name: 'inst_id') String? instId,@JsonKey(name: 'name') String? name,@JsonKey(name: 'short_code') String? shortCode,@JsonKey(name: 'cover_image') String? coverImage,@JsonKey(name: 'class') String? className,@JsonKey(name: 'subject') String? subject,@JsonKey(name: 'author') String? author,@JsonKey(name: 'uploaded_by_name') String? uploadedByName,@JsonKey(name: 'uploaded_at') String? uploadedAt
+});
+
+
+
+
+}
+/// @nodoc
+class __$BookItemModelCopyWithImpl<$Res>
+    implements _$BookItemModelCopyWith<$Res> {
+  __$BookItemModelCopyWithImpl(this._self, this._then);
+
+  final _BookItemModel _self;
+  final $Res Function(_BookItemModel) _then;
+
+/// Create a copy of BookItemModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? instId = freezed,Object? name = freezed,Object? shortCode = freezed,Object? coverImage = freezed,Object? className = freezed,Object? subject = freezed,Object? author = freezed,Object? uploadedByName = freezed,Object? uploadedAt = freezed,}) {
+  return _then(_BookItemModel(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,instId: freezed == instId ? _self.instId : instId // ignore: cast_nullable_to_non_nullable
+as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,shortCode: freezed == shortCode ? _self.shortCode : shortCode // ignore: cast_nullable_to_non_nullable
+as String?,coverImage: freezed == coverImage ? _self.coverImage : coverImage // ignore: cast_nullable_to_non_nullable
+as String?,className: freezed == className ? _self.className : className // ignore: cast_nullable_to_non_nullable
+as String?,subject: freezed == subject ? _self.subject : subject // ignore: cast_nullable_to_non_nullable
+as String?,author: freezed == author ? _self.author : author // ignore: cast_nullable_to_non_nullable
+as String?,uploadedByName: freezed == uploadedByName ? _self.uploadedByName : uploadedByName // ignore: cast_nullable_to_non_nullable
+as String?,uploadedAt: freezed == uploadedAt ? _self.uploadedAt : uploadedAt // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
 
 /// @nodoc
 mixin _$BookChapterListModel {
-  @JsonKey(name: 'list')
-  List<BookChapterItemModel>? get list => throw _privateConstructorUsedError;
-  @JsonKey(name: 'totalCount')
-  int? get totalCount => throw _privateConstructorUsedError;
-  @JsonKey(name: 'currentPage')
-  int? get currentPage => throw _privateConstructorUsedError;
+
+@JsonKey(name: 'list') List<BookChapterItemModel>? get list;@JsonKey(name: 'totalCount') int? get totalCount;@JsonKey(name: 'currentPage') int? get currentPage;
+/// Create a copy of BookChapterListModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$BookChapterListModelCopyWith<BookChapterListModel> get copyWith => _$BookChapterListModelCopyWithImpl<BookChapterListModel>(this as BookChapterListModel, _$identity);
 
   /// Serializes this BookChapterListModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of BookChapterListModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $BookChapterListModelCopyWith<BookChapterListModel> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BookChapterListModel&&const DeepCollectionEquality().equals(other.list, list)&&(identical(other.totalCount, totalCount) || other.totalCount == totalCount)&&(identical(other.currentPage, currentPage) || other.currentPage == currentPage));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(list),totalCount,currentPage);
+
+@override
+String toString() {
+  return 'BookChapterListModel(list: $list, totalCount: $totalCount, currentPage: $currentPage)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $BookChapterListModelCopyWith<$Res> {
-  factory $BookChapterListModelCopyWith(BookChapterListModel value,
-          $Res Function(BookChapterListModel) then) =
-      _$BookChapterListModelCopyWithImpl<$Res, BookChapterListModel>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'list') List<BookChapterItemModel>? list,
-      @JsonKey(name: 'totalCount') int? totalCount,
-      @JsonKey(name: 'currentPage') int? currentPage});
-}
+abstract mixin class $BookChapterListModelCopyWith<$Res>  {
+  factory $BookChapterListModelCopyWith(BookChapterListModel value, $Res Function(BookChapterListModel) _then) = _$BookChapterListModelCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'list') List<BookChapterItemModel>? list,@JsonKey(name: 'totalCount') int? totalCount,@JsonKey(name: 'currentPage') int? currentPage
+});
 
+
+
+
+}
 /// @nodoc
-class _$BookChapterListModelCopyWithImpl<$Res,
-        $Val extends BookChapterListModel>
+class _$BookChapterListModelCopyWithImpl<$Res>
     implements $BookChapterListModelCopyWith<$Res> {
-  _$BookChapterListModelCopyWithImpl(this._value, this._then);
+  _$BookChapterListModelCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final BookChapterListModel _self;
+  final $Res Function(BookChapterListModel) _then;
 
-  /// Create a copy of BookChapterListModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? list = freezed,
-    Object? totalCount = freezed,
-    Object? currentPage = freezed,
-  }) {
-    return _then(_value.copyWith(
-      list: freezed == list
-          ? _value.list
-          : list // ignore: cast_nullable_to_non_nullable
-              as List<BookChapterItemModel>?,
-      totalCount: freezed == totalCount
-          ? _value.totalCount
-          : totalCount // ignore: cast_nullable_to_non_nullable
-              as int?,
-      currentPage: freezed == currentPage
-          ? _value.currentPage
-          : currentPage // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ) as $Val);
-  }
+/// Create a copy of BookChapterListModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? list = freezed,Object? totalCount = freezed,Object? currentPage = freezed,}) {
+  return _then(BookChapterListModel(
+list: freezed == list ? _self.list : list // ignore: cast_nullable_to_non_nullable
+as List<BookChapterItemModel>?,totalCount: freezed == totalCount ? _self.totalCount : totalCount // ignore: cast_nullable_to_non_nullable
+as int?,currentPage: freezed == currentPage ? _self.currentPage : currentPage // ignore: cast_nullable_to_non_nullable
+as int?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$BookChapterListModelImplCopyWith<$Res>
-    implements $BookChapterListModelCopyWith<$Res> {
-  factory _$$BookChapterListModelImplCopyWith(_$BookChapterListModelImpl value,
-          $Res Function(_$BookChapterListModelImpl) then) =
-      __$$BookChapterListModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'list') List<BookChapterItemModel>? list,
-      @JsonKey(name: 'totalCount') int? totalCount,
-      @JsonKey(name: 'currentPage') int? currentPage});
 }
 
-/// @nodoc
-class __$$BookChapterListModelImplCopyWithImpl<$Res>
-    extends _$BookChapterListModelCopyWithImpl<$Res, _$BookChapterListModelImpl>
-    implements _$$BookChapterListModelImplCopyWith<$Res> {
-  __$$BookChapterListModelImplCopyWithImpl(_$BookChapterListModelImpl _value,
-      $Res Function(_$BookChapterListModelImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of BookChapterListModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? list = freezed,
-    Object? totalCount = freezed,
-    Object? currentPage = freezed,
-  }) {
-    return _then(_$BookChapterListModelImpl(
-      list: freezed == list
-          ? _value._list
-          : list // ignore: cast_nullable_to_non_nullable
-              as List<BookChapterItemModel>?,
-      totalCount: freezed == totalCount
-          ? _value.totalCount
-          : totalCount // ignore: cast_nullable_to_non_nullable
-              as int?,
-      currentPage: freezed == currentPage
-          ? _value.currentPage
-          : currentPage // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ));
-  }
+/// Adds pattern-matching-related methods to [BookChapterListModel].
+extension BookChapterListModelPatterns on BookChapterListModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _BookChapterListModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _BookChapterListModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _BookChapterListModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _BookChapterListModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _BookChapterListModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _BookChapterListModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'list')  List<BookChapterItemModel>? list, @JsonKey(name: 'totalCount')  int? totalCount, @JsonKey(name: 'currentPage')  int? currentPage)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _BookChapterListModel() when $default != null:
+return $default(_that.list,_that.totalCount,_that.currentPage);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'list')  List<BookChapterItemModel>? list, @JsonKey(name: 'totalCount')  int? totalCount, @JsonKey(name: 'currentPage')  int? currentPage)  $default,) {final _that = this;
+switch (_that) {
+case _BookChapterListModel():
+return $default(_that.list,_that.totalCount,_that.currentPage);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'list')  List<BookChapterItemModel>? list, @JsonKey(name: 'totalCount')  int? totalCount, @JsonKey(name: 'currentPage')  int? currentPage)?  $default,) {final _that = this;
+switch (_that) {
+case _BookChapterListModel() when $default != null:
+return $default(_that.list,_that.totalCount,_that.currentPage);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$BookChapterListModelImpl implements _BookChapterListModel {
-  const _$BookChapterListModelImpl(
-      {@JsonKey(name: 'list') final List<BookChapterItemModel>? list,
-      @JsonKey(name: 'totalCount') this.totalCount,
-      @JsonKey(name: 'currentPage') this.currentPage})
-      : _list = list;
 
-  factory _$BookChapterListModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$BookChapterListModelImplFromJson(json);
+class _BookChapterListModel implements BookChapterListModel {
+  const _BookChapterListModel({@JsonKey(name: 'list')  List<BookChapterItemModel>? list, @JsonKey(name: 'totalCount') this.totalCount, @JsonKey(name: 'currentPage') this.currentPage}): _list = list;
+  factory _BookChapterListModel.fromJson(Map<String, dynamic> json) => _$BookChapterListModelFromJson(json);
 
-  final List<BookChapterItemModel>? _list;
-  @override
-  @JsonKey(name: 'list')
-  List<BookChapterItemModel>? get list {
-    final value = _list;
-    if (value == null) return null;
-    if (_list is EqualUnmodifiableListView) return _list;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  @override
-  @JsonKey(name: 'totalCount')
-  final int? totalCount;
-  @override
-  @JsonKey(name: 'currentPage')
-  final int? currentPage;
-
-  @override
-  String toString() {
-    return 'BookChapterListModel(list: $list, totalCount: $totalCount, currentPage: $currentPage)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$BookChapterListModelImpl &&
-            const DeepCollectionEquality().equals(other._list, _list) &&
-            (identical(other.totalCount, totalCount) ||
-                other.totalCount == totalCount) &&
-            (identical(other.currentPage, currentPage) ||
-                other.currentPage == currentPage));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_list), totalCount, currentPage);
-
-  /// Create a copy of BookChapterListModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$BookChapterListModelImplCopyWith<_$BookChapterListModelImpl>
-      get copyWith =>
-          __$$BookChapterListModelImplCopyWithImpl<_$BookChapterListModelImpl>(
-              this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$BookChapterListModelImplToJson(
-      this,
-    );
-  }
+ final  List<BookChapterItemModel>? _list;
+@override@JsonKey(name: 'list') List<BookChapterItemModel>? get list {
+  final value = _list;
+  if (value == null) return null;
+  if (_list is EqualUnmodifiableListView) return _list;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
 }
 
-abstract class _BookChapterListModel implements BookChapterListModel {
-  const factory _BookChapterListModel(
-          {@JsonKey(name: 'list') final List<BookChapterItemModel>? list,
-          @JsonKey(name: 'totalCount') final int? totalCount,
-          @JsonKey(name: 'currentPage') final int? currentPage}) =
-      _$BookChapterListModelImpl;
+@override@JsonKey(name: 'totalCount') final  int? totalCount;
+@override@JsonKey(name: 'currentPage') final  int? currentPage;
 
-  factory _BookChapterListModel.fromJson(Map<String, dynamic> json) =
-      _$BookChapterListModelImpl.fromJson;
+/// Create a copy of BookChapterListModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$BookChapterListModelCopyWith<_BookChapterListModel> get copyWith => __$BookChapterListModelCopyWithImpl<_BookChapterListModel>(this, _$identity);
 
-  @override
-  @JsonKey(name: 'list')
-  List<BookChapterItemModel>? get list;
-  @override
-  @JsonKey(name: 'totalCount')
-  int? get totalCount;
-  @override
-  @JsonKey(name: 'currentPage')
-  int? get currentPage;
-
-  /// Create a copy of BookChapterListModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$BookChapterListModelImplCopyWith<_$BookChapterListModelImpl>
-      get copyWith => throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$BookChapterListModelToJson(this, );
 }
 
-BookChapterItemModel _$BookChapterItemModelFromJson(Map<String, dynamic> json) {
-  return _BookChapterItemModel.fromJson(json);
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BookChapterListModel&&const DeepCollectionEquality().equals(other._list, _list)&&(identical(other.totalCount, totalCount) || other.totalCount == totalCount)&&(identical(other.currentPage, currentPage) || other.currentPage == currentPage));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_list),totalCount,currentPage);
+
+@override
+String toString() {
+  return 'BookChapterListModel(list: $list, totalCount: $totalCount, currentPage: $currentPage)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$BookChapterListModelCopyWith<$Res> implements $BookChapterListModelCopyWith<$Res> {
+  factory _$BookChapterListModelCopyWith(_BookChapterListModel value, $Res Function(_BookChapterListModel) _then) = __$BookChapterListModelCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'list') List<BookChapterItemModel>? list,@JsonKey(name: 'totalCount') int? totalCount,@JsonKey(name: 'currentPage') int? currentPage
+});
+
+
+
+
+}
+/// @nodoc
+class __$BookChapterListModelCopyWithImpl<$Res>
+    implements _$BookChapterListModelCopyWith<$Res> {
+  __$BookChapterListModelCopyWithImpl(this._self, this._then);
+
+  final _BookChapterListModel _self;
+  final $Res Function(_BookChapterListModel) _then;
+
+/// Create a copy of BookChapterListModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? list = freezed,Object? totalCount = freezed,Object? currentPage = freezed,}) {
+  return _then(_BookChapterListModel(
+list: freezed == list ? _self._list : list // ignore: cast_nullable_to_non_nullable
+as List<BookChapterItemModel>?,totalCount: freezed == totalCount ? _self.totalCount : totalCount // ignore: cast_nullable_to_non_nullable
+as int?,currentPage: freezed == currentPage ? _self.currentPage : currentPage // ignore: cast_nullable_to_non_nullable
+as int?,
+  ));
+}
+
+
+}
+
 
 /// @nodoc
 mixin _$BookChapterItemModel {
-  @JsonKey(name: 'id')
-  String? get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'chapter_index')
-  String? get chapterIndex => throw _privateConstructorUsedError;
-  @JsonKey(name: 'name')
-  String? get name => throw _privateConstructorUsedError;
-  @JsonKey(name: 'file_name')
-  String? get fileName => throw _privateConstructorUsedError;
+
+@JsonKey(name: 'id') String? get id;@JsonKey(name: 'chapter_index') String? get chapterIndex;@JsonKey(name: 'name') String? get name;@JsonKey(name: 'file_name') String? get fileName;
+/// Create a copy of BookChapterItemModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$BookChapterItemModelCopyWith<BookChapterItemModel> get copyWith => _$BookChapterItemModelCopyWithImpl<BookChapterItemModel>(this as BookChapterItemModel, _$identity);
 
   /// Serializes this BookChapterItemModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of BookChapterItemModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $BookChapterItemModelCopyWith<BookChapterItemModel> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BookChapterItemModel&&(identical(other.id, id) || other.id == id)&&(identical(other.chapterIndex, chapterIndex) || other.chapterIndex == chapterIndex)&&(identical(other.name, name) || other.name == name)&&(identical(other.fileName, fileName) || other.fileName == fileName));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,chapterIndex,name,fileName);
+
+@override
+String toString() {
+  return 'BookChapterItemModel(id: $id, chapterIndex: $chapterIndex, name: $name, fileName: $fileName)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $BookChapterItemModelCopyWith<$Res> {
-  factory $BookChapterItemModelCopyWith(BookChapterItemModel value,
-          $Res Function(BookChapterItemModel) then) =
-      _$BookChapterItemModelCopyWithImpl<$Res, BookChapterItemModel>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'id') String? id,
-      @JsonKey(name: 'chapter_index') String? chapterIndex,
-      @JsonKey(name: 'name') String? name,
-      @JsonKey(name: 'file_name') String? fileName});
-}
+abstract mixin class $BookChapterItemModelCopyWith<$Res>  {
+  factory $BookChapterItemModelCopyWith(BookChapterItemModel value, $Res Function(BookChapterItemModel) _then) = _$BookChapterItemModelCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'id') String? id,@JsonKey(name: 'chapter_index') String? chapterIndex,@JsonKey(name: 'name') String? name,@JsonKey(name: 'file_name') String? fileName
+});
 
+
+
+
+}
 /// @nodoc
-class _$BookChapterItemModelCopyWithImpl<$Res,
-        $Val extends BookChapterItemModel>
+class _$BookChapterItemModelCopyWithImpl<$Res>
     implements $BookChapterItemModelCopyWith<$Res> {
-  _$BookChapterItemModelCopyWithImpl(this._value, this._then);
+  _$BookChapterItemModelCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final BookChapterItemModel _self;
+  final $Res Function(BookChapterItemModel) _then;
 
-  /// Create a copy of BookChapterItemModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? chapterIndex = freezed,
-    Object? name = freezed,
-    Object? fileName = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      chapterIndex: freezed == chapterIndex
-          ? _value.chapterIndex
-          : chapterIndex // ignore: cast_nullable_to_non_nullable
-              as String?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      fileName: freezed == fileName
-          ? _value.fileName
-          : fileName // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
+/// Create a copy of BookChapterItemModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? chapterIndex = freezed,Object? name = freezed,Object? fileName = freezed,}) {
+  return _then(BookChapterItemModel(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,chapterIndex: freezed == chapterIndex ? _self.chapterIndex : chapterIndex // ignore: cast_nullable_to_non_nullable
+as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,fileName: freezed == fileName ? _self.fileName : fileName // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$BookChapterItemModelImplCopyWith<$Res>
-    implements $BookChapterItemModelCopyWith<$Res> {
-  factory _$$BookChapterItemModelImplCopyWith(_$BookChapterItemModelImpl value,
-          $Res Function(_$BookChapterItemModelImpl) then) =
-      __$$BookChapterItemModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'id') String? id,
-      @JsonKey(name: 'chapter_index') String? chapterIndex,
-      @JsonKey(name: 'name') String? name,
-      @JsonKey(name: 'file_name') String? fileName});
 }
 
-/// @nodoc
-class __$$BookChapterItemModelImplCopyWithImpl<$Res>
-    extends _$BookChapterItemModelCopyWithImpl<$Res, _$BookChapterItemModelImpl>
-    implements _$$BookChapterItemModelImplCopyWith<$Res> {
-  __$$BookChapterItemModelImplCopyWithImpl(_$BookChapterItemModelImpl _value,
-      $Res Function(_$BookChapterItemModelImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of BookChapterItemModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? chapterIndex = freezed,
-    Object? name = freezed,
-    Object? fileName = freezed,
-  }) {
-    return _then(_$BookChapterItemModelImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      chapterIndex: freezed == chapterIndex
-          ? _value.chapterIndex
-          : chapterIndex // ignore: cast_nullable_to_non_nullable
-              as String?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      fileName: freezed == fileName
-          ? _value.fileName
-          : fileName // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
+/// Adds pattern-matching-related methods to [BookChapterItemModel].
+extension BookChapterItemModelPatterns on BookChapterItemModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _BookChapterItemModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _BookChapterItemModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _BookChapterItemModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _BookChapterItemModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _BookChapterItemModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _BookChapterItemModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'chapter_index')  String? chapterIndex, @JsonKey(name: 'name')  String? name, @JsonKey(name: 'file_name')  String? fileName)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _BookChapterItemModel() when $default != null:
+return $default(_that.id,_that.chapterIndex,_that.name,_that.fileName);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'chapter_index')  String? chapterIndex, @JsonKey(name: 'name')  String? name, @JsonKey(name: 'file_name')  String? fileName)  $default,) {final _that = this;
+switch (_that) {
+case _BookChapterItemModel():
+return $default(_that.id,_that.chapterIndex,_that.name,_that.fileName);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'chapter_index')  String? chapterIndex, @JsonKey(name: 'name')  String? name, @JsonKey(name: 'file_name')  String? fileName)?  $default,) {final _that = this;
+switch (_that) {
+case _BookChapterItemModel() when $default != null:
+return $default(_that.id,_that.chapterIndex,_that.name,_that.fileName);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$BookChapterItemModelImpl implements _BookChapterItemModel {
-  const _$BookChapterItemModelImpl(
-      {@JsonKey(name: 'id') this.id,
-      @JsonKey(name: 'chapter_index') this.chapterIndex,
-      @JsonKey(name: 'name') this.name,
-      @JsonKey(name: 'file_name') this.fileName});
 
-  factory _$BookChapterItemModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$BookChapterItemModelImplFromJson(json);
+class _BookChapterItemModel implements BookChapterItemModel {
+  const _BookChapterItemModel({@JsonKey(name: 'id') this.id, @JsonKey(name: 'chapter_index') this.chapterIndex, @JsonKey(name: 'name') this.name, @JsonKey(name: 'file_name') this.fileName});
+  factory _BookChapterItemModel.fromJson(Map<String, dynamic> json) => _$BookChapterItemModelFromJson(json);
 
-  @override
-  @JsonKey(name: 'id')
-  final String? id;
-  @override
-  @JsonKey(name: 'chapter_index')
-  final String? chapterIndex;
-  @override
-  @JsonKey(name: 'name')
-  final String? name;
-  @override
-  @JsonKey(name: 'file_name')
-  final String? fileName;
+@override@JsonKey(name: 'id') final  String? id;
+@override@JsonKey(name: 'chapter_index') final  String? chapterIndex;
+@override@JsonKey(name: 'name') final  String? name;
+@override@JsonKey(name: 'file_name') final  String? fileName;
 
-  @override
-  String toString() {
-    return 'BookChapterItemModel(id: $id, chapterIndex: $chapterIndex, name: $name, fileName: $fileName)';
-  }
+/// Create a copy of BookChapterItemModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$BookChapterItemModelCopyWith<_BookChapterItemModel> get copyWith => __$BookChapterItemModelCopyWithImpl<_BookChapterItemModel>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$BookChapterItemModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.chapterIndex, chapterIndex) ||
-                other.chapterIndex == chapterIndex) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.fileName, fileName) ||
-                other.fileName == fileName));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, chapterIndex, name, fileName);
-
-  /// Create a copy of BookChapterItemModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$BookChapterItemModelImplCopyWith<_$BookChapterItemModelImpl>
-      get copyWith =>
-          __$$BookChapterItemModelImplCopyWithImpl<_$BookChapterItemModelImpl>(
-              this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$BookChapterItemModelImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$BookChapterItemModelToJson(this, );
 }
 
-abstract class _BookChapterItemModel implements BookChapterItemModel {
-  const factory _BookChapterItemModel(
-          {@JsonKey(name: 'id') final String? id,
-          @JsonKey(name: 'chapter_index') final String? chapterIndex,
-          @JsonKey(name: 'name') final String? name,
-          @JsonKey(name: 'file_name') final String? fileName}) =
-      _$BookChapterItemModelImpl;
-
-  factory _BookChapterItemModel.fromJson(Map<String, dynamic> json) =
-      _$BookChapterItemModelImpl.fromJson;
-
-  @override
-  @JsonKey(name: 'id')
-  String? get id;
-  @override
-  @JsonKey(name: 'chapter_index')
-  String? get chapterIndex;
-  @override
-  @JsonKey(name: 'name')
-  String? get name;
-  @override
-  @JsonKey(name: 'file_name')
-  String? get fileName;
-
-  /// Create a copy of BookChapterItemModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$BookChapterItemModelImplCopyWith<_$BookChapterItemModelImpl>
-      get copyWith => throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BookChapterItemModel&&(identical(other.id, id) || other.id == id)&&(identical(other.chapterIndex, chapterIndex) || other.chapterIndex == chapterIndex)&&(identical(other.name, name) || other.name == name)&&(identical(other.fileName, fileName) || other.fileName == fileName));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,chapterIndex,name,fileName);
+
+@override
+String toString() {
+  return 'BookChapterItemModel(id: $id, chapterIndex: $chapterIndex, name: $name, fileName: $fileName)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$BookChapterItemModelCopyWith<$Res> implements $BookChapterItemModelCopyWith<$Res> {
+  factory _$BookChapterItemModelCopyWith(_BookChapterItemModel value, $Res Function(_BookChapterItemModel) _then) = __$BookChapterItemModelCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'id') String? id,@JsonKey(name: 'chapter_index') String? chapterIndex,@JsonKey(name: 'name') String? name,@JsonKey(name: 'file_name') String? fileName
+});
+
+
+
+
+}
+/// @nodoc
+class __$BookChapterItemModelCopyWithImpl<$Res>
+    implements _$BookChapterItemModelCopyWith<$Res> {
+  __$BookChapterItemModelCopyWithImpl(this._self, this._then);
+
+  final _BookChapterItemModel _self;
+  final $Res Function(_BookChapterItemModel) _then;
+
+/// Create a copy of BookChapterItemModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? chapterIndex = freezed,Object? name = freezed,Object? fileName = freezed,}) {
+  return _then(_BookChapterItemModel(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,chapterIndex: freezed == chapterIndex ? _self.chapterIndex : chapterIndex // ignore: cast_nullable_to_non_nullable
+as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,fileName: freezed == fileName ? _self.fileName : fileName // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
+// dart format on

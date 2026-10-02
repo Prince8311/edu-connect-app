@@ -1,4 +1,4 @@
-package com.educonnekt.app
+package `in`.educonnekt.app
 
 import android.content.pm.PackageManager
 import android.os.Build

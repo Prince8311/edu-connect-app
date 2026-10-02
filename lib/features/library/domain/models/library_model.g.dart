@@ -6,8 +6,8 @@ part of 'library_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$BookListModelImpl _$$BookListModelImplFromJson(Map<String, dynamic> json) =>
-    _$BookListModelImpl(
+_BookListModel _$BookListModelFromJson(Map<String, dynamic> json) =>
+    _BookListModel(
       list: (json['list'] as List<dynamic>?)
           ?.map((e) => BookItemModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -15,15 +15,15 @@ _$BookListModelImpl _$$BookListModelImplFromJson(Map<String, dynamic> json) =>
       currentPage: (json['currentPage'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$BookListModelImplToJson(_$BookListModelImpl instance) =>
+Map<String, dynamic> _$BookListModelToJson(_BookListModel instance) =>
     <String, dynamic>{
       'list': instance.list,
       'totalCount': instance.totalCount,
       'currentPage': instance.currentPage,
     };
 
-_$BookItemModelImpl _$$BookItemModelImplFromJson(Map<String, dynamic> json) =>
-    _$BookItemModelImpl(
+_BookItemModel _$BookItemModelFromJson(Map<String, dynamic> json) =>
+    _BookItemModel(
       id: json['id'] as String?,
       instId: json['inst_id'] as String?,
       name: json['name'] as String?,
@@ -36,7 +36,7 @@ _$BookItemModelImpl _$$BookItemModelImplFromJson(Map<String, dynamic> json) =>
       uploadedAt: json['uploaded_at'] as String?,
     );
 
-Map<String, dynamic> _$$BookItemModelImplToJson(_$BookItemModelImpl instance) =>
+Map<String, dynamic> _$BookItemModelToJson(_BookItemModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'inst_id': instance.instId,
@@ -50,38 +50,38 @@ Map<String, dynamic> _$$BookItemModelImplToJson(_$BookItemModelImpl instance) =>
       'uploaded_at': instance.uploadedAt,
     };
 
-_$BookChapterListModelImpl _$$BookChapterListModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$BookChapterListModelImpl(
-      list: (json['list'] as List<dynamic>?)
-          ?.map((e) => BookChapterItemModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      totalCount: (json['totalCount'] as num?)?.toInt(),
-      currentPage: (json['currentPage'] as num?)?.toInt(),
-    );
+_BookChapterListModel _$BookChapterListModelFromJson(
+  Map<String, dynamic> json,
+) => _BookChapterListModel(
+  list: (json['list'] as List<dynamic>?)
+      ?.map((e) => BookChapterItemModel.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  totalCount: (json['totalCount'] as num?)?.toInt(),
+  currentPage: (json['currentPage'] as num?)?.toInt(),
+);
 
-Map<String, dynamic> _$$BookChapterListModelImplToJson(
-        _$BookChapterListModelImpl instance) =>
-    <String, dynamic>{
-      'list': instance.list,
-      'totalCount': instance.totalCount,
-      'currentPage': instance.currentPage,
-    };
+Map<String, dynamic> _$BookChapterListModelToJson(
+  _BookChapterListModel instance,
+) => <String, dynamic>{
+  'list': instance.list,
+  'totalCount': instance.totalCount,
+  'currentPage': instance.currentPage,
+};
 
-_$BookChapterItemModelImpl _$$BookChapterItemModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$BookChapterItemModelImpl(
-      id: json['id'] as String?,
-      chapterIndex: json['chapter_index'] as String?,
-      name: json['name'] as String?,
-      fileName: json['file_name'] as String?,
-    );
+_BookChapterItemModel _$BookChapterItemModelFromJson(
+  Map<String, dynamic> json,
+) => _BookChapterItemModel(
+  id: json['id'] as String?,
+  chapterIndex: json['chapter_index'] as String?,
+  name: json['name'] as String?,
+  fileName: json['file_name'] as String?,
+);
 
-Map<String, dynamic> _$$BookChapterItemModelImplToJson(
-        _$BookChapterItemModelImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'chapter_index': instance.chapterIndex,
-      'name': instance.name,
-      'file_name': instance.fileName,
-    };
+Map<String, dynamic> _$BookChapterItemModelToJson(
+  _BookChapterItemModel instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'chapter_index': instance.chapterIndex,
+  'name': instance.name,
+  'file_name': instance.fileName,
+};

@@ -48,6 +48,8 @@ void main() {
           .setMockMethodCallHandler(channel, null));
       final storage = _Storage();
       final api = _Api();
+      when(() => storage.readData(LocalStorageKeys.biometricDeviceToken))
+          .thenAnswer((_) async => null);
       when(() => storage.readData('authToken'))
           .thenAnswer((_) async => 'access-token');
       when(() => storage.readData('user'))
@@ -119,8 +121,11 @@ void main() {
         expect(find.byType(BiometricSetupScreen), findsNothing);
         verifyInOrder([
           () => storage.writeData(
-              LocalStorageKeys.biometricDeviceToken, request.deviceToken),
-          () => storage.writeData(LocalStorageKeys.biometricUserId, '42'),
+              LocalStorageKeys.biometricDeviceToken, jsonEncode({
+                'deviceToken': request.deviceToken,
+                'type': 'fingerPrint',
+                'users': ['42'],
+              })),
           () => storage.writeBool(biometricEnabledKey, true),
         ]);
       } else {

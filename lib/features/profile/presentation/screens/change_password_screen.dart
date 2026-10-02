@@ -26,15 +26,11 @@ class ChangePasswordScreen extends HookConsumerWidget {
     useListenable(newPasswordController);
     useListenable(confirmPasswordController);
 
-    useEffect(() {
-      return () {
-        currentPasswordController.dispose();
-        newPasswordController.dispose();
-        confirmPasswordController.dispose();
-      };
-    }, []);
+    // Do not manually dispose controllers returned by hooks.
+    // `useTextEditingController` handles disposal automatically.
 
-    final isFormValid = currentPasswordController.text.trim().isNotEmpty &&
+    final isFormValid =
+        currentPasswordController.text.trim().isNotEmpty &&
         newPasswordController.text.trim().isNotEmpty &&
         confirmPasswordController.text.trim().isNotEmpty &&
         newPasswordController.text == confirmPasswordController.text;
@@ -101,8 +97,9 @@ class ChangePasswordScreen extends HookConsumerWidget {
                                           password: currentPasswordController
                                               .text
                                               .trim(),
-                                          newPassword:
-                                              newPasswordController.text.trim(),
+                                          newPassword: newPasswordController
+                                              .text
+                                              .trim(),
                                           confirmPassword:
                                               confirmPasswordController.text
                                                   .trim(),
@@ -118,16 +115,19 @@ class ChangePasswordScreen extends HookConsumerWidget {
 
                                         if (result == true) {
                                           successToast(
-                                              'Password updated successfully');
+                                            'Password updated successfully',
+                                          );
                                           Navigator.of(context).pop();
                                         } else {
                                           errorToast(
-                                              'Failed to update password. Please try again.');
+                                            'Failed to update password. Please try again.',
+                                          );
                                         }
                                       } catch (e) {
                                         if (context.mounted) {
                                           errorToast(
-                                              'An error occurred. Please try again.');
+                                            'An error occurred. Please try again.',
+                                          );
                                         }
                                       } finally {
                                         if (context.mounted) {

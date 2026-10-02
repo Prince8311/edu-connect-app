@@ -22,10 +22,13 @@ void main() {
         (tester) async {
       final storage = _Storage();
       final api = _Api();
+      when(() => storage.readData('user'))
+          .thenAnswer((_) async => '{"id":"42"}');
+      when(() => storage.writeData(any(), any())).thenAnswer((_) async => true);
       when(() => storage.readData(LocalStorageKeys.biometricDeviceId))
           .thenAnswer((_) async => 'device');
       when(() => storage.readData(LocalStorageKeys.biometricDeviceToken))
-          .thenAnswer((_) async => 'secret');
+          .thenAnswer((_) async => '{"deviceToken":"secret","type":"fingerPrint","users":["42"]}');
       when(() => storage.deleteData(any())).thenAnswer((_) async {});
       when(() => storage.writeBool(any(), any())).thenAnswer((_) async => true);
       when(() => api.resetBiometric(any())).thenAnswer(
@@ -65,7 +68,8 @@ void main() {
         'biometric_type': 'fingerPrint'
       });
       if (success == true) {
-        verify(() => storage.deleteData(LocalStorageKeys.biometricDeviceToken))
+        verify(() => storage.writeData(LocalStorageKeys.biometricDeviceToken,
+            '{"deviceToken":"secret","type":"fingerPrint","users":[]}'))
             .called(1);
         verify(() => storage.writeBool(biometricEnabledKey, false)).called(1);
         expect(find.byType(BiometricResetSheet), findsNothing);

@@ -9,6 +9,7 @@ import 'package:edu_connect/features/profile/presentation/providers/profile_prov
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:hooks_riverpod/misc.dart' show ProviderListenable;
 import 'package:mocktail/mocktail.dart';
 
 class _Storage extends Mock implements LocalDB {}

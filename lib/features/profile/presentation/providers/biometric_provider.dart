@@ -287,11 +287,7 @@ class BiometricService {
 
   Future<bool> verify() => _auth.authenticate(
         localizedReason: 'Verify your identity to continue with Edu Connect.',
-        options: const AuthenticationOptions(
-          biometricOnly: true,
-          stickyAuth: false,
-          useErrorDialogs: false,
-        ),
+        biometricOnly: true,
       );
 
   Future<void> cancel() async {
@@ -299,6 +295,23 @@ class BiometricService {
   }
 
   static String errorMessage(Object error) {
+    if (error is LocalAuthException) {
+      switch (error.code) {
+        case LocalAuthExceptionCode.noBiometricsEnrolled:
+          return 'Add a fingerprint in your device security settings, then try again.';
+        case LocalAuthExceptionCode.temporaryLockout:
+          return 'Too many attempts. Wait a moment before trying again.';
+        case LocalAuthExceptionCode.biometricLockout:
+          return 'Biometrics are locked. Unlock your device with its PIN or passcode, then try again.';
+        case LocalAuthExceptionCode.noCredentialsSet:
+          return 'Set up a device PIN or passcode before enabling fingerprints.';
+        case LocalAuthExceptionCode.noBiometricHardware:
+        case LocalAuthExceptionCode.biometricHardwareTemporarilyUnavailable:
+          return 'Biometric verification is unavailable. Check your device security settings.';
+        default:
+          break;
+      }
+    }
     if (error is PlatformException) {
       switch (error.code) {
         case 'NotEnrolled':

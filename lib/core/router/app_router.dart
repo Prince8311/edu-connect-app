@@ -118,7 +118,7 @@ class AppRouter {
   path: RoutePath.initial,
   name: RouteName.initial,
 )
-class SplashRoute extends GoRouteData with _$SplashRoute {
+class SplashRoute extends GoRouteData with $SplashRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return const NoTransitionPage(child: SplashScreen());
@@ -129,7 +129,7 @@ class SplashRoute extends GoRouteData with _$SplashRoute {
   path: RoutePath.comingSoon,
   name: RouteName.comingSoon,
 )
-class ComingSoonRoute extends GoRouteData with _$ComingSoonRoute {
+class ComingSoonRoute extends GoRouteData with $ComingSoonRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return slideTransitionPage(ComingSoonScreen());
@@ -140,7 +140,7 @@ class ComingSoonRoute extends GoRouteData with _$ComingSoonRoute {
   path: RoutePath.maintenance,
   name: RouteName.maintenance,
 )
-class MaintainanceRoute extends GoRouteData with _$MaintainanceRoute {
+class MaintainanceRoute extends GoRouteData with $MaintainanceRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return slideTransitionPage(MaintenanceScreen());
@@ -151,7 +151,7 @@ class MaintainanceRoute extends GoRouteData with _$MaintainanceRoute {
   path: RoutePath.auth,
   name: RouteName.auth,
 )
-class AuthRoute extends GoRouteData with _$AuthRoute {
+class AuthRoute extends GoRouteData with $AuthRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return const NoTransitionPage(child: AuthScreen());
@@ -162,7 +162,7 @@ class AuthRoute extends GoRouteData with _$AuthRoute {
   path: RoutePath.userSelect,
   name: RouteName.userSelect,
 )
-class UserSelectRoute extends GoRouteData with _$UserSelectRoute {
+class UserSelectRoute extends GoRouteData with $UserSelectRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return const NoTransitionPage(child: UserSelectScreen());
@@ -173,7 +173,7 @@ class UserSelectRoute extends GoRouteData with _$UserSelectRoute {
   path: RoutePath.roleSelect,
   name: RouteName.roleSelect,
 )
-class RoleSelectRoute extends GoRouteData with _$RoleSelectRoute {
+class RoleSelectRoute extends GoRouteData with $RoleSelectRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return const NoTransitionPage(child: RoleSelectScreen());
@@ -184,7 +184,7 @@ class RoleSelectRoute extends GoRouteData with _$RoleSelectRoute {
   path: RoutePath.studentSelect,
   name: RouteName.studentSelect,
 )
-class StudentSelectRoute extends GoRouteData with _$StudentSelectRoute {
+class StudentSelectRoute extends GoRouteData with $StudentSelectRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return const NoTransitionPage(child: StudentSelectScreen());
@@ -251,28 +251,28 @@ class BottomNavRoute extends StatefulShellRouteData {
   }
 }
 
-class HomeRoute extends GoRouteData with _$HomeRoute {
+class HomeRoute extends GoRouteData with $HomeRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return slideTransitionPage(HomeScreen());
   }
 }
 
-class TimeTableRoute extends GoRouteData with _$TimeTableRoute {
+class TimeTableRoute extends GoRouteData with $TimeTableRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return slideTransitionPage(TimeTableScreen());
   }
 }
 
-class LibraryRoute extends GoRouteData with _$LibraryRoute {
+class LibraryRoute extends GoRouteData with $LibraryRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return slideTransitionPage(LibraryScreen());
   }
 }
 
-class ProfileRoute extends GoRouteData with _$ProfileRoute {
+class ProfileRoute extends GoRouteData with $ProfileRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return slideTransitionPage(ProfileScreen());
@@ -283,7 +283,7 @@ class ProfileRoute extends GoRouteData with _$ProfileRoute {
   path: RoutePath.changePassword,
   name: RouteName.changePassword,
 )
-class ChangePasswordRoute extends GoRouteData with _$ChangePasswordRoute {
+class ChangePasswordRoute extends GoRouteData with $ChangePasswordRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return slideTransitionPage(ChangePasswordScreen());
@@ -294,7 +294,7 @@ class ChangePasswordRoute extends GoRouteData with _$ChangePasswordRoute {
   path: RoutePath.classRooms,
   name: RouteName.classRooms,
 )
-class ClassRoomsRoute extends GoRouteData with _$ClassRoomsRoute {
+class ClassRoomsRoute extends GoRouteData with $ClassRoomsRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return slideTransitionPage(ClassroomListScreen());
@@ -305,7 +305,7 @@ class ClassRoomsRoute extends GoRouteData with _$ClassRoomsRoute {
   path: RoutePath.classRoomDetails,
   name: RouteName.classRoomDetails,
 )
-class ClassRoomDetailsRoute extends GoRouteData with _$ClassRoomDetailsRoute {
+class ClassRoomDetailsRoute extends GoRouteData with $ClassRoomDetailsRoute {
   const ClassRoomDetailsRoute({required this.id});
 
   final int id;
@@ -320,7 +320,7 @@ class ClassRoomDetailsRoute extends GoRouteData with _$ClassRoomDetailsRoute {
   path: RoutePath.createClassRoom,
   name: RouteName.createClassRoom,
 )
-class CreateClassRoomRoute extends GoRouteData with _$CreateClassRoomRoute {
+class CreateClassRoomRoute extends GoRouteData with $CreateClassRoomRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return slideTransitionPage(ClassroomCreateScreen());
@@ -331,7 +331,7 @@ class CreateClassRoomRoute extends GoRouteData with _$CreateClassRoomRoute {
   path: RoutePath.bookDetails,
   name: RouteName.bookDetails,
 )
-class BookDetailsRoute extends GoRouteData with _$BookDetailsRoute {
+class BookDetailsRoute extends GoRouteData with $BookDetailsRoute {
   const BookDetailsRoute({this.$extra});
 
   final BookItemModel? $extra;
@@ -348,7 +348,7 @@ class BookDetailsRoute extends GoRouteData with _$BookDetailsRoute {
   path: RoutePath.addBook,
   name: RouteName.addBook,
 )
-class AddBookRoute extends GoRouteData with _$AddBookRoute {
+class AddBookRoute extends GoRouteData with $AddBookRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return slideTransitionPage(BookAddScreen());
@@ -359,7 +359,7 @@ class AddBookRoute extends GoRouteData with _$AddBookRoute {
   path: RoutePath.addChapter,
   name: RouteName.addChapter,
 )
-class AddChapterRoute extends GoRouteData with _$AddChapterRoute {
+class AddChapterRoute extends GoRouteData with $AddChapterRoute {
   const AddChapterRoute({
     required this.bookId,
     required this.bookName,
@@ -401,7 +401,7 @@ Page slideTransitionPage(
   path: RoutePath.privacyPolicy,
   name: RouteName.privacyPolicy,
 )
-class PrivacyPolicyRoute extends GoRouteData with _$PrivacyPolicyRoute {
+class PrivacyPolicyRoute extends GoRouteData with $PrivacyPolicyRoute {
   const PrivacyPolicyRoute();
 
   @override
@@ -414,7 +414,7 @@ class PrivacyPolicyRoute extends GoRouteData with _$PrivacyPolicyRoute {
   path: RoutePath.termsConditions,
   name: RouteName.termsConditions,
 )
-class TermsConditionsRoute extends GoRouteData with _$TermsConditionsRoute {
+class TermsConditionsRoute extends GoRouteData with $TermsConditionsRoute {
   const TermsConditionsRoute();
 
   @override
@@ -427,7 +427,7 @@ class TermsConditionsRoute extends GoRouteData with _$TermsConditionsRoute {
   path: RoutePath.welcome,
   name: RouteName.welcome,
 )
-class WelcomeRoute extends GoRouteData with _$WelcomeRoute {
+class WelcomeRoute extends GoRouteData with $WelcomeRoute {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return CustomTransitionPage<void>(
@@ -441,7 +441,7 @@ class WelcomeRoute extends GoRouteData with _$WelcomeRoute {
 
 @TypedGoRoute<HelpCenterRoute>(
     path: RoutePath.helpCenter, name: RouteName.helpCenter)
-class HelpCenterRoute extends GoRouteData with _$HelpCenterRoute {
+class HelpCenterRoute extends GoRouteData with $HelpCenterRoute {
   const HelpCenterRoute();
 
   @override
@@ -452,7 +452,7 @@ class HelpCenterRoute extends GoRouteData with _$HelpCenterRoute {
 
 @TypedGoRoute<BiometricSetupRoute>(
     path: '/biometric-setup', name: 'biometricSetup')
-class BiometricSetupRoute extends GoRouteData with _$BiometricSetupRoute {
+class BiometricSetupRoute extends GoRouteData with $BiometricSetupRoute {
   const BiometricSetupRoute();
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) =>

@@ -4,7 +4,7 @@ part 'profile_model.freezed.dart';
 part 'profile_model.g.dart';
 
 @freezed
-class UpdateProfileImageResponse with _$UpdateProfileImageResponse {
+abstract class UpdateProfileImageResponse with _$UpdateProfileImageResponse {
   const factory UpdateProfileImageResponse({
     required int status,
     String? message,
@@ -16,7 +16,7 @@ class UpdateProfileImageResponse with _$UpdateProfileImageResponse {
 }
 
 @freezed
-class UserDetails with _$UserDetails {
+abstract class UserDetails with _$UserDetails {
   const factory UserDetails({
     @JsonKey(name: 'id') String? id,
     @JsonKey(name: 'name') String? name,
@@ -41,7 +41,7 @@ class UserDetails with _$UserDetails {
 }
 
 @freezed
-class GuardianInfo with _$GuardianInfo {
+abstract class GuardianInfo with _$GuardianInfo {
   const factory GuardianInfo({
     @JsonKey(name: 'name') String? name,
     @JsonKey(name: 'profile_image') String? profileImage,
@@ -54,7 +54,7 @@ class GuardianInfo with _$GuardianInfo {
 }
 
 @freezed
-class StudentInfo with _$StudentInfo {
+abstract class StudentInfo with _$StudentInfo {
   const factory StudentInfo({
     @JsonKey(name: 'enrollment_id') String? enrollmentId,
     @JsonKey(name: 'class_standard') String? classStandard,
@@ -68,7 +68,7 @@ class StudentInfo with _$StudentInfo {
 }
 
 @freezed
-class OtpResquest with _$OtpResquest {
+abstract class OtpResquest with _$OtpResquest {
   const factory OtpResquest({
     @JsonKey(name: 'name') String? name,
   }) = _OtpResquest;
@@ -78,7 +78,7 @@ class OtpResquest with _$OtpResquest {
 }
 
 @freezed
-class OtpVerifyResquest with _$OtpVerifyResquest {
+abstract class OtpVerifyResquest with _$OtpVerifyResquest {
   const factory OtpVerifyResquest({
     @JsonKey(name: 'name') String? name,
     @JsonKey(name: 'otp') String? otp,
@@ -89,7 +89,7 @@ class OtpVerifyResquest with _$OtpVerifyResquest {
 }
 
 @freezed
-class StudentSwitchRequest with _$StudentSwitchRequest {
+abstract class StudentSwitchRequest with _$StudentSwitchRequest {
   const factory StudentSwitchRequest({
     @JsonKey(name: 'student_id') String? studentId,
   }) = _StudentSwitchRequest;
@@ -99,7 +99,7 @@ class StudentSwitchRequest with _$StudentSwitchRequest {
 }
 
 @freezed
-class ChangePasswordRequest with _$ChangePasswordRequest {
+abstract class ChangePasswordRequest with _$ChangePasswordRequest {
   const factory ChangePasswordRequest({
     @JsonKey(name: 'password') String? password,
     @JsonKey(name: 'newPassword') String? newPassword,
@@ -111,7 +111,7 @@ class ChangePasswordRequest with _$ChangePasswordRequest {
 }
 
 @freezed
-class BiometricRequest with _$BiometricRequest {
+abstract class BiometricRequest with _$BiometricRequest {
   @JsonSerializable(includeIfNull: false)
   const factory BiometricRequest({
     @JsonKey(name: 'device_id') String? deviceId,

@@ -20,8 +20,9 @@ class HomeScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final todayScheduleAsync =
-        ref.watch(getScheduleClassesProvider(intent: 'today'));
+    final todayScheduleAsync = ref.watch(
+      getScheduleClassesProvider(intent: 'today'),
+    );
     final ongoingClassAsync = ref.watch(ongoingClassProvider);
     final timeSlotsAsync = ref.watch(getTimeSlotsProvider);
     final timeSlots = timeSlotsAsync.asData?.value ?? const <TimeSlotModel>[];
@@ -53,40 +54,6 @@ class HomeScreen extends HookConsumerWidget {
     return Scaffold(
       backgroundColor: ColorName.lightBackground4,
       appBar: const HomeAppBar(),
-      // floatingActionButton: Container(
-      //   width: 56,
-      //   height: 56,
-      //   decoration: BoxDecoration(
-      //     borderRadius: BorderRadius.circular(20),
-      //     gradient: const LinearGradient(
-      //       colors: [
-      //         ColorName.blueColor,
-      //         ColorName.blueColor1,
-      //       ],
-      //     ),
-      //     boxShadow: const [
-      //       BoxShadow(
-      //         color: Color.fromRGBO(0, 0, 0, 0.2),
-      //         blurRadius: 10,
-      //         offset: Offset(0, 4),
-      //       ),
-      //     ],
-      //   ),
-      //   child: Material(
-      //     color: Colors.transparent,
-      //     child: InkWell(
-      //       borderRadius: BorderRadius.circular(16),
-      //       onTap: () => CreateClassRoomRoute().push(context),
-      //       child: Center(
-      //         child: Icon(
-      //           Icons.add,
-      //           color: Colors.white,
-      //           size: 30.sp,
-      //         ),
-      //       ),
-      //     ),
-      //   ),
-      // ),
       body: SafeArea(
         top: false,
         child: SingleChildScrollView(
@@ -99,10 +66,12 @@ class HomeScreen extends HookConsumerWidget {
                 width: double.maxFinite,
                 padding: EdgeInsets.all(12.sp),
                 decoration: BoxDecoration(
-                    color: ColorName.themeColor.withAlpha(15),
-                    borderRadius: BorderRadius.circular(10),
-                    border:
-                        Border.all(color: ColorName.borderColor.withAlpha(80))),
+                  color: ColorName.themeColor.withAlpha(15),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: ColorName.borderColor.withAlpha(80),
+                  ),
+                ),
                 child: Row(
                   children: [
                     Container(
@@ -112,19 +81,24 @@ class HomeScreen extends HookConsumerWidget {
                         color: ColorName.themeColor.withAlpha(30),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Icon(Icons.school,
-                          color: ColorName.blueColor2, size: 24.sp),
+                      child: Icon(
+                        Icons.school,
+                        color: ColorName.blueColor2,
+                        size: 24.sp,
+                      ),
                     ),
                     Gap(12.w),
                     Expanded(
                       child: Builder(
                         builder: (context) {
                           final userType = savedUserInfoAsync
-                              .asData?.value?.type
+                              .asData
+                              ?.value
+                              ?.type
                               ?.toLowerCase();
                           final classValue =
                               todayScheduleAsync.asData?.value?.classRoom ??
-                                  '-';
+                              '-';
 
                           String statusText = 'Loading...';
 
@@ -170,8 +144,8 @@ class HomeScreen extends HookConsumerWidget {
                     todayScheduleAsync.asData?.value?.scheduledClasses ?? [],
                 isTeacher: isTeacher,
               ),
-              Gap(30.h),
-              _buildAttendanceTrendsCard(context),
+              // Gap(30.h),
+              // _buildAttendanceTrendsCard(context),
             ],
           ),
         ),
@@ -194,7 +168,9 @@ class HomeScreen extends HookConsumerWidget {
     final squarePrimaryText = isTeacher
         ? '${(ongoingClass?.className ?? '-').trim()}-${(ongoingClass?.section ?? '-').trim()}'
         : _resolvePeriodLabel(
-            ongoingClass: ongoingClass, matchedSlot: matchedSlot);
+            ongoingClass: ongoingClass,
+            matchedSlot: matchedSlot,
+          );
     final subjectText = (ongoingClass?.subject ?? '').trim().isEmpty
         ? 'No ongoing class'
         : ongoingClass!.subject!.trim();
@@ -251,10 +227,11 @@ class HomeScreen extends HookConsumerWidget {
             Container(
               padding: const EdgeInsets.fromLTRB(10, 4, 13, 4),
               decoration: BoxDecoration(
-                color: (hasOngoingClass
-                        ? ColorName.greenColor
-                        : ColorName.redColor1)
-                    .withAlpha(30),
+                color:
+                    (hasOngoingClass
+                            ? ColorName.greenColor
+                            : ColorName.redColor1)
+                        .withAlpha(30),
                 borderRadius: BorderRadius.circular(999),
               ),
               child: Row(
@@ -344,7 +321,7 @@ class HomeScreen extends HookConsumerWidget {
                                         squarePrimaryText,
                                         style: TextStyle(
                                           color: ColorName.white.withAlpha(245),
-                                          fontSize: 18.sp,
+                                          fontSize: 17.sp,
                                           height: 1,
                                           fontWeight: FontWeight.w600,
                                           fontFamily: FontFamily.poppins,
@@ -474,9 +451,9 @@ class HomeScreen extends HookConsumerWidget {
                           child: ElevatedButton(
                             onPressed: ongoingClass.id == null
                                 ? null
-                                : () =>
-                                    ClassRoomDetailsRoute(id: ongoingClass.id!)
-                                        .push(context),
+                                : () => ClassRoomDetailsRoute(
+                                    id: ongoingClass.id!,
+                                  ).push(context),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: ColorName.transparent,
                               foregroundColor: ColorName.white,
@@ -508,9 +485,7 @@ class HomeScreen extends HookConsumerWidget {
               : Column(
                   children: [
                     Gap(12.h),
-                    Assets.images.relax.svg(
-                      height: 135.h,
-                    ),
+                    Assets.images.relax.svg(height: 135.h),
                     Gap(18.h),
                     Text(
                       'No Live Class Right Now',
@@ -627,8 +602,8 @@ class HomeScreen extends HookConsumerWidget {
     final normalizedHour = parsedHour == 0
         ? 12
         : parsedHour > 12
-            ? parsedHour - 12
-            : parsedHour;
+        ? parsedHour - 12
+        : parsedHour;
 
     return '$normalizedHour:${parsedMinute.toString().padLeft(2, '0')} $meridiem';
   }
@@ -851,10 +826,7 @@ class HomeScreen extends HookConsumerWidget {
                 gradient: const LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [
-                    ColorName.blueColor,
-                    ColorName.blueColor2,
-                  ],
+                  colors: [ColorName.blueColor, ColorName.blueColor2],
                 ),
                 borderRadius: BorderRadius.circular(14),
               ),
@@ -877,10 +849,10 @@ class HomeScreen extends HookConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '${slot.period ?? '-'}',
+                            slot.period ?? '-',
                             style: TextStyle(
                               color: ColorName.white.withAlpha(245),
-                              fontSize: 18.sp,
+                              fontSize: 17.sp,
                               height: 1,
                               fontWeight: FontWeight.w600,
                               fontFamily: FontFamily.poppins,
@@ -895,7 +867,7 @@ class HomeScreen extends HookConsumerWidget {
                               fontWeight: FontWeight.w500,
                               fontFamily: FontFamily.poppins,
                             ),
-                          )
+                          ),
                         ],
                       ),
               ),
@@ -1005,15 +977,15 @@ class HomeScreen extends HookConsumerWidget {
               gradient: const LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [
-                  ColorName.blueColor,
-                  ColorName.blueColor2,
-                ],
+                colors: [ColorName.blueColor, ColorName.blueColor2],
               ),
               borderRadius: BorderRadius.circular(999),
             ),
-            child: Icon(Icons.calendar_month,
-                color: ColorName.white.withAlpha(200), size: 34.sp),
+            child: Icon(
+              Icons.calendar_month,
+              color: ColorName.white.withAlpha(200),
+              size: 34.sp,
+            ),
           ),
           Gap(18.h),
           Text(
@@ -1042,10 +1014,7 @@ class HomeScreen extends HookConsumerWidget {
               gradient: const LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
-                  ColorName.blueColor,
-                  ColorName.blueColor2,
-                ],
+                colors: [ColorName.blueColor, ColorName.blueColor2],
               ),
               boxShadow: const [
                 BoxShadow(
@@ -1058,14 +1027,25 @@ class HomeScreen extends HookConsumerWidget {
               borderRadius: BorderRadius.circular(16),
             ),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                final container = ProviderScope.containerOf(
+                  context,
+                  listen: false,
+                );
+                container.invalidate(
+                  getScheduleClassesProvider(intent: 'today'),
+                );
+                container.invalidate(ongoingClassProvider);
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: ColorName.transparent,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                padding:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 22),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 22,
+                ),
                 foregroundColor: ColorName.white,
                 shadowColor: Colors.transparent,
                 elevation: 0,
@@ -1078,87 +1058,7 @@ class HomeScreen extends HookConsumerWidget {
                   Text(
                     'Refresh Schedule',
                     style: TextStyle(
-                        color: ColorName.white,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: FontFamily.poppins),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAttendanceTrendsCard(BuildContext context) {
-    const summary = _AttendanceSummary(
-      startDateLabel: 'Oct 01',
-      endDateLabel: 'Oct 31, 2023',
-      attendedDays: 22,
-      workingDays: 24,
-      todayStatus: 'Not Marked',
-    );
-    final absentDays = summary.workingDays - summary.attendedDays;
-    final attendanceRatio = summary.attendedDays / summary.workingDays;
-
-    final todayStatusColor = switch (summary.todayStatus.toLowerCase()) {
-      'present' => const Color(0xFF34D399),
-      'absent' => const Color(0xFFF97373),
-      _ => const Color(0xFFFBBF24),
-    };
-    final todayStatusIcon = switch (summary.todayStatus.toLowerCase()) {
-      'present' => Icons.check_circle_outline,
-      'absent' => Icons.highlight_off,
-      _ => Icons.pending_outlined,
-    };
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: ColorName.themeColor.withAlpha(30),
-                borderRadius: BorderRadius.circular(14),
-              ),
-              child: Icon(
-                Icons.pie_chart,
-                color: ColorName.blueColor2,
-                size: 23.sp,
-              ),
-            ),
-            Gap(10.w),
-            Expanded(
-              child: Text(
-                'My Attendance',
-                style: TextStyle(
-                  color: ColorName.black,
-                  fontSize: 17.sp,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: FontFamily.poppins,
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.filter_list,
-                    size: 20.sp,
-                    color: ColorName.blueColor1,
-                  ),
-                  Gap(4.w),
-                  Text(
-                    'Filter by date',
-                    style: TextStyle(
-                      color: ColorName.blueColor1,
+                      color: ColorName.white,
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
                       fontFamily: FontFamily.poppins,
@@ -1167,252 +1067,331 @@ class HomeScreen extends HookConsumerWidget {
                 ],
               ),
             ),
-          ],
-        ),
-        Gap(12.h),
-        Container(
-          padding: const EdgeInsets.all(18),
-          decoration: BoxDecoration(
-            color: const Color(0xFF0F172A),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '${summary.startDateLabel} - ${summary.endDateLabel}',
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                  color: const Color(0xFF8B97B6),
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: FontFamily.poppins,
-                  letterSpacing: 0.3,
-                ),
-              ),
-              Gap(5.h),
-              Padding(
-                padding: const EdgeInsets.only(left: 8),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 132,
-                      height: 132,
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          SizedBox(
-                            width: 132,
-                            height: 132,
-                            child: CircularProgressIndicator(
-                              value: 1,
-                              strokeWidth: 14,
-                              valueColor: const AlwaysStoppedAnimation<Color>(
-                                Color(0xFF1A2945),
-                              ),
-                              backgroundColor: Colors.transparent,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 132,
-                            height: 132,
-                            child: CircularProgressIndicator(
-                              value: attendanceRatio,
-                              strokeWidth: 14,
-                              strokeCap: StrokeCap.round,
-                              valueColor: const AlwaysStoppedAnimation<Color>(
-                                Color(0xFF4DA3FF),
-                              ),
-                              backgroundColor: Colors.transparent,
-                            ),
-                          ),
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                '${(attendanceRatio * 100).toStringAsFixed(1)}%',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24.sp,
-                                  fontWeight: FontWeight.w700,
-                                  fontFamily: FontFamily.poppins,
-                                ),
-                              ),
-                              Text(
-                                'Present',
-                                style: TextStyle(
-                                  color: const Color(0xFF8B97B6),
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: FontFamily.poppins,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Gap(25.w),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _buildAttendanceMetricTile(
-                            title: 'Working Days',
-                            value: '${summary.workingDays}',
-                            accentColor: const Color(0xFF5B8CFF),
-                            icon: Icons.calendar_month,
-                          ),
-                          Gap(12.h),
-                          _buildAttendanceMetricTile(
-                            title: 'Days Attended',
-                            value: '${summary.attendedDays}',
-                            accentColor: const Color(0xFF3EE18C),
-                            icon: Icons.check_circle_outline,
-                          ),
-                          Gap(12.h),
-                          _buildAttendanceMetricTile(
-                            title: 'Days Absent',
-                            value: '$absentDays',
-                            accentColor: const Color(0xFFFF8A65),
-                            icon: Icons.highlight_off,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Gap(18.h),
-              Divider(
-                height: 1,
-                thickness: 1,
-                color: const Color(0xFF24314A),
-              ),
-              Gap(16.h),
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'TODAY\'S STATUS',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: FontFamily.poppins,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF1B2942),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: todayStatusColor.withAlpha(90)),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          todayStatusIcon,
-                          size: 17,
-                          color: todayStatusColor,
-                        ),
-                        Gap(6.w),
-                        Text(
-                          summary.todayStatus,
-                          style: TextStyle(
-                            color: todayStatusColor,
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: FontFamily.poppins,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildAttendanceMetricTile({
-    required String title,
-    required String value,
-    required Color accentColor,
-    required IconData icon,
-  }) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-      decoration: BoxDecoration(
-        color: const Color(0xFF18243B),
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 38,
-            height: 38,
-            decoration: BoxDecoration(
-              color: accentColor.withAlpha(28),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(icon, color: accentColor, size: 20),
-          ),
-          Gap(12.w),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: const Color(0xFF8B97B6),
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: FontFamily.poppins,
-                  ),
-                ),
-                Gap(2.h),
-                Text(
-                  value,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 17.sp,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: FontFamily.poppins,
-                  ),
-                ),
-              ],
-            ),
           ),
         ],
       ),
     );
   }
+
+  // Widget _buildAttendanceTrendsCard(BuildContext context) {
+  //   const summary = _AttendanceSummary(
+  //     startDateLabel: 'Oct 01',
+  //     endDateLabel: 'Oct 31, 2023',
+  //     attendedDays: 22,
+  //     workingDays: 24,
+  //     todayStatus: 'Not Marked',
+  //   );
+  //   final absentDays = summary.workingDays - summary.attendedDays;
+  //   final attendanceRatio = summary.attendedDays / summary.workingDays;
+
+  //   final todayStatusColor = switch (summary.todayStatus.toLowerCase()) {
+  //     'present' => const Color(0xFF34D399),
+  //     'absent' => const Color(0xFFF97373),
+  //     _ => const Color(0xFFFBBF24),
+  //   };
+  //   final todayStatusIcon = switch (summary.todayStatus.toLowerCase()) {
+  //     'present' => Icons.check_circle_outline,
+  //     'absent' => Icons.highlight_off,
+  //     _ => Icons.pending_outlined,
+  //   };
+
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       Row(
+  //         children: [
+  //           Container(
+  //             width: 40,
+  //             height: 40,
+  //             decoration: BoxDecoration(
+  //               color: ColorName.themeColor.withAlpha(30),
+  //               borderRadius: BorderRadius.circular(14),
+  //             ),
+  //             child: Icon(
+  //               Icons.pie_chart,
+  //               color: ColorName.blueColor2,
+  //               size: 23.sp,
+  //             ),
+  //           ),
+  //           Gap(10.w),
+  //           Expanded(
+  //             child: Text(
+  //               'My Attendance',
+  //               style: TextStyle(
+  //                 color: ColorName.black,
+  //                 fontSize: 17.sp,
+  //                 fontWeight: FontWeight.w600,
+  //                 fontFamily: FontFamily.poppins,
+  //               ),
+  //             ),
+  //           ),
+  //           GestureDetector(
+  //             onTap: () {},
+  //             child: Row(
+  //               crossAxisAlignment: CrossAxisAlignment.center,
+  //               children: [
+  //                 Icon(
+  //                   Icons.filter_list,
+  //                   size: 20.sp,
+  //                   color: ColorName.blueColor1,
+  //                 ),
+  //                 Gap(4.w),
+  //                 Text(
+  //                   'Filter by date',
+  //                   style: TextStyle(
+  //                     color: ColorName.blueColor1,
+  //                     fontSize: 14.sp,
+  //                     fontWeight: FontWeight.w500,
+  //                     fontFamily: FontFamily.poppins,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //       Gap(12.h),
+  //       Container(
+  //         padding: const EdgeInsets.all(18),
+  //         decoration: BoxDecoration(
+  //           color: const Color(0xFF0F172A),
+  //           borderRadius: BorderRadius.circular(10),
+  //         ),
+  //         child: Column(
+  //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           children: [
+  //             Text(
+  //               '${summary.startDateLabel} - ${summary.endDateLabel}',
+  //               textAlign: TextAlign.right,
+  //               style: TextStyle(
+  //                 color: const Color(0xFF8B97B6),
+  //                 fontSize: 13.sp,
+  //                 fontWeight: FontWeight.w600,
+  //                 fontFamily: FontFamily.poppins,
+  //                 letterSpacing: 0.3,
+  //               ),
+  //             ),
+  //             Gap(5.h),
+  //             Padding(
+  //               padding: const EdgeInsets.only(left: 8),
+  //               child: Row(
+  //                 children: [
+  //                   SizedBox(
+  //                     width: 132,
+  //                     height: 132,
+  //                     child: Stack(
+  //                       alignment: Alignment.center,
+  //                       children: [
+  //                         SizedBox(
+  //                           width: 132,
+  //                           height: 132,
+  //                           child: CircularProgressIndicator(
+  //                             value: 1,
+  //                             strokeWidth: 14,
+  //                             valueColor: const AlwaysStoppedAnimation<Color>(
+  //                               Color(0xFF1A2945),
+  //                             ),
+  //                             backgroundColor: Colors.transparent,
+  //                           ),
+  //                         ),
+  //                         SizedBox(
+  //                           width: 132,
+  //                           height: 132,
+  //                           child: CircularProgressIndicator(
+  //                             value: attendanceRatio,
+  //                             strokeWidth: 14,
+  //                             strokeCap: StrokeCap.round,
+  //                             valueColor: const AlwaysStoppedAnimation<Color>(
+  //                               Color(0xFF4DA3FF),
+  //                             ),
+  //                             backgroundColor: Colors.transparent,
+  //                           ),
+  //                         ),
+  //                         Column(
+  //                           mainAxisSize: MainAxisSize.min,
+  //                           children: [
+  //                             Text(
+  //                               '${(attendanceRatio * 100).toStringAsFixed(1)}%',
+  //                               style: TextStyle(
+  //                                 color: Colors.white,
+  //                                 fontSize: 24.sp,
+  //                                 fontWeight: FontWeight.w700,
+  //                                 fontFamily: FontFamily.poppins,
+  //                               ),
+  //                             ),
+  //                             Text(
+  //                               'Present',
+  //                               style: TextStyle(
+  //                                 color: const Color(0xFF8B97B6),
+  //                                 fontSize: 12.sp,
+  //                                 fontWeight: FontWeight.w600,
+  //                                 fontFamily: FontFamily.poppins,
+  //                               ),
+  //                             ),
+  //                           ],
+  //                         ),
+  //                       ],
+  //                     ),
+  //                   ),
+  //                   Gap(25.w),
+  //                   Expanded(
+  //                     child: Column(
+  //                       crossAxisAlignment: CrossAxisAlignment.start,
+  //                       children: [
+  //                         _buildAttendanceMetricTile(
+  //                           title: 'Working Days',
+  //                           value: '${summary.workingDays}',
+  //                           accentColor: const Color(0xFF5B8CFF),
+  //                           icon: Icons.calendar_month,
+  //                         ),
+  //                         Gap(12.h),
+  //                         _buildAttendanceMetricTile(
+  //                           title: 'Days Attended',
+  //                           value: '${summary.attendedDays}',
+  //                           accentColor: const Color(0xFF3EE18C),
+  //                           icon: Icons.check_circle_outline,
+  //                         ),
+  //                         Gap(12.h),
+  //                         _buildAttendanceMetricTile(
+  //                           title: 'Days Absent',
+  //                           value: '$absentDays',
+  //                           accentColor: const Color(0xFFFF8A65),
+  //                           icon: Icons.highlight_off,
+  //                         ),
+  //                       ],
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //             Gap(18.h),
+  //             Divider(height: 1, thickness: 1, color: const Color(0xFF24314A)),
+  //             Gap(16.h),
+  //             Row(
+  //               children: [
+  //                 Expanded(
+  //                   child: Column(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     children: [
+  //                       Text(
+  //                         'TODAY\'S STATUS',
+  //                         style: TextStyle(
+  //                           color: Colors.white,
+  //                           fontSize: 14.sp,
+  //                           fontWeight: FontWeight.w600,
+  //                           fontFamily: FontFamily.poppins,
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //                 Container(
+  //                   padding: const EdgeInsets.symmetric(
+  //                     horizontal: 12,
+  //                     vertical: 8,
+  //                   ),
+  //                   decoration: BoxDecoration(
+  //                     color: const Color(0xFF1B2942),
+  //                     borderRadius: BorderRadius.circular(12),
+  //                     border: Border.all(color: todayStatusColor.withAlpha(90)),
+  //                   ),
+  //                   child: Row(
+  //                     children: [
+  //                       Icon(
+  //                         todayStatusIcon,
+  //                         size: 17,
+  //                         color: todayStatusColor,
+  //                       ),
+  //                       Gap(6.w),
+  //                       Text(
+  //                         summary.todayStatus,
+  //                         style: TextStyle(
+  //                           color: todayStatusColor,
+  //                           fontSize: 13.sp,
+  //                           fontWeight: FontWeight.w700,
+  //                           fontFamily: FontFamily.poppins,
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+
+  // Widget _buildAttendanceMetricTile({
+  //   required String title,
+  //   required String value,
+  //   required Color accentColor,
+  //   required IconData icon,
+  // }) {
+  //   return Container(
+  //     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+  //     decoration: BoxDecoration(
+  //       color: const Color(0xFF18243B),
+  //       borderRadius: BorderRadius.circular(14),
+  //     ),
+  //     child: Row(
+  //       children: [
+  //         Container(
+  //           width: 38,
+  //           height: 38,
+  //           decoration: BoxDecoration(
+  //             color: accentColor.withAlpha(28),
+  //             borderRadius: BorderRadius.circular(12),
+  //           ),
+  //           child: Icon(icon, color: accentColor, size: 20),
+  //         ),
+  //         Gap(12.w),
+  //         Expanded(
+  //           child: Column(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             children: [
+  //               Text(
+  //                 title,
+  //                 style: TextStyle(
+  //                   color: const Color(0xFF8B97B6),
+  //                   fontSize: 12.sp,
+  //                   fontWeight: FontWeight.w500,
+  //                   fontFamily: FontFamily.poppins,
+  //                 ),
+  //               ),
+  //               Gap(2.h),
+  //               Text(
+  //                 value,
+  //                 style: TextStyle(
+  //                   color: Colors.white,
+  //                   fontSize: 17.sp,
+  //                   fontWeight: FontWeight.w600,
+  //                   fontFamily: FontFamily.poppins,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }
 
-class _AttendanceSummary {
-  const _AttendanceSummary({
-    required this.startDateLabel,
-    required this.endDateLabel,
-    required this.attendedDays,
-    required this.workingDays,
-    required this.todayStatus,
-  });
+// class _AttendanceSummary {
+//   const _AttendanceSummary({
+//     required this.startDateLabel,
+//     required this.endDateLabel,
+//     required this.attendedDays,
+//     required this.workingDays,
+//     required this.todayStatus,
+//   });
 
-  final String startDateLabel;
-  final String endDateLabel;
-  final int attendedDays;
-  final int workingDays;
-  final String todayStatus;
-}
+//   final String startDateLabel;
+//   final String endDateLabel;
+//   final int attendedDays;
+//   final int workingDays;
+//   final String todayStatus;
+// }

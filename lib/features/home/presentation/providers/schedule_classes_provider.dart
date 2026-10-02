@@ -1,4 +1,5 @@
 import 'package:edu_connect/core/api/error_handler.dart';
+import 'package:edu_connect/features/auth/presentation/providers/auth_token_provider.dart';
 import 'package:edu_connect/features/home/data/repositories/schedule_classes_repo_impl.dart';
 import 'package:edu_connect/features/home/domain/models/time_slot_model.dart';
 import 'package:edu_connect/features/time-table/domain/models/schedule_classes_model.dart';
@@ -9,6 +10,7 @@ part 'schedule_classes_provider.g.dart';
 
 @riverpod
 Future<List<TimeSlotModel>?> getTimeSlots(Ref ref) async {
+  ref.watch(authSessionRevisionProvider);
   final repo = ref.read(scheduleClassesRepoProvider);
   final result = await repo.getTimeSlots();
 
@@ -26,6 +28,7 @@ Future<TimeTableResponse?> getScheduleClasses(
   Ref ref, {
   String? intent,
 }) async {
+  ref.watch(authSessionRevisionProvider);
   final repo = ref.read(scheduleClassesRepoProvider);
   final result = await repo.getScheduleClasses(intent: intent);
 
@@ -40,6 +43,7 @@ Future<TimeTableResponse?> getScheduleClasses(
 
 @riverpod
 Future<OngoingClassModel?> ongoingClass(Ref ref) async {
+  ref.watch(authSessionRevisionProvider);
   final repo = ref.read(scheduleClassesRepoProvider);
   final result = await repo.ongoingClass();
 

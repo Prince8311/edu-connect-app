@@ -5,7 +5,6 @@ import 'package:edu_connect/core/shared/miscellaneous/failure.dart';
 import 'package:edu_connect/core/shared/widgets/toast.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
-import 'package:logger/web.dart';
 
 class ApiError implements Exception {
   ApiError.fromDioError(DioException dioError) {
@@ -31,7 +30,8 @@ class ApiError implements Exception {
           final responseData = dioError.response?.data;
 
           final statusMessage = _handleError(statusCode);
-          final apiMessage = responseData?['message'];
+          final rawMessage = responseData is Map ? responseData['message'] : null;
+          final apiMessage = rawMessage is String ? rawMessage : null;
 
           if (statusCode == 503) {
             handleMaintenance();
@@ -49,11 +49,6 @@ class ApiError implements Exception {
           message = 'Please try again.';
           failure = Failure(error: error, message: message);
         case DioExceptionType.unknown:
-          debugPrint('Error: ${dioError.error}');
-          debugPrint('Error Message: ${dioError.message}');
-          debugPrint('Error Response: ${dioError.response}');
-          debugPrint('Error Type: ${dioError.type}');
-          debugPrint('Error Stacktrace:  ${dioError.stackTrace}');
           if (dioError.message?.contains('SocketException') ?? false) {
             error = 'No Internet';
             message = 'Please try again.';
@@ -74,8 +69,7 @@ class ApiError implements Exception {
         message: failure.message ?? 'Please try again',
         duration: kDebugMode ? const Duration(seconds: 15) : null,
       );
-    } catch (e) {
-      Logger().e(e);
+    } catch (_) {
       errorToast(
         'Something went wrong!',
         message: failure.message ?? 'Please try again',
@@ -134,8 +128,6 @@ class ApiError implements Exception {
 
 class AppErrorHandler {
   static void commonErrorHandler(Failure l, {Function()? handler}) {
-    debugPrint('Failure message ${l.message}');
-    debugPrint('Failure error ${l.error}');
     errorToast(l.error, message: l.message);
     handler?.call();
     return;

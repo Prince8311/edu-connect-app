@@ -14,7 +14,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'profile_provider.g.dart';
 
-@riverpod
+@Riverpod(name: 'userDetailsNotifierProvider')
 class UserDetailsNotifier extends _$UserDetailsNotifier {
   Future<UpdateProfileImageResponse?> updateProfileImage({
     required Uint8List bytes,
@@ -36,7 +36,7 @@ class UserDetailsNotifier extends _$UserDetailsNotifier {
         (response) async {
           // Do not apply an old upload result to a newly selected account.
           if (await storage.readData('user') != savedUser) return response;
-          final current = state.valueOrNull;
+          final current = state.value;
           if (current != null) {
             state = AsyncData(
                 current.copyWith(profileImage: response.profileImage));
@@ -61,6 +61,7 @@ class UserDetailsNotifier extends _$UserDetailsNotifier {
 
   @override
   Future<UserDetails?> build() async {
+    ref.watch(authSessionRevisionProvider);
     final result = await ref.read(profileRepoProvider).getUserDetails();
 
     return result.fold(
@@ -131,6 +132,7 @@ Future<List<GuardianStudent>?> getGuardianStudentList(
   Ref ref, {
   String? tempToken,
 }) async {
+  ref.watch(authSessionRevisionProvider);
   final repo = ref.read(profileRepoProvider);
   final result = await repo.getGuardianStudentList();
 

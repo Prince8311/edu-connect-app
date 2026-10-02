@@ -4,7 +4,7 @@ part 'library_model.freezed.dart';
 part 'library_model.g.dart';
 
 @freezed
-class BookListModel with _$BookListModel {
+abstract class BookListModel with _$BookListModel {
   const factory BookListModel({
     @JsonKey(name: 'list') List<BookItemModel>? list,
     @JsonKey(name: 'totalCount') int? totalCount,
@@ -16,7 +16,7 @@ class BookListModel with _$BookListModel {
 }
 
 @freezed
-class BookItemModel with _$BookItemModel {
+abstract class BookItemModel with _$BookItemModel {
   const factory BookItemModel({
     @JsonKey(name: 'id') String? id,
     @JsonKey(name: 'inst_id') String? instId,
@@ -35,7 +35,7 @@ class BookItemModel with _$BookItemModel {
 }
 
 @freezed
-class BookChapterListModel with _$BookChapterListModel {
+abstract class BookChapterListModel with _$BookChapterListModel {
   const factory BookChapterListModel({
     @JsonKey(name: 'list') List<BookChapterItemModel>? list,
     @JsonKey(name: 'totalCount') int? totalCount,
@@ -47,7 +47,7 @@ class BookChapterListModel with _$BookChapterListModel {
 }
 
 @freezed
-class BookChapterItemModel with _$BookChapterItemModel {
+abstract class BookChapterItemModel with _$BookChapterItemModel {
   const factory BookChapterItemModel({
     @JsonKey(name: 'id') String? id,
     @JsonKey(name: 'chapter_index') String? chapterIndex,

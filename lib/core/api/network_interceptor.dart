@@ -113,8 +113,8 @@ class RetryOnConnectionChangeInterceptor extends Interceptor {
   }
 
   Future<bool> _shouldRetry(DioException err) async {
-    var connectivityResult = await Connectivity().checkConnectivity();
-    var notConnected = connectivityResult == ConnectivityResult.none;
+    final connectivityResult = await Connectivity().checkConnectivity();
+    final notConnected = connectivityResult.contains(ConnectivityResult.none);
     return err.type == DioExceptionType.connectionError &&
         err.error != null &&
         err.error is SocketException &&
@@ -138,7 +138,7 @@ class DioConnectivityRequestRetrier {
     streamSubscription = connectivity.onConnectivityChanged.listen(
       (connectivityResult) async {
         // We're connected either to WiFi or mobile data
-        if (connectivityResult != ConnectivityResult.none) {
+        if (!connectivityResult.contains(ConnectivityResult.none)) {
           // Ensure that only one retry happens per connectivity change by cancelling the listener
           streamSubscription?.cancel();
 

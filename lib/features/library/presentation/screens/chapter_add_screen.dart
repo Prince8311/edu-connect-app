@@ -120,24 +120,26 @@ class ChapterAddScreen extends HookConsumerWidget {
                       InkWell(
                         borderRadius: BorderRadius.circular(8),
                         onTap: () async {
-                          final result = await FilePicker.platform.pickFiles(
+                          final result = await FilePicker.pickFiles(
                             type: FileType.custom,
                             allowedExtensions: const ['pdf'],
-                            withData: true,
                           );
 
-                          if (result == null || result.files.isEmpty) {
+                          if (result.isEmpty) {
                             return;
                           }
 
-                          final file = result.files.first;
+                          final file = result.first;
                           final ext = (file.extension ?? '').toLowerCase();
                           if (ext != 'pdf') {
                             errorToast('Only pdf files are allowed');
                             return;
                           }
 
-                          if (file.bytes == null && file.path == null) {
+                          late final Uint8List bytes;
+                          try {
+                            bytes = await file.readAsBytes();
+                          } catch (_) {
                             errorToast(
                                 'Unable to read selected file, try again');
                             return;
@@ -145,7 +147,7 @@ class ChapterAddScreen extends HookConsumerWidget {
 
                           selectedPdfName.value = file.name;
                           selectedPdfPath.value = file.path;
-                          selectedPdfBytes.value = file.bytes;
+                          selectedPdfBytes.value = bytes;
                         },
                         child: Container(
                           height: selectedPdfName.value != null ? 55 : 105,

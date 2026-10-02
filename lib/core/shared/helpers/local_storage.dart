@@ -89,7 +89,7 @@ class LocalStorage implements LocalDB {
 // ---------------- SECURE STORAGE ----------------
 class SecureLocalStorage implements LocalDB {
   final secureStorage = const FlutterSecureStorage(
-    aOptions: AndroidOptions(encryptedSharedPreferences: true),
+    aOptions: AndroidOptions(),
   );
 
   SecureLocalStorage._();

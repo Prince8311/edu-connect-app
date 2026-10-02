@@ -218,7 +218,7 @@ class _ClassroomDetailsScreenState
       {required bool isTeacher,
       required AsyncValue<List<ClassroomStudentModel>> classroomStudents}) {
     final allStudents =
-        classroomStudents.valueOrNull ?? const <ClassroomStudentModel>[];
+        classroomStudents.value ?? const <ClassroomStudentModel>[];
     final query = _search.text.trim().toLowerCase();
     final students = allStudents
         .where((student) =>
@@ -668,7 +668,9 @@ class _ClassroomDetailsScreenState
                 .where((app) => app.label != 'Attendance' || isTeacher)
                 .map((app) => SizedBox(
                       width: size,
-                      height: 80 + 28.8 * scale,
+                      // Leave enough room for the icon and a two-line label
+                      // when accessibility text scaling is enabled.
+                      height: 88 + 28.8 * scale,
                       child: Material(
                         color: Colors.white,
                         shape: RoundedRectangleBorder(

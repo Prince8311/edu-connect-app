@@ -1,6 +1,5 @@
 import 'package:edu_connect/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:edu_connect/core/shared/miscellaneous/app_extensions.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class MaintenanceScreen extends HookConsumerWidget {

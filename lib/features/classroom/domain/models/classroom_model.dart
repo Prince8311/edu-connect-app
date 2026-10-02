@@ -4,7 +4,7 @@ part 'classroom_model.freezed.dart';
 part 'classroom_model.g.dart';
 
 @freezed
-class ClassroomModel with _$ClassroomModel {
+abstract class ClassroomModel with _$ClassroomModel {
   @JsonSerializable(explicitToJson: true)
   const factory ClassroomModel({
     int? id,
@@ -25,7 +25,7 @@ class ClassroomModel with _$ClassroomModel {
 }
 
 @freezed
-class ClassroomStudentModel with _$ClassroomStudentModel {
+abstract class ClassroomStudentModel with _$ClassroomStudentModel {
   const factory ClassroomStudentModel({
     @JsonKey(name: 'student_id') int? studentId,
     @JsonKey(name: 'name') String? name,
@@ -39,7 +39,7 @@ class ClassroomStudentModel with _$ClassroomStudentModel {
 }
 
 @freezed
-class AttendanceRequestModel with _$AttendanceRequestModel {
+abstract class AttendanceRequestModel with _$AttendanceRequestModel {
   const factory AttendanceRequestModel({
     @JsonKey(name: 'attendance_type') String? attendanceType,
     @JsonKey(name: 'class') String? className,

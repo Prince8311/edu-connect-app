@@ -7,41 +7,40 @@ part of 'app_router.dart';
 // **************************************************************************
 
 List<RouteBase> get $appRoutes => [
-      $splashRoute,
-      $comingSoonRoute,
-      $maintainanceRoute,
-      $authRoute,
-      $userSelectRoute,
-      $roleSelectRoute,
-      $studentSelectRoute,
-      $bottomNavRoute,
-      $changePasswordRoute,
-      $classRoomsRoute,
-      $classRoomDetailsRoute,
-      $createClassRoomRoute,
-      $bookDetailsRoute,
-      $addBookRoute,
-      $addChapterRoute,
-      $privacyPolicyRoute,
-      $termsConditionsRoute,
-      $welcomeRoute,
-      $helpCenterRoute,
-      $biometricSetupRoute,
-    ];
+  $splashRoute,
+  $comingSoonRoute,
+  $maintainanceRoute,
+  $authRoute,
+  $userSelectRoute,
+  $roleSelectRoute,
+  $studentSelectRoute,
+  $bottomNavRoute,
+  $changePasswordRoute,
+  $classRoomsRoute,
+  $classRoomDetailsRoute,
+  $createClassRoomRoute,
+  $bookDetailsRoute,
+  $addBookRoute,
+  $addChapterRoute,
+  $privacyPolicyRoute,
+  $termsConditionsRoute,
+  $welcomeRoute,
+  $helpCenterRoute,
+  $biometricSetupRoute,
+];
 
 RouteBase get $splashRoute => GoRouteData.$route(
-      path: '/',
-      name: 'initial',
-      factory: _$SplashRoute._fromState,
-    );
+  path: '/',
+  name: 'initial',
+  hasOverriddenOnExit: false,
+  factory: $SplashRoute._fromState,
+);
 
-mixin _$SplashRoute on GoRouteData {
+mixin $SplashRoute on GoRouteData {
   static SplashRoute _fromState(GoRouterState state) => SplashRoute();
 
   @override
-  String get location => GoRouteData.$location(
-        '/',
-      );
+  String get location => GoRouteData.$location('/');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -58,18 +57,17 @@ mixin _$SplashRoute on GoRouteData {
 }
 
 RouteBase get $comingSoonRoute => GoRouteData.$route(
-      path: '/coming-soon',
-      name: 'comingSoon',
-      factory: _$ComingSoonRoute._fromState,
-    );
+  path: '/coming-soon',
+  name: 'comingSoon',
+  hasOverriddenOnExit: false,
+  factory: $ComingSoonRoute._fromState,
+);
 
-mixin _$ComingSoonRoute on GoRouteData {
+mixin $ComingSoonRoute on GoRouteData {
   static ComingSoonRoute _fromState(GoRouterState state) => ComingSoonRoute();
 
   @override
-  String get location => GoRouteData.$location(
-        '/coming-soon',
-      );
+  String get location => GoRouteData.$location('/coming-soon');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -86,19 +84,18 @@ mixin _$ComingSoonRoute on GoRouteData {
 }
 
 RouteBase get $maintainanceRoute => GoRouteData.$route(
-      path: '/maintenance',
-      name: 'maintenance',
-      factory: _$MaintainanceRoute._fromState,
-    );
+  path: '/maintenance',
+  name: 'maintenance',
+  hasOverriddenOnExit: false,
+  factory: $MaintainanceRoute._fromState,
+);
 
-mixin _$MaintainanceRoute on GoRouteData {
+mixin $MaintainanceRoute on GoRouteData {
   static MaintainanceRoute _fromState(GoRouterState state) =>
       MaintainanceRoute();
 
   @override
-  String get location => GoRouteData.$location(
-        '/maintenance',
-      );
+  String get location => GoRouteData.$location('/maintenance');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -115,18 +112,17 @@ mixin _$MaintainanceRoute on GoRouteData {
 }
 
 RouteBase get $authRoute => GoRouteData.$route(
-      path: '/auth',
-      name: 'auth',
-      factory: _$AuthRoute._fromState,
-    );
+  path: '/auth',
+  name: 'auth',
+  hasOverriddenOnExit: false,
+  factory: $AuthRoute._fromState,
+);
 
-mixin _$AuthRoute on GoRouteData {
+mixin $AuthRoute on GoRouteData {
   static AuthRoute _fromState(GoRouterState state) => AuthRoute();
 
   @override
-  String get location => GoRouteData.$location(
-        '/auth',
-      );
+  String get location => GoRouteData.$location('/auth');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -143,18 +139,17 @@ mixin _$AuthRoute on GoRouteData {
 }
 
 RouteBase get $userSelectRoute => GoRouteData.$route(
-      path: '/user-select',
-      name: 'userSelect',
-      factory: _$UserSelectRoute._fromState,
-    );
+  path: '/user-select',
+  name: 'userSelect',
+  hasOverriddenOnExit: false,
+  factory: $UserSelectRoute._fromState,
+);
 
-mixin _$UserSelectRoute on GoRouteData {
+mixin $UserSelectRoute on GoRouteData {
   static UserSelectRoute _fromState(GoRouterState state) => UserSelectRoute();
 
   @override
-  String get location => GoRouteData.$location(
-        '/user-select',
-      );
+  String get location => GoRouteData.$location('/user-select');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -171,18 +166,17 @@ mixin _$UserSelectRoute on GoRouteData {
 }
 
 RouteBase get $roleSelectRoute => GoRouteData.$route(
-      path: '/role-select',
-      name: 'roleSelect',
-      factory: _$RoleSelectRoute._fromState,
-    );
+  path: '/role-select',
+  name: 'roleSelect',
+  hasOverriddenOnExit: false,
+  factory: $RoleSelectRoute._fromState,
+);
 
-mixin _$RoleSelectRoute on GoRouteData {
+mixin $RoleSelectRoute on GoRouteData {
   static RoleSelectRoute _fromState(GoRouterState state) => RoleSelectRoute();
 
   @override
-  String get location => GoRouteData.$location(
-        '/role-select',
-      );
+  String get location => GoRouteData.$location('/role-select');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -199,19 +193,18 @@ mixin _$RoleSelectRoute on GoRouteData {
 }
 
 RouteBase get $studentSelectRoute => GoRouteData.$route(
-      path: '/student-select',
-      name: 'studentSelect',
-      factory: _$StudentSelectRoute._fromState,
-    );
+  path: '/student-select',
+  name: 'studentSelect',
+  hasOverriddenOnExit: false,
+  factory: $StudentSelectRoute._fromState,
+);
 
-mixin _$StudentSelectRoute on GoRouteData {
+mixin $StudentSelectRoute on GoRouteData {
   static StudentSelectRoute _fromState(GoRouterState state) =>
       StudentSelectRoute();
 
   @override
-  String get location => GoRouteData.$location(
-        '/student-select',
-      );
+  String get location => GoRouteData.$location('/student-select');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -228,59 +221,61 @@ mixin _$StudentSelectRoute on GoRouteData {
 }
 
 RouteBase get $bottomNavRoute => StatefulShellRouteData.$route(
-      factory: $BottomNavRouteExtension._fromState,
-      branches: [
-        StatefulShellBranchData.$branch(
-          routes: [
-            GoRouteData.$route(
-              path: '/home',
-              name: 'home',
-              factory: _$HomeRoute._fromState,
-            ),
-          ],
-        ),
-        StatefulShellBranchData.$branch(
-          routes: [
-            GoRouteData.$route(
-              path: '/time-table',
-              name: 'timeTable',
-              factory: _$TimeTableRoute._fromState,
-            ),
-          ],
-        ),
-        StatefulShellBranchData.$branch(
-          routes: [
-            GoRouteData.$route(
-              path: '/library',
-              name: 'library',
-              factory: _$LibraryRoute._fromState,
-            ),
-          ],
-        ),
-        StatefulShellBranchData.$branch(
-          routes: [
-            GoRouteData.$route(
-              path: '/profile',
-              name: 'profile',
-              factory: _$ProfileRoute._fromState,
-            ),
-          ],
+  factory: $BottomNavRouteExtension._fromState,
+  branches: [
+    StatefulShellBranchData.$branch(
+      routes: [
+        GoRouteData.$route(
+          path: '/home',
+          name: 'home',
+          hasOverriddenOnExit: false,
+          factory: $HomeRoute._fromState,
         ),
       ],
-    );
+    ),
+    StatefulShellBranchData.$branch(
+      routes: [
+        GoRouteData.$route(
+          path: '/time-table',
+          name: 'timeTable',
+          hasOverriddenOnExit: false,
+          factory: $TimeTableRoute._fromState,
+        ),
+      ],
+    ),
+    StatefulShellBranchData.$branch(
+      routes: [
+        GoRouteData.$route(
+          path: '/library',
+          name: 'library',
+          hasOverriddenOnExit: false,
+          factory: $LibraryRoute._fromState,
+        ),
+      ],
+    ),
+    StatefulShellBranchData.$branch(
+      routes: [
+        GoRouteData.$route(
+          path: '/profile',
+          name: 'profile',
+          hasOverriddenOnExit: false,
+          factory: $ProfileRoute._fromState,
+        ),
+      ],
+    ),
+  ],
+);
 
 extension $BottomNavRouteExtension on BottomNavRoute {
   static BottomNavRoute _fromState(GoRouterState state) =>
       const BottomNavRoute();
 }
 
-mixin _$HomeRoute on GoRouteData {
+mixin $HomeRoute on GoRouteData {
   static HomeRoute _fromState(GoRouterState state) => HomeRoute();
 
   @override
-  String get location => GoRouteData.$location(
-        '/home',
-      );
+  String get location => GoRouteData.$location('/home');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -296,13 +291,11 @@ mixin _$HomeRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$TimeTableRoute on GoRouteData {
+mixin $TimeTableRoute on GoRouteData {
   static TimeTableRoute _fromState(GoRouterState state) => TimeTableRoute();
 
   @override
-  String get location => GoRouteData.$location(
-        '/time-table',
-      );
+  String get location => GoRouteData.$location('/time-table');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -318,13 +311,11 @@ mixin _$TimeTableRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$LibraryRoute on GoRouteData {
+mixin $LibraryRoute on GoRouteData {
   static LibraryRoute _fromState(GoRouterState state) => LibraryRoute();
 
   @override
-  String get location => GoRouteData.$location(
-        '/library',
-      );
+  String get location => GoRouteData.$location('/library');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -340,13 +331,11 @@ mixin _$LibraryRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$ProfileRoute on GoRouteData {
+mixin $ProfileRoute on GoRouteData {
   static ProfileRoute _fromState(GoRouterState state) => ProfileRoute();
 
   @override
-  String get location => GoRouteData.$location(
-        '/profile',
-      );
+  String get location => GoRouteData.$location('/profile');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -363,19 +352,18 @@ mixin _$ProfileRoute on GoRouteData {
 }
 
 RouteBase get $changePasswordRoute => GoRouteData.$route(
-      path: '/change-password',
-      name: 'changePassword',
-      factory: _$ChangePasswordRoute._fromState,
-    );
+  path: '/change-password',
+  name: 'changePassword',
+  hasOverriddenOnExit: false,
+  factory: $ChangePasswordRoute._fromState,
+);
 
-mixin _$ChangePasswordRoute on GoRouteData {
+mixin $ChangePasswordRoute on GoRouteData {
   static ChangePasswordRoute _fromState(GoRouterState state) =>
       ChangePasswordRoute();
 
   @override
-  String get location => GoRouteData.$location(
-        '/change-password',
-      );
+  String get location => GoRouteData.$location('/change-password');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -392,18 +380,17 @@ mixin _$ChangePasswordRoute on GoRouteData {
 }
 
 RouteBase get $classRoomsRoute => GoRouteData.$route(
-      path: '/classrooms',
-      name: 'classRooms',
-      factory: _$ClassRoomsRoute._fromState,
-    );
+  path: '/classrooms',
+  name: 'classRooms',
+  hasOverriddenOnExit: false,
+  factory: $ClassRoomsRoute._fromState,
+);
 
-mixin _$ClassRoomsRoute on GoRouteData {
+mixin $ClassRoomsRoute on GoRouteData {
   static ClassRoomsRoute _fromState(GoRouterState state) => ClassRoomsRoute();
 
   @override
-  String get location => GoRouteData.$location(
-        '/classrooms',
-      );
+  String get location => GoRouteData.$location('/classrooms');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -420,23 +407,22 @@ mixin _$ClassRoomsRoute on GoRouteData {
 }
 
 RouteBase get $classRoomDetailsRoute => GoRouteData.$route(
-      path: '/classroom-details/:id',
-      name: 'classRoomDetails',
-      factory: _$ClassRoomDetailsRoute._fromState,
-    );
+  path: '/classroom-details/:id',
+  name: 'classRoomDetails',
+  hasOverriddenOnExit: false,
+  factory: $ClassRoomDetailsRoute._fromState,
+);
 
-mixin _$ClassRoomDetailsRoute on GoRouteData {
+mixin $ClassRoomDetailsRoute on GoRouteData {
   static ClassRoomDetailsRoute _fromState(GoRouterState state) =>
-      ClassRoomDetailsRoute(
-        id: int.parse(state.pathParameters['id']!)!,
-      );
+      ClassRoomDetailsRoute(id: int.parse(state.pathParameters['id']!));
 
   ClassRoomDetailsRoute get _self => this as ClassRoomDetailsRoute;
 
   @override
   String get location => GoRouteData.$location(
-        '/classroom-details/${Uri.encodeComponent(_self.id.toString())}',
-      );
+    '/classroom-details/${Uri.encodeComponent(_self.id.toString())}',
+  );
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -453,19 +439,18 @@ mixin _$ClassRoomDetailsRoute on GoRouteData {
 }
 
 RouteBase get $createClassRoomRoute => GoRouteData.$route(
-      path: '/create-classroom',
-      name: 'createClassRoom',
-      factory: _$CreateClassRoomRoute._fromState,
-    );
+  path: '/create-classroom',
+  name: 'createClassRoom',
+  hasOverriddenOnExit: false,
+  factory: $CreateClassRoomRoute._fromState,
+);
 
-mixin _$CreateClassRoomRoute on GoRouteData {
+mixin $CreateClassRoomRoute on GoRouteData {
   static CreateClassRoomRoute _fromState(GoRouterState state) =>
       CreateClassRoomRoute();
 
   @override
-  String get location => GoRouteData.$location(
-        '/create-classroom',
-      );
+  String get location => GoRouteData.$location('/create-classroom');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -482,22 +467,20 @@ mixin _$CreateClassRoomRoute on GoRouteData {
 }
 
 RouteBase get $bookDetailsRoute => GoRouteData.$route(
-      path: '/book-details',
-      name: 'bookDetails',
-      factory: _$BookDetailsRoute._fromState,
-    );
+  path: '/book-details',
+  name: 'bookDetails',
+  hasOverriddenOnExit: false,
+  factory: $BookDetailsRoute._fromState,
+);
 
-mixin _$BookDetailsRoute on GoRouteData {
-  static BookDetailsRoute _fromState(GoRouterState state) => BookDetailsRoute(
-        $extra: state.extra as BookItemModel?,
-      );
+mixin $BookDetailsRoute on GoRouteData {
+  static BookDetailsRoute _fromState(GoRouterState state) =>
+      BookDetailsRoute($extra: state.extra as BookItemModel?);
 
   BookDetailsRoute get _self => this as BookDetailsRoute;
 
   @override
-  String get location => GoRouteData.$location(
-        '/book-details',
-      );
+  String get location => GoRouteData.$location('/book-details');
 
   @override
   void go(BuildContext context) => context.go(location, extra: _self.$extra);
@@ -516,18 +499,17 @@ mixin _$BookDetailsRoute on GoRouteData {
 }
 
 RouteBase get $addBookRoute => GoRouteData.$route(
-      path: '/add-book',
-      name: 'addBook',
-      factory: _$AddBookRoute._fromState,
-    );
+  path: '/add-book',
+  name: 'addBook',
+  hasOverriddenOnExit: false,
+  factory: $AddBookRoute._fromState,
+);
 
-mixin _$AddBookRoute on GoRouteData {
+mixin $AddBookRoute on GoRouteData {
   static AddBookRoute _fromState(GoRouterState state) => AddBookRoute();
 
   @override
-  String get location => GoRouteData.$location(
-        '/add-book',
-      );
+  String get location => GoRouteData.$location('/add-book');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -544,27 +526,25 @@ mixin _$AddBookRoute on GoRouteData {
 }
 
 RouteBase get $addChapterRoute => GoRouteData.$route(
-      path: '/add-chapter',
-      name: 'addChapter',
-      factory: _$AddChapterRoute._fromState,
-    );
+  path: '/add-chapter',
+  name: 'addChapter',
+  hasOverriddenOnExit: false,
+  factory: $AddChapterRoute._fromState,
+);
 
-mixin _$AddChapterRoute on GoRouteData {
+mixin $AddChapterRoute on GoRouteData {
   static AddChapterRoute _fromState(GoRouterState state) => AddChapterRoute(
-        bookId: state.uri.queryParameters['book-id']!,
-        bookName: state.uri.queryParameters['book-name']!,
-      );
+    bookId: state.uri.queryParameters['book-id']!,
+    bookName: state.uri.queryParameters['book-name']!,
+  );
 
   AddChapterRoute get _self => this as AddChapterRoute;
 
   @override
   String get location => GoRouteData.$location(
-        '/add-chapter',
-        queryParams: {
-          'book-id': _self.bookId,
-          'book-name': _self.bookName,
-        },
-      );
+    '/add-chapter',
+    queryParams: {'book-id': _self.bookId, 'book-name': _self.bookName},
+  );
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -581,19 +561,18 @@ mixin _$AddChapterRoute on GoRouteData {
 }
 
 RouteBase get $privacyPolicyRoute => GoRouteData.$route(
-      path: '/privacy-policy',
-      name: 'privacyPolicy',
-      factory: _$PrivacyPolicyRoute._fromState,
-    );
+  path: '/privacy-policy',
+  name: 'privacyPolicy',
+  hasOverriddenOnExit: false,
+  factory: $PrivacyPolicyRoute._fromState,
+);
 
-mixin _$PrivacyPolicyRoute on GoRouteData {
+mixin $PrivacyPolicyRoute on GoRouteData {
   static PrivacyPolicyRoute _fromState(GoRouterState state) =>
       const PrivacyPolicyRoute();
 
   @override
-  String get location => GoRouteData.$location(
-        '/privacy-policy',
-      );
+  String get location => GoRouteData.$location('/privacy-policy');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -610,19 +589,18 @@ mixin _$PrivacyPolicyRoute on GoRouteData {
 }
 
 RouteBase get $termsConditionsRoute => GoRouteData.$route(
-      path: '/terms-conditions',
-      name: 'termsConditions',
-      factory: _$TermsConditionsRoute._fromState,
-    );
+  path: '/terms-conditions',
+  name: 'termsConditions',
+  hasOverriddenOnExit: false,
+  factory: $TermsConditionsRoute._fromState,
+);
 
-mixin _$TermsConditionsRoute on GoRouteData {
+mixin $TermsConditionsRoute on GoRouteData {
   static TermsConditionsRoute _fromState(GoRouterState state) =>
       const TermsConditionsRoute();
 
   @override
-  String get location => GoRouteData.$location(
-        '/terms-conditions',
-      );
+  String get location => GoRouteData.$location('/terms-conditions');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -639,18 +617,17 @@ mixin _$TermsConditionsRoute on GoRouteData {
 }
 
 RouteBase get $welcomeRoute => GoRouteData.$route(
-      path: '/welcome',
-      name: 'welcome',
-      factory: _$WelcomeRoute._fromState,
-    );
+  path: '/welcome',
+  name: 'welcome',
+  hasOverriddenOnExit: false,
+  factory: $WelcomeRoute._fromState,
+);
 
-mixin _$WelcomeRoute on GoRouteData {
+mixin $WelcomeRoute on GoRouteData {
   static WelcomeRoute _fromState(GoRouterState state) => WelcomeRoute();
 
   @override
-  String get location => GoRouteData.$location(
-        '/welcome',
-      );
+  String get location => GoRouteData.$location('/welcome');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -667,19 +644,18 @@ mixin _$WelcomeRoute on GoRouteData {
 }
 
 RouteBase get $helpCenterRoute => GoRouteData.$route(
-      path: '/help-center',
-      name: 'helpCenter',
-      factory: _$HelpCenterRoute._fromState,
-    );
+  path: '/help-center',
+  name: 'helpCenter',
+  hasOverriddenOnExit: false,
+  factory: $HelpCenterRoute._fromState,
+);
 
-mixin _$HelpCenterRoute on GoRouteData {
+mixin $HelpCenterRoute on GoRouteData {
   static HelpCenterRoute _fromState(GoRouterState state) =>
       const HelpCenterRoute();
 
   @override
-  String get location => GoRouteData.$location(
-        '/help-center',
-      );
+  String get location => GoRouteData.$location('/help-center');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -696,19 +672,18 @@ mixin _$HelpCenterRoute on GoRouteData {
 }
 
 RouteBase get $biometricSetupRoute => GoRouteData.$route(
-      path: '/biometric-setup',
-      name: 'biometricSetup',
-      factory: _$BiometricSetupRoute._fromState,
-    );
+  path: '/biometric-setup',
+  name: 'biometricSetup',
+  hasOverriddenOnExit: false,
+  factory: $BiometricSetupRoute._fromState,
+);
 
-mixin _$BiometricSetupRoute on GoRouteData {
+mixin $BiometricSetupRoute on GoRouteData {
   static BiometricSetupRoute _fromState(GoRouterState state) =>
       const BiometricSetupRoute();
 
   @override
-  String get location => GoRouteData.$location(
-        '/biometric-setup',
-      );
+  String get location => GoRouteData.$location('/biometric-setup');
 
   @override
   void go(BuildContext context) => context.go(location);

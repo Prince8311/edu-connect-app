@@ -6,1017 +6,630 @@ part of 'auth_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$loginHash() => r'3d3e5dbc8ec34f2b074282c74df9703b1f66ca5a';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-/// See also [login].
 @ProviderFor(login)
-const loginProvider = LoginFamily();
+final loginProvider = LoginFamily._();
 
-/// See also [login].
-class LoginFamily extends Family<AsyncValue<AuthResponse?>> {
-  /// See also [login].
-  const LoginFamily();
+final class LoginProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<AuthResponse?>,
+          AuthResponse?,
+          FutureOr<AuthResponse?>
+        >
+    with $FutureModifier<AuthResponse?>, $FutureProvider<AuthResponse?> {
+  LoginProvider._({
+    required LoginFamily super.from,
+    required LoginRequest super.argument,
+  }) : super(
+         retry: null,
+         name: r'loginProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
-  /// See also [login].
-  LoginProvider call({
-    required LoginRequest requestBody,
-  }) {
-    return LoginProvider(
-      requestBody: requestBody,
-    );
+  @override
+  String debugGetCreateSourceHash() => _$loginHash();
+
+  @override
+  String toString() {
+    return r'loginProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  LoginProvider getProviderOverride(
-    covariant LoginProvider provider,
-  ) {
-    return call(
-      requestBody: provider.requestBody,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
+  $FutureProviderElement<AuthResponse?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'loginProvider';
-}
-
-/// See also [login].
-class LoginProvider extends AutoDisposeFutureProvider<AuthResponse?> {
-  /// See also [login].
-  LoginProvider({
-    required LoginRequest requestBody,
-  }) : this._internal(
-          (ref) => login(
-            ref as LoginRef,
-            requestBody: requestBody,
-          ),
-          from: loginProvider,
-          name: r'loginProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$loginHash,
-          dependencies: LoginFamily._dependencies,
-          allTransitiveDependencies: LoginFamily._allTransitiveDependencies,
-          requestBody: requestBody,
-        );
-
-  LoginProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.requestBody,
-  }) : super.internal();
-
-  final LoginRequest requestBody;
-
-  @override
-  Override overrideWith(
-    FutureOr<AuthResponse?> Function(LoginRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: LoginProvider._internal(
-        (ref) => create(ref as LoginRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        requestBody: requestBody,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<AuthResponse?> createElement() {
-    return _LoginProviderElement(this);
+  FutureOr<AuthResponse?> create(Ref ref) {
+    final argument = this.argument as LoginRequest;
+    return login(ref, requestBody: argument);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is LoginProvider && other.requestBody == requestBody;
+    return other is LoginProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, requestBody.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin LoginRef on AutoDisposeFutureProviderRef<AuthResponse?> {
-  /// The parameter `requestBody` of this provider.
-  LoginRequest get requestBody;
-}
+String _$loginHash() => r'5fcfdc2cd1157d3fea2e7034c127c498fc646291';
 
-class _LoginProviderElement
-    extends AutoDisposeFutureProviderElement<AuthResponse?> with LoginRef {
-  _LoginProviderElement(super.provider);
+final class LoginFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<AuthResponse?>, LoginRequest> {
+  LoginFamily._()
+    : super(
+        retry: null,
+        name: r'loginProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  LoginProvider call({required LoginRequest requestBody}) =>
+      LoginProvider._(argument: requestBody, from: this);
 
   @override
-  LoginRequest get requestBody => (origin as LoginProvider).requestBody;
+  String toString() => r'loginProvider';
 }
 
-String _$biometricLoginHash() => r'baab722efdb4fe38999358de7e80b501fc1bc024';
-
-/// See also [biometricLogin].
 @ProviderFor(biometricLogin)
-const biometricLoginProvider = BiometricLoginFamily();
+final biometricLoginProvider = BiometricLoginFamily._();
 
-/// See also [biometricLogin].
-class BiometricLoginFamily extends Family<AsyncValue<AuthResponse?>> {
-  /// See also [biometricLogin].
-  const BiometricLoginFamily();
+final class BiometricLoginProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<AuthResponse?>,
+          AuthResponse?,
+          FutureOr<AuthResponse?>
+        >
+    with $FutureModifier<AuthResponse?>, $FutureProvider<AuthResponse?> {
+  BiometricLoginProvider._({
+    required BiometricLoginFamily super.from,
+    required BiometricLoginRequest super.argument,
+  }) : super(
+         retry: null,
+         name: r'biometricLoginProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
-  /// See also [biometricLogin].
-  BiometricLoginProvider call({
-    required BiometricLoginRequest requestBody,
-  }) {
-    return BiometricLoginProvider(
-      requestBody: requestBody,
-    );
+  @override
+  String debugGetCreateSourceHash() => _$biometricLoginHash();
+
+  @override
+  String toString() {
+    return r'biometricLoginProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  BiometricLoginProvider getProviderOverride(
-    covariant BiometricLoginProvider provider,
-  ) {
-    return call(
-      requestBody: provider.requestBody,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
+  $FutureProviderElement<AuthResponse?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'biometricLoginProvider';
-}
-
-/// See also [biometricLogin].
-class BiometricLoginProvider extends AutoDisposeFutureProvider<AuthResponse?> {
-  /// See also [biometricLogin].
-  BiometricLoginProvider({
-    required BiometricLoginRequest requestBody,
-  }) : this._internal(
-          (ref) => biometricLogin(
-            ref as BiometricLoginRef,
-            requestBody: requestBody,
-          ),
-          from: biometricLoginProvider,
-          name: r'biometricLoginProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$biometricLoginHash,
-          dependencies: BiometricLoginFamily._dependencies,
-          allTransitiveDependencies:
-              BiometricLoginFamily._allTransitiveDependencies,
-          requestBody: requestBody,
-        );
-
-  BiometricLoginProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.requestBody,
-  }) : super.internal();
-
-  final BiometricLoginRequest requestBody;
-
-  @override
-  Override overrideWith(
-    FutureOr<AuthResponse?> Function(BiometricLoginRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: BiometricLoginProvider._internal(
-        (ref) => create(ref as BiometricLoginRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        requestBody: requestBody,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<AuthResponse?> createElement() {
-    return _BiometricLoginProviderElement(this);
+  FutureOr<AuthResponse?> create(Ref ref) {
+    final argument = this.argument as BiometricLoginRequest;
+    return biometricLogin(ref, requestBody: argument);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is BiometricLoginProvider && other.requestBody == requestBody;
+    return other is BiometricLoginProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, requestBody.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin BiometricLoginRef on AutoDisposeFutureProviderRef<AuthResponse?> {
-  /// The parameter `requestBody` of this provider.
-  BiometricLoginRequest get requestBody;
-}
+String _$biometricLoginHash() => r'e3930f38251ae2efef50680baadd06aa40fc581d';
 
-class _BiometricLoginProviderElement
-    extends AutoDisposeFutureProviderElement<AuthResponse?>
-    with BiometricLoginRef {
-  _BiometricLoginProviderElement(super.provider);
+final class BiometricLoginFamily extends $Family
+    with
+        $FunctionalFamilyOverride<
+          FutureOr<AuthResponse?>,
+          BiometricLoginRequest
+        > {
+  BiometricLoginFamily._()
+    : super(
+        retry: null,
+        name: r'biometricLoginProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  BiometricLoginProvider call({required BiometricLoginRequest requestBody}) =>
+      BiometricLoginProvider._(argument: requestBody, from: this);
 
   @override
-  BiometricLoginRequest get requestBody =>
-      (origin as BiometricLoginProvider).requestBody;
+  String toString() => r'biometricLoginProvider';
+}
+
+@ProviderFor(sendOtp)
+final sendOtpProvider = SendOtpFamily._();
+
+final class SendOtpProvider
+    extends $FunctionalProvider<AsyncValue<bool?>, bool?, FutureOr<bool?>>
+    with $FutureModifier<bool?>, $FutureProvider<bool?> {
+  SendOtpProvider._({
+    required SendOtpFamily super.from,
+    required OtpRequest super.argument,
+  }) : super(
+         retry: null,
+         name: r'sendOtpProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$sendOtpHash();
+
+  @override
+  String toString() {
+    return r'sendOtpProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<bool?> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<bool?> create(Ref ref) {
+    final argument = this.argument as OtpRequest;
+    return sendOtp(ref, requestBody: argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is SendOtpProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
 String _$sendOtpHash() => r'96bfc5bf887d38a23992432a492fd09872294379';
 
-/// See also [sendOtp].
-@ProviderFor(sendOtp)
-const sendOtpProvider = SendOtpFamily();
-
-/// See also [sendOtp].
-class SendOtpFamily extends Family<AsyncValue<bool?>> {
-  /// See also [sendOtp].
-  const SendOtpFamily();
-
-  /// See also [sendOtp].
-  SendOtpProvider call({
-    required OtpRequest requestBody,
-  }) {
-    return SendOtpProvider(
-      requestBody: requestBody,
-    );
-  }
-
-  @override
-  SendOtpProvider getProviderOverride(
-    covariant SendOtpProvider provider,
-  ) {
-    return call(
-      requestBody: provider.requestBody,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'sendOtpProvider';
-}
-
-/// See also [sendOtp].
-class SendOtpProvider extends AutoDisposeFutureProvider<bool?> {
-  /// See also [sendOtp].
-  SendOtpProvider({
-    required OtpRequest requestBody,
-  }) : this._internal(
-          (ref) => sendOtp(
-            ref as SendOtpRef,
-            requestBody: requestBody,
-          ),
-          from: sendOtpProvider,
-          name: r'sendOtpProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$sendOtpHash,
-          dependencies: SendOtpFamily._dependencies,
-          allTransitiveDependencies: SendOtpFamily._allTransitiveDependencies,
-          requestBody: requestBody,
-        );
-
-  SendOtpProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.requestBody,
-  }) : super.internal();
-
-  final OtpRequest requestBody;
-
-  @override
-  Override overrideWith(
-    FutureOr<bool?> Function(SendOtpRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: SendOtpProvider._internal(
-        (ref) => create(ref as SendOtpRef),
-        from: from,
-        name: null,
+final class SendOtpFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<bool?>, OtpRequest> {
+  SendOtpFamily._()
+    : super(
+        retry: null,
+        name: r'sendOtpProvider',
         dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        requestBody: requestBody,
-      ),
-    );
-  }
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  SendOtpProvider call({required OtpRequest requestBody}) =>
+      SendOtpProvider._(argument: requestBody, from: this);
 
   @override
-  AutoDisposeFutureProviderElement<bool?> createElement() {
-    return _SendOtpProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is SendOtpProvider && other.requestBody == requestBody;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, requestBody.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
+  String toString() => r'sendOtpProvider';
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin SendOtpRef on AutoDisposeFutureProviderRef<bool?> {
-  /// The parameter `requestBody` of this provider.
-  OtpRequest get requestBody;
-}
-
-class _SendOtpProviderElement extends AutoDisposeFutureProviderElement<bool?>
-    with SendOtpRef {
-  _SendOtpProviderElement(super.provider);
-
-  @override
-  OtpRequest get requestBody => (origin as SendOtpProvider).requestBody;
-}
-
-String _$roleSelectHash() => r'f51115af4c99ad7e90d43e50c559a29c74c47a12';
-
-/// See also [roleSelect].
 @ProviderFor(roleSelect)
-const roleSelectProvider = RoleSelectFamily();
+final roleSelectProvider = RoleSelectFamily._();
 
-/// See also [roleSelect].
-class RoleSelectFamily extends Family<AsyncValue<AuthResponse?>> {
-  /// See also [roleSelect].
-  const RoleSelectFamily();
+final class RoleSelectProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<AuthResponse?>,
+          AuthResponse?,
+          FutureOr<AuthResponse?>
+        >
+    with $FutureModifier<AuthResponse?>, $FutureProvider<AuthResponse?> {
+  RoleSelectProvider._({
+    required RoleSelectFamily super.from,
+    required RoleSelectRequest super.argument,
+  }) : super(
+         retry: null,
+         name: r'roleSelectProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
-  /// See also [roleSelect].
-  RoleSelectProvider call({
-    required RoleSelectRequest requestBody,
-  }) {
-    return RoleSelectProvider(
-      requestBody: requestBody,
-    );
+  @override
+  String debugGetCreateSourceHash() => _$roleSelectHash();
+
+  @override
+  String toString() {
+    return r'roleSelectProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  RoleSelectProvider getProviderOverride(
-    covariant RoleSelectProvider provider,
-  ) {
-    return call(
-      requestBody: provider.requestBody,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
+  $FutureProviderElement<AuthResponse?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'roleSelectProvider';
-}
-
-/// See also [roleSelect].
-class RoleSelectProvider extends AutoDisposeFutureProvider<AuthResponse?> {
-  /// See also [roleSelect].
-  RoleSelectProvider({
-    required RoleSelectRequest requestBody,
-  }) : this._internal(
-          (ref) => roleSelect(
-            ref as RoleSelectRef,
-            requestBody: requestBody,
-          ),
-          from: roleSelectProvider,
-          name: r'roleSelectProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$roleSelectHash,
-          dependencies: RoleSelectFamily._dependencies,
-          allTransitiveDependencies:
-              RoleSelectFamily._allTransitiveDependencies,
-          requestBody: requestBody,
-        );
-
-  RoleSelectProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.requestBody,
-  }) : super.internal();
-
-  final RoleSelectRequest requestBody;
-
-  @override
-  Override overrideWith(
-    FutureOr<AuthResponse?> Function(RoleSelectRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: RoleSelectProvider._internal(
-        (ref) => create(ref as RoleSelectRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        requestBody: requestBody,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<AuthResponse?> createElement() {
-    return _RoleSelectProviderElement(this);
+  FutureOr<AuthResponse?> create(Ref ref) {
+    final argument = this.argument as RoleSelectRequest;
+    return roleSelect(ref, requestBody: argument);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is RoleSelectProvider && other.requestBody == requestBody;
+    return other is RoleSelectProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, requestBody.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin RoleSelectRef on AutoDisposeFutureProviderRef<AuthResponse?> {
-  /// The parameter `requestBody` of this provider.
-  RoleSelectRequest get requestBody;
-}
+String _$roleSelectHash() => r'b697df338eb7c441d13fd73d5837d41f59454e50';
 
-class _RoleSelectProviderElement
-    extends AutoDisposeFutureProviderElement<AuthResponse?> with RoleSelectRef {
-  _RoleSelectProviderElement(super.provider);
+final class RoleSelectFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<AuthResponse?>, RoleSelectRequest> {
+  RoleSelectFamily._()
+    : super(
+        retry: null,
+        name: r'roleSelectProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  RoleSelectProvider call({required RoleSelectRequest requestBody}) =>
+      RoleSelectProvider._(argument: requestBody, from: this);
 
   @override
-  RoleSelectRequest get requestBody =>
-      (origin as RoleSelectProvider).requestBody;
+  String toString() => r'roleSelectProvider';
 }
 
-String _$studentSelectHash() => r'c379e42c34f0b9a971981bee2a986e215036a91f';
-
-/// See also [studentSelect].
 @ProviderFor(studentSelect)
-const studentSelectProvider = StudentSelectFamily();
+final studentSelectProvider = StudentSelectFamily._();
 
-/// See also [studentSelect].
-class StudentSelectFamily extends Family<AsyncValue<AuthResponse?>> {
-  /// See also [studentSelect].
-  const StudentSelectFamily();
+final class StudentSelectProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<AuthResponse?>,
+          AuthResponse?,
+          FutureOr<AuthResponse?>
+        >
+    with $FutureModifier<AuthResponse?>, $FutureProvider<AuthResponse?> {
+  StudentSelectProvider._({
+    required StudentSelectFamily super.from,
+    required StudentSelectRequest super.argument,
+  }) : super(
+         retry: null,
+         name: r'studentSelectProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
-  /// See also [studentSelect].
-  StudentSelectProvider call({
-    required StudentSelectRequest requestBody,
-  }) {
-    return StudentSelectProvider(
-      requestBody: requestBody,
-    );
+  @override
+  String debugGetCreateSourceHash() => _$studentSelectHash();
+
+  @override
+  String toString() {
+    return r'studentSelectProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  StudentSelectProvider getProviderOverride(
-    covariant StudentSelectProvider provider,
-  ) {
-    return call(
-      requestBody: provider.requestBody,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
+  $FutureProviderElement<AuthResponse?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'studentSelectProvider';
-}
-
-/// See also [studentSelect].
-class StudentSelectProvider extends AutoDisposeFutureProvider<AuthResponse?> {
-  /// See also [studentSelect].
-  StudentSelectProvider({
-    required StudentSelectRequest requestBody,
-  }) : this._internal(
-          (ref) => studentSelect(
-            ref as StudentSelectRef,
-            requestBody: requestBody,
-          ),
-          from: studentSelectProvider,
-          name: r'studentSelectProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$studentSelectHash,
-          dependencies: StudentSelectFamily._dependencies,
-          allTransitiveDependencies:
-              StudentSelectFamily._allTransitiveDependencies,
-          requestBody: requestBody,
-        );
-
-  StudentSelectProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.requestBody,
-  }) : super.internal();
-
-  final StudentSelectRequest requestBody;
-
-  @override
-  Override overrideWith(
-    FutureOr<AuthResponse?> Function(StudentSelectRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: StudentSelectProvider._internal(
-        (ref) => create(ref as StudentSelectRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        requestBody: requestBody,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<AuthResponse?> createElement() {
-    return _StudentSelectProviderElement(this);
+  FutureOr<AuthResponse?> create(Ref ref) {
+    final argument = this.argument as StudentSelectRequest;
+    return studentSelect(ref, requestBody: argument);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is StudentSelectProvider && other.requestBody == requestBody;
+    return other is StudentSelectProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, requestBody.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin StudentSelectRef on AutoDisposeFutureProviderRef<AuthResponse?> {
-  /// The parameter `requestBody` of this provider.
-  StudentSelectRequest get requestBody;
-}
+String _$studentSelectHash() => r'28ef60f94d5b112a4eec6c71a96070f9268d349a';
 
-class _StudentSelectProviderElement
-    extends AutoDisposeFutureProviderElement<AuthResponse?>
-    with StudentSelectRef {
-  _StudentSelectProviderElement(super.provider);
+final class StudentSelectFamily extends $Family
+    with
+        $FunctionalFamilyOverride<
+          FutureOr<AuthResponse?>,
+          StudentSelectRequest
+        > {
+  StudentSelectFamily._()
+    : super(
+        retry: null,
+        name: r'studentSelectProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  StudentSelectProvider call({required StudentSelectRequest requestBody}) =>
+      StudentSelectProvider._(argument: requestBody, from: this);
 
   @override
-  StudentSelectRequest get requestBody =>
-      (origin as StudentSelectProvider).requestBody;
+  String toString() => r'studentSelectProvider';
+}
+
+@ProviderFor(getGuardianStudents)
+final getGuardianStudentsProvider = GetGuardianStudentsFamily._();
+
+final class GetGuardianStudentsProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<GuardianStudent>?>,
+          List<GuardianStudent>?,
+          FutureOr<List<GuardianStudent>?>
+        >
+    with
+        $FutureModifier<List<GuardianStudent>?>,
+        $FutureProvider<List<GuardianStudent>?> {
+  GetGuardianStudentsProvider._({
+    required GetGuardianStudentsFamily super.from,
+    required String? super.argument,
+  }) : super(
+         retry: null,
+         name: r'getGuardianStudentsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$getGuardianStudentsHash();
+
+  @override
+  String toString() {
+    return r'getGuardianStudentsProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<List<GuardianStudent>?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<GuardianStudent>?> create(Ref ref) {
+    final argument = this.argument as String?;
+    return getGuardianStudents(ref, tempToken: argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetGuardianStudentsProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
 String _$getGuardianStudentsHash() =>
     r'eea16a9054cff41c2b572a6d912a58158ed28d70';
 
-/// See also [getGuardianStudents].
-@ProviderFor(getGuardianStudents)
-const getGuardianStudentsProvider = GetGuardianStudentsFamily();
+final class GetGuardianStudentsFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<List<GuardianStudent>?>, String?> {
+  GetGuardianStudentsFamily._()
+    : super(
+        retry: null,
+        name: r'getGuardianStudentsProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
 
-/// See also [getGuardianStudents].
-class GetGuardianStudentsFamily
-    extends Family<AsyncValue<List<GuardianStudent>?>> {
-  /// See also [getGuardianStudents].
-  const GetGuardianStudentsFamily();
-
-  /// See also [getGuardianStudents].
-  GetGuardianStudentsProvider call({
-    String? tempToken,
-  }) {
-    return GetGuardianStudentsProvider(
-      tempToken: tempToken,
-    );
-  }
+  GetGuardianStudentsProvider call({String? tempToken}) =>
+      GetGuardianStudentsProvider._(argument: tempToken, from: this);
 
   @override
-  GetGuardianStudentsProvider getProviderOverride(
-    covariant GetGuardianStudentsProvider provider,
-  ) {
-    return call(
-      tempToken: provider.tempToken,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'getGuardianStudentsProvider';
+  String toString() => r'getGuardianStudentsProvider';
 }
 
-/// See also [getGuardianStudents].
-class GetGuardianStudentsProvider
-    extends AutoDisposeFutureProvider<List<GuardianStudent>?> {
-  /// See also [getGuardianStudents].
-  GetGuardianStudentsProvider({
-    String? tempToken,
-  }) : this._internal(
-          (ref) => getGuardianStudents(
-            ref as GetGuardianStudentsRef,
-            tempToken: tempToken,
-          ),
-          from: getGuardianStudentsProvider,
-          name: r'getGuardianStudentsProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$getGuardianStudentsHash,
-          dependencies: GetGuardianStudentsFamily._dependencies,
-          allTransitiveDependencies:
-              GetGuardianStudentsFamily._allTransitiveDependencies,
-          tempToken: tempToken,
-        );
+@ProviderFor(getBiometricUsers)
+final getBiometricUsersProvider = GetBiometricUsersFamily._();
 
-  GetGuardianStudentsProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.tempToken,
-  }) : super.internal();
-
-  final String? tempToken;
+final class GetBiometricUsersProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<BiometricUserInfo>?>,
+          List<BiometricUserInfo>?,
+          FutureOr<List<BiometricUserInfo>?>
+        >
+    with
+        $FutureModifier<List<BiometricUserInfo>?>,
+        $FutureProvider<List<BiometricUserInfo>?> {
+  GetBiometricUsersProvider._({
+    required GetBiometricUsersFamily super.from,
+    required ({String? deviceId, String? deviceToken, String? biometricType})
+    super.argument,
+  }) : super(
+         retry: null,
+         name: r'getBiometricUsersProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
-  Override overrideWith(
-    FutureOr<List<GuardianStudent>?> Function(GetGuardianStudentsRef provider)
-        create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: GetGuardianStudentsProvider._internal(
-        (ref) => create(ref as GetGuardianStudentsRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        tempToken: tempToken,
-      ),
-    );
+  String debugGetCreateSourceHash() => _$getBiometricUsersHash();
+
+  @override
+  String toString() {
+    return r'getBiometricUsersProvider'
+        ''
+        '$argument';
   }
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<List<GuardianStudent>?> createElement() {
-    return _GetGuardianStudentsProviderElement(this);
+  $FutureProviderElement<List<BiometricUserInfo>?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<BiometricUserInfo>?> create(Ref ref) {
+    final argument =
+        this.argument
+            as ({String? deviceId, String? deviceToken, String? biometricType});
+    return getBiometricUsers(
+      ref,
+      deviceId: argument.deviceId,
+      deviceToken: argument.deviceToken,
+      biometricType: argument.biometricType,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is GetGuardianStudentsProvider && other.tempToken == tempToken;
+    return other is GetBiometricUsersProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, tempToken.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin GetGuardianStudentsRef
-    on AutoDisposeFutureProviderRef<List<GuardianStudent>?> {
-  /// The parameter `tempToken` of this provider.
-  String? get tempToken;
-}
-
-class _GetGuardianStudentsProviderElement
-    extends AutoDisposeFutureProviderElement<List<GuardianStudent>?>
-    with GetGuardianStudentsRef {
-  _GetGuardianStudentsProviderElement(super.provider);
-
-  @override
-  String? get tempToken => (origin as GetGuardianStudentsProvider).tempToken;
 }
 
 String _$getBiometricUsersHash() => r'3adc809355b33570417ae7923e28ac2251670163';
 
-/// See also [getBiometricUsers].
-@ProviderFor(getBiometricUsers)
-const getBiometricUsersProvider = GetBiometricUsersFamily();
+final class GetBiometricUsersFamily extends $Family
+    with
+        $FunctionalFamilyOverride<
+          FutureOr<List<BiometricUserInfo>?>,
+          ({String? deviceId, String? deviceToken, String? biometricType})
+        > {
+  GetBiometricUsersFamily._()
+    : super(
+        retry: null,
+        name: r'getBiometricUsersProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
 
-/// See also [getBiometricUsers].
-class GetBiometricUsersFamily
-    extends Family<AsyncValue<List<BiometricUserInfo>?>> {
-  /// See also [getBiometricUsers].
-  const GetBiometricUsersFamily();
-
-  /// See also [getBiometricUsers].
   GetBiometricUsersProvider call({
     String? deviceId,
     String? deviceToken,
     String? biometricType,
-  }) {
-    return GetBiometricUsersProvider(
+  }) => GetBiometricUsersProvider._(
+    argument: (
       deviceId: deviceId,
       deviceToken: deviceToken,
       biometricType: biometricType,
-    );
-  }
+    ),
+    from: this,
+  );
 
   @override
-  GetBiometricUsersProvider getProviderOverride(
-    covariant GetBiometricUsersProvider provider,
-  ) {
-    return call(
-      deviceId: provider.deviceId,
-      deviceToken: provider.deviceToken,
-      biometricType: provider.biometricType,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'getBiometricUsersProvider';
+  String toString() => r'getBiometricUsersProvider';
 }
 
-/// See also [getBiometricUsers].
-class GetBiometricUsersProvider
-    extends AutoDisposeFutureProvider<List<BiometricUserInfo>?> {
-  /// See also [getBiometricUsers].
-  GetBiometricUsersProvider({
-    String? deviceId,
-    String? deviceToken,
-    String? biometricType,
-  }) : this._internal(
-          (ref) => getBiometricUsers(
-            ref as GetBiometricUsersRef,
-            deviceId: deviceId,
-            deviceToken: deviceToken,
-            biometricType: biometricType,
-          ),
-          from: getBiometricUsersProvider,
-          name: r'getBiometricUsersProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$getBiometricUsersHash,
-          dependencies: GetBiometricUsersFamily._dependencies,
-          allTransitiveDependencies:
-              GetBiometricUsersFamily._allTransitiveDependencies,
-          deviceId: deviceId,
-          deviceToken: deviceToken,
-          biometricType: biometricType,
-        );
+@ProviderFor(savedUserInfo)
+final savedUserInfoProvider = SavedUserInfoProvider._();
 
-  GetBiometricUsersProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.deviceId,
-    required this.deviceToken,
-    required this.biometricType,
-  }) : super.internal();
-
-  final String? deviceId;
-  final String? deviceToken;
-  final String? biometricType;
-
-  @override
-  Override overrideWith(
-    FutureOr<List<BiometricUserInfo>?> Function(GetBiometricUsersRef provider)
-        create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: GetBiometricUsersProvider._internal(
-        (ref) => create(ref as GetBiometricUsersRef),
-        from: from,
-        name: null,
+final class SavedUserInfoProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<UserInfo?>,
+          UserInfo?,
+          FutureOr<UserInfo?>
+        >
+    with $FutureModifier<UserInfo?>, $FutureProvider<UserInfo?> {
+  SavedUserInfoProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'savedUserInfoProvider',
+        isAutoDispose: true,
         dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        deviceId: deviceId,
-        deviceToken: deviceToken,
-        biometricType: biometricType,
-      ),
-    );
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$savedUserInfoHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<UserInfo?> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<UserInfo?> create(Ref ref) {
+    return savedUserInfo(ref);
   }
-
-  @override
-  AutoDisposeFutureProviderElement<List<BiometricUserInfo>?> createElement() {
-    return _GetBiometricUsersProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is GetBiometricUsersProvider &&
-        other.deviceId == deviceId &&
-        other.deviceToken == deviceToken &&
-        other.biometricType == biometricType;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, deviceId.hashCode);
-    hash = _SystemHash.combine(hash, deviceToken.hashCode);
-    hash = _SystemHash.combine(hash, biometricType.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin GetBiometricUsersRef
-    on AutoDisposeFutureProviderRef<List<BiometricUserInfo>?> {
-  /// The parameter `deviceId` of this provider.
-  String? get deviceId;
-
-  /// The parameter `deviceToken` of this provider.
-  String? get deviceToken;
-
-  /// The parameter `biometricType` of this provider.
-  String? get biometricType;
-}
-
-class _GetBiometricUsersProviderElement
-    extends AutoDisposeFutureProviderElement<List<BiometricUserInfo>?>
-    with GetBiometricUsersRef {
-  _GetBiometricUsersProviderElement(super.provider);
-
-  @override
-  String? get deviceId => (origin as GetBiometricUsersProvider).deviceId;
-  @override
-  String? get deviceToken => (origin as GetBiometricUsersProvider).deviceToken;
-  @override
-  String? get biometricType =>
-      (origin as GetBiometricUsersProvider).biometricType;
 }
 
 String _$savedUserInfoHash() => r'98914033ae1f7ed1dba44bf29c6cefb2c73b4122';
 
-/// See also [savedUserInfo].
-@ProviderFor(savedUserInfo)
-final savedUserInfoProvider = AutoDisposeFutureProvider<UserInfo?>.internal(
-  savedUserInfo,
-  name: r'savedUserInfoProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$savedUserInfoHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef SavedUserInfoRef = AutoDisposeFutureProviderRef<UserInfo?>;
-String _$logoutHash() => r'8455cc66ddd1a51a9efa9104151df5432a00d54c';
-
-/// See also [logout].
 @ProviderFor(logout)
-final logoutProvider = AutoDisposeFutureProvider<bool?>.internal(
-  logout,
-  name: r'logoutProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$logoutHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final logoutProvider = LogoutProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef LogoutRef = AutoDisposeFutureProviderRef<bool?>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class LogoutProvider
+    extends $FunctionalProvider<AsyncValue<bool?>, bool?, FutureOr<bool?>>
+    with $FutureModifier<bool?>, $FutureProvider<bool?> {
+  LogoutProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'logoutProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$logoutHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<bool?> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<bool?> create(Ref ref) {
+    return logout(ref);
+  }
+}
+
+String _$logoutHash() => r'2fdc598b7d60f9998f576236130783fd9dfbc595';

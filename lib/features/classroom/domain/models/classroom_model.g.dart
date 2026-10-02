@@ -6,8 +6,8 @@ part of 'classroom_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ClassroomModelImpl _$$ClassroomModelImplFromJson(Map<String, dynamic> json) =>
-    _$ClassroomModelImpl(
+_ClassroomModel _$ClassroomModelFromJson(Map<String, dynamic> json) =>
+    _ClassroomModel(
       id: (json['id'] as num?)?.toInt(),
       classroomId: json['classroom_id'] as String?,
       className: json['class'] as String?,
@@ -21,8 +21,7 @@ _$ClassroomModelImpl _$$ClassroomModelImplFromJson(Map<String, dynamic> json) =>
       attendanceMarked: json['attendance_marked'] as bool?,
     );
 
-Map<String, dynamic> _$$ClassroomModelImplToJson(
-        _$ClassroomModelImpl instance) =>
+Map<String, dynamic> _$ClassroomModelToJson(_ClassroomModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'classroom_id': instance.classroomId,
@@ -37,52 +36,52 @@ Map<String, dynamic> _$$ClassroomModelImplToJson(
       'attendance_marked': instance.attendanceMarked,
     };
 
-_$ClassroomStudentModelImpl _$$ClassroomStudentModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$ClassroomStudentModelImpl(
-      studentId: (json['student_id'] as num?)?.toInt(),
-      name: json['name'] as String?,
-      enrollmentId: json['enrollment_id'] as String?,
-      profileImage: json['profile_image'] as String?,
-      attendanceStatus: json['attendance_status'] as String?,
-    );
+_ClassroomStudentModel _$ClassroomStudentModelFromJson(
+  Map<String, dynamic> json,
+) => _ClassroomStudentModel(
+  studentId: (json['student_id'] as num?)?.toInt(),
+  name: json['name'] as String?,
+  enrollmentId: json['enrollment_id'] as String?,
+  profileImage: json['profile_image'] as String?,
+  attendanceStatus: json['attendance_status'] as String?,
+);
 
-Map<String, dynamic> _$$ClassroomStudentModelImplToJson(
-        _$ClassroomStudentModelImpl instance) =>
-    <String, dynamic>{
-      'student_id': instance.studentId,
-      'name': instance.name,
-      'enrollment_id': instance.enrollmentId,
-      'profile_image': instance.profileImage,
-      'attendance_status': instance.attendanceStatus,
-    };
+Map<String, dynamic> _$ClassroomStudentModelToJson(
+  _ClassroomStudentModel instance,
+) => <String, dynamic>{
+  'student_id': instance.studentId,
+  'name': instance.name,
+  'enrollment_id': instance.enrollmentId,
+  'profile_image': instance.profileImage,
+  'attendance_status': instance.attendanceStatus,
+};
 
-_$AttendanceRequestModelImpl _$$AttendanceRequestModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$AttendanceRequestModelImpl(
-      attendanceType: json['attendance_type'] as String?,
-      className: json['class'] as String?,
-      section: json['section'] as String?,
-      date: json['date'] as String?,
-      present: json['present'] as String?,
-      absent: json['absent'] as String?,
-      classroomId: json['classroom_id'] as String?,
-      period: json['period'] as String?,
-      timeSlot: json['time_slot'] as String?,
-      subject: json['subject'] as String?,
-    );
+_AttendanceRequestModel _$AttendanceRequestModelFromJson(
+  Map<String, dynamic> json,
+) => _AttendanceRequestModel(
+  attendanceType: json['attendance_type'] as String?,
+  className: json['class'] as String?,
+  section: json['section'] as String?,
+  date: json['date'] as String?,
+  present: json['present'] as String?,
+  absent: json['absent'] as String?,
+  classroomId: json['classroom_id'] as String?,
+  period: json['period'] as String?,
+  timeSlot: json['time_slot'] as String?,
+  subject: json['subject'] as String?,
+);
 
-Map<String, dynamic> _$$AttendanceRequestModelImplToJson(
-        _$AttendanceRequestModelImpl instance) =>
-    <String, dynamic>{
-      'attendance_type': instance.attendanceType,
-      'class': instance.className,
-      'section': instance.section,
-      'date': instance.date,
-      'present': instance.present,
-      'absent': instance.absent,
-      if (instance.classroomId case final value?) 'classroom_id': value,
-      if (instance.period case final value?) 'period': value,
-      if (instance.timeSlot case final value?) 'time_slot': value,
-      if (instance.subject case final value?) 'subject': value,
-    };
+Map<String, dynamic> _$AttendanceRequestModelToJson(
+  _AttendanceRequestModel instance,
+) => <String, dynamic>{
+  'attendance_type': instance.attendanceType,
+  'class': instance.className,
+  'section': instance.section,
+  'date': instance.date,
+  'present': instance.present,
+  'absent': instance.absent,
+  'classroom_id': ?instance.classroomId,
+  'period': ?instance.period,
+  'time_slot': ?instance.timeSlot,
+  'subject': ?instance.subject,
+};

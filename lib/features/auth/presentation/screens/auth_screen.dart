@@ -20,7 +20,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class AuthScreen extends HookConsumerWidget {
   const AuthScreen({super.key});
@@ -36,26 +35,8 @@ class AuthScreen extends HookConsumerWidget {
     final termsRecognizer = useMemoized(() => TapGestureRecognizer());
     final privacyRecognizer = useMemoized(() => TapGestureRecognizer());
 
-    Future<void> openLegalLink(String url) async {
-      try {
-        final launched = await launchUrl(
-          Uri.parse(url),
-          mode: LaunchMode.externalApplication,
-        );
-        if (!launched && context.mounted) {
-          errorToast('Unable to open link. Please try again.');
-        }
-      } catch (_) {
-        if (context.mounted) {
-          errorToast('Unable to open link. Please try again.');
-        }
-      }
-    }
-
-    termsRecognizer.onTap =
-        () => openLegalLink('https://educonnekt.in/terms-conditions');
-    privacyRecognizer.onTap =
-        () => openLegalLink('https://educonnekt.in/privacy-policy');
+    termsRecognizer.onTap = () => const TermsConditionsRoute().push<void>(context);
+    privacyRecognizer.onTap = () => const PrivacyPolicyRoute().push<void>(context);
 
     useEffect(() {
       return () {
@@ -542,7 +523,6 @@ class AuthScreen extends HookConsumerWidget {
                                     loginByOtp: false,
                                     password: passwordController.text.trim(),
                                   );
-                                  print("Login Request: ${request.toJson()}");
                                   final result = await ref.read(
                                       loginProvider(requestBody: request)
                                           .future);

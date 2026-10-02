@@ -4,6 +4,7 @@ import 'package:edu_connect/gen/colors.gen.dart';
 import 'package:edu_connect/gen/fonts.gen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:hooks_riverpod/legacy.dart';
 import 'package:edu_connect/core/shared/widgets/refresh.dart';
 
 mixin PaginationNotifier<T> on StateNotifier<T> {
@@ -35,7 +36,7 @@ class ApiListWidget<T> extends ConsumerStatefulWidget {
     this.isGridView = false,
   });
 
-  final AutoDisposeStateNotifierProvider<dynamic, T> provider;
+  final StateNotifierProvider<dynamic, T> provider;
   final T data;
   final bool emptyCondition;
   final int itemCount;

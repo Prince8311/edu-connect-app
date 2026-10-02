@@ -216,23 +216,25 @@ class BookAddScreen extends HookConsumerWidget {
                       InkWell(
                         borderRadius: BorderRadius.circular(8),
                         onTap: () async {
-                          final result = await FilePicker.platform.pickFiles(
+                          final result = await FilePicker.pickFiles(
                             type: FileType.custom,
                             allowedExtensions: const ['jpg', 'jpeg', 'png'],
-                            withData: true,
                           );
 
-                          if (result == null || result.files.isEmpty) {
+                          if (result.isEmpty) {
                             return;
                           }
 
-                          final file = result.files.first;
+                          final file = result.first;
                           final ext = (file.extension ?? '').toLowerCase();
                           if (!['jpg', 'jpeg', 'png'].contains(ext)) {
                             errorToast('Only jpg, jpeg, png files are allowed');
                             return;
                           }
-                          if (file.bytes == null) {
+                          late final Uint8List bytes;
+                          try {
+                            bytes = await file.readAsBytes();
+                          } catch (_) {
                             errorToast(
                                 'Unable to read selected image, try again');
                             return;
@@ -240,7 +242,7 @@ class BookAddScreen extends HookConsumerWidget {
 
                           selectedImageName.value = file.name;
                           selectedImagePath.value = file.path;
-                          selectedImageBytes.value = file.bytes;
+                          selectedImageBytes.value = bytes;
                         },
                         child: Container(
                           height: 125,

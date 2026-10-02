@@ -16,6 +16,8 @@ Future<AuthResponse?> login(
   required LoginRequest requestBody,
 }) async {
   final repo = ref.read(authRepoProvider);
+  final storage = ref.read(secureStorageProvider);
+  final authNotifier = ref.read(authTokenProvider.notifier);
   final result = await repo.login(requestBody: requestBody);
   return result.fold(
     (l) {
@@ -24,22 +26,17 @@ Future<AuthResponse?> login(
     },
     (r) async {
       if (r == null) return null;
+
       if (r.tempToken != null) {
-        await ref.read(secureStorageProvider).writeData(
-              'tempToken',
-              r.tempToken!,
-            );
+        await storage.writeData('tempToken', r.tempToken!);
       }
       if (r.authToken != null) {
-        await ref.read(authTokenProvider.notifier).saveToken(r.authToken!);
+        await authNotifier.saveToken(r.authToken!);
       }
       if (r.user != null) {
-        await ref.read(secureStorageProvider).writeData(
-              'user',
-              jsonEncode(r.user!.toJson()),
-            );
+        await storage.writeData('user', jsonEncode(r.user!.toJson()));
       }
-      ref.invalidate(savedUserInfoProvider);
+      if (ref.mounted) ref.invalidate(savedUserInfoProvider);
       return r;
     },
   );
@@ -51,6 +48,8 @@ Future<AuthResponse?> biometricLogin(
   required BiometricLoginRequest requestBody,
 }) async {
   final repo = ref.read(authRepoProvider);
+  final storage = ref.read(secureStorageProvider);
+  final authNotifier = ref.read(authTokenProvider.notifier);
   final result = await repo.biometricLogin(requestBody: requestBody);
   return result.fold(
     (l) {
@@ -59,43 +58,32 @@ Future<AuthResponse?> biometricLogin(
     },
     (r) async {
       if (r == null) return null;
+
       if (r.tempToken != null) {
-        await ref.read(secureStorageProvider).writeData(
-              'tempToken',
-              r.tempToken!,
-            );
+        await storage.writeData('tempToken', r.tempToken!);
       }
       if (r.authToken != null) {
-        await ref.read(authTokenProvider.notifier).saveToken(r.authToken!);
+        await authNotifier.saveToken(r.authToken!);
       }
       if (r.user != null) {
-        await ref.read(secureStorageProvider).writeData(
-              'user',
-              jsonEncode(r.user!.toJson()),
-            );
+        await storage.writeData('user', jsonEncode(r.user!.toJson()));
       }
-      ref.invalidate(savedUserInfoProvider);
+      if (ref.mounted) ref.invalidate(savedUserInfoProvider);
       return r;
     },
   );
 }
 
 @riverpod
-Future<bool?> sendOtp(
-  Ref ref, {
-  required OtpRequest requestBody,
-}) async {
+Future<bool?> sendOtp(Ref ref, {required OtpRequest requestBody}) async {
   final repo = ref.read(authRepoProvider);
 
   final result = await repo.sendAuthOtp(requestBody: requestBody);
 
-  return result.fold(
-    (l) {
-      ApiError.commonErrorHandler(l);
-      return null;
-    },
-    (r) => r,
-  );
+  return result.fold((l) {
+    ApiError.commonErrorHandler(l);
+    return null;
+  }, (r) => r);
 }
 
 @riverpod
@@ -104,6 +92,8 @@ Future<AuthResponse?> roleSelect(
   required RoleSelectRequest requestBody,
 }) async {
   final repo = ref.read(authRepoProvider);
+  final storage = ref.read(secureStorageProvider);
+  final authNotifier = ref.read(authTokenProvider.notifier);
   final result = await repo.selectRole(requestBody: requestBody);
   return result.fold(
     (l) {
@@ -112,22 +102,17 @@ Future<AuthResponse?> roleSelect(
     },
     (r) async {
       if (r == null) return null;
+
       if (r.tempToken != null) {
-        await ref.read(secureStorageProvider).writeData(
-              'tempToken',
-              r.tempToken!,
-            );
+        await storage.writeData('tempToken', r.tempToken!);
       }
       if (r.authToken != null) {
-        await ref.read(authTokenProvider.notifier).saveToken(r.authToken!);
+        await authNotifier.saveToken(r.authToken!);
       }
       if (r.user != null) {
-        await ref.read(secureStorageProvider).writeData(
-              'user',
-              jsonEncode(r.user!.toJson()),
-            );
+        await storage.writeData('user', jsonEncode(r.user!.toJson()));
       }
-      ref.invalidate(savedUserInfoProvider);
+      if (ref.mounted) ref.invalidate(savedUserInfoProvider);
       return r;
     },
   );
@@ -139,6 +124,8 @@ Future<AuthResponse?> studentSelect(
   required StudentSelectRequest requestBody,
 }) async {
   final repo = ref.read(authRepoProvider);
+  final authNotifier = ref.read(authTokenProvider.notifier);
+  final storage = ref.read(secureStorageProvider);
   final result = await repo.selectStudent(requestBody: requestBody);
   return result.fold(
     (l) {
@@ -147,16 +134,14 @@ Future<AuthResponse?> studentSelect(
     },
     (r) async {
       if (r == null) return null;
+
       if (r.authToken != null) {
-        await ref.read(authTokenProvider.notifier).saveToken(r.authToken!);
+        await authNotifier.saveToken(r.authToken!);
       }
       if (r.user != null) {
-        await ref.read(secureStorageProvider).writeData(
-              'user',
-              jsonEncode(r.user!.toJson()),
-            );
+        await storage.writeData('user', jsonEncode(r.user!.toJson()));
       }
-      ref.invalidate(savedUserInfoProvider);
+      if (ref.mounted) ref.invalidate(savedUserInfoProvider);
       return r;
     },
   );
@@ -170,13 +155,10 @@ Future<List<GuardianStudent>?> getGuardianStudents(
   final repo = ref.read(authRepoProvider);
   final result = await repo.getGuardianStudents(tempToken: tempToken);
 
-  return result.fold(
-    (l) {
-      ApiError.commonErrorHandler(l);
-      return null;
-    },
-    (r) => r,
-  );
+  return result.fold((l) {
+    ApiError.commonErrorHandler(l);
+    return null;
+  }, (r) => r);
 }
 
 @riverpod
@@ -192,14 +174,10 @@ Future<List<BiometricUserInfo>?> getBiometricUsers(
     deviceToken: deviceToken,
     biometricType: biometricType,
   );
-
-  return result.fold(
-    (l) {
-      ApiError.commonErrorHandler(l);
-      return null;
-    },
-    (r) => r,
-  );
+  return result.fold((l) {
+    ApiError.commonErrorHandler(l);
+    return null;
+  }, (r) => r);
 }
 
 @riverpod
@@ -221,6 +199,8 @@ Future<UserInfo?> savedUserInfo(Ref ref) async {
 
 @riverpod
 Future<bool?> logout(Ref ref) async {
+  final authNotifier = ref.read(authTokenProvider.notifier);
+  final storage = ref.read(secureStorageProvider);
   final result = await ref.read(authRepoProvider).logout();
 
   return result.fold(
@@ -230,9 +210,9 @@ Future<bool?> logout(Ref ref) async {
     },
     (r) async {
       if (r != null) {
-        await ref.read(authTokenProvider.notifier).clear();
-        await ref.read(secureStorageProvider).deleteData('user');
-        ref.invalidate(savedUserInfoProvider);
+        await authNotifier.clear();
+        await storage.deleteData('user');
+        if (ref.mounted) ref.invalidate(savedUserInfoProvider);
       }
 
       return r?.success;

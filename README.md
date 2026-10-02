@@ -2,6 +2,18 @@
 
 A new Flutter project.
 
+## Code generation
+
+After installing Flutter 3.44.9, resolve dependencies and regenerate the models,
+providers, routes, and assets:
+
+```sh
+flutter pub get
+dart run build_runner build
+```
+
+The current build runner no longer uses `--delete-conflicting-outputs`.
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

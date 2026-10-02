@@ -6,36 +6,32 @@ part of 'api_response_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ApiResponseImpl<T> _$$ApiResponseImplFromJson<T>(
+_ApiResponse<T> _$ApiResponseFromJson<T>(
   Map<String, dynamic> json,
   T Function(Object? json) fromJsonT,
-) =>
-    _$ApiResponseImpl<T>(
-      success: json['success'] as bool?,
-      status: (json['status'] as num?)?.toInt(),
-      message: json['message'] as String?,
-      data: _$nullableGenericFromJson(json['data'], fromJsonT),
-    );
+) => _ApiResponse<T>(
+  success: json['success'] as bool?,
+  status: (json['status'] as num?)?.toInt(),
+  message: json['message'] as String?,
+  data: _$nullableGenericFromJson(json['data'], fromJsonT),
+);
 
-Map<String, dynamic> _$$ApiResponseImplToJson<T>(
-  _$ApiResponseImpl<T> instance,
+Map<String, dynamic> _$ApiResponseToJson<T>(
+  _ApiResponse<T> instance,
   Object? Function(T value) toJsonT,
-) =>
-    <String, dynamic>{
-      'success': instance.success,
-      'status': instance.status,
-      'message': instance.message,
-      'data': _$nullableGenericToJson(instance.data, toJsonT),
-    };
+) => <String, dynamic>{
+  'success': instance.success,
+  'status': instance.status,
+  'message': instance.message,
+  'data': _$nullableGenericToJson(instance.data, toJsonT),
+};
 
 T? _$nullableGenericFromJson<T>(
   Object? input,
   T Function(Object? json) fromJson,
-) =>
-    input == null ? null : fromJson(input);
+) => input == null ? null : fromJson(input);
 
 Object? _$nullableGenericToJson<T>(
   T? input,
   Object? Function(T value) toJson,
-) =>
-    input == null ? null : toJson(input);
+) => input == null ? null : toJson(input);

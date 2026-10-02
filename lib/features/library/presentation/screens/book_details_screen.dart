@@ -25,7 +25,7 @@ class BookDetailsScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bookId = (book.id ?? '').trim();
-    final userInfo = ref.watch(savedUserInfoProvider).valueOrNull;
+    final userInfo = ref.watch(savedUserInfoProvider).value;
     final isTeacher = (userInfo?.type ?? '').trim().toLowerCase() == 'teacher';
     final chapterState = ref.watch(libraryBookChaptersNotifierProvider(bookId));
     final coverImageUrl = _resolveCoverImageUrl(

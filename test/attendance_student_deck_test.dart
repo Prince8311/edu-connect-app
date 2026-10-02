@@ -30,7 +30,9 @@ void main() {
           builder: (context) => Scaffold(
               body: TextButton(
                   onPressed: () => showAttendanceStudentDeck(context, classroom,
-                      students: students, draft: draft),
+                      students: students,
+                      draft: draft,
+                      onSubmit: (_) async => true),
                   child: const Text('Open deck')))),
     ));
     await tester.tap(find.text('Open deck'));
@@ -92,12 +94,6 @@ void main() {
     expect(find.text('Everyone is marked'), findsOneWidget);
     expect(find.text('Not marked (0)'), findsOneWidget);
     expect(draft.length, 3);
-    await tester.tap(find.text('Submit'));
-    await tester.pumpAndSettle();
-    expect(find.text('Attendance summary'), findsOneWidget);
-    expect(find.textContaining('Present: 3\nAbsent: 0'), findsOneWidget);
-    await tester.tap(find.text('OK'));
-    await tester.pumpAndSettle();
     await tester.tap(find.text('Present (3)'));
     await tester.pumpAndSettle();
     await tester.tap(find.widgetWithText(ListTile, 'Aarav Sharma'));
@@ -107,8 +103,9 @@ void main() {
     await tester.tap(find.text('Absent'));
     await tester.pumpAndSettle();
     expect(draft['id:1'], false);
-    await tester.tap(find.byTooltip('Close attendance'));
+    await tester.tap(find.text('Submit'));
     await tester.pumpAndSettle();
+    expect(find.byTooltip('Close attendance'), findsNothing);
     expect(draft, isEmpty);
     await tester.tap(find.text('Open deck'));
     await tester.pumpAndSettle();

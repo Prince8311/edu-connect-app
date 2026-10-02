@@ -19,7 +19,7 @@ class SwitchStudentSheet extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final students = ref.watch(getGuardianStudentListProvider());
     final currentStudentId =
-        ref.watch(savedUserInfoProvider).valueOrNull?.student;
+        ref.watch(savedUserInfoProvider).value?.student;
 
     Widget loadError() => Column(
           children: [

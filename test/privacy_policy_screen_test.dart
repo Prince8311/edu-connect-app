@@ -1,30 +1,81 @@
 import 'package:edu_connect/core/router/app_router.dart';
+import 'package:edu_connect/features/auth/presentation/screens/auth_screen.dart';
+import 'package:edu_connect/features/profile/presentation/providers/biometric_provider.dart';
 import 'package:edu_connect/features/profile/presentation/screens/privacy_policy_screen.dart';
 import 'package:edu_connect/features/profile/presentation/widgets/profile_settings_sections.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
-  testWidgets('Privacy row opens the policy and back returns to the profile',
-      (tester) async {
+  testWidgets(
+    'Privacy policy is available from sign-in without authentication',
+    (tester) async {
+      final router = GoRouter(
+        navigatorKey: rootNavigatorKey,
+        initialLocation: RoutePath.auth,
+        routes: $appRoutes
+            .whereType<GoRoute>()
+            .where(
+              (route) =>
+                  route.path == RoutePath.auth ||
+                  route.path == RoutePath.privacyPolicy,
+            )
+            .toList(),
+      );
+      addTearDown(router.dispose);
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            biometricLoginAvailableProvider.overrideWith((ref) async => false),
+          ],
+          child: MaterialApp.router(routerConfig: router),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.byType(AuthScreen), findsOneWidget);
+      TapGestureRecognizer? privacyLink;
+      for (final richText in tester.widgetList<RichText>(
+        find.byType(RichText),
+      )) {
+        richText.text.visitChildren((span) {
+          if (span is TextSpan && span.text == 'Privacy Policy') {
+            privacyLink = span.recognizer as TapGestureRecognizer?;
+          }
+          return true;
+        });
+      }
+      expect(privacyLink, isNotNull);
+      privacyLink!.onTap!();
+      await tester.pumpAndSettle();
+      expect(find.byType(PrivacyPolicyScreen), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    },
+  );
+
+  testWidgets('Privacy row opens the policy and back returns to the profile', (
+    tester,
+  ) async {
     final router = GoRouter(
       navigatorKey: rootNavigatorKey,
       routes: [
         GoRoute(
-            path: '/',
-            builder: (context, state) => const Scaffold(
-                  body: SingleChildScrollView(child: ProfileSettingsSections()),
-                )),
-        ...$appRoutes
-            .whereType<GoRoute>()
-            .where((route) => route.path == RoutePath.privacyPolicy),
+          path: '/',
+          builder: (context, state) => const Scaffold(
+            body: SingleChildScrollView(child: ProfileSettingsSections()),
+          ),
+        ),
+        ...$appRoutes.whereType<GoRoute>().where(
+          (route) => route.path == RoutePath.privacyPolicy,
+        ),
       ],
     );
     addTearDown(router.dispose);
     await tester.pumpWidget(
-        ProviderScope(child: MaterialApp.router(routerConfig: router)));
+      ProviderScope(child: MaterialApp.router(routerConfig: router)),
+    );
     await tester.ensureVisible(find.text('Privacy Policy'));
     await tester.tap(find.text('Privacy Policy'));
     await tester.pumpAndSettle();
@@ -36,48 +87,60 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets('Policy supports narrow screens, large text, and section jumps',
-      (tester) async {
+  testWidgets('Policy supports narrow screens, large text, and section jumps', (
+    tester,
+  ) async {
     tester.view.physicalSize = const Size(320, 740);
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
-    await tester.pumpWidget(ProviderScope(
+    await tester.pumpWidget(
+      ProviderScope(
         child: MaterialApp(
-      navigatorKey: rootNavigatorKey,
-      builder: (context, child) => MediaQuery(
-        data: MediaQuery.of(context)
-            .copyWith(textScaler: const TextScaler.linear(1.4)),
-        child: child!,
+          navigatorKey: rootNavigatorKey,
+          builder: (context, child) => MediaQuery(
+            data: MediaQuery.of(
+              context,
+            ).copyWith(textScaler: const TextScaler.linear(1.4)),
+            child: child!,
+          ),
+          home: const PrivacyPolicyScreen(),
+        ),
       ),
-      home: const PrivacyPolicyScreen(),
-    )));
+    );
     await tester.pumpAndSettle();
     await tester.tap(find.text('On this page'));
     await tester.pumpAndSettle();
     final section = find.widgetWithText(ListTile, 'Contact Information');
-    await tester.scrollUntilVisible(section, 300,
-        scrollable: find.descendant(
-            of: find.byType(BottomSheet), matching: find.byType(Scrollable)));
+    await tester.scrollUntilVisible(
+      section,
+      300,
+      scrollable: find.descendant(
+        of: find.byType(BottomSheet),
+        matching: find.byType(Scrollable),
+      ),
+    );
     await tester.tap(section);
     await tester.pumpAndSettle();
-    expect(find.text('Email: support@educonnekt.in').hitTestable(),
-        findsOneWidget);
     expect(
-        tester
-            .widget<LinearProgressIndicator>(
-                find.byType(LinearProgressIndicator))
-            .value,
-        greaterThan(.9));
+      find.text('Email: support@educonnekt.in').hitTestable(),
+      findsOneWidget,
+    );
+    expect(
+      tester
+          .widget<LinearProgressIndicator>(find.byType(LinearProgressIndicator))
+          .value,
+      greaterThan(.9),
+    );
     await tester.ensureVisible(find.text('Back to top'));
     await tester.tap(find.text('Back to top'));
     await tester.pumpAndSettle();
     expect(
-        tester
-            .widget<LinearProgressIndicator>(
-                find.byType(LinearProgressIndicator))
-            .value,
-        0);
+      tester
+          .widget<LinearProgressIndicator>(find.byType(LinearProgressIndicator))
+          .value,
+      0,
+    );
     expect(tester.takeException(), isNull);
   });
 }

@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:edu_connect/core/api/error_handler.dart';
 import 'package:edu_connect/core/shared/widgets/api_list_widget.dart';
+import 'package:edu_connect/features/auth/presentation/providers/auth_token_provider.dart';
 import 'package:edu_connect/features/library/data/repositories/library_repo_impl.dart';
 import 'package:edu_connect/features/library/domain/models/library_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:hooks_riverpod/legacy.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'library_provider.g.dart';
@@ -29,6 +31,7 @@ Future<bool?> addBook(
 
 @riverpod
 Future<List<String>?> libraryClasses(Ref ref) async {
+  ref.watch(authSessionRevisionProvider);
   final result = await ref.read(libraryRepoProvider).getClasses();
 
   return result.fold(
@@ -45,6 +48,7 @@ Future<List<String>?> librarySubjects(
   Ref ref, {
   String? className,
 }) async {
+  ref.watch(authSessionRevisionProvider);
   final result =
       await ref.read(libraryRepoProvider).getSubjects(className: className);
 
@@ -75,7 +79,10 @@ final libraryBookSearchProvider = StateProvider<String>((ref) => '');
 
 final libraryBooksNotifierProvider =
     StateNotifierProvider.autoDispose<LibraryBooksNotifier, LibraryBooksState>(
-  (ref) => LibraryBooksNotifier(ref),
+  (ref) {
+    ref.watch(authSessionRevisionProvider);
+    return LibraryBooksNotifier(ref);
+  },
 );
 
 class LibraryBooksNotifier extends StateNotifier<LibraryBooksState>
@@ -297,7 +304,10 @@ final libraryChapterCanLoadMoreProvider =
 
 final libraryBookChaptersNotifierProvider = StateNotifierProvider.autoDispose
     .family<LibraryBookChaptersNotifier, LibraryBookChaptersState, String>(
-  (ref, bookId) => LibraryBookChaptersNotifier(ref, bookId),
+  (ref, bookId) {
+    ref.watch(authSessionRevisionProvider);
+    return LibraryBookChaptersNotifier(ref, bookId);
+  },
 );
 
 class LibraryBookChaptersNotifier

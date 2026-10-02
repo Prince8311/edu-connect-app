@@ -76,4 +76,16 @@ void main() {
     pending.complete('old-session');
     expect(await read, isNull);
   });
+
+  test('saving and clearing a token announce session changes', () async {
+    when(() => storage.writeData('authToken', 'session'))
+        .thenAnswer((_) async => true);
+    when(() => storage.deleteData('authToken')).thenAnswer((_) async {});
+
+    expect(container.read(authSessionRevisionProvider), 0);
+    await container.read(authTokenProvider.notifier).saveToken('session');
+    expect(container.read(authSessionRevisionProvider), 1);
+    await container.read(authTokenProvider.notifier).clear();
+    expect(container.read(authSessionRevisionProvider), 2);
+  });
 }

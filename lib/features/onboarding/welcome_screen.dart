@@ -25,9 +25,11 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
     if (_saving) return;
     setState(() => _saving = true);
     try {
-      final storage = await ref.read(localStorageProvider.future);
+      final storage = await ref.read(localStorageProvider.future)
+          .timeout(const Duration(seconds: 5));
       final saved =
-          await storage.writeBool(LocalStorageKeys.welcomeCompleted, true);
+          await storage.writeBool(LocalStorageKeys.welcomeCompleted, true)
+              .timeout(const Duration(seconds: 5));
       if (!saved) throw StateError('Unable to save welcome preference');
       if (!mounted) return;
       final token = await ref.read(authTokenProvider.notifier).getToken();

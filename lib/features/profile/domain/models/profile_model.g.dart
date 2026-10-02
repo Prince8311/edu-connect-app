@@ -6,47 +6,46 @@ part of 'profile_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$UpdateProfileImageResponseImpl _$$UpdateProfileImageResponseImplFromJson(
-        Map<String, dynamic> json) =>
-    _$UpdateProfileImageResponseImpl(
-      status: (json['status'] as num).toInt(),
-      message: json['message'] as String?,
-      profileImage: json['profile_image'] as String?,
-    );
+_UpdateProfileImageResponse _$UpdateProfileImageResponseFromJson(
+  Map<String, dynamic> json,
+) => _UpdateProfileImageResponse(
+  status: (json['status'] as num).toInt(),
+  message: json['message'] as String?,
+  profileImage: json['profile_image'] as String?,
+);
 
-Map<String, dynamic> _$$UpdateProfileImageResponseImplToJson(
-        _$UpdateProfileImageResponseImpl instance) =>
-    <String, dynamic>{
-      'status': instance.status,
-      'message': instance.message,
-      'profile_image': instance.profileImage,
-    };
+Map<String, dynamic> _$UpdateProfileImageResponseToJson(
+  _UpdateProfileImageResponse instance,
+) => <String, dynamic>{
+  'status': instance.status,
+  'message': instance.message,
+  'profile_image': instance.profileImage,
+};
 
-_$UserDetailsImpl _$$UserDetailsImplFromJson(Map<String, dynamic> json) =>
-    _$UserDetailsImpl(
-      id: json['id'] as String?,
-      name: json['name'] as String?,
-      profileImage: json['profile_image'] as String?,
-      email: json['email'] as String?,
-      isMailVerified: json['is_mail_verified'] as bool?,
-      phone: json['phone'] as String?,
-      isPhoneVerified: json['is_phone_verified'] as bool?,
-      staffId: json['staff_id'] as String?,
-      subject: json['subject'] as String?,
-      enrollmentId: json['enrollment_id'] as String?,
-      session: json['session'] as String?,
-      classStandard: json['class_standard'] as String?,
-      section: json['section'] as String?,
-      userType: json['user_type'] as String?,
-      guardian: json['guardian'] == null
-          ? null
-          : GuardianInfo.fromJson(json['guardian'] as Map<String, dynamic>),
-      student: json['student'] == null
-          ? null
-          : StudentInfo.fromJson(json['student'] as Map<String, dynamic>),
-    );
+_UserDetails _$UserDetailsFromJson(Map<String, dynamic> json) => _UserDetails(
+  id: json['id'] as String?,
+  name: json['name'] as String?,
+  profileImage: json['profile_image'] as String?,
+  email: json['email'] as String?,
+  isMailVerified: json['is_mail_verified'] as bool?,
+  phone: json['phone'] as String?,
+  isPhoneVerified: json['is_phone_verified'] as bool?,
+  staffId: json['staff_id'] as String?,
+  subject: json['subject'] as String?,
+  enrollmentId: json['enrollment_id'] as String?,
+  session: json['session'] as String?,
+  classStandard: json['class_standard'] as String?,
+  section: json['section'] as String?,
+  userType: json['user_type'] as String?,
+  guardian: json['guardian'] == null
+      ? null
+      : GuardianInfo.fromJson(json['guardian'] as Map<String, dynamic>),
+  student: json['student'] == null
+      ? null
+      : StudentInfo.fromJson(json['student'] as Map<String, dynamic>),
+);
 
-Map<String, dynamic> _$$UserDetailsImplToJson(_$UserDetailsImpl instance) =>
+Map<String, dynamic> _$UserDetailsToJson(_UserDetails instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
@@ -66,15 +65,15 @@ Map<String, dynamic> _$$UserDetailsImplToJson(_$UserDetailsImpl instance) =>
       'student': instance.student,
     };
 
-_$GuardianInfoImpl _$$GuardianInfoImplFromJson(Map<String, dynamic> json) =>
-    _$GuardianInfoImpl(
+_GuardianInfo _$GuardianInfoFromJson(Map<String, dynamic> json) =>
+    _GuardianInfo(
       name: json['name'] as String?,
       profileImage: json['profile_image'] as String?,
       email: json['email'] as String?,
       phone: json['phone'] as String?,
     );
 
-Map<String, dynamic> _$$GuardianInfoImplToJson(_$GuardianInfoImpl instance) =>
+Map<String, dynamic> _$GuardianInfoToJson(_GuardianInfo instance) =>
     <String, dynamic>{
       'name': instance.name,
       'profile_image': instance.profileImage,
@@ -82,16 +81,15 @@ Map<String, dynamic> _$$GuardianInfoImplToJson(_$GuardianInfoImpl instance) =>
       'phone': instance.phone,
     };
 
-_$StudentInfoImpl _$$StudentInfoImplFromJson(Map<String, dynamic> json) =>
-    _$StudentInfoImpl(
-      enrollmentId: json['enrollment_id'] as String?,
-      classStandard: json['class_standard'] as String?,
-      section: json['section'] as String?,
-      name: json['name'] as String?,
-      profileImage: json['profile_image'] as String?,
-    );
+_StudentInfo _$StudentInfoFromJson(Map<String, dynamic> json) => _StudentInfo(
+  enrollmentId: json['enrollment_id'] as String?,
+  classStandard: json['class_standard'] as String?,
+  section: json['section'] as String?,
+  name: json['name'] as String?,
+  profileImage: json['profile_image'] as String?,
+);
 
-Map<String, dynamic> _$$StudentInfoImplToJson(_$StudentInfoImpl instance) =>
+Map<String, dynamic> _$StudentInfoToJson(_StudentInfo instance) =>
     <String, dynamic>{
       'enrollment_id': instance.enrollmentId,
       'class_standard': instance.classStandard,
@@ -100,61 +98,47 @@ Map<String, dynamic> _$$StudentInfoImplToJson(_$StudentInfoImpl instance) =>
       'profile_image': instance.profileImage,
     };
 
-_$OtpResquestImpl _$$OtpResquestImplFromJson(Map<String, dynamic> json) =>
-    _$OtpResquestImpl(
-      name: json['name'] as String?,
-    );
+_OtpResquest _$OtpResquestFromJson(Map<String, dynamic> json) =>
+    _OtpResquest(name: json['name'] as String?);
 
-Map<String, dynamic> _$$OtpResquestImplToJson(_$OtpResquestImpl instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-    };
+Map<String, dynamic> _$OtpResquestToJson(_OtpResquest instance) =>
+    <String, dynamic>{'name': instance.name};
 
-_$OtpVerifyResquestImpl _$$OtpVerifyResquestImplFromJson(
-        Map<String, dynamic> json) =>
-    _$OtpVerifyResquestImpl(
+_OtpVerifyResquest _$OtpVerifyResquestFromJson(Map<String, dynamic> json) =>
+    _OtpVerifyResquest(
       name: json['name'] as String?,
       otp: json['otp'] as String?,
     );
 
-Map<String, dynamic> _$$OtpVerifyResquestImplToJson(
-        _$OtpVerifyResquestImpl instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'otp': instance.otp,
-    };
+Map<String, dynamic> _$OtpVerifyResquestToJson(_OtpVerifyResquest instance) =>
+    <String, dynamic>{'name': instance.name, 'otp': instance.otp};
 
-_$StudentSwitchRequestImpl _$$StudentSwitchRequestImplFromJson(
-        Map<String, dynamic> json) =>
-    _$StudentSwitchRequestImpl(
-      studentId: json['student_id'] as String?,
-    );
+_StudentSwitchRequest _$StudentSwitchRequestFromJson(
+  Map<String, dynamic> json,
+) => _StudentSwitchRequest(studentId: json['student_id'] as String?);
 
-Map<String, dynamic> _$$StudentSwitchRequestImplToJson(
-        _$StudentSwitchRequestImpl instance) =>
-    <String, dynamic>{
-      'student_id': instance.studentId,
-    };
+Map<String, dynamic> _$StudentSwitchRequestToJson(
+  _StudentSwitchRequest instance,
+) => <String, dynamic>{'student_id': instance.studentId};
 
-_$ChangePasswordRequestImpl _$$ChangePasswordRequestImplFromJson(
-        Map<String, dynamic> json) =>
-    _$ChangePasswordRequestImpl(
-      password: json['password'] as String?,
-      newPassword: json['newPassword'] as String?,
-      confirmPassword: json['confirmPassword'] as String?,
-    );
+_ChangePasswordRequest _$ChangePasswordRequestFromJson(
+  Map<String, dynamic> json,
+) => _ChangePasswordRequest(
+  password: json['password'] as String?,
+  newPassword: json['newPassword'] as String?,
+  confirmPassword: json['confirmPassword'] as String?,
+);
 
-Map<String, dynamic> _$$ChangePasswordRequestImplToJson(
-        _$ChangePasswordRequestImpl instance) =>
-    <String, dynamic>{
-      'password': instance.password,
-      'newPassword': instance.newPassword,
-      'confirmPassword': instance.confirmPassword,
-    };
+Map<String, dynamic> _$ChangePasswordRequestToJson(
+  _ChangePasswordRequest instance,
+) => <String, dynamic>{
+  'password': instance.password,
+  'newPassword': instance.newPassword,
+  'confirmPassword': instance.confirmPassword,
+};
 
-_$BiometricRequestImpl _$$BiometricRequestImplFromJson(
-        Map<String, dynamic> json) =>
-    _$BiometricRequestImpl(
+_BiometricRequest _$BiometricRequestFromJson(Map<String, dynamic> json) =>
+    _BiometricRequest(
       deviceId: json['device_id'] as String?,
       deviceName: json['device_name'] as String?,
       platform: json['platform'] as String?,
@@ -163,13 +147,12 @@ _$BiometricRequestImpl _$$BiometricRequestImplFromJson(
       password: json['password'] as String?,
     );
 
-Map<String, dynamic> _$$BiometricRequestImplToJson(
-        _$BiometricRequestImpl instance) =>
+Map<String, dynamic> _$BiometricRequestToJson(_BiometricRequest instance) =>
     <String, dynamic>{
-      if (instance.deviceId case final value?) 'device_id': value,
-      if (instance.deviceName case final value?) 'device_name': value,
-      if (instance.platform case final value?) 'platform': value,
-      if (instance.deviceToken case final value?) 'device_token': value,
-      if (instance.biometricType case final value?) 'biometric_type': value,
-      if (instance.password case final value?) 'password': value,
+      'device_id': ?instance.deviceId,
+      'device_name': ?instance.deviceName,
+      'platform': ?instance.platform,
+      'device_token': ?instance.deviceToken,
+      'biometric_type': ?instance.biometricType,
+      'password': ?instance.password,
     };

@@ -4,7 +4,7 @@ part 'auth_model.freezed.dart';
 part 'auth_model.g.dart';
 
 @freezed
-class LoginRequest with _$LoginRequest {
+abstract class LoginRequest with _$LoginRequest {
   const factory LoginRequest({
     @JsonKey(name: 'name') String? name,
     @JsonKey(name: 'loginByOtp') bool? loginByOtp,
@@ -17,7 +17,7 @@ class LoginRequest with _$LoginRequest {
 }
 
 @freezed
-class BiometricLoginRequest with _$BiometricLoginRequest {
+abstract class BiometricLoginRequest with _$BiometricLoginRequest {
   const factory BiometricLoginRequest({
     @JsonKey(name: 'user_id', includeIfNull: false) int? userId,
     @JsonKey(name: 'device_id') String? deviceId,
@@ -30,7 +30,7 @@ class BiometricLoginRequest with _$BiometricLoginRequest {
 }
 
 @freezed
-class RoleSelectRequest with _$RoleSelectRequest {
+abstract class RoleSelectRequest with _$RoleSelectRequest {
   const factory RoleSelectRequest({
     @JsonKey(name: 'tempToken') String? tempToken,
     @JsonKey(name: 'role') String? role,
@@ -41,7 +41,7 @@ class RoleSelectRequest with _$RoleSelectRequest {
 }
 
 @freezed
-class StudentSelectRequest with _$StudentSelectRequest {
+abstract class StudentSelectRequest with _$StudentSelectRequest {
   const factory StudentSelectRequest({
     @JsonKey(name: 'tempToken') String? tempToken,
     @JsonKey(name: 'studentId') String? studentId,
@@ -52,7 +52,7 @@ class StudentSelectRequest with _$StudentSelectRequest {
 }
 
 @freezed
-class AuthResponse with _$AuthResponse {
+abstract class AuthResponse with _$AuthResponse {
   const factory AuthResponse({
     @JsonKey(name: 'next_screen') String? nextScreen,
     @JsonKey(name: 'userChoose') bool? userChoose,
@@ -66,7 +66,7 @@ class AuthResponse with _$AuthResponse {
 }
 
 @freezed
-class GuardianStudent with _$GuardianStudent {
+abstract class GuardianStudent with _$GuardianStudent {
   const factory GuardianStudent({
     @JsonKey(name: 'id') int? id,
     @JsonKey(name: 'inst_id') String? instId,
@@ -84,7 +84,7 @@ class GuardianStudent with _$GuardianStudent {
 }
 
 @freezed
-class BiometricUserInfo with _$BiometricUserInfo {
+abstract class BiometricUserInfo with _$BiometricUserInfo {
   const factory BiometricUserInfo({
     @JsonKey(name: 'id') int? id,
     @JsonKey(name: 'name') String? name,
@@ -97,7 +97,7 @@ class BiometricUserInfo with _$BiometricUserInfo {
 }
 
 @freezed
-class UserInfo with _$UserInfo {
+abstract class UserInfo with _$UserInfo {
   const factory UserInfo({
     @JsonKey(name: 'id') int? id,
     @JsonKey(name: 'name') String? name,
@@ -113,7 +113,7 @@ class UserInfo with _$UserInfo {
 }
 
 @freezed
-class OtpRequest with _$OtpRequest {
+abstract class OtpRequest with _$OtpRequest {
   const factory OtpRequest({
     @JsonKey(name: 'name') String? name,
   }) = _OtpRequest;
